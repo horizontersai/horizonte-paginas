@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Central Horizonte</title>
+<style>
+:root {
+  --bg: #EEF2F0; --card: #FFFFFF; --border: #DDE3E0; --border-strong: #C7D0CC;
+  --text: #16242B; --text-2: #5C6F70; --text-3: #8A9998;
+  --accent: #B06A2C; --accent-bg: #FBF0DD;
+  --agua: #1E4750;
+  --font-serif: Georgia, 'Times New Roman', serif;
+  --font-sans: 'Segoe UI', Arial, sans-serif;
+  --font-mono: 'Courier New', monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #15201F; --card: #1C2827; --border: #2C3A38; --border-strong: #3B4B48;
+    --text: #EDE7DA; --text-2: #A8A292; --text-3: #7C7768;
+    --accent: #D7A468; --accent-bg: #3A2F16;
+    --agua: #6FA0AB;
+  }
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--text); font-family: var(--font-sans); margin: 0; }
+.wrap { max-width: 760px; margin: 0 auto; padding: 40px 20px 60px; }
+
+.hdr { display: flex; align-items: center; gap: 12px; margin-bottom: 4px; }
+.hdr svg { flex-shrink: 0; }
+.brand-text { font-family: var(--font-serif); font-size: 22px; font-weight: 700; }
+
+h1.titulo { font-family: var(--font-serif); font-weight: 400; font-size: 26px; margin: 22px 0 8px 0; text-wrap: balance; }
+.subtitulo { color: var(--text-2); font-size: 13.5px; line-height: 1.6; margin: 0 0 32px 0; max-width: 56ch; }
+
+.secao-lbl { font-family: var(--font-mono); font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em; color: var(--text-3); margin: 0 0 12px 2px; }
+
+.cards { display: flex; flex-direction: column; gap: 14px; margin-bottom: 40px; }
+.card {
+  display: flex; align-items: center; gap: 16px;
+  background: var(--card); border: 1px solid var(--border); border-radius: 14px;
+  padding: 18px 20px; text-decoration: none; color: inherit;
+  transition: border-color .15s ease, transform .15s ease;
+}
+.card:hover { border-color: var(--accent); transform: translateY(-1px); }
+.card .ico {
+  width: 46px; height: 46px; border-radius: 12px; background: var(--accent-bg);
+  display: flex; align-items: center; justify-content: center; font-size: 22px;
+  flex-shrink: 0;
+}
+.card .corpo { flex: 1 1 auto; min-width: 0; }
+.card h3 { margin: 0 0 3px 0; font-family: var(--font-serif); font-weight: 700; font-size: 16.5px; }
+.card p { margin: 0; font-size: 12.5px; color: var(--text-2); line-height: 1.5; }
+.card .cadencia { font-family: var(--font-mono); font-size: 10px; color: var(--text-3); margin-top: 6px; display: inline-block; }
+.card .seta { font-size: 18px; color: var(--text-3); flex-shrink: 0; transition: transform .15s ease, color .15s ease; }
+.card:hover .seta { color: var(--accent); transform: translateX(2px); }
+
+.canais { display: flex; flex-wrap: wrap; gap: 10px; }
+.canal {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--card); border: 1px solid var(--border); border-radius: 999px;
+  padding: 8px 16px 8px 12px; text-decoration: none; color: var(--text); font-size: 12.5px;
+  transition: border-color .15s ease;
+}
+.canal:hover { border-color: var(--accent); }
+.canal .ico { font-size: 14px; }
+.canal .sub { color: var(--text-3); font-size: 11px; }
+
+.footer-note { text-align: center; font-size: 11px; color: var(--text-3); font-family: var(--font-mono); margin-top: 44px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hdr">
+    <svg width="34" height="34" viewBox="45 45 150 150" aria-hidden="true">
+      <defs>
+        <linearGradient id="chSun" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#D7A468"/><stop offset="1" stop-color="#B06A2C"/>
+        </linearGradient>
+        <clipPath id="chClip"><path d="M -20,-20 L 260,-20 L 260,98 C 188,120 156,84 120,106 C 84,128 52,92 18,114 L -20,114 Z"/></clipPath>
+      </defs>
+      <circle cx="120" cy="110" r="54" fill="url(#chSun)" clip-path="url(#chClip)"/>
+      <path d="M 18,114 C 52,92 84,128 120,106 C 156,84 188,120 222,98" fill="none" stroke="#1E4750" stroke-width="6" stroke-linecap="round"/>
+      <path d="M 96,174 C 108,180 132,180 144,174" fill="none" stroke="#BD7433" stroke-width="3.2" stroke-linecap="round" opacity="0.55"/>
+      <path d="M 102,184 C 111,188 129,188 138,184" fill="none" stroke="#BD7433" stroke-width="2.6" stroke-linecap="round" opacity="0.35"/>
+    </svg>
+    <span class="brand-text">Horizonte</span>
+  </div>
+
+  <h1 class="titulo">Central de acesso</h1>
+  <p class="subtitulo">Todos os links fixos do projeto num só lugar. Cada um abre sempre no mesmo endereço — se você salvar só esta página, encontra o resto por aqui.</p>
+
+  <p class="secao-lbl">Relatórios</p>
+  <div class="cards">
+    <a class="card" href="boletim.html">
+      <span class="ico">🌊</span>
+      <span class="corpo">
+        <h3>Boletim</h3>
+        <p>Nível atual, tendência, projeção e chance de passar de cada cota do Cais Mauá — mesmo conteúdo do e-mail, sempre com o dado da execução mais recente.</p>
+        <span class="cadencia">atualiza 4x ao dia</span>
+      </span>
+      <span class="seta">→</span>
+    </a>
+
+    <a class="card" href="mapa.html">
+      <span class="ico">🗺️</span>
+      <span class="corpo">
+        <h3>Mapa das bacias</h3>
+        <p>As 19 estações monitoradas na posição geográfica real. Clique numa cidade pra ver nível, tendência, cota e chuva prevista — mesmo dado do boletim.</p>
+        <span class="cadencia">atualiza 4x ao dia</span>
+      </span>
+      <span class="seta">→</span>
+    </a>
+
+    <a class="card" href="relatorio-semanal.html">
+      <span class="ico">📊</span>
+      <span class="corpo">
+        <h3>Relatório semanal</h3>
+        <p>Como o modelo está se saindo: acurácia por rio e horizonte, cobertura da margem de segurança, confiabilidade da chance por cota e a tendência ao longo do tempo.</p>
+        <span class="cadencia">atualiza toda semana</span>
+      </span>
+      <span class="seta">→</span>
+    </a>
+  </div>
+
+  <p class="secao-lbl">Outros canais</p>
+  <div class="canais">
+    <a class="canal" href="https://instagram.com/horizonte.rs" target="_blank" rel="noopener">
+      <span class="ico">📷</span> @horizonte.rs <span class="sub">— posts públicos</span>
+    </a>
+    <a class="canal" href="mailto:horizonte.rs.ai@gmail.com">
+      <span class="ico">✉️</span> horizonte.rs.ai@gmail.com <span class="sub">— boletins e aprovações</span>
+    </a>
+  </div>
+
+  <p class="footer-note">Horizonte · Porto Alegre</p>
+</div>
+</body>
+</html>

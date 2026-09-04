@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<title>Horizonte — Mapa das Bacias</title>
+<style>
+:root {
+  --bg: #EEF2F0; --card: #FFFFFF; --border: #DDE3E0; --border-strong: #C7D0CC;
+  --text: #16242B; --text-2: #5C6F70; --text-3: #8A9998;
+  --bom: #4FAE7D; --bom-bg: #E8F4EE;
+  --elevado: #BD7433; --elevado-bg: #FBF0DD;
+  --muitoalto: #C0672E; --muitoalto-bg: #FBE7DC;
+  --extremo: #C0472E; --extremo-bg: #FBE1DC;
+  --critico: #A83A2E; --critico-bg: #FBEAE7;
+  --semdado: #8A9998; --semdado-bg: #EEEAE0;
+  --accent: #B06A2C;
+  --rio-linha: #9FB0AD;
+  --font-serif: Georgia, 'Times New Roman', serif;
+  --font-sans: 'Segoe UI', Arial, sans-serif;
+  --font-mono: 'Courier New', monospace;
+}
+:root:not([data-theme="light"]) {
+  @media (prefers-color-scheme: dark) {
+    --bg: #15201F; --card: #1C2827; --border: #2C3A38; --border-strong: #3B4B48;
+    --text: #EDE7DA; --text-2: #A8A292; --text-3: #7C7768;
+    --bom: #5ECB8F; --bom-bg: #1D3329;
+    --elevado: #D7A468; --elevado-bg: #3A2F16;
+    --muitoalto: #E28A4E; --muitoalto-bg: #3A2818;
+    --extremo: #E2694A; --extremo-bg: #3A2416;
+    --critico: #E2695A; --critico-bg: #3A211D;
+    --semdado: #7C7768; --semdado-bg: #26302E;
+    --accent: #D7A468;
+    --rio-linha: #3B4B48;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #15201F; --card: #1C2827; --border: #2C3A38; --border-strong: #3B4B48;
+  --text: #EDE7DA; --text-2: #A8A292; --text-3: #7C7768;
+  --bom: #5ECB8F; --bom-bg: #1D3329;
+  --elevado: #D7A468; --elevado-bg: #3A2F16;
+  --muitoalto: #E28A4E; --muitoalto-bg: #3A2818;
+  --extremo: #E2694A; --extremo-bg: #3A2416;
+  --critico: #E2695A; --critico-bg: #3A211D;
+  --semdado: #7C7768; --semdado-bg: #26302E;
+  --accent: #D7A468;
+  --rio-linha: #3B4B48;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--text); font-family: var(--font-sans); margin: 0; }
+.wrap { max-width: 1240px; margin: 0 auto; padding: 32px 20px 60px; }
+.hdr { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 6px; }
+.brand { display: flex; align-items: center; gap: 10px; }
+.brand svg { flex-shrink: 0; }
+.brand-text { font-family: var(--font-serif); font-size: 20px; font-weight: 700; letter-spacing: .2px; }
+.periodo { font-family: var(--font-mono); font-size: 11.5px; color: var(--text-2); text-align: right; }
+
+h1.titulo { font-family: var(--font-serif); font-weight: 400; font-size: 27px; margin: 18px 0 6px 0; text-wrap: balance; }
+.subtitulo { color: var(--text-2); font-size: 13.5px; margin: 0 0 24px 0; line-height: 1.55; }
+
+.stage { position: relative; background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 8px; overflow-x: auto; }
+.stage svg { width: 100%; height: auto; display: block; min-width: 560px; }
+
+.node-lbl { font-family: var(--font-sans); font-size: 13px; font-weight: 600; fill: var(--text); pointer-events: none; }
+.node-sub { font-family: var(--font-mono); font-size: 10.5px; font-weight: 600; fill: var(--text-2); pointer-events: none; }
+.rio-lbl { font-family: var(--font-mono); font-size: 16px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; fill: var(--accent); pointer-events: none; }
+.node-circ { cursor: pointer; stroke: var(--card); stroke-width: 3; transition: r .12s ease, filter .12s ease; }
+.node-circ:hover { filter: brightness(1.08); }
+.node-circ.selected { stroke: var(--accent); stroke-width: 3.5; }
+.node-hit { cursor: pointer; fill: transparent; }
+.scale-lbl { font-family: var(--font-mono); font-size: 11px; fill: var(--text-2); }
+
+.popup {
+  position: absolute; z-index: 5; width: 264px;
+  background: var(--card); border: 1px solid var(--border-strong); border-radius: 12px;
+  padding: 14px 16px; box-shadow: 0 8px 24px rgba(0,0,0,.16);
+  font-family: var(--font-sans); display: none;
+  max-height: 80vh; overflow-y: auto;
+}
+.popup.show { display: block; }
+/* Telas estreitas (celular) - o card não cabe do lado do nó clicado sem
+   sair da tela, então abre centralizado em vez de tentar se posicionar
+   perto do clique. */
+.popup.center-mobile {
+  position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  width: min(280px, 88vw);
+}
+.popup .rio-tag { font-family: var(--font-mono); font-size: 10px; text-transform: uppercase; letter-spacing: .06em; color: var(--text-3); margin-bottom: 2px; }
+.popup h4 { margin: 0 0 10px 0; font-family: var(--font-serif); font-weight: 400; font-size: 18px; }
+.popup .row { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; padding: 5px 0; border-top: 1px solid var(--border); font-size: 12.5px; }
+.popup .row:first-of-type { border-top: none; }
+.popup .row .l { color: var(--text-2); flex: 1 1 auto; }
+.popup .row .v { flex: 0 0 auto; white-space: nowrap; font-family: var(--font-mono); font-weight: 600; }
+.popup .close { position: absolute; top: 8px; right: 10px; cursor: pointer; color: var(--text-3); font-size: 15px; background: none; border: none; font-family: var(--font-sans); }
+.popup .nota { margin: 8px 0 0 0; font-size: 10.5px; color: var(--text-3); line-height: 1.4; }
+.pill { display: inline-block; padding: 2px 9px; border-radius: 999px; font-size: 10.5px; font-weight: 700; }
+
+.legend { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 16px; font-size: 11.5px; color: var(--text-2); }
+.legend .dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 5px; }
+.legend span.item { display: inline-flex; align-items: center; }
+
+.nota-mapa { margin: 16px 0 0 0; font-size: 11px; color: var(--text-3); line-height: 1.5; }
+
+.footer-note { text-align: center; font-size: 11px; color: var(--text-3); font-family: var(--font-mono); margin-top: 24px; }
+
+.scroll-hint { display: none; text-align: center; font-size: 11px; color: var(--text-3); font-family: var(--font-mono); margin: 8px 0 0; }
+@media (max-width: 620px) { .scroll-hint { display: block; } }
+</style>
+
+<div class="wrap">
+  <div class="hdr">
+    <div class="brand">
+      <svg width="38" height="38" viewBox="45 45 150 150" aria-hidden="true">
+  <defs>
+    <linearGradient id="mSun" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#D7A468"/><stop offset="1" stop-color="#B06A2C"/>
+    </linearGradient>
+    <clipPath id="mClip"><path d="M -20,-20 L 260,-20 L 260,98 C 188,120 156,84 120,106 C 84,128 52,92 18,114 L -20,114 Z"/></clipPath>
+  </defs>
+  <circle cx="120" cy="110" r="54" fill="url(#mSun)" clip-path="url(#mClip)"/>
+  <path d="M 18,114 C 52,92 84,128 120,106 C 156,84 188,120 222,98" fill="none" stroke="#1E4750" stroke-width="6" stroke-linecap="round"/>
+  <path d="M 96,174 C 108,180 132,180 144,174" fill="none" stroke="#BD7433" stroke-width="3.2" stroke-linecap="round" opacity="0.55"/>
+  <path d="M 102,184 C 111,188 129,188 138,184" fill="none" stroke="#BD7433" stroke-width="2.6" stroke-linecap="round" opacity="0.35"/>
+</svg>
+      <span class="brand-text">Horizonte</span>
+    </div>
+    <span class="periodo">Leitura 04/09 06:15 &middot; gerado 12:01</span>
+  </div>
+
+  <h1 class="titulo">Mapa das bacias monitoradas</h1>
+  <p class="subtitulo">As 19 estações que alimentam o Horizonte, na posição geográfica real de cada rio até chegar em Porto Alegre — o mesmo panorama por trás de cada boletim, agora visto no mapa. Clique numa cidade pra ver nível atual, tendência, cota e chuva prevista, sempre com o dado desta execução.</p>
+
+  <div class="stage">
+    <svg id="svgMapa" viewBox="0 0 1174 648" xmlns="http://www.w3.org/2000/svg"></svg>
+  </div>
+
+  <p class="scroll-hint">← deslize pro lado pra ver o mapa completo →</p>
+
+  <div class="legend" id="legend"></div>
+
+  <p class="nota-mapa">* Projeção simples (não é uma carta náutica), na mesma escala em qualquer direção (barra acima). O traçado de cada rio liga as estações reais na ordem nascente→foz de forma estilizada, não é o curso exato do curso d'água. Estações a menos de ~8&nbsp;km uma da outra foram afastadas em até ~3&nbsp;km pra os rótulos não se sobreporem (só nesses casos a escala não vale).</p>
+
+  <p class="footer-note">Horizonte · atualizado a cada execução (4x ao dia)</p>
+</div>
+
+<div class="popup" id="popup">
+  <button class="close" id="popupClose">✕</button>
+  <div class="rio-tag" id="popRio"></div>
+  <h4 id="popNome"></h4>
+  <div class="row"><span class="l">Nível atual</span><span class="v" id="popAtual"></span></div>
+  <div class="row"><span class="l">Tendência</span><span class="v" id="popTend"></span></div>
+  <div class="row"><span class="l">Cota de inundação</span><span class="v" id="popCota"></span></div>
+  <div class="row"><span class="l" id="popPicoLbl">Pico máximo (5 dias)</span><span class="v" id="popPico"></span></div>
+  <p class="nota" id="popPicoNota" style="margin:0 0 4px 0;"></p>
+  <div class="row"><span class="l">Chuva acumulada, próx. 5 dias</span><span class="v" id="popChuva"></span></div>
+  <p class="nota" id="popNota"></p>
+</div>
+
+<script>
+// Dado real desta execução - ver rotulo_periodo no topo da página.
+const DADO = {"rios": [{"rio": "Taquari", "defasagemRef": 40, "estacoes": [{"nome": "Muçum", "x": 684.2, "y": 100.5, "lbl": {"x": 664.2, "yNome": 96.5, "yValor": 110.5, "anchor": "end"}, "atual": 4.29, "cota": 18.0, "tend": -5.88, "pico": 4.42, "chuva": null}, {"nome": "Encantado", "x": 675.3, "y": 136.4, "lbl": {"x": 655.3, "yNome": 132.4, "yValor": 146.4, "anchor": "end"}, "atual": 2.51, "cota": 12.0, "tend": -6.06, "pico": 2.51, "chuva": null}, {"nome": "Roca Sales", "x": 704.7, "y": 153.4, "lbl": {"x": 704.7, "yNome": 180.4, "yValor": 194.4, "anchor": "middle"}, "atual": 6.77, "cota": 18.0, "tend": -0.1, "pico": 6.77, "chuva": null}, {"nome": "Lajeado", "x": 635.3, "y": 257.8, "lbl": {"x": 635.3, "yNome": 284.8, "yValor": 298.8, "anchor": "middle"}, "atual": 13.37, "cota": 19.0, "tend": 5.1, "pico": 13.68, "chuva": 2.6, "defasagem": 40}, {"nome": "Santa Tereza", "x": 746.5, "y": 90.0, "lbl": {"x": 766.5, "yNome": 86.0, "yValor": 100.0, "anchor": "start"}, "atual": 4.15, "cota": 15.0, "tend": -4.25, "pico": 4.29, "chuva": 1.6, "defasagem": 36}, {"nome": "Bom Retiro do Sul", "x": 660.6, "y": 235.1, "lbl": {"x": 680.6, "yNome": 231.1, "yValor": 245.1, "anchor": "start"}, "atual": 5.58, "cota": 19.0, "tend": 2.7, "pico": 5.94, "chuva": 2.6, "defasagem": 28}, {"nome": "Taquari", "x": 683.6, "y": 409.3, "lbl": {"x": 683.6, "yNome": 436.3, "yValor": 450.3, "anchor": "middle"}, "atual": 3.96, "cota": 8.5, "tend": -0.55, "pico": 4.07, "chuva": null}], "rioLbl": {"x": 684.2, "y": 78.5}, "edges": [[[945.8, 518.1], [683.6, 409.3]], [[684.2, 100.5], [675.3, 136.4]], [[675.3, 136.4], [704.7, 153.4]], [[684.2, 100.5], [746.5, 90.0]], [[704.7, 153.4], [660.6, 235.1]], [[660.6, 235.1], [635.3, 257.8]], [[635.3, 257.8], [683.6, 409.3]]]}, {"rio": "Caí", "defasagemRef": 28, "estacoes": [{"nome": "Feliz", "x": 915.4, "y": 242.4, "lbl": {"x": 915.4, "yNome": 269.4, "yValor": 283.4, "anchor": "middle"}, "atual": 1.92, "cota": 9.0, "tend": -1.7, "pico": 1.92, "chuva": null}, {"nome": "São Sebastião do Caí", "x": 888.2, "y": 309.2, "lbl": {"x": 908.2, "yNome": 305.2, "yValor": 319.2, "anchor": "start"}, "atual": 4.41, "cota": 10.0, "tend": -1.91, "pico": 4.41, "chuva": 3.2, "defasagem": 28}, {"nome": "Montenegro", "x": 851.4, "y": 356.1, "lbl": {"x": 851.4, "yNome": 383.1, "yValor": 397.1, "anchor": "middle"}, "atual": 2.57, "cota": 6.0, "tend": -1.1, "pico": 2.99, "chuva": null}], "rioLbl": {"x": 915.4, "y": 220.4}, "edges": [[[945.8, 518.1], [851.4, 356.1]], [[915.4, 242.4], [888.2, 309.2]], [[888.2, 309.2], [851.4, 356.1]]]}, {"rio": "Gravataí", "defasagemRef": 19, "estacoes": [{"nome": "Gravataí", "x": 1045.7, "y": 478.5, "lbl": {"x": 1045.7, "yNome": 505.5, "yValor": 519.5, "anchor": "middle"}, "atual": 3.59, "cota": 4.75, "tend": -0.2, "pico": 3.6, "chuva": 5.9, "defasagem": 19}], "rioLbl": {"x": 1045.7, "y": 456.5}, "edges": [[[945.8, 518.1], [1045.7, 478.5]]]}, {"rio": "Jacuí", "defasagemRef": 9, "estacoes": [{"nome": "Dona Francisca", "x": 65.0, "y": 333.7, "lbl": {"x": 65.0, "yNome": 360.7, "yValor": 374.7, "anchor": "middle"}, "atual": 2.73, "cota": 7.5, "tend": 6.2, "pico": 2.97, "chuva": null}, {"nome": "Cachoeira do Sul", "x": 207.0, "y": 508.9, "lbl": {"x": 207.0, "yNome": 535.9, "yValor": 549.9, "anchor": "middle"}, "atual": 3.21, "cota": 9.0, "tend": -7.4, "pico": 3.21, "chuva": 1.6, "defasagem": 9}, {"nome": "Rio Pardo", "x": 471.2, "y": 500.2, "lbl": {"x": 471.2, "yNome": 527.2, "yValor": 541.2, "anchor": "middle"}, "atual": 6.2, "cota": 12.5, "tend": null, "pico": 6.2, "chuva": null}, {"nome": "São Jerônimo", "x": 744.7, "y": 486.2, "lbl": {"x": 744.7, "yNome": 513.2, "yValor": 527.2, "anchor": "middle"}, "atual": 1.93, "cota": 4.64, "tend": 3.1, "pico": 2.67, "chuva": null}], "rioLbl": {"x": 65.0, "y": 311.7}, "edges": [[[945.8, 518.1], [744.7, 486.2]], [[65.0, 333.7], [207.0, 508.9]], [[207.0, 508.9], [471.2, 500.2]], [[471.2, 500.2], [744.7, 486.2]]]}, {"rio": "Sinos", "defasagemRef": 6, "estacoes": [{"nome": "Taquara", "x": 1133.5, "y": 337.6, "lbl": {"x": 1133.5, "yNome": 364.6, "yValor": 378.6, "anchor": "middle"}, "atual": 2.69, "cota": 6.0, "tend": -1.3, "pico": 2.69, "chuva": null}, {"nome": "Campo Bom", "x": 1023.3, "y": 357.6, "lbl": {"x": 1003.3, "yNome": 353.6, "yValor": 367.6, "anchor": "end"}, "atual": 5.4, "cota": 6.8, "tend": -0.53, "pico": 5.41, "chuva": null}, {"nome": "São Leopoldo", "x": 981.4, "y": 390.5, "lbl": {"x": 1003.4, "yNome": 408.5, "yValor": 422.5, "anchor": "start"}, "atual": 3.74, "cota": 4.5, "tend": 0.0, "pico": 3.84, "chuva": 4.8, "defasagem": 6}], "rioLbl": {"x": 1133.5, "y": 315.6}, "edges": [[[945.8, 518.1], [981.4, 390.5]], [[1133.5, 337.6], [1023.3, 357.6]], [[1023.3, 357.6], [981.4, 390.5]]]}], "portoAlegre": {"nome": "Porto Alegre (Cais Mauá)", "rio": "Guaíba", "x": 945.8, "y": 518.1, "lbl": {"x": 945.8, "yNome": 553.1, "yValor": 567.1, "anchor": "middle"}, "atual": 1.71, "cota": 3.0, "tend": -1.9, "pontoD5": 1.53, "chuva": 5.3}, "fracoesTier": [0.7, 0.9, 1.0, 1.2, Infinity], "viewBox": [1174, 648], "scalePxKm": 4.3};
+const TIERS = DADO.fracoesTier.map((lim, i) => [lim, ['bom','elevado','muitoalto','extremo','critico'][i]]);
+const TIER_LABELS = { bom: 'Normal', elevado: 'Elevado', muitoalto: 'Muito alto', extremo: 'Extremo', critico: 'Crítico' };
+
+function tier(atual, cota) {
+  if (atual === null || atual === undefined) return 'semdado';
+  const frac = atual / cota;
+  for (const [lim, classe] of TIERS) if (frac <= lim) return classe;
+  return 'critico';
+}
+function fmtTend(cmh) {
+  if (cmh === null || cmh === undefined) return '—';
+  const v = Math.round(cmh * 10) / 10;
+  if (Math.abs(v) < 0.05) return '= 0,0 cm/h';
+  return (v > 0 ? '▲ ' : '▼ ') + Math.abs(v).toFixed(1).replace('.', ',') + ' cm/h';
+}
+function fmtM(v) { return (v === null || v === undefined) ? '—' : v.toFixed(2).replace('.', ',') + ' m'; }
+
+const svg = document.getElementById('svgMapa');
+const NS = 'http://www.w3.org/2000/svg';
+function el(tag, attrs) {
+  const e = document.createElementNS(NS, tag);
+  for (const k in attrs) e.setAttribute(k, attrs[k]);
+  return e;
+}
+
+// rios: cada aresta é um segmento reto entre duas posições reais, mas
+// QUAIS estações se conectam vem de uma árvore geradora mínima (Python,
+// ver docstring do módulo) - não da ordem da lista - pra não cruzar a
+// própria linha quando a lista não bate com a geografia. Não é o curso
+// exato do rio.
+DADO.rios.forEach(r => {
+  r.edges.forEach(([[x1, y1], [x2, y2]]) => {
+    const d = `M ${x1} ${y1} L ${x2} ${y2}`;
+    svg.appendChild(el('path', { d, fill: 'none', stroke: 'var(--rio-linha)', 'stroke-width': 3, 'stroke-linejoin': 'round', 'stroke-linecap': 'round' }));
+  });
+  const rioLbl = el('text', { x: r.rioLbl.x, y: r.rioLbl.y, class: 'rio-lbl', 'text-anchor': 'middle' });
+  rioLbl.textContent = r.rio;
+  svg.appendChild(rioLbl);
+});
+
+const nodes = [];
+DADO.rios.forEach(r => {
+  r.estacoes.forEach(est => nodes.push({ ...est, rio: r.rio, hub: false }));
+});
+nodes.push({ ...DADO.portoAlegre, hub: true });
+
+function raioPara(n) { return n.hub ? 20 : 12; }
+
+nodes.forEach((n, i) => {
+  const classe = tier(n.atual, n.cota);
+  const g = el('g', {});
+  const circ = el('circle', {
+    cx: n.x, cy: n.y, r: raioPara(n), class: 'node-circ',
+    fill: `var(--${classe})`, 'data-idx': i,
+  });
+  g.appendChild(circ);
+  const hit = el('circle', { cx: n.x, cy: n.y, r: raioPara(n) + 10, class: 'node-hit', 'data-idx': i });
+  g.appendChild(hit);
+  if (n.lbl) {
+    const lbl = el('text', { x: n.lbl.x, y: n.lbl.yNome, class: 'node-lbl', 'text-anchor': n.lbl.anchor });
+    lbl.textContent = n.nome;
+    g.appendChild(lbl);
+    const sub = el('text', { x: n.lbl.x, y: n.lbl.yValor, class: 'node-sub', 'text-anchor': n.lbl.anchor });
+    sub.textContent = fmtM(n.atual);
+    g.appendChild(sub);
+  }
+  svg.appendChild(g);
+});
+
+// escala (barra) + seta norte - o mapa agora usa posição real, então uma
+// escala/orientação explícita é parte do "honesto", não decoração.
+(function desenharEscalaNorte() {
+  const barKm = 50;
+  const barPx = barKm * DADO.scalePxKm;
+  const bx0 = 50, by0 = DADO.viewBox[1] - 55;
+  const g1 = el('g', { class: 'scalebar' });
+  g1.appendChild(el('line', { x1: bx0, y1: by0, x2: bx0 + barPx, y2: by0, stroke: 'var(--text-2)', 'stroke-width': 2 }));
+  g1.appendChild(el('line', { x1: bx0, y1: by0 - 5, x2: bx0, y2: by0 + 5, stroke: 'var(--text-2)', 'stroke-width': 2 }));
+  g1.appendChild(el('line', { x1: bx0 + barPx, y1: by0 - 5, x2: bx0 + barPx, y2: by0 + 5, stroke: 'var(--text-2)', 'stroke-width': 2 }));
+  const lbl1 = el('text', { x: bx0 + barPx / 2, y: by0 - 10, class: 'scale-lbl', 'text-anchor': 'middle' });
+  lbl1.textContent = barKm + ' km';
+  g1.appendChild(lbl1);
+  svg.appendChild(g1);
+
+  const nx0 = DADO.viewBox[0] - 70, ny0 = 55;
+  const g2 = el('g', { class: 'north' });
+  g2.appendChild(el('line', { x1: nx0, y1: ny0 + 22, x2: nx0, y2: ny0 - 18, stroke: 'var(--text-2)', 'stroke-width': 2 }));
+  g2.appendChild(el('path', { d: `M ${nx0} ${ny0-24} L ${nx0-7} ${ny0-12} L ${nx0+7} ${ny0-12} Z`, fill: 'var(--text-2)' }));
+  const lbl2 = el('text', { x: nx0, y: ny0 + 38, class: 'scale-lbl', 'text-anchor': 'middle' });
+  lbl2.textContent = 'N';
+  g2.appendChild(lbl2);
+  svg.appendChild(g2);
+})();
+
+const popup = document.getElementById('popup');
+
+function abrirPopup(idx) {
+  const n = nodes[idx];
+  document.querySelectorAll('.node-circ').forEach(c => c.classList.remove('selected'));
+  document.querySelector(`.node-circ[data-idx="${idx}"]`).classList.add('selected');
+
+  document.getElementById('popRio').textContent = n.hub ? n.rio : 'Rio ' + n.rio;
+  document.getElementById('popNome').textContent = n.nome;
+  document.getElementById('popAtual').textContent = fmtM(n.atual);
+  document.getElementById('popTend').textContent = fmtTend(n.tend);
+  document.getElementById('popCota').textContent = fmtM(n.cota);
+
+  const picoLbl = document.getElementById('popPicoLbl');
+  const picoEl = document.getElementById('popPico');
+  const picoNota = document.getElementById('popPicoNota');
+  if (n.hub) {
+    picoLbl.textContent = 'Previsão em 120h (D+5)';
+    const classePd5 = tier(n.pontoD5, n.cota);
+    picoEl.innerHTML = n.pontoD5 != null
+      ? `<span class="pill" style="background:var(--${classePd5}-bg); color:var(--${classePd5});">${fmtM(n.pontoD5)}</span>`
+      : '—';
+    picoNota.textContent = 'Ponto projetado pra daqui a 5 dias - mesma leitura do boletim, não o maior valor da janela.';
+  } else {
+    picoLbl.textContent = 'Pico máximo (5 dias)';
+    const classePico = tier(n.pico, n.cota);
+    picoEl.innerHTML = n.pico != null
+      ? `<span class="pill" style="background:var(--${classePico}-bg); color:var(--${classePico});">${fmtM(n.pico)}</span>`
+      : '—';
+    picoNota.textContent = n.pico != null ? 'Maior valor projetado em QUALQUER momento dos próximos 5 dias, não a previsão de um dia específico.' : '';
+  }
+
+  document.getElementById('popChuva').textContent = n.chuva != null ? n.chuva.toFixed(1).replace('.', ',') + ' mm' : '—';
+  document.getElementById('popNota').textContent = n.atual == null
+    ? 'Sensor sem leitura disponível nesta execução.'
+    : (n.chuva == null && !n.hub
+      ? 'Chuva prevista não calculada individualmente pra esta estação — usa a média da bacia do rio ' + n.rio + '.'
+      : '');
+
+  if (window.innerWidth <= 520) {
+    popup.classList.add('center-mobile');
+    popup.style.left = '';
+    popup.style.top = '';
+  } else {
+    popup.classList.remove('center-mobile');
+    const stage = document.querySelector('.stage');
+    const stageBox = stage.getBoundingClientRect();
+    const svgBox = svg.getBoundingClientRect();
+    const scaleX = svgBox.width / DADO.viewBox[0], scaleY = svgBox.height / DADO.viewBox[1];
+    let px = n.x * scaleX + (svgBox.left - stageBox.left) + 18;
+    let py = n.y * scaleY + (svgBox.top - stageBox.top) - 10;
+    if (px + 264 > stageBox.width) px = n.x * scaleX + (svgBox.left - stageBox.left) - 282;
+    if (px < 8) px = 8;
+    if (py + 260 > stageBox.height) py = stageBox.height - 270;
+    if (py < 8) py = 8;
+    popup.style.left = px + 'px';
+    popup.style.top = py + 'px';
+  }
+  popup.classList.add('show');
+}
+
+document.querySelectorAll('.node-hit').forEach(hit => {
+  hit.addEventListener('click', () => abrirPopup(parseInt(hit.dataset.idx)));
+});
+document.getElementById('popupClose').addEventListener('click', () => {
+  popup.classList.remove('show');
+  document.querySelectorAll('.node-circ').forEach(c => c.classList.remove('selected'));
+});
+
+const legendItems = ['bom', 'elevado', 'muitoalto', 'extremo', 'critico', 'semdado'];
+document.getElementById('legend').innerHTML = legendItems.map(c =>
+  `<span class="item"><span class="dot" style="background:var(--${c});"></span>${TIER_LABELS[c] || 'Sem dado'}</span>`).join('');
+</script>
+
+</body>
+</html>
