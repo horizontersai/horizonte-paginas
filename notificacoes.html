@@ -139,6 +139,23 @@
     elBtn.textContent = "Salvar";
   }
 
+  // Faz o fetch e, se a resposta não for 2xx, lança um erro com o corpo
+  // da resposta - sem isso, um 400/401/404 do Worker passava batido (o
+  // fetch só rejeita em falha de REDE/CORS, nunca por status HTTP) e o
+  // catch genérico escondia qual dos dois tinha acontecido.
+  async function fetchOuErro(url, opcoes) {
+    var resp = await fetch(url, opcoes);
+    if (!resp.ok) {
+      var corpo = await resp.text().catch(function () { return ""; });
+      throw new Error("HTTP " + resp.status + (corpo ? " - " + corpo : ""));
+    }
+    return resp;
+  }
+
+  function voltarPraBoletim() {
+    setTimeout(function () { window.location.href = "boletim.html"; }, 1400);
+  }
+
   elBtn.addEventListener("click", async function () {
     var cidades = cidadesSelecionadas();
     elBtn.disabled = true;
@@ -155,15 +172,21 @@
         elBtn.disabled = false;
         return;
       }
-      var id = await idDaInscricao(subscription);
-      await fetch(WORKER_URL + "/subscribe", {
-        method: "DELETE",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id: id }),
-      });
-      await subscription.unsubscribe();
-      status("Notificações desativadas.", "ok");
-      elBtn.disabled = false;
+      try {
+        var id = await idDaInscricao(subscription);
+        await fetchOuErro(WORKER_URL + "/subscribe", {
+          method: "DELETE",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ id: id }),
+        });
+        await subscription.unsubscribe();
+        status("Notificações desativadas. Voltando ao boletim…", "ok");
+        voltarPraBoletim();
+      } catch (e) {
+        console.error("Horizonte push - erro ao desativar:", e);
+        status("Não foi possível desativar agora (" + e.message + "). Tente de novo.", "erro");
+        elBtn.disabled = false;
+      }
       return;
     }
 
@@ -181,25 +204,27 @@
           userVisibleOnly: true,
           applicationServerKey: urlBase64ToUint8Array(VAPID_PUBLIC_KEY),
         });
-        await fetch(WORKER_URL + "/subscribe", {
+        await fetchOuErro(WORKER_URL + "/subscribe", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ subscription: subscription, cidades: cidades }),
         });
-        status("Notificações ativadas para: " + cidades.join(", ") + ".", "ok");
+        status("Notificações ativadas para: " + cidades.join(", ") + ". Voltando ao boletim…", "ok");
       } else {
         var id = await idDaInscricao(subscription);
-        await fetch(WORKER_URL + "/preferencias", {
+        await fetchOuErro(WORKER_URL + "/preferencias", {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ id: id, cidades: cidades }),
         });
-        status("Preferências salvas: " + cidades.join(", ") + ".", "ok");
+        status("Preferências salvas: " + cidades.join(", ") + ". Voltando ao boletim…", "ok");
       }
+      voltarPraBoletim();
     } catch (e) {
-      status("Não foi possível salvar agora. Tente de novo em instantes.", "erro");
+      console.error("Horizonte push - erro ao salvar:", e);
+      status("Não foi possível salvar agora (" + e.message + "). Tente de novo.", "erro");
+      elBtn.disabled = false;
     }
-    elBtn.disabled = false;
   });
 
   // Timeout de segurança (05/09/2026, achado real testando em preview
