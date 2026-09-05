@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0f2027">
+<title>Horizonte — Notificações</title>
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+<script data-goatcounter="https://horizonte-rs.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+<style>
+  html { -webkit-text-size-adjust:100%; -ms-text-size-adjust:100%; text-size-adjust:100%; }
+  body { margin:0; background-color:#0f2027; color:#eef2f1; font-family:'Segoe UI', Arial, sans-serif; }
+  .wrap { max-width: 480px; margin: 0 auto; padding: 28px 20px 60px; }
+  .voltar { display: inline-flex; align-items: center; gap: 6px; margin: 0 0 20px 0; padding: 7px 14px; border-radius: 999px; background: #16262a; border: 1px solid #2a3f43; font-family: 'Courier New', monospace; font-size: 12px; font-weight: 600; color: #b9c8c7; text-decoration: none; }
+  .voltar:hover { color: #eef2f1; border-color: #3b4b48; }
+  h1 { font-size: 22px; margin: 0 0 10px 0; }
+  .explicacao { font-size: 13.5px; color: #b9c8c7; line-height: 1.55; margin: 0 0 24px 0; }
+  .card { background-color: #16262a; border: 1px solid #2a3f43; border-radius: 14px; padding: 18px 20px; }
+  .card h2 { margin: 0 0 4px 0; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #7c9190; font-weight: 600; }
+  label.cidade { display: flex; align-items: center; gap: 10px; padding: 9px 0; font-size: 14px; color: #eef2f1; border-top: 1px solid #2a3f43; }
+  label.cidade:first-of-type { border-top: none; }
+  input[type="checkbox"] { width: 18px; height: 18px; accent-color: #C48A4A; }
+  #btn-salvar { margin-top: 18px; width: 100%; padding: 12px 18px; border-radius: 999px; background-color: #C48A4A; color: #16262a; border: none; font-family: 'Segoe UI', Arial, sans-serif; font-size: 14px; font-weight: 700; cursor: pointer; }
+  #btn-salvar:disabled { opacity: 0.5; cursor: default; }
+  #status { margin-top: 14px; font-size: 12.5px; color: #7c9190; line-height: 1.5; min-height: 18px; }
+  #status.erro { color: #ef8a4d; }
+  #status.ok { color: #5ECB8F; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a href="boletim.html" class="voltar">&larr; Voltar ao boletim</a>
+
+  <h1>Notificações</h1>
+  <p class="explicacao">Escolha as cidades que você quer acompanhar. Você recebe um aviso quando o nível mudar de faixa (Normal &rarr; Elevado &rarr; Muito alto &rarr; Extremo &rarr; Crítico) — a mesma classificação já usada no boletim.</p>
+
+  <div class="card">
+    <h2>Cidades</h2>
+    <div id="cidades"></div>
+  </div>
+
+  <button id="btn-salvar" disabled>Carregando…</button>
+  <p id="status"></p>
+</div>
+
+<script>
+(function () {
+  var WORKER_URL = "https://horizontepush.horizonte-rs-ai.workers.dev";
+  var VAPID_PUBLIC_KEY = "BD7kfeWmkrRUYNCS_8cyZfASAJxaEoigIkLklYuVjadi_c0Ayz1maLgd_g2tcpNwATuv2cREZ9QS1JBDWZudhi8";
+  // Mesma lista de RIOS_LISTADOS + Porto Alegre (gerar_email_execucao.py)
+  // - página estática, sem geração por script, então mantenha isto em
+  // sincronia manual se um novo rio/estação entrar no monitoramento
+  // (evento raro).
+  var CIDADES = [
+    "Porto Alegre",
+    "São Leopoldo", "Campo Bom",
+    "Gravataí",
+    "Montenegro", "São Sebastião do Caí",
+    "Lajeado", "Muçum",
+    "Cachoeira do Sul", "Dona Francisca",
+  ];
+
+  var elCidades = document.getElementById("cidades");
+  var elStatus = document.getElementById("status");
+  var elBtn = document.getElementById("btn-salvar");
+
+  CIDADES.forEach(function (cidade) {
+    var label = document.createElement("label");
+    label.className = "cidade";
+    label.innerHTML = '<input type="checkbox" class="hz-cidade" value="' + cidade + '">' + cidade;
+    elCidades.appendChild(label);
+  });
+
+  function status(msg, tipo) {
+    elStatus.textContent = msg;
+    elStatus.className = tipo || "";
+  }
+
+  if (!("serviceWorker" in navigator) || !("PushManager" in window)) {
+    status("Seu navegador não suporta notificações push.", "erro");
+    elBtn.style.display = "none";
+    return;
+  }
+
+  function urlBase64ToUint8Array(base64String) {
+    var padding = "=".repeat((4 - (base64String.length % 4)) % 4);
+    var base64 = (base64String + padding).replace(/-/g, "+").replace(/_/g, "/");
+    var rawData = window.atob(base64);
+    var outputArray = new Uint8Array(rawData.length);
+    for (var i = 0; i < rawData.length; ++i) outputArray[i] = rawData.charCodeAt(i);
+    return outputArray;
+  }
+
+  async function idDaInscricao(subscription) {
+    var dados = new TextEncoder().encode(subscription.endpoint);
+    var hash = await crypto.subtle.digest("SHA-256", dados);
+    return Array.from(new Uint8Array(hash)).map(function (b) { return b.toString(16).padStart(2, "0"); }).join("").slice(0, 32);
+  }
+
+  function cidadesSelecionadas() {
+    return Array.from(document.querySelectorAll(".hz-cidade:checked")).map(function (c) { return c.value; });
+  }
+
+  function marcarCidades(cidades) {
+    document.querySelectorAll(".hz-cidade").forEach(function (c) { c.checked = cidades.indexOf(c.value) !== -1; });
+  }
+
+  function comTimeout(promise, ms) {
+    return Promise.race([
+      promise,
+      new Promise(function (resolve) { setTimeout(function () { resolve(null); }, ms); }),
+    ]);
+  }
+
+  // navigator.serviceWorker.ready só resolve quando um Service Worker
+  // assume o controle da página - se o registro nunca chegar a ativar
+  // (bloqueado pelo ambiente, sandbox de preview, etc.), essa promise
+  // fica pendurada pra sempre. Timeout de 3s evita travar a UI nesse caso.
+  async function estadoAtual() {
+    var registration = await comTimeout(navigator.serviceWorker.ready, 3000);
+    if (!registration) return null;
+    return registration.pushManager.getSubscription();
+  }
+
+  async function carregar() {
+    var subscription = await estadoAtual();
+    if (subscription) {
+      var id = await idDaInscricao(subscription);
+      try {
+        var resp = await fetch(WORKER_URL + "/preferencias?id=" + id);
+        if (resp.ok) {
+          var dados = await resp.json();
+          marcarCidades(dados.cidades || []);
+        }
+      } catch (e) {}
+    }
+    elBtn.disabled = false;
+    elBtn.textContent = "Salvar";
+  }
+
+  elBtn.addEventListener("click", async function () {
+    var cidades = cidadesSelecionadas();
+    elBtn.disabled = true;
+
+    if (cidades.length === 0) {
+      var subscription = await estadoAtual();
+      if (!subscription) {
+        status("Escolha ao menos uma cidade, ou feche esta página se não quer receber notificações.", "erro");
+        elBtn.disabled = false;
+        return;
+      }
+      var confirmar = window.confirm("Nenhuma cidade selecionada — isso vai desativar as notificações. Confirmar?");
+      if (!confirmar) {
+        elBtn.disabled = false;
+        return;
+      }
+      var id = await idDaInscricao(subscription);
+      await fetch(WORKER_URL + "/subscribe", {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id: id }),
+      });
+      await subscription.unsubscribe();
+      status("Notificações desativadas.", "ok");
+      elBtn.disabled = false;
+      return;
+    }
+
+    try {
+      var subscription = await estadoAtual();
+      if (!subscription) {
+        var permissao = await Notification.requestPermission();
+        if (permissao !== "granted") {
+          status("Permissão de notificação negada pelo navegador.", "erro");
+          elBtn.disabled = false;
+          return;
+        }
+        var registration = await navigator.serviceWorker.ready;
+        subscription = await registration.pushManager.subscribe({
+          userVisibleOnly: true,
+          applicationServerKey: urlBase64ToUint8Array(VAPID_PUBLIC_KEY),
+        });
+        await fetch(WORKER_URL + "/subscribe", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ subscription: subscription, cidades: cidades }),
+        });
+        status("Notificações ativadas para: " + cidades.join(", ") + ".", "ok");
+      } else {
+        var id = await idDaInscricao(subscription);
+        await fetch(WORKER_URL + "/preferencias", {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ id: id, cidades: cidades }),
+        });
+        status("Preferências salvas: " + cidades.join(", ") + ".", "ok");
+      }
+    } catch (e) {
+      status("Não foi possível salvar agora. Tente de novo em instantes.", "erro");
+    }
+    elBtn.disabled = false;
+  });
+
+  // Timeout de segurança (05/09/2026, achado real testando em preview
+  // sandboxed) - se o registro do Service Worker ou a leitura das
+  // preferências travar por qualquer motivo, o botão nunca deve ficar
+  // preso em "Carregando…" pra sempre; libera "Salvar" mesmo assim
+  // depois de 4s (o clique aí tenta de novo e mostra erro se precisar).
+  var carregouUmaVez = false;
+  function carregarUmaVez() {
+    if (carregouUmaVez) return;
+    carregouUmaVez = true;
+    carregar();
+  }
+  setTimeout(carregarUmaVez, 4000);
+  navigator.serviceWorker.register("sw.js").catch(function () {}).finally(carregarUmaVez);
+})();
+</script>
+</body>
+</html>
