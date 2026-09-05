@@ -68,20 +68,22 @@
 (function () {
   var WORKER_URL = "https://horizontepush.horizonte-rs-ai.workers.dev";
   var VAPID_PUBLIC_KEY = "BD7kfeWmkrRUYNCS_8cyZfASAJxaEoigIkLklYuVjadi_c0Ayz1maLgd_g2tcpNwATuv2cREZ9QS1JBDWZudhi8";
-  // Mesma lista de RIOS_LISTADOS_TODOS + Porto Alegre (gerar_email_execucao.py)
-  // - TODAS as 19 estações monitoradas, não só o recorte curado que
-  // aparece na tabela do boletim (05/09/2026, pedido do usuário: "todos
-  // os rios... estão disponíveis pra notificação?" - não estavam, agora
-  // estão). Página estática, sem geração por script, então mantenha isto
-  // em sincronia manual se uma estação nova entrar no monitoramento
-  // (evento raro).
+  // Mesma lista/ordem de RIOS_LISTADOS_TODOS + Porto Alegre
+  // (gerar_email_execucao.py) - TODAS as 19 estações monitoradas (05/09/
+  // 2026, pedido do usuário: "todos os rios... estão disponíveis pra
+  // notificação?" - agora estão, mesma lista que a tabela "Outros rios
+  // monitorados" do boletim usa). Ordem = mesma distribuição física do
+  // mapa de bacias (sistema por distância até Porto Alegre, nascente→foz
+  // dentro de cada um). Página estática, sem geração por script, então
+  // mantenha isto em sincronia manual se uma estação nova entrar no
+  // monitoramento (evento raro).
   var CIDADES = [
     "Porto Alegre",
-    "São Leopoldo", "Campo Bom", "Taquara",
+    "Muçum", "Encantado", "Roca Sales", "Lajeado", "Santa Tereza", "Bom Retiro do Sul", "Taquari",
+    "Feliz", "São Sebastião do Caí", "Montenegro",
     "Gravataí",
-    "Montenegro", "São Sebastião do Caí", "Feliz",
-    "Lajeado", "Muçum", "Encantado", "Roca Sales", "Bom Retiro do Sul", "Santa Tereza", "Taquari",
-    "Cachoeira do Sul", "Dona Francisca", "Rio Pardo", "São Jerônimo",
+    "Dona Francisca", "Cachoeira do Sul", "Rio Pardo", "São Jerônimo",
+    "Taquara", "Campo Bom", "São Leopoldo",
   ];
 
   var elCidades = document.getElementById("cidades");
