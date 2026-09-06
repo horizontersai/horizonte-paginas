@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://horizontersai.github.io/horizonte-paginas/sitemap.xml
