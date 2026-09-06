@@ -24,13 +24,14 @@ body { margin:0; background-color:#0f2027; }
   h1 { font-size: 22px; margin: 0 0 2px 0; }
   .subtitulo { font-size: 12.5px; color: #7c9190; text-transform: uppercase; letter-spacing: .5px; margin: 0 0 18px 0; }
   .card { margin-top: 14px; background-color: #16262a; border: 1px solid #2a3f43; border-radius: 14px; padding: 18px 20px; }
-  .card h2 { margin: 0 0 12px 0; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #7c9190; font-weight: 600; }
+  .card h2 { margin: 0 0 12px 0; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; color: #eef2f1; font-weight: 700; }
   .badge { display: inline-block; padding: 4px 12px; border-radius: 999px; border: 1px solid; font-size: 12px; font-weight: 700; margin-bottom: 10px; }
   .nivel { font-family: 'Courier New', monospace; font-weight: 700; font-size: 36px; }
   .nivel-un { font-size: 16px; color: #7c9190; margin-left: 4px; }
   .linha-fraca { font-size: 13px; color: #b9c8c7; margin: 6px 0 0 0; }
   .linha-fraca-2 { font-size: 10.5px; color: #7c9190; margin: 6px 0 0 0; }
   .gauge-pct { font-size: 12.5px; font-weight: 700; margin: 8px 0 0 0; }
+  .gauge-escala { display: flex; justify-content: space-between; font-size: 10.5px; color: #7c9190; margin: 6px 0 0 0; }
   .sem-dado { font-size: 13px; color: #b9c8c7; line-height: 1.5; margin: 0; }
   .gauge { margin-top: 12px; height: 10px; border-radius: 6px; background-color: #1c2f33; overflow: hidden; }
   .gauge-fill { height: 100%; border-radius: 6px; }
@@ -43,6 +44,9 @@ body { margin:0; background-color:#0f2027; }
   .chuva-total-col { border-left: 1px solid #2a3f43; }
   .chuva-total-valor { font-family: 'Courier New', monospace; font-size: 15px; font-weight: 700; color: #C48A4A; }
   .chuva-total-un { font-size: 9.5px; color: #7c9190; margin-top: 2px; }
+  .legenda-chuva { margin-top: 12px; }
+  .legenda-item { display: inline-block; margin: 0 10px 4px 0; font-size: 11px; color: #7c9190; }
+  .legenda-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; border: 2px solid; margin-right: 4px; }
 </style>
 <div class="wrap">
   <a href="boletim.html" class="voltar">&larr; Voltar ao boletim</a>
@@ -62,23 +66,23 @@ body { margin:0; background-color:#0f2027; }
   <p class="subtitulo">Taquari &middot; estação monitorada</p>
   <div class="card">
           <span class="badge" style="background-color:#1c3328; border-color:#2f5540; color:#5ecb8f;">Normal</span>
-          <div class="nivel">5,91<span class="nivel-un">m</span></div>
+          <div class="nivel">5,90<span class="nivel-un">m</span></div>
           <p class="linha-fraca">Tendência: queda (&#9660; 5,3 cm/h)</p>
           <p class="linha-fraca">Cota de inundação: 18,00 m</p>
-          <div class="gauge"><div class="gauge-fill" style="width:25.3%; background-color:#5ecb8f;"></div></div>
+          <div class="gauge"><div class="gauge-fill" style="width:25.2%; background-color:#5ecb8f;"></div></div>
           <p class="gauge-pct" style="color:#5ecb8f;">33% da cota de inundação</p>
-          <p class="linha-fraca-2">0 m &middot; cota de inundação 18,00 m</p>
+          <div class="gauge-escala"><span>0 m</span><span>cota de inundação &middot; 18,00 m</span></div>
         </div>
   <div class="card">
       <h2>Previsão do nível</h2>
       <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td align="center" class="proj-col">
-              <div class="proj-valor">5,91 m</div>
+              <div class="proj-valor">5,90 m</div>
               <div class="proj-rotulo">36h &middot; 08/09</div>
             </td><td align="center" class="proj-col">
-              <div class="proj-valor">5,91 m</div>
+              <div class="proj-valor">5,90 m</div>
               <div class="proj-rotulo">72h &middot; 09/09</div>
             </td><td align="center" class="proj-col">
-              <div class="proj-valor">5,91 m</div>
+              <div class="proj-valor">5,90 m</div>
               <div class="proj-rotulo">120h &middot; 11/09</div>
             </td></tr></table>
     </div>
