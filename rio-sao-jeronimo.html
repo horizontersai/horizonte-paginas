@@ -126,9 +126,19 @@ window.addEventListener("load", function () {
   // a tabela externa (sem table-layout:fixed) já cresceu pra caber o
   // card no tamanho natural de 640px, tornando a medida circular.
   var PADDING_LATERAL = 24;
+  // 06/09/2026 - inverso exato do aumento de fonte do commit 5b66a30
+  // (+35%, pensado pro celular/app). Abaixo de CARD_LARGURA (celular),
+  // o zoom-to-fit de sempre já compensa isso de graça, proporcionalmente
+  // - comportamento intacto. Em telas maiores (desktop), sem esse
+  // encolhimento extra o texto herdava o tamanho já aumentado sem
+  // nenhuma compensação (achado do usuário) - agora aplica um zoom fixo
+  // que devolve o tamanho efetivo de texto de antes do aumento.
+  var FATOR_AUMENTO_FONTE_MOBILE = 1.35;
   function ajustarEscala() {
     var disponivel = document.documentElement.clientWidth - PADDING_LATERAL;
-    var escala = Math.min(1, disponivel / CARD_LARGURA);
+    var escala = disponivel < CARD_LARGURA
+      ? disponivel / CARD_LARGURA
+      : 1 / FATOR_AUMENTO_FONTE_MOBILE;
     card.style.zoom = escala;
   }
   ajustarEscala();
