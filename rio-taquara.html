@@ -76,11 +76,56 @@ body { margin:0; background-color:#0f2027; }
   <h1>Taquara</h1>
   <p class="subtitulo">Sinos &middot; estação monitorada</p>
   <div class="card">
-          <p class="sem-dado">'Taquara' com sensor atrasado e sem estação monitorada a montante nesta bacia - nenhum valor confiável disponível hoje.</p>
+          <span class="badge" style="background-color:#1c3328; border-color:#2f5540; color:#5ecb8f;">Normal</span>
+          <div class="nivel">1,68<span class="nivel-un">m</span></div>
+          <p class="linha-fraca">Tendência: sem dado (?)</p>
+          <p class="linha-fraca">Cota de inundação: 6,00 m</p>
+          <div class="gauge"><div class="gauge-fill" style="width:21.5%; background-color:#5ecb8f;"></div></div>
+          <p class="gauge-pct" style="color:#5ecb8f;">28% da cota de inundação</p>
+          <div class="gauge-escala"><span>0 m</span><span>cota de inundação &middot; 6,00 m</span></div>
         </div>
-  
-  
-  
+  <div class="card">
+      <h2>Previsão do nível</h2>
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td align="center" class="proj-col">
+              <div class="proj-valor">1,68 m</div>
+              <div class="proj-rotulo">36h &middot; 08/09</div>
+            </td><td align="center" class="proj-col">
+              <div class="proj-valor">1,68 m</div>
+              <div class="proj-rotulo">72h &middot; 09/09</div>
+            </td><td align="center" class="proj-col">
+              <div class="proj-valor">1,68 m</div>
+              <div class="proj-rotulo">120h &middot; 11/09</div>
+            </td></tr></table>
+    </div>
+  <div class="card">
+          <h2>Chuva prevista</h2>
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td align="center" class="chuva-col"><div class="chuva-dia">Hoje<br>06/09</div><span class="chuva-bola" style="border-color:#7c9190;">0,0</span></td><td align="center" class="chuva-col"><div class="chuva-dia">Seg<br>07/09</div><span class="chuva-bola" style="border-color:#7c9190;">0,0</span></td><td align="center" class="chuva-col"><div class="chuva-dia">Ter<br>08/09</div><span class="chuva-bola" style="border-color:#7c9190;">1,8</span></td><td align="center" class="chuva-col"><div class="chuva-dia">Qua<br>09/09</div><span class="chuva-bola" style="border-color:#7c9190;">2,0</span></td><td align="center" class="chuva-col"><div class="chuva-dia">Qui<br>10/09</div><span class="chuva-bola" style="border-color:#f0a839;">15,9</span></td><td align="center" class="chuva-col chuva-total-col"><div class="chuva-dia">Total<br>5d</div><span class="chuva-total-valor">19,7</span><div class="chuva-total-un">mm</div></td></tr></table>
+          <div class="legenda-chuva"><span class="legenda-item"><span class="legenda-dot" style="border-color:#7c9190;"></span>calmo (< 5 mm)</span><span class="legenda-item"><span class="legenda-dot" style="border-color:#f0a839;"></span>leve (5-20 mm)</span><span class="legenda-item"><span class="legenda-dot" style="border-color:#ef8a4d;"></span>moderada (20-50 mm)</span><span class="legenda-item"><span class="legenda-dot" style="border-color:#ef4d6b;"></span>forte (> 50 mm)</span></div>
+          <p class="linha-fraca-2" style="margin-top:10px;">Previsão Open-Meteo &mdash; média de 3 modelos (GFS, ECMWF, ICON). Valores podem mudar a cada nova rodada.</p>
+        </div>
+  <div class="card"><h2 style="margin:0 0 12px 0; font-size:13px; text-transform:uppercase; letter-spacing:1px; color:#eef2f1; font-weight:700;">Histórico &mdash; últimos 5 dias</h2>
+            <svg viewBox="0 0 600 220" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:auto; display:block;">
+      <defs>
+        <linearGradient id="gradHistorico" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#C48A4A" stop-opacity="0.45"/>
+          <stop offset="1" stop-color="#C48A4A" stop-opacity="0.02"/>
+        </linearGradient>
+      </defs>
+      <line x1="46" y1="192.0" x2="588" y2="192.0" stroke="#2a3f43" stroke-width="1"/><text x="40" y="195.0" text-anchor="end" font-size="10" font-family="Courier New, monospace" fill="#7c9190">1,46</text><line x1="46" y1="133.3" x2="588" y2="133.3" stroke="#2a3f43" stroke-width="1"/><text x="40" y="136.3" text-anchor="end" font-size="10" font-family="Courier New, monospace" fill="#7c9190">2,10</text><line x1="46" y1="74.7" x2="588" y2="74.7" stroke="#2a3f43" stroke-width="1"/><text x="40" y="77.7" text-anchor="end" font-size="10" font-family="Courier New, monospace" fill="#7c9190">2,73</text><line x1="46" y1="16.0" x2="588" y2="16.0" stroke="#2a3f43" stroke-width="1"/><text x="40" y="19.0" text-anchor="end" font-size="10" font-family="Courier New, monospace" fill="#7c9190">3,37</text>
+      <rect x="264.3" y="185.2" width="110.1" height="6.8" fill="#4a7ba6" fill-opacity="0.55" rx="1.5"/>
+      
+      <polygon points="46.0,192.0 46.0,36.3 60.1,38.1 93.1,42.8 135.5,48.3 145.0,49.2 159.1,51.0 239.2,64.9 243.9,65.8 253.4,69.5 258.1,71.3 262.8,72.2 267.5,73.1 272.2,75.0 281.7,76.8 286.4,78.7 291.1,79.6 295.8,81.4 300.5,83.3 305.2,85.1 314.6,86.0 319.4,88.8 324.1,89.7 328.8,91.6 333.5,91.6 338.2,93.4 347.6,96.2 352.3,98.0 357.1,98.9 361.8,100.8 366.5,102.6 375.9,106.3 380.6,109.1 385.3,110.0 390.1,111.8 394.8,112.7 404.2,115.5 408.9,117.4 413.6,120.1 418.3,122.0 427.8,125.6 432.5,127.5 437.2,129.3 446.6,131.2 451.3,132.1 456.0,133.0 460.7,134.9 465.5,135.8 470.2,137.6 474.9,139.5 484.3,144.1 489.0,145.0 493.7,146.8 498.5,148.7 507.9,150.5 512.6,152.4 517.3,153.3 522.0,154.2 526.7,155.1 531.4,157.0 536.2,158.8 545.6,159.7 550.3,162.5 555.0,163.4 559.7,164.3 564.4,165.2 569.1,166.2 573.9,167.1 583.3,169.9 588.0,171.7 588.0,192.0" fill="url(#gradHistorico)"/>
+      <polyline points="46.0,36.3 60.1,38.1 93.1,42.8 135.5,48.3 145.0,49.2 159.1,51.0 239.2,64.9 243.9,65.8 253.4,69.5 258.1,71.3 262.8,72.2 267.5,73.1 272.2,75.0 281.7,76.8 286.4,78.7 291.1,79.6 295.8,81.4 300.5,83.3 305.2,85.1 314.6,86.0 319.4,88.8 324.1,89.7 328.8,91.6 333.5,91.6 338.2,93.4 347.6,96.2 352.3,98.0 357.1,98.9 361.8,100.8 366.5,102.6 375.9,106.3 380.6,109.1 385.3,110.0 390.1,111.8 394.8,112.7 404.2,115.5 408.9,117.4 413.6,120.1 418.3,122.0 427.8,125.6 432.5,127.5 437.2,129.3 446.6,131.2 451.3,132.1 456.0,133.0 460.7,134.9 465.5,135.8 470.2,137.6 474.9,139.5 484.3,144.1 489.0,145.0 493.7,146.8 498.5,148.7 507.9,150.5 512.6,152.4 517.3,153.3 522.0,154.2 526.7,155.1 531.4,157.0 536.2,158.8 545.6,159.7 550.3,162.5 555.0,163.4 559.7,164.3 564.4,165.2 569.1,166.2 573.9,167.1 583.3,169.9 588.0,171.7" fill="none" stroke="#C48A4A" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
+      <text x="95.5" y="212" text-anchor="middle" font-size="10" font-family="Courier New, monospace" fill="#7c9190">Qua 02/09</text><text x="208.6" y="212" text-anchor="middle" font-size="10" font-family="Courier New, monospace" fill="#7c9190">Qui 03/09</text><text x="314.6" y="212" text-anchor="middle" font-size="10" font-family="Courier New, monospace" fill="#7c9190">Sex 04/09</text><text x="430.1" y="212" text-anchor="middle" font-size="10" font-family="Courier New, monospace" fill="#7c9190">Sáb 05/09</text><text x="538.5" y="212" text-anchor="middle" font-size="10" font-family="Courier New, monospace" fill="#7c9190">Dom 06/09</text>
+    </svg>
+            <div style="display:flex; justify-content:space-between; margin-top:12px; font-size:11px; color:#7c9190;">
+              <span>1,68 m &middot; mínimo</span>
+              <span>3,15 m &middot; máximo</span>
+            </div>
+            <div style="text-align:center; margin-top:4px; font-size:11px; color:#6ea3cc;">&#128167; 0,6 mm &middot; chuva no período</div>
+            <p style="margin:8px 0 0 0; font-size:10.5px; color:#7c9190; line-height:1.4;">Nível: leituras reais da ANA (estação telemétrica de Taquara), a cada ~15 minutos - não é projeção.</p>
+            <p style="margin:2px 0 0 0; font-size:10.5px; color:#7c9190; line-height:1.4;">Chuva em Taquara: medição real (pluviômetro da mesma estação ANA do nível).</p>
+            </div>
   <p class="disclaimer">* O Horizonte é um projeto pessoal e independente de previsibilidade — não é um serviço oficial, não substitui e não tem qualquer vínculo com os canais da Defesa Civil. Quem escreve isso não é hidrólogo nem especialista em recursos hídricos; os números aqui são estimativas estatísticas construídas a partir de dados públicos, não uma previsão certificada. Para alertas oficiais e qualquer decisão de segurança, siga sempre a Defesa Civil do seu município ou estado.</p>
 </div>
 <script>
