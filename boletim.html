@@ -21,6 +21,23 @@
 <style>
 html { -webkit-text-size-adjust:100%; -ms-text-size-adjust:100%; text-size-adjust:100%; }
 body { margin:0; background-color:#0f2027; }
+.help-slot { display:none; }
+.help-btn { position:absolute; top:12px; right:14px; width:22px; height:22px; border-radius:50%; border:1px solid #344d52; background:#16262a; color:#7c9190; font-family:'Segoe UI',Arial,sans-serif; font-size:12px; font-weight:700; line-height:1; cursor:pointer; display:flex; align-items:center; justify-content:center; padding:0; z-index:2; }
+.help-btn:hover { border-color:#C48A4A; color:#C48A4A; }
+/* Janela flutuante, não modal de fundo escuro (07/09/2026, pedido do
+   usuário: "assim como já fizemos em outras partes do projeto") - mesmo
+   visual do .popup de gerar_mapa_bacias.py (card sem escurecer o resto
+   da tela), mas sempre CENTRALIZADA na tela (07/09/2026, correção do
+   usuário: a versão anterior posicionava perto do botão clicado, como
+   o mapa faz em telas largas - pedido explícito pra sempre centralizar,
+   independente do tamanho da tela). */
+.help-popup { display:none; position:fixed; z-index:50; top:50%; left:50%; transform:translate(-50%,-50%); width:min(300px, 88vw); background:#1c2f33; border:1px solid #344d52; border-radius:12px; padding:16px 18px; box-shadow:0 12px 32px rgba(0,0,0,.45); font-family:'Segoe UI',Arial,sans-serif; max-height:80vh; overflow-y:auto; }
+.help-popup.show { display:block; }
+.help-popup .close { position:absolute; top:8px; right:10px; background:none; border:none; cursor:pointer; color:#7c9190; font-size:18px; line-height:1; padding:6px; }
+.help-popup h4 { font-family:Georgia,serif; font-weight:400; font-size:16px; margin:0 22px 10px 0; color:#eef2f1; }
+.help-popup .secao-lbl { font-size:10.5px; text-transform:uppercase; letter-spacing:.05em; font-weight:700; color:#C48A4A; margin:12px 0 4px 0; }
+.help-popup .secao-lbl:first-of-type { margin-top:0; }
+.help-popup p { font-size:13px; line-height:1.5; color:#b9c8c7; margin:0; }
 </style>
 </head>
 <body>
@@ -67,8 +84,8 @@ body { margin:0; background-color:#0f2027; }
             </table>
           </td>
           <td align="right" valign="middle" style="font-family:'Courier New', monospace; font-size:15px; color:#7c9190; line-height:1.5;">
-            Leitura: 07/09 &middot; 06:15<br>
-            Boletim gerado: 07:06
+            Leitura: 07/09 &middot; 07:00<br>
+            Boletim gerado: 07:53
           </td>
         </tr>
       </table>
@@ -80,6 +97,7 @@ body { margin:0; background-color:#0f2027; }
       <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td valign="top" style="background-color:#1c2f33; border:1px solid #2f5540; border-radius:14px; padding:20px 22px 22px 22px; font-family:'Segoe UI', Arial, sans-serif;">
+            <span class="help-slot" data-help="status-pa"></span>
             <span style="display:inline-block; padding:7px 14px 7px 11px; border-radius:999px; font-size:17.5px; font-weight:600; border:1px solid #2f5540; background-color:#1c3328; color:#5ecb8f;">&#9679;&nbsp; Tudo normal em Porto Alegre</span>
             <p style="margin:12px 0 0 0; font-size:20px; color:#b9c8c7; line-height:1.55; font-family:'Segoe UI', Arial, sans-serif;">
               Nível <strong style="color:#eef2f1;">abaixo</strong> da cota de inundação, tendência <strong style="color:#eef2f1;">queda</strong>. <strong style="color:#eef2f1;">Sem indicativo de risco elevado nos próximos 5 dias.</strong>
@@ -89,8 +107,8 @@ body { margin:0; background-color:#0f2027; }
               <p style="margin:0 0 4px 0; font-size:16px; color:#7c9190; text-transform:uppercase; letter-spacing:1px;">Porto Alegre &middot; Cais Mauá</p>
               <div style="font-family:'Courier New', monospace; font-weight:700; font-size:51px; color:#eef2f1;">1,77<span style="font-size:23px; color:#7c9190;">m</span></div>
               <p style="margin:2px 0 8px 0; font-size:15px; color:#7c9190; font-family:'Courier New', monospace;">Nível normal (mediana, 10 anos de dado): 0,93 m</p>
-              <span style="display:inline-block; margin-top:6px; padding:6px 10px; border-radius:9px; background-color:#20393e; border:1px solid #2a3f43; font-size:16px; font-family:'Courier New', monospace; color:#5ecb8f; font-weight:600;">queda &middot; &#9660; 1,2 cm/h</span>
-              
+              <span style="display:inline-block; margin-top:6px; padding:6px 10px; border-radius:9px; background-color:#20393e; border:1px solid #2a3f43; font-size:16px; font-family:'Courier New', monospace; color:#5ecb8f; font-weight:600;">queda &middot; &#9660; 0,9 cm/h *</span>
+              <p style="margin:6px 0 0 0; font-size:14px; color:#7c9190;">* tendência do Cais Mauá indisponível nesta leitura - usando a do Gasômetro (régua vizinha, mesma fonte ANA) como aproximação.</p>
 
               <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-top:14px; height:10px;">
                 <tr>
@@ -117,26 +135,27 @@ body { margin:0; background-color:#0f2027; }
         <tr>
           <td valign="top" style="font-family:'Segoe UI', Arial, sans-serif;">
             <div style="background-color:#0f2027; border:1px solid #2a3f43; border-radius:12px; padding:16px 18px;">
+              <span class="help-slot" data-help="previsao-dias"></span>
               <h3 style="margin:0 0 4px 0; font-size:17.5px; text-transform:uppercase; letter-spacing:.5px; color:#eef2f1; font-weight:700;">Previsão do nível nos próximos dias</h3>
               <p style="margin:0 0 14px 0; font-size:15px; color:#7c9190; line-height:1.4;">Complementa o resumo acima &mdash; detalhe dia a dia.</p>
               <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
               <tr>
                 <td width="33%" align="center" valign="bottom" style="font-family:'Segoe UI', Arial, sans-serif;">
-              <div style="font-family:'Courier New', monospace; font-weight:700; font-size:17.5px; color:#eef2f1; margin-bottom:4px;">1,66 m</div>
+              <div style="font-family:'Courier New', monospace; font-weight:700; font-size:17.5px; color:#eef2f1; margin-bottom:4px;">1,67 m</div>
+              <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:0 auto;">
+                <tr><td height="35" style="font-size:1px; line-height:1px;">&nbsp;</td></tr>
+                <tr><td width="36" height="45" style="background-color:#4fae7d; border-radius:4px 4px 0 0; font-size:1px; line-height:1px;">&nbsp;</td></tr>
+              </table>
+              <div style="font-size:13.5px; color:#93a8a8; margin-top:6px;">Ter &middot; 08/09</div>
+            </td><td width="33%" align="center" valign="bottom" style="font-family:'Segoe UI', Arial, sans-serif;">
+              <div style="font-family:'Courier New', monospace; font-weight:700; font-size:17.5px; color:#eef2f1; margin-bottom:4px;">1,61 m</div>
               <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:0 auto;">
                 <tr><td height="36" style="font-size:1px; line-height:1px;">&nbsp;</td></tr>
                 <tr><td width="36" height="44" style="background-color:#4fae7d; border-radius:4px 4px 0 0; font-size:1px; line-height:1px;">&nbsp;</td></tr>
               </table>
-              <div style="font-size:13.5px; color:#93a8a8; margin-top:6px;">Ter &middot; 08/09</div>
-            </td><td width="33%" align="center" valign="bottom" style="font-family:'Segoe UI', Arial, sans-serif;">
-              <div style="font-family:'Courier New', monospace; font-weight:700; font-size:17.5px; color:#eef2f1; margin-bottom:4px;">1,60 m</div>
-              <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:0 auto;">
-                <tr><td height="37" style="font-size:1px; line-height:1px;">&nbsp;</td></tr>
-                <tr><td width="36" height="43" style="background-color:#4fae7d; border-radius:4px 4px 0 0; font-size:1px; line-height:1px;">&nbsp;</td></tr>
-              </table>
               <div style="font-size:13.5px; color:#93a8a8; margin-top:6px;">Qui &middot; 10/09</div>
             </td><td width="33%" align="center" valign="bottom" style="font-family:'Segoe UI', Arial, sans-serif;">
-              <div style="font-family:'Courier New', monospace; font-weight:700; font-size:17.5px; color:#eef2f1; margin-bottom:4px;">1,68 m</div>
+              <div style="font-family:'Courier New', monospace; font-weight:700; font-size:17.5px; color:#eef2f1; margin-bottom:4px;">1,70 m</div>
               <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:0 auto;">
                 <tr><td height="35" style="font-size:1px; line-height:1px;">&nbsp;</td></tr>
                 <tr><td width="36" height="45" style="background-color:#4fae7d; border-radius:4px 4px 0 0; font-size:1px; line-height:1px;">&nbsp;</td></tr>
@@ -150,8 +169,9 @@ body { margin:0; background-color:#0f2027; }
                 <td width="50%" align="right" style="font-size:13.5px; color:#93a8a8; font-family:'Courier New', monospace;">cota de inundação &middot; 3,00 m</td>
               </tr>
             </table>
-              <p style="margin:0 0 14px 0; font-size:14px; color:#7c9190;">* Esta previsão já considera o efeito estimado do vento e da pressão atmosférica sobre o Guaíba, além da tendência dos afluentes e da chuva futura.</p>
+              <p style="margin:14px 0 0 0; font-size:14px; color:#7c9190;">* Esta previsão já considera o efeito estimado do vento e da pressão atmosférica sobre o Guaíba, além da tendência dos afluentes e da chuva futura.</p>
             </div><div style="margin-top:14px; background-color:#0f2027; border:1px solid #2a3f43; border-radius:12px; padding:16px 18px;">
+              <span class="help-slot" data-help="chance-cota"></span>
               <h4 style="margin:0 0 4px 0; font-size:15px; text-transform:uppercase; letter-spacing:1px; color:#93a8a8; font-weight:600;">Chance de passar de cada cota</h4>
               <p style="margin:0 0 12px 0; font-size:16px; color:#7c9190; line-height:1.5;">Baseado em 5,7 anos de leituras reais da ANA para o Cais Mauá &mdash; não é a previsão de nível acima, é um cálculo complementar.</p>
               <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">
@@ -163,7 +183,7 @@ body { margin:0; background-color:#0f2027; }
                 </tr>
                 <tr>
               <td style="padding:7px 4px 7px 0; font-family:'Courier New', monospace; font-size:17.5px; color:#b9c8c7; white-space:nowrap;">1,80 m <span style="color:#7c9190; font-size:13.5px;">e acima</span></td>
-              <td align="center" style="padding:7px 4px;"><span style="display:inline-block; padding:4px 10px; border-radius:999px; font-size:15px; font-weight:600; white-space:nowrap; background-color:#243638; color:#4a7c8c;">Muito baixa</span></td><td align="center" style="padding:7px 4px;"><span style="display:inline-block; padding:4px 10px; border-radius:999px; font-size:15px; font-weight:600; white-space:nowrap; background-color:#243638; color:#4a7c8c;">Muito baixa</span></td><td align="center" style="padding:7px 4px;"><span style="display:inline-block; padding:4px 10px; border-radius:999px; font-size:15px; font-weight:600; white-space:nowrap; background-color:#2a3d3a; color:#6fa86f;">Baixa</span></td>
+              <td align="center" style="padding:7px 4px;"><span style="display:inline-block; padding:4px 10px; border-radius:999px; font-size:15px; font-weight:600; white-space:nowrap; background-color:#2a3d3a; color:#6fa86f;">Baixa</span></td><td align="center" style="padding:7px 4px;"><span style="display:inline-block; padding:4px 10px; border-radius:999px; font-size:15px; font-weight:600; white-space:nowrap; background-color:#243638; color:#4a7c8c;">Muito baixa</span></td><td align="center" style="padding:7px 4px;"><span style="display:inline-block; padding:4px 10px; border-radius:999px; font-size:15px; font-weight:600; white-space:nowrap; background-color:#2a3d3a; color:#6fa86f;">Baixa</span></td>
             </tr>
               </table>
               <div style="margin-top:14px; background-color:#1c2f33; border:1px solid #2a3f43; border-radius:10px; padding:10px 12px;">
@@ -183,44 +203,45 @@ body { margin:0; background-color:#0f2027; }
       <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td valign="top" style="background-color:#1c2f33; border:1px solid #344d52; border-radius:12px; padding:18px 20px; font-family:'Segoe UI', Arial, sans-serif;">
+            <span class="help-slot" data-help="chuva-prevista"></span>
             <h3 style="margin:0 0 12px 0; font-size:17.5px; text-transform:uppercase; letter-spacing:.5px; color:#eef2f1; font-weight:700;">Chuva prevista, rio a rio</h3>
             <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
-            <tr><td></td><td align="center" style="padding:4px 2px; font-size:13.5px; color:#7c9190; text-transform:uppercase; letter-spacing:.3px;">Hoje<br>07/09</td><td align="center" style="padding:4px 2px; font-size:13.5px; color:#7c9190; text-transform:uppercase; letter-spacing:.3px;">Ter<br>08/09</td><td align="center" style="padding:4px 2px; font-size:13.5px; color:#7c9190; text-transform:uppercase; letter-spacing:.3px;">Qua<br>09/09</td><td align="center" style="padding:4px 2px; font-size:13.5px; color:#7c9190; text-transform:uppercase; letter-spacing:.3px;">Qui<br>10/09</td><td align="center" style="padding:4px 2px; font-size:13.5px; color:#7c9190; text-transform:uppercase; letter-spacing:.3px;">Sex<br>11/09</td><td align="center" style="padding:4px 0 4px 6px; font-size:13.5px; color:#7c9190; text-transform:uppercase; letter-spacing:.3px; border-left:1px solid #344d52;">Total<br>5d</td></tr>
+            <tr><td></td><td align="center" style="padding:4px 2px; font-size:13.5px; color:#7c9190; text-transform:uppercase; letter-spacing:.3px;">Hoje<br>07/09</td><td align="center" style="padding:4px 2px; font-size:13.5px; color:#7c9190; text-transform:uppercase; letter-spacing:.3px;">Ter<br>08/09</td><td align="center" style="padding:4px 2px; font-size:13.5px; color:#7c9190; text-transform:uppercase; letter-spacing:.3px;">Qua<br>09/09</td><td align="center" style="padding:4px 2px; font-size:13.5px; color:#7c9190; text-transform:uppercase; letter-spacing:.3px;">Qui<br>10/09</td><td align="center" style="padding:4px 2px; font-size:13.5px; color:#7c9190; text-transform:uppercase; letter-spacing:.3px;">Sex<br>11/09</td><td align="center" style="padding:4px 2px; font-size:13.5px; color:#7c9190; text-transform:uppercase; letter-spacing:.3px;">Sáb<br>12/09</td><td align="center" style="padding:4px 0 4px 6px; font-size:13.5px; color:#7c9190; text-transform:uppercase; letter-spacing:.3px; border-left:1px solid #344d52;">Total<br>6d</td></tr>
             <tr>
               <td style="padding:6px 8px 6px 0;"><div style="color:#eef2f1; font-size:17.5px; font-weight:600;">Taquari</div>
               <div style="color:#7c9190; font-size:14px;">Lajeado</div></td>
-              <td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #7c9190; font-family:'Courier New', monospace; font-size:16px; font-weight:600; color:#eef2f1;">0,0</span></td><td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #7c9190; font-family:'Courier New', monospace; font-size:16px; font-weight:600; color:#eef2f1;">0,0</span></td><td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #7c9190; font-family:'Courier New', monospace; font-size:16px; font-weight:600; color:#eef2f1;">0,2</span></td><td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #f0a839; font-family:'Courier New', monospace; font-size:16px; font-weight:600; color:#eef2f1;">5,9</span></td><td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #f0a839; font-family:'Courier New', monospace; font-size:16px; font-weight:600; color:#eef2f1;">12,3</span></td>
-              <td align="center" style="padding:4px 0 4px 6px; font-family:'Courier New', monospace; font-size:17.5px; font-weight:600; color:#f0a839; border-left:1px solid #344d52;">18,4<br>
+              <td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #7c9190; font-family:'Courier New', monospace; font-size:16px; font-weight:600; color:#eef2f1;">0,0</span></td><td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #7c9190; font-family:'Courier New', monospace; font-size:16px; font-weight:600; color:#eef2f1;">0,0</span></td><td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #7c9190; font-family:'Courier New', monospace; font-size:16px; font-weight:600; color:#eef2f1;">0,2</span></td><td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #f0a839; font-family:'Courier New', monospace; font-size:16px; font-weight:600; color:#eef2f1;">5,9</span></td><td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #f0a839; font-family:'Courier New', monospace; font-size:16px; font-weight:600; color:#eef2f1;">12,3</span></td><td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #7c9190; font-family:'Courier New', monospace; font-size:16px; font-weight:600; color:#eef2f1;">2,8</span></td>
+              <td align="center" style="padding:4px 0 4px 6px; font-family:'Courier New', monospace; font-size:17.5px; font-weight:600; color:#f0a839; border-left:1px solid #344d52;">21,2<br>
               <span style="font-size:12px; color:#7c9190; font-weight:400;">mm</span></td>
             </tr><tr>
               <td style="padding:6px 8px 6px 0;"><div style="color:#eef2f1; font-size:17.5px; font-weight:600;">Caí</div>
               <div style="color:#7c9190; font-size:14px;">São Sebastião do Caí</div></td>
-              <td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #7c9190; font-family:'Courier New', monospace; font-size:16px; font-weight:600; color:#eef2f1;">0,0</span></td><td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #7c9190; font-family:'Courier New', monospace; font-size:16px; font-weight:600; color:#eef2f1;">0,4</span></td><td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #7c9190; font-family:'Courier New', monospace; font-size:16px; font-weight:600; color:#eef2f1;">1,2</span></td><td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #f0a839; font-family:'Courier New', monospace; font-size:16px; font-weight:600; color:#eef2f1;">6,7</span></td><td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #f0a839; font-family:'Courier New', monospace; font-size:16px; font-weight:600; color:#eef2f1;">13,2</span></td>
-              <td align="center" style="padding:4px 0 4px 6px; font-family:'Courier New', monospace; font-size:17.5px; font-weight:600; color:#f0a839; border-left:1px solid #344d52;">21,5<br>
+              <td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #7c9190; font-family:'Courier New', monospace; font-size:16px; font-weight:600; color:#eef2f1;">0,0</span></td><td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #7c9190; font-family:'Courier New', monospace; font-size:16px; font-weight:600; color:#eef2f1;">0,4</span></td><td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #7c9190; font-family:'Courier New', monospace; font-size:16px; font-weight:600; color:#eef2f1;">1,2</span></td><td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #f0a839; font-family:'Courier New', monospace; font-size:16px; font-weight:600; color:#eef2f1;">6,7</span></td><td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #f0a839; font-family:'Courier New', monospace; font-size:16px; font-weight:600; color:#eef2f1;">13,2</span></td><td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #7c9190; font-family:'Courier New', monospace; font-size:16px; font-weight:600; color:#eef2f1;">2,7</span></td>
+              <td align="center" style="padding:4px 0 4px 6px; font-family:'Courier New', monospace; font-size:17.5px; font-weight:600; color:#f0a839; border-left:1px solid #344d52;">24,2<br>
               <span style="font-size:12px; color:#7c9190; font-weight:400;">mm</span></td>
             </tr><tr>
               <td style="padding:6px 8px 6px 0;"><div style="color:#eef2f1; font-size:17.5px; font-weight:600;">Gravataí</div>
               <div style="color:#7c9190; font-size:14px;">Gravataí</div></td>
-              <td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #7c9190; font-family:'Courier New', monospace; font-size:16px; font-weight:600; color:#eef2f1;">0,3</span></td><td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #7c9190; font-family:'Courier New', monospace; font-size:16px; font-weight:600; color:#eef2f1;">0,8</span></td><td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #7c9190; font-family:'Courier New', monospace; font-size:16px; font-weight:600; color:#eef2f1;">2,0</span></td><td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #f0a839; font-family:'Courier New', monospace; font-size:16px; font-weight:600; color:#eef2f1;">13,2</span></td><td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #ef8a4d; font-family:'Courier New', monospace; font-size:16px; font-weight:600; color:#eef2f1;">25,0</span></td>
-              <td align="center" style="padding:4px 0 4px 6px; font-family:'Courier New', monospace; font-size:17.5px; font-weight:600; color:#f0a839; border-left:1px solid #344d52;">41,3<br>
+              <td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #7c9190; font-family:'Courier New', monospace; font-size:16px; font-weight:600; color:#eef2f1;">0,3</span></td><td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #7c9190; font-family:'Courier New', monospace; font-size:16px; font-weight:600; color:#eef2f1;">0,8</span></td><td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #7c9190; font-family:'Courier New', monospace; font-size:16px; font-weight:600; color:#eef2f1;">2,0</span></td><td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #f0a839; font-family:'Courier New', monospace; font-size:16px; font-weight:600; color:#eef2f1;">13,2</span></td><td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #ef8a4d; font-family:'Courier New', monospace; font-size:16px; font-weight:600; color:#eef2f1;">25,0</span></td><td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #7c9190; font-family:'Courier New', monospace; font-size:16px; font-weight:600; color:#eef2f1;">1,2</span></td>
+              <td align="center" style="padding:4px 0 4px 6px; font-family:'Courier New', monospace; font-size:17.5px; font-weight:600; color:#f0a839; border-left:1px solid #344d52;">42,5<br>
               <span style="font-size:12px; color:#7c9190; font-weight:400;">mm</span></td>
             </tr><tr>
               <td style="padding:6px 8px 6px 0;"><div style="color:#eef2f1; font-size:17.5px; font-weight:600;">Jacuí</div>
               <div style="color:#7c9190; font-size:14px;">Cachoeira do Sul</div></td>
-              <td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #7c9190; font-family:'Courier New', monospace; font-size:16px; font-weight:600; color:#eef2f1;">0,0</span></td><td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #7c9190; font-family:'Courier New', monospace; font-size:16px; font-weight:600; color:#eef2f1;">0,0</span></td><td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #7c9190; font-family:'Courier New', monospace; font-size:16px; font-weight:600; color:#eef2f1;">0,1</span></td><td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #f0a839; font-family:'Courier New', monospace; font-size:16px; font-weight:600; color:#eef2f1;">10,0</span></td><td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #ef8a4d; font-family:'Courier New', monospace; font-size:16px; font-weight:600; color:#eef2f1;">20,2</span></td>
-              <td align="center" style="padding:4px 0 4px 6px; font-family:'Courier New', monospace; font-size:17.5px; font-weight:600; color:#f0a839; border-left:1px solid #344d52;">30,3<br>
+              <td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #7c9190; font-family:'Courier New', monospace; font-size:16px; font-weight:600; color:#eef2f1;">0,0</span></td><td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #7c9190; font-family:'Courier New', monospace; font-size:16px; font-weight:600; color:#eef2f1;">0,0</span></td><td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #7c9190; font-family:'Courier New', monospace; font-size:16px; font-weight:600; color:#eef2f1;">0,1</span></td><td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #f0a839; font-family:'Courier New', monospace; font-size:16px; font-weight:600; color:#eef2f1;">10,0</span></td><td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #ef8a4d; font-family:'Courier New', monospace; font-size:16px; font-weight:600; color:#eef2f1;">20,2</span></td><td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #7c9190; font-family:'Courier New', monospace; font-size:16px; font-weight:600; color:#eef2f1;">0,4</span></td>
+              <td align="center" style="padding:4px 0 4px 6px; font-family:'Courier New', monospace; font-size:17.5px; font-weight:600; color:#f0a839; border-left:1px solid #344d52;">30,7<br>
               <span style="font-size:12px; color:#7c9190; font-weight:400;">mm</span></td>
             </tr><tr>
               <td style="padding:6px 8px 6px 0;"><div style="color:#eef2f1; font-size:17.5px; font-weight:600;">Sinos</div>
               <div style="color:#7c9190; font-size:14px;">São Leopoldo</div></td>
-              <td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #7c9190; font-family:'Courier New', monospace; font-size:16px; font-weight:600; color:#eef2f1;">0,0</span></td><td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #7c9190; font-family:'Courier New', monospace; font-size:16px; font-weight:600; color:#eef2f1;">0,0</span></td><td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #7c9190; font-family:'Courier New', monospace; font-size:16px; font-weight:600; color:#eef2f1;">0,0</span></td><td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #f0a839; font-family:'Courier New', monospace; font-size:16px; font-weight:600; color:#eef2f1;">6,2</span></td><td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #f0a839; font-family:'Courier New', monospace; font-size:16px; font-weight:600; color:#eef2f1;">13,0</span></td>
-              <td align="center" style="padding:4px 0 4px 6px; font-family:'Courier New', monospace; font-size:17.5px; font-weight:600; color:#f0a839; border-left:1px solid #344d52;">19,2<br>
+              <td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #7c9190; font-family:'Courier New', monospace; font-size:16px; font-weight:600; color:#eef2f1;">0,0</span></td><td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #7c9190; font-family:'Courier New', monospace; font-size:16px; font-weight:600; color:#eef2f1;">0,0</span></td><td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #7c9190; font-family:'Courier New', monospace; font-size:16px; font-weight:600; color:#eef2f1;">0,0</span></td><td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #f0a839; font-family:'Courier New', monospace; font-size:16px; font-weight:600; color:#eef2f1;">6,2</span></td><td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #f0a839; font-family:'Courier New', monospace; font-size:16px; font-weight:600; color:#eef2f1;">13,0</span></td><td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #7c9190; font-family:'Courier New', monospace; font-size:16px; font-weight:600; color:#eef2f1;">1,9</span></td>
+              <td align="center" style="padding:4px 0 4px 6px; font-family:'Courier New', monospace; font-size:17.5px; font-weight:600; color:#f0a839; border-left:1px solid #344d52;">21,1<br>
               <span style="font-size:12px; color:#7c9190; font-weight:400;">mm</span></td>
             </tr><tr>
               <td style="padding:6px 8px 6px 0;"><div style="color:#eef2f1; font-size:17.5px; font-weight:600;">Guaíba</div>
               <div style="color:#7c9190; font-size:14px;">Porto Alegre</div></td>
-              <td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #7c9190; font-family:'Courier New', monospace; font-size:16px; font-weight:600; color:#eef2f1;">0,3</span></td><td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #7c9190; font-family:'Courier New', monospace; font-size:16px; font-weight:600; color:#eef2f1;">0,0</span></td><td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #7c9190; font-family:'Courier New', monospace; font-size:16px; font-weight:600; color:#eef2f1;">1,2</span></td><td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #7c9190; font-family:'Courier New', monospace; font-size:16px; font-weight:600; color:#eef2f1;">1,6</span></td><td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #ef8a4d; font-family:'Courier New', monospace; font-size:16px; font-weight:600; color:#eef2f1;">21,1</span></td>
-              <td align="center" style="padding:4px 0 4px 6px; font-family:'Courier New', monospace; font-size:17.5px; font-weight:600; color:#f0a839; border-left:1px solid #344d52;">24,2<br>
+              <td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #7c9190; font-family:'Courier New', monospace; font-size:16px; font-weight:600; color:#eef2f1;">0,3</span></td><td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #7c9190; font-family:'Courier New', monospace; font-size:16px; font-weight:600; color:#eef2f1;">0,0</span></td><td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #7c9190; font-family:'Courier New', monospace; font-size:16px; font-weight:600; color:#eef2f1;">1,2</span></td><td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #7c9190; font-family:'Courier New', monospace; font-size:16px; font-weight:600; color:#eef2f1;">1,6</span></td><td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #ef8a4d; font-family:'Courier New', monospace; font-size:16px; font-weight:600; color:#eef2f1;">21,1</span></td><td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #7c9190; font-family:'Courier New', monospace; font-size:16px; font-weight:600; color:#eef2f1;">0,6</span></td>
+              <td align="center" style="padding:4px 0 4px 6px; font-family:'Courier New', monospace; font-size:17.5px; font-weight:600; color:#f0a839; border-left:1px solid #344d52;">24,8<br>
               <span style="font-size:12px; color:#7c9190; font-weight:400;">mm</span></td>
             </tr>
             </table>
@@ -238,6 +259,7 @@ body { margin:0; background-color:#0f2027; }
       <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td valign="top" style="background-color:#1c2f33; border:1px solid #344d52; border-radius:12px; padding:18px 20px; font-family:'Segoe UI', Arial, sans-serif;">
+            <span class="help-slot" data-help="historico"></span>
             <h2 style="margin:0 0 12px 0; font-size:13px; text-transform:uppercase; letter-spacing:1px; color:#eef2f1; font-weight:700;">Histórico &mdash; últimos 5 dias</h2>
             <svg viewBox="0 0 600 220" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:auto; display:block;">
       <defs>
@@ -249,9 +271,9 @@ body { margin:0; background-color:#0f2027; }
       <line x1="46" y1="192.0" x2="588" y2="192.0" stroke="#2a3f43" stroke-width="1"/><text x="40" y="195.0" text-anchor="end" font-size="10" font-family="Courier New, monospace" fill="#7c9190">1,51</text><line x1="46" y1="133.3" x2="588" y2="133.3" stroke="#2a3f43" stroke-width="1"/><text x="40" y="136.3" text-anchor="end" font-size="10" font-family="Courier New, monospace" fill="#7c9190">1,69</text><line x1="46" y1="74.7" x2="588" y2="74.7" stroke="#2a3f43" stroke-width="1"/><text x="40" y="77.7" text-anchor="end" font-size="10" font-family="Courier New, monospace" fill="#7c9190">1,87</text><line x1="46" y1="16.0" x2="588" y2="16.0" stroke="#2a3f43" stroke-width="1"/><text x="40" y="19.0" text-anchor="end" font-size="10" font-family="Courier New, monospace" fill="#7c9190">2,05</text>
       
       <line x1="46" y1="33.1" x2="588" y2="33.1" stroke="#f0a839" stroke-width="1.5" stroke-dasharray="5,4"/><text x="588" y="28.1" text-anchor="end" font-size="10.5" font-weight="700" font-family="Courier New, monospace" fill="#f0a839">Atenção &middot; 2,00 m</text>
-      <polygon points="46.0,192.0 46.0,100.8 50.5,100.8 55.0,104.0 59.5,107.2 64.1,110.4 68.6,116.9 73.1,116.9 77.6,120.1 82.1,120.1 86.7,123.3 91.2,126.6 95.7,129.8 100.2,126.6 104.7,129.8 109.2,129.8 113.8,133.0 118.3,136.2 122.8,142.7 127.3,145.9 131.8,152.4 136.3,152.4 140.8,155.6 145.4,162.0 149.9,165.2 154.4,168.5 158.9,171.7 163.4,171.7 167.9,171.7 172.5,171.7 177.0,168.5 181.5,165.2 186.0,165.2 190.5,165.2 195.1,168.5 199.6,165.2 204.1,165.2 208.6,162.0 217.6,100.8 222.2,81.4 226.7,81.4 231.2,84.7 235.7,87.9 240.2,97.6 244.7,107.2 249.2,116.9 253.8,120.1 258.3,120.1 262.8,126.6 267.3,133.0 271.8,139.5 280.9,145.9 285.4,149.1 289.9,152.4 294.4,152.4 298.9,152.4 303.4,152.4 308.0,152.4 317.0,142.7 321.5,136.2 326.0,133.0 330.6,126.6 339.6,123.3 348.6,126.6 353.1,133.0 357.6,136.2 366.7,145.9 371.2,152.4 375.7,155.6 380.2,155.6 384.8,162.0 393.8,162.0 398.3,162.0 402.8,162.0 407.3,162.0 411.9,168.5 416.4,168.5 420.9,165.2 425.4,162.0 434.4,129.8 438.9,110.4 443.5,100.8 448.0,91.1 452.5,84.7 457.0,84.7 461.5,75.0 470.6,55.6 475.1,62.1 479.6,58.9 484.1,58.9 488.6,62.1 493.1,65.3 497.7,65.3 502.2,62.1 506.7,52.4 511.2,46.0 515.7,49.2 520.2,42.8 529.3,36.3 533.8,49.2 538.3,49.2 542.8,55.6 547.4,65.3 551.9,75.0 556.4,78.2 560.9,81.4 569.9,91.1 574.4,94.3 579.0,100.8 583.5,104.0 588.0,107.2 588.0,192.0" fill="url(#gradHistorico)"/>
-      <polyline points="46.0,100.8 50.5,100.8 55.0,104.0 59.5,107.2 64.1,110.4 68.6,116.9 73.1,116.9 77.6,120.1 82.1,120.1 86.7,123.3 91.2,126.6 95.7,129.8 100.2,126.6 104.7,129.8 109.2,129.8 113.8,133.0 118.3,136.2 122.8,142.7 127.3,145.9 131.8,152.4 136.3,152.4 140.8,155.6 145.4,162.0 149.9,165.2 154.4,168.5 158.9,171.7 163.4,171.7 167.9,171.7 172.5,171.7 177.0,168.5 181.5,165.2 186.0,165.2 190.5,165.2 195.1,168.5 199.6,165.2 204.1,165.2 208.6,162.0 217.6,100.8 222.2,81.4 226.7,81.4 231.2,84.7 235.7,87.9 240.2,97.6 244.7,107.2 249.2,116.9 253.8,120.1 258.3,120.1 262.8,126.6 267.3,133.0 271.8,139.5 280.9,145.9 285.4,149.1 289.9,152.4 294.4,152.4 298.9,152.4 303.4,152.4 308.0,152.4 317.0,142.7 321.5,136.2 326.0,133.0 330.6,126.6 339.6,123.3 348.6,126.6 353.1,133.0 357.6,136.2 366.7,145.9 371.2,152.4 375.7,155.6 380.2,155.6 384.8,162.0 393.8,162.0 398.3,162.0 402.8,162.0 407.3,162.0 411.9,168.5 416.4,168.5 420.9,165.2 425.4,162.0 434.4,129.8 438.9,110.4 443.5,100.8 448.0,91.1 452.5,84.7 457.0,84.7 461.5,75.0 470.6,55.6 475.1,62.1 479.6,58.9 484.1,58.9 488.6,62.1 493.1,65.3 497.7,65.3 502.2,62.1 506.7,52.4 511.2,46.0 515.7,49.2 520.2,42.8 529.3,36.3 533.8,49.2 538.3,49.2 542.8,55.6 547.4,65.3 551.9,75.0 556.4,78.2 560.9,81.4 569.9,91.1 574.4,94.3 579.0,100.8 583.5,104.0 588.0,107.2" fill="none" stroke="#C48A4A" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
-      <text x="84.4" y="212" text-anchor="middle" font-size="10" font-family="Courier New, monospace" fill="#7c9190">Qua 02/09</text><text x="179.2" y="212" text-anchor="middle" font-size="10" font-family="Courier New, monospace" fill="#7c9190">Qui 03/09</text><text x="287.6" y="212" text-anchor="middle" font-size="10" font-family="Courier New, monospace" fill="#7c9190">Sex 04/09</text><text x="398.3" y="212" text-anchor="middle" font-size="10" font-family="Courier New, monospace" fill="#7c9190">Sáb 05/09</text><text x="504.4" y="212" text-anchor="middle" font-size="10" font-family="Courier New, monospace" fill="#7c9190">Dom 06/09</text><text x="574.5" y="212" text-anchor="middle" font-size="10" font-family="Courier New, monospace" fill="#7c9190">Seg 07/09</text>
+      <polygon points="46.0,192.0 46.0,100.8 50.5,104.0 55.0,107.2 59.5,110.4 64.1,116.9 68.6,116.9 73.1,120.1 77.6,120.1 82.1,123.3 86.7,126.6 91.2,129.8 95.7,126.6 100.2,129.8 104.7,129.8 109.2,133.0 113.8,136.2 118.3,142.7 122.8,145.9 127.3,152.4 131.8,152.4 136.3,155.6 140.8,162.0 145.4,165.2 149.9,168.5 154.4,171.7 158.9,171.7 163.4,171.7 167.9,171.7 172.5,168.5 177.0,165.2 181.5,165.2 186.0,165.2 190.5,168.5 195.1,165.2 199.6,165.2 204.1,162.0 213.1,100.8 217.6,81.4 222.2,81.4 226.7,84.7 231.2,87.9 235.7,97.6 240.2,107.2 244.7,116.9 249.2,120.1 253.8,120.1 258.3,126.6 262.8,133.0 267.3,139.5 276.4,145.9 280.9,149.1 285.4,152.4 289.9,152.4 294.4,152.4 298.9,152.4 303.4,152.4 312.5,142.7 317.0,136.2 321.5,133.0 326.0,126.6 335.1,123.3 344.1,126.6 348.6,133.0 353.1,136.2 362.2,145.9 366.7,152.4 371.2,155.6 375.7,155.6 380.2,162.0 389.3,162.0 393.8,162.0 398.3,162.0 402.8,162.0 407.3,168.5 411.9,168.5 416.4,165.2 420.9,162.0 429.9,129.8 434.4,110.4 438.9,100.8 443.5,91.1 448.0,84.7 452.5,84.7 457.0,75.0 466.1,55.6 470.6,62.1 475.1,58.9 479.6,58.9 484.1,62.1 488.6,65.3 493.1,65.3 497.7,62.1 502.2,52.4 506.7,46.0 511.2,49.2 515.7,42.8 524.8,36.3 529.3,49.2 533.8,49.2 538.3,55.6 542.8,65.3 547.4,75.0 551.9,78.2 556.4,81.4 565.4,91.1 569.9,94.3 574.4,100.8 579.0,104.0 583.5,107.2 588.0,107.2 588.0,192.0" fill="url(#gradHistorico)"/>
+      <polyline points="46.0,100.8 50.5,104.0 55.0,107.2 59.5,110.4 64.1,116.9 68.6,116.9 73.1,120.1 77.6,120.1 82.1,123.3 86.7,126.6 91.2,129.8 95.7,126.6 100.2,129.8 104.7,129.8 109.2,133.0 113.8,136.2 118.3,142.7 122.8,145.9 127.3,152.4 131.8,152.4 136.3,155.6 140.8,162.0 145.4,165.2 149.9,168.5 154.4,171.7 158.9,171.7 163.4,171.7 167.9,171.7 172.5,168.5 177.0,165.2 181.5,165.2 186.0,165.2 190.5,168.5 195.1,165.2 199.6,165.2 204.1,162.0 213.1,100.8 217.6,81.4 222.2,81.4 226.7,84.7 231.2,87.9 235.7,97.6 240.2,107.2 244.7,116.9 249.2,120.1 253.8,120.1 258.3,126.6 262.8,133.0 267.3,139.5 276.4,145.9 280.9,149.1 285.4,152.4 289.9,152.4 294.4,152.4 298.9,152.4 303.4,152.4 312.5,142.7 317.0,136.2 321.5,133.0 326.0,126.6 335.1,123.3 344.1,126.6 348.6,133.0 353.1,136.2 362.2,145.9 366.7,152.4 371.2,155.6 375.7,155.6 380.2,162.0 389.3,162.0 393.8,162.0 398.3,162.0 402.8,162.0 407.3,168.5 411.9,168.5 416.4,165.2 420.9,162.0 429.9,129.8 434.4,110.4 438.9,100.8 443.5,91.1 448.0,84.7 452.5,84.7 457.0,75.0 466.1,55.6 470.6,62.1 475.1,58.9 479.6,58.9 484.1,62.1 488.6,65.3 493.1,65.3 497.7,62.1 502.2,52.4 506.7,46.0 511.2,49.2 515.7,42.8 524.8,36.3 529.3,49.2 533.8,49.2 538.3,55.6 542.8,65.3 547.4,75.0 551.9,78.2 556.4,81.4 565.4,91.1 569.9,94.3 574.4,100.8 579.0,104.0 583.5,107.2 588.0,107.2" fill="none" stroke="#C48A4A" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
+      <text x="82.1" y="212" text-anchor="middle" font-size="10" font-family="Courier New, monospace" fill="#7c9190">Qua 02/09</text><text x="174.7" y="212" text-anchor="middle" font-size="10" font-family="Courier New, monospace" fill="#7c9190">Qui 03/09</text><text x="283.1" y="212" text-anchor="middle" font-size="10" font-family="Courier New, monospace" fill="#7c9190">Sex 04/09</text><text x="393.8" y="212" text-anchor="middle" font-size="10" font-family="Courier New, monospace" fill="#7c9190">Sáb 05/09</text><text x="499.9" y="212" text-anchor="middle" font-size="10" font-family="Courier New, monospace" fill="#7c9190">Dom 06/09</text><text x="572.2" y="212" text-anchor="middle" font-size="10" font-family="Courier New, monospace" fill="#7c9190">Seg 07/09</text>
     </svg>
             <div style="display:flex; justify-content:space-between; margin-top:12px; font-size:11px; color:#7c9190;">
               <span>1,57 m &middot; mínimo</span>
@@ -281,7 +303,7 @@ body { margin:0; background-color:#0f2027; }
     <td style="padding:24px 28px 8px 28px; border-top:1px solid #2a3f43; font-family:'Segoe UI', Arial, sans-serif;">
       <h3 style="margin:0 0 4px 0; font-size:17.5px; text-transform:uppercase; letter-spacing:1px; color:#eef2f1; font-weight:700;">Outros rios monitorados</h3>
       <div style="margin-top:8px;">
-        <span style="display:inline-block; margin:0 6px 6px 0; padding:4px 9px; border-radius:999px; font-size:15px; font-weight:600; border:1px solid #2f5540; background-color:#1c3328; color:#5ecb8f; font-family:'Courier New', monospace;">Normal 15</span>
+        <span style="display:inline-block; margin:0 6px 6px 0; padding:4px 9px; border-radius:999px; font-size:15px; font-weight:600; border:1px solid #2f5540; background-color:#1c3328; color:#5ecb8f; font-family:'Courier New', monospace;">Normal 16</span>
         <span style="display:inline-block; margin:0 6px 6px 0; padding:4px 9px; border-radius:999px; font-size:15px; font-weight:600; border:1px solid #5c4a26; background-color:#3a2f18; color:#f0a839; font-family:'Courier New', monospace;">Elevado 2</span>
         <span style="display:inline-block; margin:0 6px 6px 0; padding:4px 9px; border-radius:999px; font-size:15px; font-weight:600; border:1px solid #5c3a26; background-color:#3a2418; color:#ef8a4d; font-family:'Courier New', monospace;">Muito alto 0</span>
         <span style="display:inline-block; margin:0 6px 6px 0; padding:4px 9px; border-radius:999px; font-size:15px; font-weight:600; border:1px solid #5c3026; background-color:#3a1e18; color:#ef5a4d; font-family:'Courier New', monospace;">Extremo 0</span>
@@ -299,31 +321,31 @@ body { margin:0; background-color:#0f2027; }
 <tr><td colspan="5" style="padding:16px 0 6px 0; border-bottom:1px solid #344d52; font-size:16px; font-weight:700; text-transform:uppercase; letter-spacing:.5px; color:#eef2f1;">Taquari</td></tr>
 <tr style="">
           <td style="padding:8px 4px 8px 0; color:#5ecb8f;">&#9679; <a href="https://horizontersai.github.io/horizonte-paginas/rio-mucum.html" style="color:#5ecb8f; text-decoration:none; border-bottom:1px dotted #5ecb8f;">Muçum</a></td>
-          <td align="right" style="padding:8px 4px; font-family:'Courier New', monospace; font-size:15px; color:#7c9190;">&#9660; 8,1 cm/h</td>
-          <td align="right" style="padding:8px 4px; font-family:'Courier New', monospace; font-size:16px; color:#5ecb8f; font-weight:600;">3,33 m</td>
+          <td align="right" style="padding:8px 4px; font-family:'Courier New', monospace; font-size:15px; color:#7c9190;">&#9660; 7,4 cm/h</td>
+          <td align="right" style="padding:8px 4px; font-family:'Courier New', monospace; font-size:16px; color:#5ecb8f; font-weight:600;">3,29 m</td>
           <td align="right" style="padding:8px 4px; font-family:'Courier New', monospace; font-size:15px; color:#7c9190;">18,00 m</td>
-          <td align="right" style="padding:8px 0 8px 4px; font-family:'Courier New', monospace; font-size:16px; color:#5ecb8f; font-weight:600;">3,92 m</td>
+          <td align="right" style="padding:8px 0 8px 4px; font-family:'Courier New', monospace; font-size:16px; color:#5ecb8f; font-weight:600;">3,88 m</td>
         </tr>
 <tr style="border-top:1px solid #2a3f43;">
           <td style="padding:8px 4px 8px 0; color:#5ecb8f;">&#9679; <a href="https://horizontersai.github.io/horizonte-paginas/rio-encantado.html" style="color:#5ecb8f; text-decoration:none; border-bottom:1px dotted #5ecb8f;">Encantado</a></td>
           <td align="right" style="padding:8px 4px; font-family:'Courier New', monospace; font-size:15px; color:#7c9190;">&#9660; 6,4 cm/h</td>
-          <td align="right" style="padding:8px 4px; font-family:'Courier New', monospace; font-size:16px; color:#5ecb8f; font-weight:600;">1,72 m</td>
+          <td align="right" style="padding:8px 4px; font-family:'Courier New', monospace; font-size:16px; color:#5ecb8f; font-weight:600;">1,68 m</td>
           <td align="right" style="padding:8px 4px; font-family:'Courier New', monospace; font-size:15px; color:#7c9190;">12,00 m</td>
-          <td align="right" style="padding:8px 0 8px 4px; font-family:'Courier New', monospace; font-size:16px; color:#5ecb8f; font-weight:600;">2,04 m</td>
+          <td align="right" style="padding:8px 0 8px 4px; font-family:'Courier New', monospace; font-size:16px; color:#5ecb8f; font-weight:600;">2,00 m</td>
         </tr>
 <tr style="border-top:1px solid #2a3f43;">
           <td style="padding:8px 4px 8px 0; color:#5ecb8f;">&#9679; <a href="https://horizontersai.github.io/horizonte-paginas/rio-roca-sales.html" style="color:#5ecb8f; text-decoration:none; border-bottom:1px dotted #5ecb8f;">Roca Sales</a></td>
-          <td align="right" style="padding:8px 4px; font-family:'Courier New', monospace; font-size:15px; color:#7c9190;">&#9650; 16,0 cm/h</td>
-          <td align="right" style="padding:8px 4px; font-family:'Courier New', monospace; font-size:16px; color:#5ecb8f; font-weight:600;">6,01 m</td>
+          <td align="right" style="padding:8px 4px; font-family:'Courier New', monospace; font-size:15px; color:#7c9190;">&#9650; 12,0 cm/h</td>
+          <td align="right" style="padding:8px 4px; font-family:'Courier New', monospace; font-size:16px; color:#5ecb8f; font-weight:600;">5,98 m</td>
           <td align="right" style="padding:8px 4px; font-family:'Courier New', monospace; font-size:15px; color:#7c9190;">18,00 m</td>
-          <td align="right" style="padding:8px 0 8px 4px; font-family:'Courier New', monospace; font-size:16px; color:#5ecb8f; font-weight:600;">9,85 m</td>
+          <td align="right" style="padding:8px 0 8px 4px; font-family:'Courier New', monospace; font-size:16px; color:#5ecb8f; font-weight:600;">8,86 m</td>
         </tr>
 <tr style="border-top:1px solid #2a3f43;">
           <td style="padding:8px 4px 8px 0; color:#5ecb8f;">&#9679; <a href="https://horizontersai.github.io/horizonte-paginas/rio-lajeado.html" style="color:#5ecb8f; text-decoration:none; border-bottom:1px dotted #5ecb8f;">Lajeado</a></td>
-          <td align="right" style="padding:8px 4px; font-family:'Courier New', monospace; font-size:15px; color:#7c9190;">&#9650; 10,5 cm/h</td>
-          <td align="right" style="padding:8px 4px; font-family:'Courier New', monospace; font-size:16px; color:#5ecb8f; font-weight:600;">13,08 m</td>
+          <td align="right" style="padding:8px 4px; font-family:'Courier New', monospace; font-size:15px; color:#7c9190;">&#9650; 11,4 cm/h</td>
+          <td align="right" style="padding:8px 4px; font-family:'Courier New', monospace; font-size:16px; color:#5ecb8f; font-weight:600;">13,14 m</td>
           <td align="right" style="padding:8px 4px; font-family:'Courier New', monospace; font-size:15px; color:#7c9190;">19,00 m</td>
-          <td align="right" style="padding:8px 0 8px 4px; font-family:'Courier New', monospace; font-size:16px; color:#f0a839; font-weight:600;">13,90 m</td>
+          <td align="right" style="padding:8px 0 8px 4px; font-family:'Courier New', monospace; font-size:16px; color:#f0a839; font-weight:600;">13,99 m</td>
         </tr>
 <tr style="border-top:1px solid #2a3f43;">
           <td style="padding:8px 4px 8px 0; color:#5ecb8f;">&#9679; <a href="https://horizontersai.github.io/horizonte-paginas/rio-santa-tereza.html" style="color:#5ecb8f; text-decoration:none; border-bottom:1px dotted #5ecb8f;">Santa Tereza</a></td>
@@ -334,10 +356,10 @@ body { margin:0; background-color:#0f2027; }
         </tr>
 <tr style="border-top:1px solid #2a3f43;">
           <td style="padding:8px 4px 8px 0; color:#5ecb8f;">&#9679; <a href="https://horizontersai.github.io/horizonte-paginas/rio-bom-retiro-do-sul.html" style="color:#5ecb8f; text-decoration:none; border-bottom:1px dotted #5ecb8f;">Bom Retiro do Sul</a></td>
-          <td align="right" style="padding:8px 4px; font-family:'Courier New', monospace; font-size:15px; color:#7c9190;">&#9660; 2,0 cm/h</td>
-          <td align="right" style="padding:8px 4px; font-family:'Courier New', monospace; font-size:16px; color:#5ecb8f; font-weight:600;">3,52 m</td>
+          <td align="right" style="padding:8px 4px; font-family:'Courier New', monospace; font-size:15px; color:#7c9190;">&#9650; 4,1 cm/h</td>
+          <td align="right" style="padding:8px 4px; font-family:'Courier New', monospace; font-size:16px; color:#5ecb8f; font-weight:600;">3,89 m</td>
           <td align="right" style="padding:8px 4px; font-family:'Courier New', monospace; font-size:15px; color:#7c9190;">19,00 m</td>
-          <td align="right" style="padding:8px 0 8px 4px; font-family:'Courier New', monospace; font-size:16px; color:#5ecb8f; font-weight:600;">4,46 m</td>
+          <td align="right" style="padding:8px 0 8px 4px; font-family:'Courier New', monospace; font-size:16px; color:#5ecb8f; font-weight:600;">4,93 m</td>
         </tr>
 <tr style="border-top:1px solid #2a3f43;">
           <td style="padding:8px 4px 8px 0; color:#5ecb8f;">&#9679; <a href="https://horizontersai.github.io/horizonte-paginas/rio-taquari.html" style="color:#5ecb8f; text-decoration:none; border-bottom:1px dotted #5ecb8f;">Taquari</a></td>
@@ -349,24 +371,24 @@ body { margin:0; background-color:#0f2027; }
 <tr><td colspan="5" style="padding:16px 0 6px 0; border-bottom:1px solid #344d52; font-size:16px; font-weight:700; text-transform:uppercase; letter-spacing:.5px; color:#eef2f1;">Caí</td></tr>
 <tr style="">
           <td style="padding:8px 4px 8px 0; color:#5ecb8f;">&#9679; <a href="https://horizontersai.github.io/horizonte-paginas/rio-feliz.html" style="color:#5ecb8f; text-decoration:none; border-bottom:1px dotted #5ecb8f;">Feliz</a></td>
-          <td align="right" style="padding:8px 4px; font-family:'Courier New', monospace; font-size:15px; color:#7c9190;">= -0,3 cm/h</td>
-          <td align="right" style="padding:8px 4px; font-family:'Courier New', monospace; font-size:16px; color:#5ecb8f; font-weight:600;">1,53 m</td>
+          <td align="right" style="padding:8px 4px; font-family:'Courier New', monospace; font-size:15px; color:#7c9190;">= -0,4 cm/h</td>
+          <td align="right" style="padding:8px 4px; font-family:'Courier New', monospace; font-size:16px; color:#5ecb8f; font-weight:600;">1,52 m</td>
           <td align="right" style="padding:8px 4px; font-family:'Courier New', monospace; font-size:15px; color:#7c9190;">9,00 m</td>
-          <td align="right" style="padding:8px 0 8px 4px; font-family:'Courier New', monospace; font-size:16px; color:#5ecb8f; font-weight:600;">1,60 m</td>
+          <td align="right" style="padding:8px 0 8px 4px; font-family:'Courier New', monospace; font-size:16px; color:#5ecb8f; font-weight:600;">1,59 m</td>
         </tr>
 <tr style="border-top:1px solid #2a3f43;">
           <td style="padding:8px 4px 8px 0; color:#5ecb8f;">&#9679; <a href="https://horizontersai.github.io/horizonte-paginas/rio-sao-sebastiao-do-cai.html" style="color:#5ecb8f; text-decoration:none; border-bottom:1px dotted #5ecb8f;">São Sebastião do Caí</a></td>
-          <td align="right" style="padding:8px 4px; font-family:'Courier New', monospace; font-size:15px; color:#7c9190;">&#9660; 1,3 cm/h</td>
-          <td align="right" style="padding:8px 4px; font-family:'Courier New', monospace; font-size:16px; color:#5ecb8f; font-weight:600;">3,45 m</td>
+          <td align="right" style="padding:8px 4px; font-family:'Courier New', monospace; font-size:15px; color:#7c9190;">&#9660; 1,4 cm/h</td>
+          <td align="right" style="padding:8px 4px; font-family:'Courier New', monospace; font-size:16px; color:#5ecb8f; font-weight:600;">3,43 m</td>
           <td align="right" style="padding:8px 4px; font-family:'Courier New', monospace; font-size:15px; color:#7c9190;">10,00 m</td>
-          <td align="right" style="padding:8px 0 8px 4px; font-family:'Courier New', monospace; font-size:16px; color:#5ecb8f; font-weight:600;">4,31 m</td>
+          <td align="right" style="padding:8px 0 8px 4px; font-family:'Courier New', monospace; font-size:16px; color:#5ecb8f; font-weight:600;">4,28 m</td>
         </tr>
 <tr style="border-top:1px solid #2a3f43;">
           <td style="padding:8px 4px 8px 0; color:#5ecb8f;">&#9679; <a href="https://horizontersai.github.io/horizonte-paginas/rio-montenegro.html" style="color:#5ecb8f; text-decoration:none; border-bottom:1px dotted #5ecb8f;">Montenegro</a></td>
           <td align="right" style="padding:8px 4px; font-family:'Courier New', monospace; font-size:15px; color:#7c9190;">&#9660; 1,6 cm/h</td>
-          <td align="right" style="padding:8px 4px; font-family:'Courier New', monospace; font-size:16px; color:#5ecb8f; font-weight:600;">2,13 m</td>
+          <td align="right" style="padding:8px 4px; font-family:'Courier New', monospace; font-size:16px; color:#5ecb8f; font-weight:600;">2,12 m</td>
           <td align="right" style="padding:8px 4px; font-family:'Courier New', monospace; font-size:15px; color:#7c9190;">6,00 m</td>
-          <td align="right" style="padding:8px 0 8px 4px; font-family:'Courier New', monospace; font-size:16px; color:#5ecb8f; font-weight:600;">2,38 m</td>
+          <td align="right" style="padding:8px 0 8px 4px; font-family:'Courier New', monospace; font-size:16px; color:#5ecb8f; font-weight:600;">2,37 m</td>
         </tr>
 <tr><td colspan="5" style="padding:16px 0 6px 0; border-bottom:1px solid #344d52; font-size:16px; font-weight:700; text-transform:uppercase; letter-spacing:.5px; color:#eef2f1;">Gravataí</td></tr>
 <tr style="">
@@ -374,55 +396,62 @@ body { margin:0; background-color:#0f2027; }
           <td align="right" style="padding:8px 4px; font-family:'Courier New', monospace; font-size:15px; color:#7c9190;">= -0,3 cm/h</td>
           <td align="right" style="padding:8px 4px; font-family:'Courier New', monospace; font-size:16px; color:#f0a839; font-weight:600;">3,33 m</td>
           <td align="right" style="padding:8px 4px; font-family:'Courier New', monospace; font-size:15px; color:#7c9190;">4,75 m</td>
-          <td align="right" style="padding:8px 0 8px 4px; font-family:'Courier New', monospace; font-size:16px; color:#f0a839; font-weight:600;">3,66 m</td>
+          <td align="right" style="padding:8px 0 8px 4px; font-family:'Courier New', monospace; font-size:16px; color:#f0a839; font-weight:600;">3,65 m</td>
         </tr>
 <tr><td colspan="5" style="padding:16px 0 6px 0; border-bottom:1px solid #344d52; font-size:16px; font-weight:700; text-transform:uppercase; letter-spacing:.5px; color:#eef2f1;">Jacuí</td></tr>
 <tr style="">
           <td style="padding:8px 4px 8px 0; color:#5ecb8f;">&#9679; <a href="https://horizontersai.github.io/horizonte-paginas/rio-dona-francisca.html" style="color:#5ecb8f; text-decoration:none; border-bottom:1px dotted #5ecb8f;">Dona Francisca</a></td>
-          <td align="right" style="padding:8px 4px; font-family:'Courier New', monospace; font-size:15px; color:#7c9190;">&#9650; 6,3 cm/h</td>
-          <td align="right" style="padding:8px 4px; font-family:'Courier New', monospace; font-size:16px; color:#5ecb8f; font-weight:600;">2,61 m</td>
+          <td align="right" style="padding:8px 4px; font-family:'Courier New', monospace; font-size:15px; color:#7c9190;">&#9650; 4,2 cm/h</td>
+          <td align="right" style="padding:8px 4px; font-family:'Courier New', monospace; font-size:16px; color:#5ecb8f; font-weight:600;">2,62 m</td>
           <td align="right" style="padding:8px 4px; font-family:'Courier New', monospace; font-size:15px; color:#7c9190;">7,50 m</td>
-          <td align="right" style="padding:8px 0 8px 4px; font-family:'Courier New', monospace; font-size:16px; color:#5ecb8f; font-weight:600;">3,04 m</td>
+          <td align="right" style="padding:8px 0 8px 4px; font-family:'Courier New', monospace; font-size:16px; color:#5ecb8f; font-weight:600;">3,05 m</td>
         </tr>
 <tr style="border-top:1px solid #2a3f43;">
           <td style="padding:8px 4px 8px 0; color:#5ecb8f;">&#9679; <a href="https://horizontersai.github.io/horizonte-paginas/rio-cachoeira-do-sul.html" style="color:#5ecb8f; text-decoration:none; border-bottom:1px dotted #5ecb8f;">Cachoeira do Sul</a></td>
-          <td align="right" style="padding:8px 4px; font-family:'Courier New', monospace; font-size:15px; color:#7c9190;">&#9660; 8,8 cm/h</td>
-          <td align="right" style="padding:8px 4px; font-family:'Courier New', monospace; font-size:16px; color:#5ecb8f; font-weight:600;">2,54 m</td>
+          <td align="right" style="padding:8px 4px; font-family:'Courier New', monospace; font-size:15px; color:#7c9190;">&#9660; 8,2 cm/h</td>
+          <td align="right" style="padding:8px 4px; font-family:'Courier New', monospace; font-size:16px; color:#5ecb8f; font-weight:600;">2,47 m</td>
           <td align="right" style="padding:8px 4px; font-family:'Courier New', monospace; font-size:15px; color:#7c9190;">9,00 m</td>
-          <td align="right" style="padding:8px 0 8px 4px; font-family:'Courier New', monospace; font-size:16px; color:#5ecb8f; font-weight:600;">2,81 m</td>
+          <td align="right" style="padding:8px 0 8px 4px; font-family:'Courier New', monospace; font-size:16px; color:#5ecb8f; font-weight:600;">2,78 m</td>
         </tr>
 <tr style="border-top:1px solid #2a3f43;">
           <td style="padding:8px 4px 8px 0; color:#5ecb8f;">&#9679; <a href="https://horizontersai.github.io/horizonte-paginas/rio-rio-pardo.html" style="color:#5ecb8f; text-decoration:none; border-bottom:1px dotted #5ecb8f;">Rio Pardo</a></td>
-          <td align="right" style="padding:8px 4px; font-family:'Courier New', monospace; font-size:15px; color:#7c9190;">&#9660; 8,8 cm/h</td>
-          <td align="right" style="padding:8px 4px; font-family:'Courier New', monospace; font-size:16px; color:#5ecb8f; font-weight:600;">3,92 m</td>
+          <td align="right" style="padding:8px 4px; font-family:'Courier New', monospace; font-size:15px; color:#7c9190;">&#9660; 8,2 cm/h</td>
+          <td align="right" style="padding:8px 4px; font-family:'Courier New', monospace; font-size:16px; color:#5ecb8f; font-weight:600;">3,84 m</td>
           <td align="right" style="padding:8px 4px; font-family:'Courier New', monospace; font-size:15px; color:#7c9190;">12,50 m</td>
-          <td align="right" style="padding:8px 0 8px 4px; font-family:'Courier New', monospace; font-size:16px; color:#5ecb8f; font-weight:600;">3,93 m</td>
+          <td align="right" style="padding:8px 0 8px 4px; font-family:'Courier New', monospace; font-size:16px; color:#5ecb8f; font-weight:600;">3,85 m</td>
         </tr>
 <tr style="border-top:1px solid #2a3f43;">
           <td style="padding:8px 4px 8px 0; color:#5ecb8f;">&#9679; <a href="https://horizontersai.github.io/horizonte-paginas/rio-sao-jeronimo.html" style="color:#5ecb8f; text-decoration:none; border-bottom:1px dotted #5ecb8f;">São Jerônimo</a></td>
           <td align="right" style="padding:8px 4px; font-family:'Courier New', monospace; font-size:15px; color:#7c9190;">&#9660; 2,2 cm/h</td>
-          <td align="right" style="padding:8px 4px; font-family:'Courier New', monospace; font-size:16px; color:#5ecb8f; font-weight:600;">1,69 m</td>
+          <td align="right" style="padding:8px 4px; font-family:'Courier New', monospace; font-size:16px; color:#5ecb8f; font-weight:600;">1,67 m</td>
           <td align="right" style="padding:8px 4px; font-family:'Courier New', monospace; font-size:15px; color:#7c9190;">4,64 m</td>
-          <td align="right" style="padding:8px 0 8px 4px; font-family:'Courier New', monospace; font-size:16px; color:#5ecb8f; font-weight:600;">1,69 m</td>
+          <td align="right" style="padding:8px 0 8px 4px; font-family:'Courier New', monospace; font-size:16px; color:#5ecb8f; font-weight:600;">1,67 m</td>
         </tr>
 <tr style="border-top:1px solid #2a3f43;">
           <td style="padding:8px 4px 8px 0; color:#7c9190;">&#9679; <a href="https://horizontersai.github.io/horizonte-paginas/rio-eldorado-do-sul-itai.html" style="color:#7c9190; text-decoration:none; border-bottom:1px dotted #7c9190;">Eldorado do Sul (Itaí)</a></td>
-          <td align="right" style="padding:8px 4px; font-family:'Courier New', monospace; font-size:15px; color:#7c9190;">= -0,5 cm/h</td>
-          <td align="right" style="padding:8px 4px; font-family:'Courier New', monospace; font-size:16px; color:#7c9190; font-weight:600;">1,38 m</td>
+          <td align="right" style="padding:8px 4px; font-family:'Courier New', monospace; font-size:15px; color:#7c9190;">= 0,1 cm/h</td>
+          <td align="right" style="padding:8px 4px; font-family:'Courier New', monospace; font-size:16px; color:#7c9190; font-weight:600;">1,37 m</td>
           <td align="right" style="padding:8px 4px; font-family:'Courier New', monospace; font-size:15px; color:#7c9190;">? m</td>
           <td align="right" style="padding:8px 0 8px 4px; font-family:'Courier New', monospace; font-size:16px; color:#7c9190; font-weight:600;">1,38 m</td>
         </tr>
 <tr><td colspan="5" style="padding:16px 0 6px 0; border-bottom:1px solid #344d52; font-size:16px; font-weight:700; text-transform:uppercase; letter-spacing:.5px; color:#eef2f1;">Sinos</td></tr>
+<tr style="">
+          <td style="padding:8px 4px 8px 0; color:#5ecb8f;">&#9679; <a href="https://horizontersai.github.io/horizonte-paginas/rio-taquara.html" style="color:#5ecb8f; text-decoration:none; border-bottom:1px dotted #5ecb8f;">Taquara</a></td>
+          <td align="right" style="padding:8px 4px; font-family:'Courier New', monospace; font-size:15px; color:#7c9190;">?</td>
+          <td align="right" style="padding:8px 4px; font-family:'Courier New', monospace; font-size:16px; color:#5ecb8f; font-weight:600;">1,60 m</td>
+          <td align="right" style="padding:8px 4px; font-family:'Courier New', monospace; font-size:15px; color:#7c9190;">6,00 m</td>
+          <td align="right" style="padding:8px 0 8px 4px; font-family:'Courier New', monospace; font-size:16px; color:#5ecb8f; font-weight:600;">1,60 m</td>
+        </tr>
 <tr style="border-top:1px solid #2a3f43;">
           <td style="padding:8px 4px 8px 0; color:#5ecb8f;">&#9679; <a href="https://horizontersai.github.io/horizonte-paginas/rio-campo-bom.html" style="color:#5ecb8f; text-decoration:none; border-bottom:1px dotted #5ecb8f;">Campo Bom</a></td>
-          <td align="right" style="padding:8px 4px; font-family:'Courier New', monospace; font-size:15px; color:#7c9190;">&#9660; 1,3 cm/h</td>
-          <td align="right" style="padding:8px 4px; font-family:'Courier New', monospace; font-size:16px; color:#5ecb8f; font-weight:600;">4,59 m</td>
+          <td align="right" style="padding:8px 4px; font-family:'Courier New', monospace; font-size:15px; color:#7c9190;">&#9660; 1,5 cm/h</td>
+          <td align="right" style="padding:8px 4px; font-family:'Courier New', monospace; font-size:16px; color:#5ecb8f; font-weight:600;">4,57 m</td>
           <td align="right" style="padding:8px 4px; font-family:'Courier New', monospace; font-size:15px; color:#7c9190;">6,80 m</td>
-          <td align="right" style="padding:8px 0 8px 4px; font-family:'Courier New', monospace; font-size:16px; color:#5ecb8f; font-weight:600;">4,59 m</td>
+          <td align="right" style="padding:8px 0 8px 4px; font-family:'Courier New', monospace; font-size:16px; color:#5ecb8f; font-weight:600;">4,57 m</td>
         </tr>
 <tr style="border-top:1px solid #2a3f43;">
           <td style="padding:8px 4px 8px 0; color:#f0a839;">&#9679; <a href="https://horizontersai.github.io/horizonte-paginas/rio-sao-leopoldo.html" style="color:#f0a839; text-decoration:none; border-bottom:1px dotted #f0a839;">São Leopoldo</a></td>
-          <td align="right" style="padding:8px 4px; font-family:'Courier New', monospace; font-size:15px; color:#7c9190;">&#9660; 0,5 cm/h</td>
+          <td align="right" style="padding:8px 4px; font-family:'Courier New', monospace; font-size:15px; color:#7c9190;">= -0,5 cm/h</td>
           <td align="right" style="padding:8px 4px; font-family:'Courier New', monospace; font-size:16px; color:#f0a839; font-weight:600;">3,47 m</td>
           <td align="right" style="padding:8px 4px; font-family:'Courier New', monospace; font-size:15px; color:#7c9190;">4,50 m</td>
           <td align="right" style="padding:8px 0 8px 4px; font-family:'Courier New', monospace; font-size:16px; color:#f0a839; font-weight:600;">3,79 m</td>
@@ -445,6 +474,13 @@ body { margin:0; background-color:#0f2027; }
        marcador vira um botão de verdade só na página pública, nunca no
        e-mail (push exige aba de navegador de verdade com Service
        Worker) - aqui é só um comentário HTML inerte. -->
+
+  <script type="application/json" id="horizonte-help-data">{"status-pa": {"titulo": "Nível do Guaíba em Porto Alegre", "oQue": "O número mais importante do boletim: o nível real da água agora mesmo, medido pela régua oficial da ANA no Cais Mauá a cada ~15 minutos. A barra colorida mostra a distância até os 3 patamares de risco: Atenção, Alerta e Inundação.", "comoInterpretar": "Quanto mais preenchida a barra, mais perto da inundação. A tendência (subindo/descendo, em cm/h) mostra o que o rio está fazendo agora - não é previsão, é o que já está acontecendo."}, "previsao-dias": {"titulo": "Previsão do nível nos próximos dias", "oQue": "Uma estimativa de qual deve ser o nível do rio daqui a 36h, 72h e 120h (5 dias), calculada a partir da tendência atual, da chuva prevista pra bacia inteira e, quando disponível, do efeito do vento e da pressão do ar sobre o Guaíba.", "comoInterpretar": "É uma estimativa, não uma certeza - pode mudar de uma leitura pra outra, principalmente se a chuva prevista mudar. Quanto mais distante o horizonte (120h é mais incerto que 36h), menos exato tende a ser o número - por isso o boletim é atualizado 4 vezes por dia."}, "chance-cota": {"titulo": "Chance de passar de cada cota", "oQue": "Complementa a previsão acima com uma leitura de quão perto o cenário está de cada patamar de risco, baseada em quase 6 anos de leituras reais da régua - não é um número inventado, vem de comparar a situação de hoje com situações parecidas no passado.", "comoInterpretar": "É uma classificação (Muito baixa a Muito alta), nunca uma porcentagem exata - de propósito, pra não passar uma falsa sensação de precisão. Quanto mais alta a classificação, mais vezes situações parecidas no passado realmente ultrapassaram aquela cota depois."}, "chuva-prevista": {"titulo": "Chuva prevista, rio a rio", "oQue": "Quanto de chuva o modelo meteorológico espera para cada rio da bacia, dia a dia, nos próximos dias. É a mesma chuva que alimenta a previsão de nível acima - mostrada separada pra você ver de onde vem o palpite.", "comoInterpretar": "Vem do Open-Meteo (previsão de terceiros, a mesma fonte que qualquer aplicativo de tempo usa) e pode mudar de uma leitura pra outra - chuva é a parte mais difícil de prever com precisão. Cores mais fortes indicam chuva mais intensa naquele dia (ver legenda abaixo da tabela)."}, "historico": {"titulo": "Histórico realizado", "oQue": "O nível REAL medido pela régua nos últimos dias - diferente de tudo mais no boletim, aqui não tem nenhuma previsão, é só o que já aconteceu de fato.", "comoInterpretar": "Serve pra ver a tendência recente com mais contexto do que só o número de agora - se o rio vem subindo, descendo ou estável. As linhas tracejadas marcam os patamares de risco, quando aparecem dentro da faixa mostrada no gráfico."}}</script><!-- ver gerar_boletim_artifact.py: vira um
+       <script type="application/json"> de verdade só na página pública
+       (mesmo padrão do marcador acima) - os botões "?" plantados em cada
+       quadro (.help-slot) só fazem algo quando esse dado existe. No
+       e-mail fica como comentário HTML inerte: os botões nunca aparecem
+       lá (Gmail não roda JS mesmo, então nem faria sentido). -->
 
   <tr>
     <td style="padding:0 28px 20px 28px; text-align:center; font-family:'Segoe UI', Arial, sans-serif; font-size:15.5px; color:#7c9190;">
@@ -515,6 +551,62 @@ window.addEventListener("load", function () {
   }
   ajustarEscala();
   window.addEventListener("resize", ajustarEscala);
+})();
+(function () {
+  // Botão "?" em cada quadro (07/09/2026, pedido do usuário) - mecanismo
+  // genérico e reaproveitável por QUALQUER página empacotada aqui: acha
+  // o dado em #horizonte-help-data (só existe se o gerador da página
+  // tiver plantado o marcador HORIZONTE_HELP_DATA, ou embutido o script
+  // direto - ver gerar_email_execucao.py/gerar_boletim_artifact.py/
+  // gerar_pagina_rio.py) e os placeholders .help-slot[data-help="chave"]
+  // plantados dentro de cada card, troca cada um por um botão de
+  // verdade. Sem nenhum dos dois, não faz nada - seguro rodar em
+  // qualquer página, mesmo uma que ainda não adotou isso.
+  var dataEl = document.getElementById("horizonte-help-data");
+  if (!dataEl) return;
+  var HELP;
+  try { HELP = JSON.parse(dataEl.textContent); } catch (e) { return; }
+  var slots = document.querySelectorAll(".help-slot[data-help]");
+  if (!slots.length) return;
+  // Janela flutuante (não modal de fundo escuro), sempre CENTRALIZADA na
+  // tela (07/09/2026, pedido do usuário) - um único elemento reaproveitado
+  // por todos os botões, css cuida da centralização (position:fixed +
+  // transform, ver .help-popup acima), JS só troca o conteúdo e mostra.
+  var popup = document.createElement("div");
+  popup.className = "help-popup";
+  popup.innerHTML = '<button class="close" type="button" aria-label="Fechar">&times;</button><h4></h4><p class="secao-lbl">O que é</p><p class="help-oque"></p><p class="secao-lbl">Como interpretar</p><p class="help-como"></p>';
+  document.body.appendChild(popup);
+  var elTitulo = popup.querySelector("h4");
+  var elOQue = popup.querySelector(".help-oque");
+  var elComo = popup.querySelector(".help-como");
+  function fecharHelp() {
+    popup.classList.remove("show");
+  }
+  popup.querySelector(".close").addEventListener("click", fecharHelp);
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape") fecharHelp(); });
+  document.addEventListener("click", function (e) {
+    if (popup.classList.contains("show") && !popup.contains(e.target) && !e.target.classList.contains("help-btn")) {
+      fecharHelp();
+    }
+  });
+  slots.forEach(function (slot) {
+    var info = HELP[slot.dataset.help];
+    if (!info) return;
+    var btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "help-btn";
+    btn.textContent = "?";
+    btn.setAttribute("aria-label", "O que é isso?");
+    btn.addEventListener("click", function (e) {
+      e.stopPropagation();
+      elTitulo.textContent = info.titulo;
+      elOQue.textContent = info.oQue;
+      elComo.textContent = info.comoInterpretar;
+      popup.classList.add("show");
+    });
+    slot.parentElement.style.position = "relative";
+    slot.replaceWith(btn);
+  });
 })();
 </script>
 </body>

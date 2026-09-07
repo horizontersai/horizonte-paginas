@@ -21,6 +21,23 @@
 <style>
 html { -webkit-text-size-adjust:100%; -ms-text-size-adjust:100%; text-size-adjust:100%; }
 body { margin:0; background-color:#0f2027; }
+.help-slot { display:none; }
+.help-btn { position:absolute; top:12px; right:14px; width:22px; height:22px; border-radius:50%; border:1px solid #344d52; background:#16262a; color:#7c9190; font-family:'Segoe UI',Arial,sans-serif; font-size:12px; font-weight:700; line-height:1; cursor:pointer; display:flex; align-items:center; justify-content:center; padding:0; z-index:2; }
+.help-btn:hover { border-color:#C48A4A; color:#C48A4A; }
+/* Janela flutuante, não modal de fundo escuro (07/09/2026, pedido do
+   usuário: "assim como já fizemos em outras partes do projeto") - mesmo
+   visual do .popup de gerar_mapa_bacias.py (card sem escurecer o resto
+   da tela), mas sempre CENTRALIZADA na tela (07/09/2026, correção do
+   usuário: a versão anterior posicionava perto do botão clicado, como
+   o mapa faz em telas largas - pedido explícito pra sempre centralizar,
+   independente do tamanho da tela). */
+.help-popup { display:none; position:fixed; z-index:50; top:50%; left:50%; transform:translate(-50%,-50%); width:min(300px, 88vw); background:#1c2f33; border:1px solid #344d52; border-radius:12px; padding:16px 18px; box-shadow:0 12px 32px rgba(0,0,0,.45); font-family:'Segoe UI',Arial,sans-serif; max-height:80vh; overflow-y:auto; }
+.help-popup.show { display:block; }
+.help-popup .close { position:absolute; top:8px; right:10px; background:none; border:none; cursor:pointer; color:#7c9190; font-size:18px; line-height:1; padding:6px; }
+.help-popup h4 { font-family:Georgia,serif; font-weight:400; font-size:16px; margin:0 22px 10px 0; color:#eef2f1; }
+.help-popup .secao-lbl { font-size:10.5px; text-transform:uppercase; letter-spacing:.05em; font-weight:700; color:#C48A4A; margin:12px 0 4px 0; }
+.help-popup .secao-lbl:first-of-type { margin-top:0; }
+.help-popup p { font-size:13px; line-height:1.5; color:#b9c8c7; margin:0; }
 </style>
 </head>
 <body>
@@ -76,13 +93,56 @@ body { margin:0; background-color:#0f2027; }
   <h1>Taquara</h1>
   <p class="subtitulo">Sinos &middot; estação monitorada</p>
   <div class="card">
-          <p class="sem-dado">'Taquara' com sensor atrasado e sem estação monitorada a montante nesta bacia - nenhum valor confiável disponível hoje.</p>
+          <span class="help-slot" data-help="status-rio"></span>
+          <span class="badge" style="background-color:#1c3328; border-color:#2f5540; color:#5ecb8f;">Normal</span>
+          <div class="nivel">1,60<span class="nivel-un">m</span></div>
+          <p class="linha-fraca">Tendência: sem dado (?)</p>
+          <p class="linha-fraca">Cota de inundação: 6,00 m</p>
+          <div class="gauge"><div class="gauge-fill" style="width:20.5%; background-color:#5ecb8f;"></div></div>
+          <p class="gauge-pct" style="color:#5ecb8f;">27% da cota de inundação</p>
+          <div class="gauge-escala"><span>0 m</span><span>cota de inundação &middot; 6,00 m</span></div>
         </div>
+  <div class="card">
+      <span class="help-slot" data-help="previsao-rio"></span>
+      <h2>Previsão do nível</h2>
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td align="center" class="proj-col">
+              <div class="proj-valor">1,60 m</div>
+              <div class="proj-rotulo">36h &middot; 08/09</div>
+            </td><td align="center" class="proj-col">
+              <div class="proj-valor">1,60 m</div>
+              <div class="proj-rotulo">72h &middot; 10/09</div>
+            </td><td align="center" class="proj-col">
+              <div class="proj-valor">1,60 m</div>
+              <div class="proj-rotulo">120h &middot; 12/09</div>
+            </td></tr></table>
+    </div>
   
-  
-  
+  <div class="card"><span class="help-slot" data-help="historico-rio"></span><h2 style="margin:0 0 12px 0; font-size:13px; text-transform:uppercase; letter-spacing:1px; color:#eef2f1; font-weight:700;">Histórico &mdash; últimos 5 dias</h2>
+            <svg viewBox="0 0 600 220" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:auto; display:block;">
+      <defs>
+        <linearGradient id="gradHistorico" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#C48A4A" stop-opacity="0.45"/>
+          <stop offset="1" stop-color="#C48A4A" stop-opacity="0.02"/>
+        </linearGradient>
+      </defs>
+      <line x1="46" y1="192.0" x2="588" y2="192.0" stroke="#2a3f43" stroke-width="1"/><text x="40" y="195.0" text-anchor="end" font-size="10" font-family="Courier New, monospace" fill="#7c9190">1,38</text><line x1="46" y1="133.3" x2="588" y2="133.3" stroke="#2a3f43" stroke-width="1"/><text x="40" y="136.3" text-anchor="end" font-size="10" font-family="Courier New, monospace" fill="#7c9190">2,02</text><line x1="46" y1="74.7" x2="588" y2="74.7" stroke="#2a3f43" stroke-width="1"/><text x="40" y="77.7" text-anchor="end" font-size="10" font-family="Courier New, monospace" fill="#7c9190">2,66</text><line x1="46" y1="16.0" x2="588" y2="16.0" stroke="#2a3f43" stroke-width="1"/><text x="40" y="19.0" text-anchor="end" font-size="10" font-family="Courier New, monospace" fill="#7c9190">3,30</text>
+      <rect x="218.7" y="185.2" width="111.1" height="6.8" fill="#4a7ba6" fill-opacity="0.55" rx="1.5"/><rect x="561.0" y="189.7" width="25.5" height="2.3" fill="#4a7ba6" fill-opacity="0.55" rx="1.5"/>
+      
+      <polygon points="46.0,192.0 46.0,36.3 88.8,41.8 98.3,42.7 112.6,44.5 193.4,58.3 198.1,59.2 207.6,62.8 212.4,64.7 217.2,65.6 221.9,66.5 226.7,68.3 236.2,70.2 240.9,72.0 245.7,72.9 250.4,74.7 255.2,76.6 259.9,78.4 269.5,79.3 274.2,82.0 279.0,83.0 283.7,84.8 288.5,84.8 293.2,86.6 302.7,89.4 307.5,91.2 312.2,92.1 317.0,93.9 321.8,95.8 331.3,99.4 336.0,102.2 340.8,103.1 345.5,104.9 350.3,105.8 359.8,108.6 364.5,110.4 369.3,113.1 374.1,115.0 383.6,118.6 388.3,120.5 393.1,122.3 402.6,124.1 407.3,125.0 412.1,126.0 416.8,127.8 421.6,128.7 426.4,130.5 431.1,132.4 440.6,136.9 445.4,137.8 450.1,139.7 454.9,141.5 464.4,143.3 469.1,145.2 473.9,146.1 478.6,147.0 483.4,147.9 488.2,149.7 492.9,151.6 502.4,152.5 507.2,155.2 511.9,156.1 516.7,157.1 521.4,158.0 526.2,158.9 530.9,159.8 540.5,162.5 545.2,164.4 550.0,166.2 554.7,166.2 559.5,168.0 564.2,168.0 569.0,168.9 573.7,169.9 578.5,170.8 588.0,171.7 588.0,192.0" fill="url(#gradHistorico)"/>
+      <polyline points="46.0,36.3 88.8,41.8 98.3,42.7 112.6,44.5 193.4,58.3 198.1,59.2 207.6,62.8 212.4,64.7 217.2,65.6 221.9,66.5 226.7,68.3 236.2,70.2 240.9,72.0 245.7,72.9 250.4,74.7 255.2,76.6 259.9,78.4 269.5,79.3 274.2,82.0 279.0,83.0 283.7,84.8 288.5,84.8 293.2,86.6 302.7,89.4 307.5,91.2 312.2,92.1 317.0,93.9 321.8,95.8 331.3,99.4 336.0,102.2 340.8,103.1 345.5,104.9 350.3,105.8 359.8,108.6 364.5,110.4 369.3,113.1 374.1,115.0 383.6,118.6 388.3,120.5 393.1,122.3 402.6,124.1 407.3,125.0 412.1,126.0 416.8,127.8 421.6,128.7 426.4,130.5 431.1,132.4 440.6,136.9 445.4,137.8 450.1,139.7 454.9,141.5 464.4,143.3 469.1,145.2 473.9,146.1 478.6,147.0 483.4,147.9 488.2,149.7 492.9,151.6 502.4,152.5 507.2,155.2 511.9,156.1 516.7,157.1 521.4,158.0 526.2,158.9 530.9,159.8 540.5,162.5 545.2,164.4 550.0,166.2 554.7,166.2 559.5,168.0 564.2,168.0 569.0,168.9 573.7,169.9 578.5,170.8 588.0,171.7" fill="none" stroke="#C48A4A" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
+      <text x="72.1" y="212" text-anchor="middle" font-size="10" font-family="Courier New, monospace" fill="#7c9190">Qua 02/09</text><text x="162.5" y="212" text-anchor="middle" font-size="10" font-family="Courier New, monospace" fill="#7c9190">Qui 03/09</text><text x="269.5" y="212" text-anchor="middle" font-size="10" font-family="Courier New, monospace" fill="#7c9190">Sex 04/09</text><text x="385.9" y="212" text-anchor="middle" font-size="10" font-family="Courier New, monospace" fill="#7c9190">Sáb 05/09</text><text x="500.0" y="212" text-anchor="middle" font-size="10" font-family="Courier New, monospace" fill="#7c9190">Dom 06/09</text><text x="573.7" y="212" text-anchor="middle" font-size="10" font-family="Courier New, monospace" fill="#7c9190">Seg 07/09</text>
+    </svg>
+            <div style="display:flex; justify-content:space-between; margin-top:12px; font-size:11px; color:#7c9190;">
+              <span>1,60 m &middot; mínimo</span>
+              <span>3,08 m &middot; máximo</span>
+            </div>
+            <div style="text-align:center; margin-top:4px; font-size:11px; color:#6ea3cc;">&#128167; 0,8 mm &middot; chuva no período</div>
+            <p style="margin:8px 0 0 0; font-size:10.5px; color:#7c9190; line-height:1.4;">Nível: leituras reais da ANA (estação telemétrica de Taquara), a cada ~15 minutos - não é projeção.</p>
+            <p style="margin:2px 0 0 0; font-size:10.5px; color:#7c9190; line-height:1.4;">Chuva em Taquara: medição real (pluviômetro da mesma estação ANA do nível).</p>
+            </div>
   <p class="disclaimer">* O Horizonte é um projeto pessoal e independente de previsibilidade — não é um serviço oficial, não substitui e não tem qualquer vínculo com os canais da Defesa Civil. Quem escreve isso não é hidrólogo nem especialista em recursos hídricos; os números aqui são estimativas estatísticas construídas a partir de dados públicos, não uma previsão certificada. Para alertas oficiais e qualquer decisão de segurança, siga sempre a Defesa Civil do seu município ou estado.</p>
 </div>
+<script type="application/json" id="horizonte-help-data">{"status-rio": {"titulo": "Nível deste rio", "oQue": "O nível real da água agora mesmo, medido pela régua oficial da ANA. A barra colorida mostra a distância até a cota de inundação.", "comoInterpretar": "Quanto mais preenchida a barra, mais perto da inundação. A tendência (subindo/descendo, em cm/h) mostra o que o rio está fazendo agora - não é previsão, é o que já está acontecendo."}, "previsao-rio": {"titulo": "Previsão do nível", "oQue": "Uma estimativa de qual deve ser o nível do rio daqui a 36h, 72h e 120h (5 dias), calculada a partir da tendência atual e da chuva prevista pra bacia deste rio.", "comoInterpretar": "É uma estimativa, não uma certeza - pode mudar de uma leitura pra outra, principalmente se a chuva prevista mudar. Quanto mais distante o horizonte, menos exato tende a ser o número - por isso a página é atualizada 4 vezes por dia."}, "chuva-rio": {"titulo": "Chuva prevista", "oQue": "Quanto de chuva o modelo meteorológico espera pra bacia deste rio, dia a dia, nos próximos dias. É a mesma chuva que alimenta a previsão de nível acima.", "comoInterpretar": "Vem do Open-Meteo (previsão de terceiros, a mesma fonte que qualquer aplicativo de tempo usa) e pode mudar de uma leitura pra outra - chuva é a parte mais difícil de prever com precisão. Cores mais fortes indicam chuva mais intensa naquele dia (ver legenda abaixo da tabela)."}, "historico-rio": {"titulo": "Histórico realizado", "oQue": "O nível REAL medido pela régua nos últimos dias - diferente da previsão acima, aqui não tem nenhuma estimativa, é só o que já aconteceu de fato.", "comoInterpretar": "Serve pra ver a tendência recente com mais contexto do que só o número de agora - se o rio vem subindo, descendo ou estável. A linha tracejada marca a cota de inundação, quando aparece dentro da faixa mostrada no gráfico."}}</script>
 <script>
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", function () {
@@ -125,6 +185,62 @@ window.addEventListener("load", function () {
   }
   ajustarEscala();
   window.addEventListener("resize", ajustarEscala);
+})();
+(function () {
+  // Botão "?" em cada quadro (07/09/2026, pedido do usuário) - mecanismo
+  // genérico e reaproveitável por QUALQUER página empacotada aqui: acha
+  // o dado em #horizonte-help-data (só existe se o gerador da página
+  // tiver plantado o marcador HORIZONTE_HELP_DATA, ou embutido o script
+  // direto - ver gerar_email_execucao.py/gerar_boletim_artifact.py/
+  // gerar_pagina_rio.py) e os placeholders .help-slot[data-help="chave"]
+  // plantados dentro de cada card, troca cada um por um botão de
+  // verdade. Sem nenhum dos dois, não faz nada - seguro rodar em
+  // qualquer página, mesmo uma que ainda não adotou isso.
+  var dataEl = document.getElementById("horizonte-help-data");
+  if (!dataEl) return;
+  var HELP;
+  try { HELP = JSON.parse(dataEl.textContent); } catch (e) { return; }
+  var slots = document.querySelectorAll(".help-slot[data-help]");
+  if (!slots.length) return;
+  // Janela flutuante (não modal de fundo escuro), sempre CENTRALIZADA na
+  // tela (07/09/2026, pedido do usuário) - um único elemento reaproveitado
+  // por todos os botões, css cuida da centralização (position:fixed +
+  // transform, ver .help-popup acima), JS só troca o conteúdo e mostra.
+  var popup = document.createElement("div");
+  popup.className = "help-popup";
+  popup.innerHTML = '<button class="close" type="button" aria-label="Fechar">&times;</button><h4></h4><p class="secao-lbl">O que é</p><p class="help-oque"></p><p class="secao-lbl">Como interpretar</p><p class="help-como"></p>';
+  document.body.appendChild(popup);
+  var elTitulo = popup.querySelector("h4");
+  var elOQue = popup.querySelector(".help-oque");
+  var elComo = popup.querySelector(".help-como");
+  function fecharHelp() {
+    popup.classList.remove("show");
+  }
+  popup.querySelector(".close").addEventListener("click", fecharHelp);
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape") fecharHelp(); });
+  document.addEventListener("click", function (e) {
+    if (popup.classList.contains("show") && !popup.contains(e.target) && !e.target.classList.contains("help-btn")) {
+      fecharHelp();
+    }
+  });
+  slots.forEach(function (slot) {
+    var info = HELP[slot.dataset.help];
+    if (!info) return;
+    var btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "help-btn";
+    btn.textContent = "?";
+    btn.setAttribute("aria-label", "O que é isso?");
+    btn.addEventListener("click", function (e) {
+      e.stopPropagation();
+      elTitulo.textContent = info.titulo;
+      elOQue.textContent = info.oQue;
+      elComo.textContent = info.comoInterpretar;
+      popup.classList.add("show");
+    });
+    slot.parentElement.style.position = "relative";
+    slot.replaceWith(btn);
+  });
 })();
 </script>
 </body>
