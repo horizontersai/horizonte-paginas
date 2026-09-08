@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0f2027">
+<title>Horizonte — Fontes de dados</title>
+<meta name="description" content="De onde vêm os dados usados pelo Horizonte: nível dos rios, chuva prevista, avisos oficiais e mapas.">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+<script data-goatcounter="https://horizonte-rs.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+<style>
+  html { -webkit-text-size-adjust:100%; -ms-text-size-adjust:100%; text-size-adjust:100%; }
+  body { margin:0; background-color:#0f2027; color:#eef2f1; font-family:'Segoe UI', Arial, sans-serif; }
+  .wrap { max-width: 480px; margin: 0 auto; padding: 28px 20px 60px; }
+  .voltar { display: inline-flex; align-items: center; gap: 6px; margin: 0 0 20px 0; padding: 7px 14px; border-radius: 999px; background: #16262a; border: 1px solid #2a3f43; font-family: 'Courier New', monospace; font-size: 12px; font-weight: 600; color: #b9c8c7; text-decoration: none; }
+  .voltar:hover { color: #eef2f1; border-color: #3b4b48; }
+  h1 { font-size: 22px; margin: 0 0 10px 0; }
+  .intro { font-size: 13.5px; color: #b9c8c7; line-height: 1.5; margin: 0 0 20px 0; }
+  h2 { font-size: 13px; text-transform: uppercase; letter-spacing: 0.04em; color: #7c9190; margin: 26px 0 10px 0; font-family:'Courier New', monospace; }
+  h2:first-of-type { margin-top: 6px; }
+  .fonte { margin: 0 0 12px 0; padding: 14px 16px; background-color: #16262a; border: 1px solid #2a3f43; border-radius: 10px; }
+  .fonte-nome { font-size: 15px; font-weight: 700; color: #eef2f1; margin: 0 0 4px 0; }
+  .fonte-uso { font-size: 12.5px; color: #7c9190; line-height: 1.45; margin: 0 0 8px 0; }
+  .fonte-link { display: inline-flex; align-items: center; gap: 4px; font-size: 12.5px; color: #C48A4A; text-decoration: none; word-break: break-all; }
+  .fonte-link:hover { text-decoration: underline; }
+  .modelos { margin: 10px 0 0 0; padding-top: 10px; border-top: 1px solid #2a3f43; }
+  .modelos-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.03em; color: #7c9190; margin: 0 0 6px 0; }
+  .modelos-lista { display: flex; flex-wrap: wrap; gap: 6px; }
+  .modelo-link { font-size: 12px; color: #C48A4A; text-decoration: none; padding: 3px 8px; border: 1px solid #2a3f43; border-radius: 999px; }
+  .modelo-link:hover { text-decoration: underline; }
+  .disclaimer { margin-top: 24px; font-size: 11.5px; line-height: 1.5; color: #7c9190; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a href="boletim.html" class="voltar">&larr; Voltar ao boletim</a>
+
+  <h1>Fontes de dados</h1>
+  <p class="intro">O Horizonte não coleta nenhum dado próprio — tudo aqui vem de fontes públicas e oficiais. Esta página lista de onde vem cada informação usada no boletim, nas páginas de rio e nos mapas.</p>
+
+  <h2>Fontes que alimentam a previsão</h2>
+
+  <div class="fonte">
+    <p class="fonte-nome">ANA — Agência Nacional de Águas e Saneamento Básico</p>
+    <p class="fonte-uso">Fonte oficial do nível de cada rio monitorado, medido pelas réguas telemétricas a cada ~15 minutos. É a base de tudo — sem ela não há previsão.</p>
+    <a class="fonte-link" href="https://www.ana.gov.br" target="_blank" rel="noopener">ana.gov.br</a>
+  </div>
+
+  <div class="fonte">
+    <p class="fonte-nome">Open-Meteo</p>
+    <p class="fonte-uso">Previsão de chuva (e, em Porto Alegre, também vento e pressão atmosférica) para os próximos dias, usada pra calcular a projeção de nível. Serviço meteorológico open-source, gratuito, sem necessidade de chave de API — a chuva prevista é a média de 3 modelos meteorológicos oficiais.</p>
+    <a class="fonte-link" href="https://open-meteo.com" target="_blank" rel="noopener">open-meteo.com</a>
+    <div class="modelos">
+      <p class="modelos-label">Modelos usados na média</p>
+      <div class="modelos-lista">
+        <a class="modelo-link" href="https://www.ncei.noaa.gov/products/weather-climate-models/global-forecast-system" target="_blank" rel="noopener">GFS (NOAA, EUA)</a>
+        <a class="modelo-link" href="https://www.ecmwf.int" target="_blank" rel="noopener">ECMWF IFS (Europa)</a>
+        <a class="modelo-link" href="https://www.dwd.de" target="_blank" rel="noopener">ICON (DWD, Alemanha)</a>
+      </div>
+    </div>
+  </div>
+
+  <h2>Fontes informativas (não entram no cálculo)</h2>
+
+  <div class="fonte">
+    <p class="fonte-nome">INMET — Instituto Nacional de Meteorologia</p>
+    <p class="fonte-uso">Avisos meteorológicos oficiais (tempestade, chuva intensa, etc.), mostrados como informação complementar quando ativos para o município de alguma estação monitorada. É só um repasse do aviso oficial — nunca entra em nenhum cálculo do Horizonte.</p>
+    <a class="fonte-link" href="https://www.gov.br/inmet" target="_blank" rel="noopener">gov.br/inmet</a>
+  </div>
+
+  <div class="fonte">
+    <p class="fonte-nome">OpenStreetMap</p>
+    <p class="fonte-uso">Mapa de fundo usado nas páginas que mostram a localização física de cada estação de medição. Só ilustrativo — projeto colaborativo de mapeamento livre.</p>
+    <a class="fonte-link" href="https://www.openstreetmap.org" target="_blank" rel="noopener">openstreetmap.org</a>
+  </div>
+
+  <p class="disclaimer">O Horizonte é um projeto pessoal e independente — não tem vínculo com nenhuma das fontes acima, nem com a Defesa Civil. Para alertas oficiais e qualquer decisão de segurança, siga sempre a Defesa Civil do seu município ou estado.</p>
+</div>
+</body>
+</html>
