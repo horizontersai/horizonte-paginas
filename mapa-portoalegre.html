@@ -5,15 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#0f2027">
 <title>Horizonte — Mapa de Porto Alegre</title>
-<meta name="description" content="Nível atual, tendência e previsão dos próximos dias para o rio em Mapa de Porto Alegre — atualizado 4x ao dia, com dado real da ANA.">
+<meta name="description" content="Nível atual, tendência e previsão dos próximos dias para o rio em Mapa de Porto Alegre — atualizado 8x ao dia, com dado real da ANA.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Horizonte — Mapa de Porto Alegre">
-<meta property="og:description" content="Nível atual, tendência e previsão dos próximos dias para o rio em Mapa de Porto Alegre — atualizado 4x ao dia, com dado real da ANA.">
+<meta property="og:description" content="Nível atual, tendência e previsão dos próximos dias para o rio em Mapa de Porto Alegre — atualizado 8x ao dia, com dado real da ANA.">
 <meta property="og:url" content="https://horizontersai.github.io/horizonte-paginas/mapa-portoalegre.html">
 <meta property="og:image" content="https://horizontersai.github.io/horizonte-paginas/icon-512.png">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Horizonte — Mapa de Porto Alegre">
-<meta name="twitter:description" content="Nível atual, tendência e previsão dos próximos dias para o rio em Mapa de Porto Alegre — atualizado 4x ao dia, com dado real da ANA.">
+<meta name="twitter:description" content="Nível atual, tendência e previsão dos próximos dias para o rio em Mapa de Porto Alegre — atualizado 8x ao dia, com dado real da ANA.">
 <meta name="twitter:image" content="https://horizontersai.github.io/horizonte-paginas/icon-512.png">
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icon-192.png">
@@ -80,7 +80,7 @@ body { margin:0; background-color:#0f2027; }
 </div>
 <script>
 (function() {
-  const pontos = [{"nome": "Cais Mauá", "nome_oficial": "CAIS MAUÁ C6", "lat": -30.0211, "lon": -51.2211, "nivel_m": 1.52, "tendencia_cm_h": -0.9901960784313806, "cota_inundacao_m": 3.0}, {"nome": "Gasômetro", "nome_oficial": "USINA DO GASÔMETRO", "lat": -30.0347, "lon": -51.2419, "nivel_m": 1.09, "tendencia_cm_h": -0.9901960784313806, "cota_inundacao_m": 2.6}];
+  const pontos = [{"nome": "Cais Mauá", "nome_oficial": "CAIS MAUÁ C6", "lat": -30.0211, "lon": -51.2211, "nivel_m": 1.52, "tendencia_cm_h": -0.6960784313725524, "cota_inundacao_m": 3.0}, {"nome": "Gasômetro", "nome_oficial": "USINA DO GASÔMETRO", "lat": -30.0347, "lon": -51.2419, "nivel_m": 1.08, "tendencia_cm_h": -0.6960784313725524, "cota_inundacao_m": 2.6}];
   const mapa = L.map('mapa-portoalegre', { scrollWheelZoom: false }).setView([-30.027900000000002, -51.2315], 13);
 
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
