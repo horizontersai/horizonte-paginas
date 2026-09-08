@@ -37,7 +37,7 @@
   <a href="boletim.html" class="voltar">&larr; Voltar ao boletim</a>
 
   <h1>Notificações</h1>
-  <p class="intro">Escolha as cidades que você quer acompanhar. Você recebe dois tipos de aviso:</p>
+  <p class="intro">Escolha as cidades que você quer acompanhar. Você recebe três tipos de aviso:</p>
 
   <div class="tipo-aviso">
     <span class="emoji">🔔</span>
@@ -52,6 +52,14 @@
     <div>
       <p class="tipo-aviso-titulo">Aviso antecipado</p>
       <p class="tipo-aviso-texto">A previsão pros próximos dias (36h/72h/120h) indica que isso vai acontecer, antes de o nível realmente subir. É uma previsão, não um fato — pode mudar nas próximas atualizações.</p>
+    </div>
+  </div>
+
+  <div class="tipo-aviso">
+    <span class="emoji">⚠️</span>
+    <div>
+      <p class="tipo-aviso-titulo">Aviso oficial do INMET</p>
+      <p class="tipo-aviso-texto">Um aviso novo do Instituto Nacional de Meteorologia (tempestade, chuva intensa etc.) foi publicado pro município da cidade escolhida. É informativo, direto da fonte oficial — não é calculado pelo Horizonte, e não substitui os canais da Defesa Civil.</p>
     </div>
   </div>
 
@@ -77,9 +85,14 @@
   // dentro de cada um). Página estática, sem geração por script, então
   // mantenha isto em sincronia manual se uma estação nova entrar no
   // monitoramento (evento raro).
+  // Ordem do Taquari corrigida 08/09/2026 (mesma correção de
+  // gerar_mapa_bacias.py/gerar_email_execucao.py, backlog Evolução #42) -
+  // Santa Tereza é a estação mais a montante de todo o rio, não vizinha
+  // de Lajeado/Bom Retiro do Sul; Encantado/Roça Sales também estavam
+  // trocados. Esta lista estática tinha ficado pra trás naquela correção.
   var CIDADES = [
     "Porto Alegre",
-    "Muçum", "Encantado", "Roca Sales", "Lajeado", "Santa Tereza", "Bom Retiro do Sul", "Taquari",
+    "Santa Tereza", "Muçum", "Roca Sales", "Encantado", "Lajeado", "Bom Retiro do Sul", "Taquari",
     "Feliz", "São Sebastião do Caí", "Montenegro",
     "Gravataí",
     "Dona Francisca", "Cachoeira do Sul", "Rio Pardo", "São Jerônimo",
