@@ -94,54 +94,18 @@ body { margin:0; background-color:#0f2027; }
   <p class="subtitulo">Sinos &middot; estação monitorada</p>
   
   <div class="card">
-          <span class="help-slot" data-help="status-rio"></span>
-          <span class="badge" style="background-color:#1c3328; border-color:#2f5540; color:#5ecb8f;">Normal</span>
-          <div class="nivel">3,56<span class="nivel-un">m</span></div>
-          <p class="linha-fraca">Tendência: sem dado (?)</p>
-          <p class="linha-fraca">Cota de inundação: 6,00 m</p>
-          <div class="gauge"><div class="gauge-fill" style="width:45.6%; background-color:#5ecb8f;"></div></div>
-          <p class="gauge-pct" style="color:#5ecb8f;">59% da cota de inundação</p>
-          <div class="gauge-escala"><span>0 m</span><span>cota de inundação &middot; 6,00 m</span></div>
+          <p class="sem-dado">'Taquara' com sensor atrasado e sem estação monitorada a montante nesta bacia - nenhum valor confiável disponível hoje.</p>
         </div>
+  
+  
   <div class="card">
-      <span class="help-slot" data-help="previsao-rio"></span>
-      <h2>Previsão do nível</h2>
-      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td align="center" class="proj-col">
-              <div class="proj-valor">3,40 m</div>
-              <div class="proj-rotulo">36h &middot; 14/09</div>
-            </td><td align="center" class="proj-col">
-              <div class="proj-valor">3,14 m</div>
-              <div class="proj-rotulo">72h &middot; 15/09</div>
-            </td><td align="center" class="proj-col">
-              <div class="proj-valor">2,84 m</div>
-              <div class="proj-rotulo">120h &middot; 17/09</div>
-            </td></tr></table>
-    </div>
+          <span class="help-slot" data-help="chuva-rio"></span>
+          <h2>Chuva prevista</h2>
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td align="center" class="chuva-col"><div class="chuva-dia">Hoje<br>12/09</div><span class="chuva-bola" style="border-color:#7c9190;">3,2</span></td><td align="center" class="chuva-col"><div class="chuva-dia">Dom<br>13/09</div><span class="chuva-bola" style="border-color:#7c9190;">1,4</span></td><td align="center" class="chuva-col"><div class="chuva-dia">Seg<br>14/09</div><span class="chuva-bola" style="border-color:#7c9190;">1,9</span></td><td align="center" class="chuva-col"><div class="chuva-dia">Ter<br>15/09</div><span class="chuva-bola" style="border-color:#7c9190;">0,5</span></td><td align="center" class="chuva-col"><div class="chuva-dia">Qua<br>16/09</div><span class="chuva-bola" style="border-color:#7c9190;">0,0</span></td><td align="center" class="chuva-col"><div class="chuva-dia">Qui<br>17/09</div><span class="chuva-bola" style="border-color:#7c9190;">0,0</span></td><td align="center" class="chuva-col chuva-total-col"><div class="chuva-dia">Total<br>6d</div><span class="chuva-total-valor">7,0</span><div class="chuva-total-un">mm</div></td></tr></table>
+          <div class="legenda-chuva"><span class="legenda-item"><span class="legenda-dot" style="border-color:#7c9190;"></span>calmo (< 5 mm)</span><span class="legenda-item"><span class="legenda-dot" style="border-color:#f0a839;"></span>leve (5-20 mm)</span><span class="legenda-item"><span class="legenda-dot" style="border-color:#ef8a4d;"></span>moderada (20-50 mm)</span><span class="legenda-item"><span class="legenda-dot" style="border-color:#ef4d6b;"></span>forte (> 50 mm)</span></div>
+          <p class="linha-fraca-2" style="margin-top:10px;">Previsão Open-Meteo &mdash; média de 3 modelos (GFS, ECMWF, ICON). Valores podem mudar a cada nova rodada.</p>
+        </div>
   
-  
-  <div class="card"><span class="help-slot" data-help="historico-rio"></span><h2 style="margin:0 0 12px 0; font-size:13px; text-transform:uppercase; letter-spacing:1px; color:#eef2f1; font-weight:700;">Histórico &mdash; últimos 5 dias</h2>
-            <svg viewBox="0 0 600 220" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:auto; display:block;">
-      <defs>
-        <linearGradient id="gradHistorico" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stop-color="#C48A4A" stop-opacity="0.45"/>
-          <stop offset="1" stop-color="#C48A4A" stop-opacity="0.02"/>
-        </linearGradient>
-      </defs>
-      <line x1="46" y1="192.0" x2="588" y2="192.0" stroke="#2a3f43" stroke-width="1"/><text x="40" y="195.0" text-anchor="end" font-size="10" font-family="Courier New, monospace" fill="#7c9190">0,61</text><line x1="46" y1="133.3" x2="588" y2="133.3" stroke="#2a3f43" stroke-width="1"/><text x="40" y="136.3" text-anchor="end" font-size="10" font-family="Courier New, monospace" fill="#7c9190">1,73</text><line x1="46" y1="74.7" x2="588" y2="74.7" stroke="#2a3f43" stroke-width="1"/><text x="40" y="77.7" text-anchor="end" font-size="10" font-family="Courier New, monospace" fill="#7c9190">2,84</text><line x1="46" y1="16.0" x2="588" y2="16.0" stroke="#2a3f43" stroke-width="1"/><text x="40" y="19.0" text-anchor="end" font-size="10" font-family="Courier New, monospace" fill="#7c9190">3,96</text>
-      <rect x="47.5" y="191.7" width="33.4" height="0.3" fill="#4a7ba6" fill-opacity="0.55" rx="1.5"/><rect x="411.9" y="135.7" width="106.3" height="56.3" fill="#4a7ba6" fill-opacity="0.55" rx="1.5"/><rect x="521.2" y="184.1" width="65.3" height="7.9" fill="#4a7ba6" fill-opacity="0.55" rx="1.5"/>
-      
-      <polygon points="46.0,192.0 46.0,145.9 50.6,146.4 55.1,146.9 59.7,146.9 64.2,146.9 68.8,147.5 77.9,149.0 82.4,149.6 87.0,149.6 91.5,150.6 96.1,150.6 100.7,151.7 109.8,153.3 114.3,153.8 118.9,153.8 123.4,154.3 128.0,155.4 232.7,163.3 237.3,163.3 241.8,164.3 246.4,164.3 255.5,164.8 260.1,165.4 264.6,165.4 269.2,165.4 273.7,165.9 282.8,166.4 287.4,167.0 291.9,167.0 296.5,167.0 301.1,167.0 310.2,167.5 314.7,167.5 319.3,167.5 323.8,168.0 328.4,167.5 328.5,168.0 332.9,168.0 337.5,168.0 342.1,168.5 351.2,169.1 355.7,169.1 360.3,169.1 364.8,169.6 369.4,170.1 378.5,170.1 383.0,170.1 387.6,170.6 392.2,170.6 396.7,170.6 401.3,170.6 410.4,171.2 414.9,171.2 419.5,171.7 424.0,171.7 433.1,171.7 437.7,171.7 442.3,170.6 446.8,168.0 451.4,163.3 460.5,139.6 465.0,112.2 469.6,87.9 474.1,70.5 478.7,60.0 483.2,53.2 487.8,47.9 496.9,41.0 501.5,38.9 506.0,37.9 510.6,37.4 515.1,37.9 524.2,38.9 528.8,39.5 533.3,39.5 537.9,38.9 542.5,37.9 547.0,37.4 551.6,37.4 556.1,36.8 560.7,36.3 565.2,36.3 574.3,36.3 578.9,36.3 588.0,36.8 588.0,192.0" fill="url(#gradHistorico)"/>
-      <polyline points="46.0,145.9 50.6,146.4 55.1,146.9 59.7,146.9 64.2,146.9 68.8,147.5 77.9,149.0 82.4,149.6 87.0,149.6 91.5,150.6 96.1,150.6 100.7,151.7 109.8,153.3 114.3,153.8 118.9,153.8 123.4,154.3 128.0,155.4 232.7,163.3 237.3,163.3 241.8,164.3 246.4,164.3 255.5,164.8 260.1,165.4 264.6,165.4 269.2,165.4 273.7,165.9 282.8,166.4 287.4,167.0 291.9,167.0 296.5,167.0 301.1,167.0 310.2,167.5 314.7,167.5 319.3,167.5 323.8,168.0 328.4,167.5 328.5,168.0 332.9,168.0 337.5,168.0 342.1,168.5 351.2,169.1 355.7,169.1 360.3,169.1 364.8,169.6 369.4,170.1 378.5,170.1 383.0,170.1 387.6,170.6 392.2,170.6 396.7,170.6 401.3,170.6 410.4,171.2 414.9,171.2 419.5,171.7 424.0,171.7 433.1,171.7 437.7,171.7 442.3,170.6 446.8,168.0 451.4,163.3 460.5,139.6 465.0,112.2 469.6,87.9 474.1,70.5 478.7,60.0 483.2,53.2 487.8,47.9 496.9,41.0 501.5,38.9 506.0,37.9 510.6,37.4 515.1,37.9 524.2,38.9 528.8,39.5 533.3,39.5 537.9,38.9 542.5,37.9 547.0,37.4 551.6,37.4 556.1,36.8 560.7,36.3 565.2,36.3 574.3,36.3 578.9,36.3 588.0,36.8" fill="none" stroke="#C48A4A" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
-      <text x="61.9" y="212" text-anchor="middle" font-size="10" font-family="Courier New, monospace" fill="#7c9190">Seg 07/09</text><text x="264.6" y="212" text-anchor="middle" font-size="10" font-family="Courier New, monospace" fill="#7c9190">Qua 09/09</text><text x="351.2" y="212" text-anchor="middle" font-size="10" font-family="Courier New, monospace" fill="#7c9190">Qui 10/09</text><text x="462.7" y="212" text-anchor="middle" font-size="10" font-family="Courier New, monospace" fill="#7c9190">Sex 11/09</text><text x="556.1" y="212" text-anchor="middle" font-size="10" font-family="Courier New, monospace" fill="#7c9190">Sáb 12/09</text>
-    </svg>
-            <div style="display:flex; justify-content:space-between; margin-top:12px; font-size:11px; color:#7c9190;">
-              <span>1,00 m &middot; mínimo</span>
-              <span>3,57 m &middot; máximo</span>
-            </div>
-            <div style="text-align:center; margin-top:4px; font-size:11px; color:#6ea3cc;">&#128167; 41,0 mm &middot; chuva no período</div>
-            <p style="margin:8px 0 0 0; font-size:10.5px; color:#7c9190; line-height:1.4;">Nível: leituras reais da ANA (estação telemétrica de Taquara), a cada ~15 minutos - não é projeção.</p>
-            <p style="margin:2px 0 0 0; font-size:10.5px; color:#7c9190; line-height:1.4;">Chuva em Taquara: medição real (pluviômetro da mesma estação ANA do nível).</p>
-            </div>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <style>
@@ -162,7 +126,7 @@ body { margin:0; background-color:#0f2027; }
 </div>
 <script>
 (function() {
-  const pontos = [{"nome": "Taquara", "nome_oficial": "FOZ DO PARANHANA", "lat": -29.6858, "lon": -50.8122, "nivel_m": 3.56, "tendencia_cm_h": null, "cota_inundacao_m": 6.0}];
+  const pontos = [{"nome": "Taquara", "nome_oficial": "FOZ DO PARANHANA", "lat": -29.6858, "lon": -50.8122, "nivel_m": null, "tendencia_cm_h": -0.06, "cota_inundacao_m": 6.0}];
   const mapa = L.map('mapa-estacao', { scrollWheelZoom: false }).setView([-29.6858, -50.8122], 15);
 
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
