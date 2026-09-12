@@ -94,49 +94,11 @@ body { margin:0; background-color:#0f2027; }
   <p class="subtitulo">Sinos &middot; estação monitorada</p>
   
   <div class="card">
-          <span class="help-slot" data-help="status-rio"></span>
-          <span class="badge" style="background-color:#1c3328; border-color:#2f5540; color:#5ecb8f;">Normal</span>
-          <div class="nivel">3,56<span class="nivel-un">m</span></div>
-          <p class="linha-fraca">Tendência: sem dado (?)</p>
-          <p class="linha-fraca">Cota de inundação: 6,00 m</p>
-          <div class="gauge"><div class="gauge-fill" style="width:45.6%; background-color:#5ecb8f;"></div></div>
-          <p class="gauge-pct" style="color:#5ecb8f;">59% da cota de inundação</p>
-          <div class="gauge-escala"><span>0 m</span><span>cota de inundação &middot; 6,00 m</span></div>
+          <p class="sem-dado">'Taquara' com sensor atrasado e sem estação monitorada a montante nesta bacia - nenhum valor confiável disponível hoje.</p>
         </div>
-  <div class="card">
-      <h2>Previsão do nível</h2>
-      <p class="sem-dado">Previsão ainda não disponível pra esta estação - o sensor tem histórico de falhas longas de telemetria (períodos de vários dias seguidos sem leitura), o que impede calibrar uma previsão confiável com esse nível de detalhe (36h/72h/120h). O nível atual, no quadro acima, é uma leitura direta da ANA quando o sensor está funcionando.</p>
-    </div>
-  <div class="card">
-          <span class="help-slot" data-help="chuva-rio"></span>
-          <h2>Chuva prevista</h2>
-          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td align="center" class="chuva-col"><div class="chuva-dia">Hoje<br>12/09</div><span class="chuva-bola" style="border-color:#7c9190;">1,6</span></td><td align="center" class="chuva-col"><div class="chuva-dia">Dom<br>13/09</div><span class="chuva-bola" style="border-color:#7c9190;">2,4</span></td><td align="center" class="chuva-col"><div class="chuva-dia">Seg<br>14/09</div><span class="chuva-bola" style="border-color:#7c9190;">3,4</span></td><td align="center" class="chuva-col"><div class="chuva-dia">Ter<br>15/09</div><span class="chuva-bola" style="border-color:#7c9190;">1,3</span></td><td align="center" class="chuva-col"><div class="chuva-dia">Qua<br>16/09</div><span class="chuva-bola" style="border-color:#7c9190;">0,1</span></td><td align="center" class="chuva-col"><div class="chuva-dia">Qui<br>17/09</div><span class="chuva-bola" style="border-color:#7c9190;">0,0</span></td><td align="center" class="chuva-col chuva-total-col"><div class="chuva-dia">Total<br>6d</div><span class="chuva-total-valor">8,8</span><div class="chuva-total-un">mm</div></td></tr></table>
-          <div class="legenda-chuva"><span class="legenda-item"><span class="legenda-dot" style="border-color:#7c9190;"></span>calmo (< 5 mm)</span><span class="legenda-item"><span class="legenda-dot" style="border-color:#f0a839;"></span>leve (5-20 mm)</span><span class="legenda-item"><span class="legenda-dot" style="border-color:#ef8a4d;"></span>moderada (20-50 mm)</span><span class="legenda-item"><span class="legenda-dot" style="border-color:#ef4d6b;"></span>forte (> 50 mm)</span></div>
-          <p class="linha-fraca-2" style="margin-top:10px;">Previsão Open-Meteo &mdash; média de 3 modelos (GFS, ECMWF, ICON). Valores podem mudar a cada nova rodada.</p>
-        </div>
-  <div class="card"><span class="help-slot" data-help="historico-rio"></span><h2 style="margin:0 0 12px 0; font-size:13px; text-transform:uppercase; letter-spacing:1px; color:#eef2f1; font-weight:700;">Histórico &mdash; últimos 5 dias</h2>
-            <svg viewBox="0 0 600 220" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:auto; display:block;">
-      <defs>
-        <linearGradient id="gradHistorico" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stop-color="#C48A4A" stop-opacity="0.45"/>
-          <stop offset="1" stop-color="#C48A4A" stop-opacity="0.02"/>
-        </linearGradient>
-      </defs>
-      <line x1="46" y1="192.0" x2="588" y2="192.0" stroke="#2a3f43" stroke-width="1"/><text x="40" y="195.0" text-anchor="end" font-size="10" font-family="Courier New, monospace" fill="#7c9190">0,62</text><line x1="46" y1="133.3" x2="588" y2="133.3" stroke="#2a3f43" stroke-width="1"/><text x="40" y="136.3" text-anchor="end" font-size="10" font-family="Courier New, monospace" fill="#7c9190">1,73</text><line x1="46" y1="74.7" x2="588" y2="74.7" stroke="#2a3f43" stroke-width="1"/><text x="40" y="77.7" text-anchor="end" font-size="10" font-family="Courier New, monospace" fill="#7c9190">2,83</text><line x1="46" y1="16.0" x2="588" y2="16.0" stroke="#2a3f43" stroke-width="1"/><text x="40" y="19.0" text-anchor="end" font-size="10" font-family="Courier New, monospace" fill="#7c9190">3,94</text>
-      <rect x="47.5" y="191.7" width="69.3" height="0.3" fill="#4a7ba6" fill-opacity="0.55" rx="1.5"/><rect x="445.0" y="135.7" width="105.4" height="56.3" fill="#4a7ba6" fill-opacity="0.55" rx="1.5"/><rect x="553.4" y="184.8" width="33.1" height="7.2" fill="#4a7ba6" fill-opacity="0.55" rx="1.5"/>
-      
-      <polygon points="46.0,192.0 46.0,140.5 50.5,141.5 55.0,142.1 59.5,142.6 64.1,143.1 68.6,144.2 73.1,144.7 82.1,145.8 86.7,146.3 91.2,146.8 95.7,146.8 100.2,146.8 104.7,147.4 113.8,149.0 118.3,149.5 122.8,149.5 127.3,150.5 131.8,150.5 136.3,151.6 145.4,153.2 149.9,153.7 154.4,153.7 158.9,154.2 163.4,155.3 267.3,163.2 271.8,163.2 276.4,164.3 280.9,164.3 289.9,164.8 294.4,165.3 298.9,165.3 303.4,165.3 308.0,165.9 317.0,166.4 321.5,166.9 326.0,166.9 330.6,166.9 335.1,166.9 344.1,167.5 348.6,167.5 353.1,167.5 357.6,168.0 362.2,167.5 362.2,168.0 366.7,168.0 371.2,168.0 375.7,168.5 384.8,169.0 389.3,169.0 393.8,169.0 398.3,169.6 402.8,170.1 411.9,170.1 416.4,170.1 420.9,170.6 425.4,170.6 429.9,170.6 434.4,170.6 443.5,171.2 448.0,171.2 452.5,171.7 457.0,171.7 466.1,171.7 470.6,171.7 475.1,170.6 479.6,168.0 484.1,163.2 493.1,139.4 497.7,111.9 502.2,87.6 506.7,70.2 511.2,59.6 515.7,52.7 520.2,47.4 529.3,40.5 533.8,38.4 538.3,37.4 542.8,36.8 547.4,37.4 556.4,38.4 560.9,39.0 565.4,39.0 569.9,38.4 574.4,37.4 579.0,36.8 583.5,36.8 588.0,36.3 588.0,192.0" fill="url(#gradHistorico)"/>
-      <polyline points="46.0,140.5 50.5,141.5 55.0,142.1 59.5,142.6 64.1,143.1 68.6,144.2 73.1,144.7 82.1,145.8 86.7,146.3 91.2,146.8 95.7,146.8 100.2,146.8 104.7,147.4 113.8,149.0 118.3,149.5 122.8,149.5 127.3,150.5 131.8,150.5 136.3,151.6 145.4,153.2 149.9,153.7 154.4,153.7 158.9,154.2 163.4,155.3 267.3,163.2 271.8,163.2 276.4,164.3 280.9,164.3 289.9,164.8 294.4,165.3 298.9,165.3 303.4,165.3 308.0,165.9 317.0,166.4 321.5,166.9 326.0,166.9 330.6,166.9 335.1,166.9 344.1,167.5 348.6,167.5 353.1,167.5 357.6,168.0 362.2,167.5 362.2,168.0 366.7,168.0 371.2,168.0 375.7,168.5 384.8,169.0 389.3,169.0 393.8,169.0 398.3,169.6 402.8,170.1 411.9,170.1 416.4,170.1 420.9,170.6 425.4,170.6 429.9,170.6 434.4,170.6 443.5,171.2 448.0,171.2 452.5,171.7 457.0,171.7 466.1,171.7 470.6,171.7 475.1,170.6 479.6,168.0 484.1,163.2 493.1,139.4 497.7,111.9 502.2,87.6 506.7,70.2 511.2,59.6 515.7,52.7 520.2,47.4 529.3,40.5 533.8,38.4 538.3,37.4 542.8,36.8 547.4,37.4 556.4,38.4 560.9,39.0 565.4,39.0 569.9,38.4 574.4,37.4 579.0,36.8 583.5,36.8 588.0,36.3" fill="none" stroke="#C48A4A" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
-      <text x="79.9" y="212" text-anchor="middle" font-size="10" font-family="Courier New, monospace" fill="#7c9190">Seg 07/09</text><text x="140.8" y="212" text-anchor="middle" font-size="10" font-family="Courier New, monospace" fill="#7c9190">Ter 08/09</text><text x="298.9" y="212" text-anchor="middle" font-size="10" font-family="Courier New, monospace" fill="#7c9190">Qua 09/09</text><text x="384.8" y="212" text-anchor="middle" font-size="10" font-family="Courier New, monospace" fill="#7c9190">Qui 10/09</text><text x="495.4" y="212" text-anchor="middle" font-size="10" font-family="Courier New, monospace" fill="#7c9190">Sex 11/09</text><text x="572.2" y="212" text-anchor="middle" font-size="10" font-family="Courier New, monospace" fill="#7c9190">Sáb 12/09</text>
-    </svg>
-            <div style="display:flex; justify-content:space-between; margin-top:12px; font-size:11px; color:#7c9190;">
-              <span>1,00 m &middot; mínimo</span>
-              <span>3,56 m &middot; máximo</span>
-            </div>
-            <div style="text-align:center; margin-top:4px; font-size:11px; color:#6ea3cc;">&#128167; 40,6 mm &middot; chuva no período</div>
-            <p style="margin:8px 0 0 0; font-size:10.5px; color:#7c9190; line-height:1.4;">Nível: leituras reais da ANA (estação telemétrica de Taquara), a cada ~15 minutos - não é projeção.</p>
-            <p style="margin:2px 0 0 0; font-size:10.5px; color:#7c9190; line-height:1.4;">Chuva em Taquara: medição real (pluviômetro da mesma estação ANA do nível).</p>
-            </div>
+  
+  
+  
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <style>
@@ -157,7 +119,7 @@ body { margin:0; background-color:#0f2027; }
 </div>
 <script>
 (function() {
-  const pontos = [{"nome": "Taquara", "nome_oficial": "FOZ DO PARANHANA", "lat": -29.6858, "lon": -50.8122, "nivel_m": 3.56, "tendencia_cm_h": null, "cota_inundacao_m": 6.0}];
+  const pontos = [{"nome": "Taquara", "nome_oficial": "FOZ DO PARANHANA", "lat": -29.6858, "lon": -50.8122, "nivel_m": null, "tendencia_cm_h": 0.79, "cota_inundacao_m": 6.0}];
   const mapa = L.map('mapa-estacao', { scrollWheelZoom: false }).setView([-29.6858, -50.8122], 15);
 
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
