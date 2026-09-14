@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0f2027">
+<title>Analíticos semanais — Horizonte</title>
+<meta name="description" content="Previsto, realizado e erro de cada execução, estação por estação, semana a semana — o detalhe por trás de cada relatório.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Analíticos semanais — Horizonte">
+<meta property="og:description" content="Previsto, realizado e erro de cada execução, estação por estação, semana a semana — o detalhe por trás de cada relatório.">
+<meta property="og:url" content="https://horizontersai.github.io/horizonte-paginas/analiticos.html">
+<meta property="og:image" content="https://horizontersai.github.io/horizonte-paginas/icon-512.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Analíticos semanais — Horizonte">
+<meta name="twitter:description" content="Previsto, realizado e erro de cada execução, estação por estação, semana a semana — o detalhe por trás de cada relatório.">
+<meta name="twitter:image" content="https://horizontersai.github.io/horizonte-paginas/icon-512.png">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+<script data-goatcounter="https://horizonte-rs.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+<style>
+html { -webkit-text-size-adjust:100%; -ms-text-size-adjust:100%; text-size-adjust:100%; }
+body { margin:0; background-color:#0f2027; }
+.help-slot { display:none; }
+.help-btn { position:absolute; top:12px; right:14px; width:22px; height:22px; border-radius:50%; border:1px solid #344d52; background:#16262a; color:#7c9190; font-family:'Segoe UI',Arial,sans-serif; font-size:12px; font-weight:700; line-height:1; cursor:pointer; display:flex; align-items:center; justify-content:center; padding:0; z-index:2; }
+.help-btn:hover { border-color:#C48A4A; color:#C48A4A; }
+/* Janela flutuante, não modal de fundo escuro (07/09/2026, pedido do
+   usuário: "assim como já fizemos em outras partes do projeto") - mesmo
+   visual do .popup de gerar_mapa_bacias.py (card sem escurecer o resto
+   da tela), mas sempre CENTRALIZADA na tela (07/09/2026, correção do
+   usuário: a versão anterior posicionava perto do botão clicado, como
+   o mapa faz em telas largas - pedido explícito pra sempre centralizar,
+   independente do tamanho da tela). */
+.help-popup { display:none; position:fixed; z-index:50; top:50%; left:50%; transform:translate(-50%,-50%); width:min(300px, 88vw); background:#1c2f33; border:1px solid #344d52; border-radius:12px; padding:16px 18px; box-shadow:0 12px 32px rgba(0,0,0,.45); font-family:'Segoe UI',Arial,sans-serif; max-height:80vh; overflow-y:auto; }
+.help-popup.show { display:block; }
+.help-popup .close { position:absolute; top:8px; right:10px; background:none; border:none; cursor:pointer; color:#7c9190; font-size:18px; line-height:1; padding:6px; }
+.help-popup h4 { font-family:Georgia,serif; font-weight:400; font-size:16px; margin:0 22px 10px 0; color:#eef2f1; }
+.help-popup .secao-lbl { font-size:10.5px; text-transform:uppercase; letter-spacing:.05em; font-weight:700; color:#C48A4A; margin:12px 0 4px 0; }
+.help-popup .secao-lbl:first-of-type { margin-top:0; }
+.help-popup p { font-size:13px; line-height:1.5; color:#b9c8c7; margin:0; }
+</style>
+</head>
+<body>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#15201F; color:#EDE7DA;
+         font-family:'Segoe UI',Arial,sans-serif; font-size:14px; }
+  .wrap { max-width:900px; margin:0 auto; padding:28px 18px 60px; }
+  h1 { font-size:22px; margin:0 0 6px; }
+  .sub-h { color:#A8A292; font-size:13px; margin:0 0 20px; line-height:1.55; }
+  .voltar { display:inline-flex; align-items:center; gap:6px; margin:0 0 18px 0;
+             padding:7px 14px; border-radius:999px; background:#1C2827;
+             border:1px solid #2C3A38; font-family:'Courier New',monospace;
+             font-size:12px; font-weight:600; color:#A8A292; text-decoration:none; }
+  .voltar:hover { color:#EDE7DA; }
+  table { border-collapse:collapse; width:100%; font-size:13px; }
+  th,td { border-bottom:1px solid #253331; padding:9px 10px; text-align:left; }
+  th { background:#1C2827; color:#A8A292; font-weight:600; font-size:11.5px;
+        text-transform:uppercase; letter-spacing:.03em; }
+  td.num { text-align:right; font-family:'Courier New',monospace; }
+  td a { color:#D7A468; text-decoration:none; font-weight:600; }
+  td a:hover { text-decoration:underline; }
+  .ok { color:#6FCF97; }
+  .ruim { color:#E88C7D; }
+  .chip { display:inline-block; border-radius:4px; padding:1px 7px; font-size:10.5px;
+           margin-right:5px; }
+  .chip.erro { background:#E88C7D; color:#2a1512; }
+  .chip.atencao { background:#2A3F3C; color:#D7A468; }
+  .nenhum { color:#4a5654; }
+  .nota { background:#1C2827; border:1px solid #2C3A38; border-left:3px solid
+           #D7A468; border-radius:8px; padding:14px 16px; font-size:13px;
+           line-height:1.55; color:#C9C2B4; }
+  .tabela-wrap { overflow-x:auto; border:1px solid #2C3A38; border-radius:10px; }
+  .legenda { font-size:12px; color:#A8A292; margin:14px 0 0; line-height:1.6; }
+</style><div class="wrap">
+<a href="relatorio-semanal.html" class="voltar">&larr; Relatório semanal</a>
+<h1>Analíticos semanais</h1>
+<p class="sub-h">O detalhe por trás de cada relatório: previsto, realizado e erro de
+cada execução, estação por estação. É daqui que saem as investigações.</p>
+<div class="tabela-wrap"><table><thead><tr><th>Período</th><th>Horizontes medidos</th><th>Previsão ajudou</th><th>Cobertura</th><th>Alertas</th></tr></thead><tbody><tr><td><a href="analitico-2026-09-14_094014.html">2026-09-07 a 2026-09-14</a></td><td class="num">2306</td><td class="num ok"><b>51%</b></td><td class="num"><span class="">98%</span></td><td><span class="chip erro">1 erro(s)</span><span class="chip atencao">9 atenção</span></td></tr><tr><td><a href="analitico-2026-09-06_195828.html">2026-08-30 a 2026-09-06</a></td><td class="num">243</td><td class="num">—</td><td class="num">—</td><td><span class=nenhum>—</span></td></tr><tr><td><a href="analitico-2026-09-04_165204.html">2026-08-05 a 2026-09-04</a></td><td class="num">1527</td><td class="num">—</td><td class="num">—</td><td><span class=nenhum>—</span></td></tr><tr><td><a href="analitico-2026-09-04_163912.html">2026-08-28 a 2026-09-04</a></td><td class="num">773</td><td class="num">—</td><td class="num">—</td><td><span class=nenhum>—</span></td></tr><tr><td><a href="analitico-2026-09-03_182111.html">2026-08-27 a 2026-09-03</a></td><td class="num">678</td><td class="num">—</td><td class="num">—</td><td><span class=nenhum>—</span></td></tr><tr><td><a href="analitico-2026-09-03_002334.html">2026-08-27 a 2026-09-03</a></td><td class="num">551</td><td class="num">—</td><td class="num">—</td><td><span class=nenhum>—</span></td></tr><tr><td><a href="analitico-2026-09-02_231141.html">2026-08-26 a 2026-09-02</a></td><td class="num">551</td><td class="num">—</td><td class="num">—</td><td><span class=nenhum>—</span></td></tr><tr><td><a href="analitico-2026-09-01_212835.html">2026-08-02 a 2026-09-01</a></td><td class="num">1115</td><td class="num">—</td><td class="num">—</td><td><span class=nenhum>—</span></td></tr><tr><td><a href="analitico-2026-08-30_200943.html">2026-08-23 a 2026-08-30</a></td><td class="num">697</td><td class="num">—</td><td class="num">—</td><td><span class=nenhum>—</span></td></tr></tbody></table></div>
+<p class="legenda">"Previsão ajudou" compara com o palpite mais simples possível ("o rio
+continua onde está"): abaixo de 50% significa que, naquela semana, não prever nada teria
+dado mais certo na maioria das vezes. "Cobertura" é quanto do que venceu foi de fato
+medido — abaixo de 70% o relatório sinaliza que a própria medição está falhando.</p>
+</div>
+<script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", function () {
+    navigator.serviceWorker.register("sw.js").catch(function () {});
+  });
+}
+window.addEventListener("load", function () {
+  try {
+    var modoApp = (window.matchMedia && window.matchMedia("(display-mode: standalone)").matches)
+      || window.navigator.standalone === true;
+    if (modoApp && window.goatcounter && window.goatcounter.count) {
+      window.goatcounter.count({ path: "/app-open", title: "App aberto (modo standalone)", event: true });
+    }
+  } catch (e) {}
+});
+(function () {
+  var CARD_LARGURA = 640;
+  var card = document.getElementById("horizonte-card");
+  if (!card) return;
+  // 24 = padding:24px 12px do <td align="center"> que envolve o card em
+  // gerar_email_execucao.py (12px de cada lado) - não dá pra medir isso
+  // dinamicamente pelo parentElement porque, antes do zoom ser aplicado,
+  // a tabela externa (sem table-layout:fixed) já cresceu pra caber o
+  // card no tamanho natural de 640px, tornando a medida circular.
+  var PADDING_LATERAL = 24;
+  // 06/09/2026 - inverso exato do aumento de fonte do commit 5b66a30
+  // (+35%, pensado pro celular/app). Abaixo de CARD_LARGURA (celular),
+  // o zoom-to-fit de sempre já compensa isso de graça, proporcionalmente
+  // - comportamento intacto. Em telas maiores (desktop), sem esse
+  // encolhimento extra o texto herdava o tamanho já aumentado sem
+  // nenhuma compensação (achado do usuário) - agora aplica um zoom fixo
+  // que devolve o tamanho efetivo de texto de antes do aumento.
+  var FATOR_AUMENTO_FONTE_MOBILE = 1.35;
+  function ajustarEscala() {
+    var disponivel = document.documentElement.clientWidth - PADDING_LATERAL;
+    var escala = disponivel < CARD_LARGURA
+      ? disponivel / CARD_LARGURA
+      : 1 / FATOR_AUMENTO_FONTE_MOBILE;
+    card.style.zoom = escala;
+  }
+  ajustarEscala();
+  window.addEventListener("resize", ajustarEscala);
+})();
+(function () {
+  // Botão "?" em cada quadro (07/09/2026, pedido do usuário) - mecanismo
+  // genérico e reaproveitável por QUALQUER página empacotada aqui: acha
+  // o dado em #horizonte-help-data (só existe se o gerador da página
+  // tiver plantado o marcador HORIZONTE_HELP_DATA, ou embutido o script
+  // direto - ver gerar_email_execucao.py/gerar_boletim_artifact.py/
+  // gerar_pagina_rio.py) e os placeholders .help-slot[data-help="chave"]
+  // plantados dentro de cada card, troca cada um por um botão de
+  // verdade. Sem nenhum dos dois, não faz nada - seguro rodar em
+  // qualquer página, mesmo uma que ainda não adotou isso.
+  var dataEl = document.getElementById("horizonte-help-data");
+  if (!dataEl) return;
+  var HELP;
+  try { HELP = JSON.parse(dataEl.textContent); } catch (e) { return; }
+  var slots = document.querySelectorAll(".help-slot[data-help]");
+  if (!slots.length) return;
+  // Janela flutuante (não modal de fundo escuro), sempre CENTRALIZADA na
+  // tela (07/09/2026, pedido do usuário) - um único elemento reaproveitado
+  // por todos os botões, css cuida da centralização (position:fixed +
+  // transform, ver .help-popup acima), JS só troca o conteúdo e mostra.
+  var popup = document.createElement("div");
+  popup.className = "help-popup";
+  popup.innerHTML = '<button class="close" type="button" aria-label="Fechar">&times;</button><h4></h4><p class="secao-lbl">O que é</p><p class="help-oque"></p><p class="secao-lbl">Como interpretar</p><p class="help-como"></p>';
+  document.body.appendChild(popup);
+  var elTitulo = popup.querySelector("h4");
+  var elOQue = popup.querySelector(".help-oque");
+  var elComo = popup.querySelector(".help-como");
+  function fecharHelp() {
+    popup.classList.remove("show");
+  }
+  popup.querySelector(".close").addEventListener("click", fecharHelp);
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape") fecharHelp(); });
+  document.addEventListener("click", function (e) {
+    if (popup.classList.contains("show") && !popup.contains(e.target) && !e.target.classList.contains("help-btn")) {
+      fecharHelp();
+    }
+  });
+  slots.forEach(function (slot) {
+    var info = HELP[slot.dataset.help];
+    if (!info) return;
+    var btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "help-btn";
+    btn.textContent = "?";
+    btn.setAttribute("aria-label", "O que é isso?");
+    btn.addEventListener("click", function (e) {
+      e.stopPropagation();
+      elTitulo.textContent = info.titulo;
+      elOQue.textContent = info.oQue;
+      elComo.textContent = info.comoInterpretar;
+      popup.classList.add("show");
+    });
+    slot.parentElement.style.position = "relative";
+    slot.replaceWith(btn);
+  });
+})();
+</script>
+</body>
+</html>
