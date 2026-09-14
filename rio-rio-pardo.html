@@ -96,30 +96,53 @@ body { margin:0; background-color:#0f2027; }
   <div class="card">
           <span class="help-slot" data-help="status-rio"></span>
           <span class="badge" style="background-color:#1c3328; border-color:#2f5540; color:#5ecb8f;">Normal</span>
-          <div class="nivel">5,19<span class="nivel-un">m</span></div>
-          <p class="linha-fraca">Tendência: subida (&#9650; 7,9 cm/h)</p>
+          <div class="nivel">5,39<span class="nivel-un">m</span></div>
+          <p class="linha-fraca">Tendência: subida (&#9650; 6,9 cm/h)</p>
           <p class="linha-fraca">Cota de inundação: 12,50 m</p>
-          <div class="gauge"><div class="gauge-fill" style="width:31.9%; background-color:#5ecb8f;"></div></div>
-          <p class="gauge-pct" style="color:#5ecb8f;">42% da cota de inundação</p>
+          <div class="gauge"><div class="gauge-fill" style="width:33.2%; background-color:#5ecb8f;"></div></div>
+          <p class="gauge-pct" style="color:#5ecb8f;">43% da cota de inundação</p>
           <div class="gauge-escala"><span>0 m</span><span>cota de inundação &middot; 12,50 m</span></div>
         </div>
   <div class="card">
       <span class="help-slot" data-help="previsao-rio"></span>
       <h2>Previsão do nível</h2>
       <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td align="center" class="proj-col">
-              <div class="proj-valor">5,78 m</div>
+              <div class="proj-valor">5,89 m</div>
               <div class="proj-rotulo">36h &middot; 16/09</div>
             </td><td align="center" class="proj-col">
-              <div class="proj-valor">6,26 m</div>
+              <div class="proj-valor">6,25 m</div>
               <div class="proj-rotulo">72h &middot; 17/09</div>
             </td><td align="center" class="proj-col">
-              <div class="proj-valor">6,56 m</div>
+              <div class="proj-valor">6,43 m</div>
               <div class="proj-rotulo">120h &middot; 19/09</div>
             </td></tr></table>
     </div>
   
   
-  
+  <div class="card"><span class="help-slot" data-help="historico-rio"></span><h2 style="margin:0 0 12px 0; font-size:13px; text-transform:uppercase; letter-spacing:1px; color:#eef2f1; font-weight:700;">Histórico &mdash; últimos 5 dias</h2>
+            <svg viewBox="0 0 600 220" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:auto; display:block;">
+      <defs>
+        <linearGradient id="gradHistorico" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#C48A4A" stop-opacity="0.55"/>
+          <stop offset="1" stop-color="#C48A4A" stop-opacity="0.02"/>
+        </linearGradient>
+      </defs>
+      <line x1="46" y1="192.0" x2="566" y2="192.0" stroke="#2a3f43" stroke-width="1"/><text x="40" y="195.0" text-anchor="end" font-size="10" font-family="Courier New, monospace" fill="#7c9190">2,97</text><line x1="46" y1="133.3" x2="566" y2="133.3" stroke="#2a3f43" stroke-width="1"/><text x="40" y="136.3" text-anchor="end" font-size="10" font-family="Courier New, monospace" fill="#7c9190">3,40</text><line x1="46" y1="74.7" x2="566" y2="74.7" stroke="#2a3f43" stroke-width="1"/><text x="40" y="77.7" text-anchor="end" font-size="10" font-family="Courier New, monospace" fill="#7c9190">3,84</text><line x1="46" y1="16.0" x2="566" y2="16.0" stroke="#2a3f43" stroke-width="1"/><text x="40" y="19.0" text-anchor="end" font-size="10" font-family="Courier New, monospace" fill="#7c9190">4,27</text>
+      
+      
+      
+      <polygon points="46.0,192.0 46.0,93.2 89.3,112.1 150.0,139.2 169.3,147.3 193.3,152.7 254.0,171.7 297.3,163.6 358.0,144.6 401.3,112.1 462.0,79.6 505.3,58.0 566.0,36.3 566.0,192.0" fill="url(#gradHistorico)"/>
+      <polyline points="46.0,93.2 89.3,112.1 150.0,139.2 169.3,147.3 193.3,152.7 254.0,171.7 297.3,163.6 358.0,144.6 401.3,112.1 462.0,79.6 505.3,58.0 566.0,36.3" fill="none" stroke="#C48A4A" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"/>
+      <text x="67.7" y="212" text-anchor="middle" font-size="10" font-family="Courier New, monospace" fill="#7c9190">Qua 09/09</text><text x="171.7" y="212" text-anchor="middle" font-size="10" font-family="Courier New, monospace" fill="#7c9190">Qui 10/09</text><text x="275.7" y="212" text-anchor="middle" font-size="10" font-family="Courier New, monospace" fill="#7c9190">Sex 11/09</text><text x="379.7" y="212" text-anchor="middle" font-size="10" font-family="Courier New, monospace" fill="#7c9190">Sáb 12/09</text><text x="483.7" y="212" text-anchor="middle" font-size="10" font-family="Courier New, monospace" fill="#7c9190">Dom 13/09</text><text x="566.0" y="212" text-anchor="middle" font-size="10" font-family="Courier New, monospace" fill="#7c9190">Seg 14/09</text>
+    </svg>
+            <div style="display:flex; justify-content:space-between; margin-top:12px; font-size:11px; color:#7c9190;">
+              <span>3,12 m &middot; mínimo</span>
+              <span>4,12 m &middot; máximo</span>
+            </div>
+            
+            <p style="margin:8px 0 0 0; font-size:10.5px; color:#7c9190; line-height:1.4;">Nível: leituras reais da ANA (estação telemétrica de Rio Pardo), a cada ~15 minutos - não é projeção.</p>
+            
+            </div>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <style>
@@ -140,7 +163,7 @@ body { margin:0; background-color:#0f2027; }
 </div>
 <script>
 (function() {
-  const pontos = [{"nome": "Rio Pardo", "nome_oficial": "RIO PARDO", "lat": -29.995, "lon": -52.3756, "nivel_m": 5.19, "tendencia_cm_h": 7.86, "cota_inundacao_m": 12.5}];
+  const pontos = [{"nome": "Rio Pardo", "nome_oficial": "RIO PARDO", "lat": -29.995, "lon": -52.3756, "nivel_m": 5.39, "tendencia_cm_h": 6.86, "cota_inundacao_m": 12.5}];
   const mapa = L.map('mapa-estacao', { scrollWheelZoom: false }).setView([-29.995, -52.3756], 15);
 
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
