@@ -98,8 +98,8 @@ body { margin:0; background-color:#0f2027; }
           <p style="margin:6px 0 0 0; font-size:11px; color:#7c9190;">Fonte: Instituto Nacional de Meteorologia (oficial) - informativo, não faz parte do cálculo do Horizonte.</p>
         </div>
   <div class="card">
-          <div class="nivel">1,05<span class="nivel-un">m</span></div>
-          <p class="linha-fraca">Tendência: subida (&#9650; 2,8 cm/h)</p>
+          <div class="nivel">1,03<span class="nivel-un">m</span></div>
+          <p class="linha-fraca">Tendência: queda (&#9660; 0,6 cm/h)</p>
           <p class="linha-fraca-2">Cota de inundação ainda não confirmada pra esta estação (telemétrica nova, sem referência oficial disponível ainda) - nível exibido sem comparação de risco.</p>
         </div>
   <div class="card">
@@ -130,8 +130,8 @@ body { margin:0; background-color:#0f2027; }
             </div>
             <div style="text-align:center; margin-top:4px; font-size:11px; color:#6ea3cc;">&#128167; 0,4 mm &middot; chuva no período</div>
             <p style="margin:8px 0 0 0; font-size:10.5px; color:#7c9190; line-height:1.4;">Nível: leituras reais da ANA (estação telemétrica de Eldorado do Sul (Itaí)), a cada ~15 minutos - não é projeção.</p>
-            <p style="margin:2px 0 0 0; font-size:10.5px; color:#7c9190; line-height:1.4;">Chuva em Eldorado do Sul (Itaí): medição real (pluviômetro da mesma estação ANA do nível).</p>
-            </div>
+            <p style="margin:2px 0 0 0; font-size:10.5px; color:#7c9190; line-height:1.4;">Chuva em Eldorado do Sul (Itaí): último dado disponível (pode não ser desta execução).</p>
+            <p style="margin:8px 0 0 0; padding:6px 10px; background-color:#1c2f33; border:1px solid #344d52; border-radius:6px; font-size:10.5px; color:#b9c8c7; line-height:1.4;">&#9888; ANA sem resposta nesta execução &mdash; mostrando o último histórico salvo (de 18/09 às 16:12), não o mais recente.</p></div>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <style>
@@ -152,7 +152,7 @@ body { margin:0; background-color:#0f2027; }
 </div>
 <script>
 (function() {
-  const pontos = [{"nome": "Eldorado do Sul (Itaí)", "nome_oficial": "ELDORADO DO SUL", "lat": -30.0097, "lon": -51.3033, "nivel_m": 1.05, "tendencia_cm_h": 2.8408163265306197, "cota_inundacao_m": null}];
+  const pontos = [{"nome": "Eldorado do Sul (Itaí)", "nome_oficial": "ELDORADO DO SUL", "lat": -30.0097, "lon": -51.3033, "nivel_m": 1.03, "tendencia_cm_h": -0.6306122448979425, "cota_inundacao_m": null}];
   const mapa = L.map('mapa-estacao', { scrollWheelZoom: false }).setView([-30.0097, -51.3033], 15);
 
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
