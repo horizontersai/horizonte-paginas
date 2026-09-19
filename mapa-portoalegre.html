@@ -57,7 +57,18 @@ body { margin:0; background-color:#0f2027; }
 </style>
 <div class="wrap">
   <a href="boletim.html" class="voltar">&larr; Voltar ao boletim</a>
-  <div class="hdr"><span class="marca-texto">Horizonte</span></div>
+  <div class="hdr"><svg width="26" height="26" viewBox="45 45 150 150" aria-hidden="true">
+  <defs>
+    <linearGradient id="mSun" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#D7A468"/><stop offset="1" stop-color="#B06A2C"/>
+    </linearGradient>
+    <clipPath id="mClip"><path d="M -20,-20 L 260,-20 L 260,98 C 188,120 156,84 120,106 C 84,128 52,92 18,114 L -20,114 Z"/></clipPath>
+  </defs>
+  <circle cx="120" cy="110" r="54" fill="url(#mSun)" clip-path="url(#mClip)"/>
+  <path d="M 18,114 C 52,92 84,128 120,106 C 156,84 188,120 222,98" fill="none" stroke="#1E4750" stroke-width="6" stroke-linecap="round"/>
+  <path d="M 96,174 C 108,180 132,180 144,174" fill="none" stroke="#BD7433" stroke-width="3.2" stroke-linecap="round" opacity="0.55"/>
+  <path d="M 102,184 C 111,188 129,188 138,184" fill="none" stroke="#BD7433" stroke-width="2.6" stroke-linecap="round" opacity="0.35"/>
+</svg><span class="marca-texto">Horizonte</span></div>
   <h1>Porto Alegre</h1>
   <p class="subtitulo">Localização física das estações no mapa</p>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
@@ -80,7 +91,7 @@ body { margin:0; background-color:#0f2027; }
 </div>
 <script>
 (function() {
-  const pontos = [{"nome": "Cais Mauá", "nome_oficial": "CAIS MAUÁ C6", "lat": -30.0211, "lon": -51.2211, "nivel_m": 1.15, "tendencia_cm_h": -0.14705882352941282, "cota_inundacao_m": 3.0}, {"nome": "Gasômetro", "nome_oficial": "USINA DO GASÔMETRO", "lat": -30.0347, "lon": -51.2419, "nivel_m": 0.72, "tendencia_cm_h": -0.14705882352941282, "cota_inundacao_m": 2.6}];
+  const pontos = [{"nome": "Cais Mauá", "nome_oficial": "CAIS MAUÁ C6", "lat": -30.0211, "lon": -51.2211, "nivel_m": 1.15, "tendencia_cm_h": 0.1568627450980359, "cota_inundacao_m": 3.0}, {"nome": "Gasômetro", "nome_oficial": "USINA DO GASÔMETRO", "lat": -30.0347, "lon": -51.2419, "nivel_m": 0.73, "tendencia_cm_h": 0.1568627450980359, "cota_inundacao_m": 2.6}];
   const mapa = L.map('mapa-portoalegre', { scrollWheelZoom: false }).setView([-30.027900000000002, -51.2315], 13);
 
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
