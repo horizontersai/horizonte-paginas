@@ -66,6 +66,8 @@ body { margin:0; background-color:#0f2027; }
   .sem-dado-card { opacity: .7; }
   .sem-dado-mini { font-size: 12px; color: #7c9190; line-height: 1.5; margin: 0; }
   .rodape-nota { font-size: 11px; color: #7c9190; line-height: 1.5; margin-top: 22px; }
+  .filtro-aviso { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin: 14px 0 0 0; padding: 8px 14px; background: #1c2f33; border: 1px solid #2a3f43; border-radius: 999px; font-size: 12px; color: #7c9190; }
+  .filtro-aviso a { color: #b9c8c7; text-decoration: underline; white-space: nowrap; }
 </style>
 <div class="wrap">
   <a href="boletim.html" class="voltar">&larr; Voltar ao boletim</a>
@@ -87,7 +89,7 @@ body { margin:0; background-color:#0f2027; }
   próximos 10 dias, e também de 11 a 30 dias. Sempre por faixa de chance (nunca um número
   bruto), e quando o risco de inundação já está Alto ou Muito alto, também uma estimativa
   de por quanto o rio pode passar da cota.</p>
-  <div class="card-rio" id="rio-cais-maua" style="border-color:#3a5a52">
+  <div class="card-rio" id="rio-cais-maua" data-nome="Cais Mauá" style="border-color:#3a5a52">
       <span class="help-slot" data-help="previsao-estendida"></span>
       <h3>Cais Mauá &middot; Porto Alegre</h3>
       <div class="metrica">
@@ -141,11 +143,11 @@ body { margin:0; background-color:#0f2027; }
       </div>
     </div>
     </div>
-<div class="card-rio sem-dado-card" id="rio-santa-tereza">
+<div class="card-rio sem-dado-card" id="rio-santa-tereza" data-nome="Santa Tereza">
       <h3>Santa Tereza</h3>
       <p class="sem-dado-mini">Previsão estendida ainda não disponível pra esta estação - a régua da ANA aqui não mede vazão (só nível), e é a vazão que alimenta este cálculo específico. O acompanhamento normal de 5 dias continua funcionando normalmente pra este rio.</p>
     </div>
-<div class="card-rio" id="rio-mucum">
+<div class="card-rio" id="rio-mucum" data-nome="Muçum">
       
       <h3>Muçum</h3>
       <div class="metrica">
@@ -199,11 +201,11 @@ body { margin:0; background-color:#0f2027; }
       </div>
     </div>
     </div>
-<div class="card-rio sem-dado-card" id="rio-roca-sales">
+<div class="card-rio sem-dado-card" id="rio-roca-sales" data-nome="Roca Sales">
       <h3>Roca Sales</h3>
       <p class="sem-dado-mini">Previsão estendida ainda não disponível pra esta estação - a régua da ANA aqui não mede vazão (só nível), e é a vazão que alimenta este cálculo específico. O acompanhamento normal de 5 dias continua funcionando normalmente pra este rio.</p>
     </div>
-<div class="card-rio" id="rio-encantado">
+<div class="card-rio" id="rio-encantado" data-nome="Encantado">
       
       <h3>Encantado</h3>
       <div class="metrica">
@@ -257,7 +259,7 @@ body { margin:0; background-color:#0f2027; }
       </div>
     </div>
     </div>
-<div class="card-rio" id="rio-lajeado">
+<div class="card-rio" id="rio-lajeado" data-nome="Lajeado">
       
       <h3>Lajeado</h3>
       <div class="metrica">
@@ -311,19 +313,19 @@ body { margin:0; background-color:#0f2027; }
       </div>
     </div>
     </div>
-<div class="card-rio sem-dado-card" id="rio-bom-retiro-do-sul">
+<div class="card-rio sem-dado-card" id="rio-bom-retiro-do-sul" data-nome="Bom Retiro do Sul">
       <h3>Bom Retiro do Sul</h3>
       <p class="sem-dado-mini">Previsão estendida ainda não disponível pra esta estação - a régua da ANA aqui não mede vazão (só nível), e é a vazão que alimenta este cálculo específico. O acompanhamento normal de 5 dias continua funcionando normalmente pra este rio.</p>
     </div>
-<div class="card-rio sem-dado-card" id="rio-taquari">
+<div class="card-rio sem-dado-card" id="rio-taquari" data-nome="Taquari">
       <h3>Taquari</h3>
       <p class="sem-dado-mini">Previsão estendida ainda não disponível pra esta estação - a régua da ANA aqui não mede vazão (só nível), e é a vazão que alimenta este cálculo específico. O acompanhamento normal de 5 dias continua funcionando normalmente pra este rio.</p>
     </div>
-<div class="card-rio sem-dado-card" id="rio-feliz">
+<div class="card-rio sem-dado-card" id="rio-feliz" data-nome="Feliz">
       <h3>Feliz</h3>
       <p class="sem-dado-mini">Previsão estendida ainda não disponível pra esta estação - a régua da ANA aqui não mede vazão (só nível), e é a vazão que alimenta este cálculo específico. O acompanhamento normal de 5 dias continua funcionando normalmente pra este rio.</p>
     </div>
-<div class="card-rio" id="rio-sao-sebastiao-do-cai">
+<div class="card-rio" id="rio-sao-sebastiao-do-cai" data-nome="São Sebastião do Caí">
       
       <h3>São Sebastião do Caí</h3>
       <div class="metrica">
@@ -377,7 +379,7 @@ body { margin:0; background-color:#0f2027; }
       </div>
     </div>
     </div>
-<div class="card-rio" id="rio-montenegro">
+<div class="card-rio" id="rio-montenegro" data-nome="Montenegro">
       
       <h3>Montenegro</h3>
       <div class="metrica">
@@ -431,7 +433,7 @@ body { margin:0; background-color:#0f2027; }
       </div>
     </div>
     </div>
-<div class="card-rio" id="rio-gravatai">
+<div class="card-rio" id="rio-gravatai" data-nome="Gravataí">
       
       <h3>Gravataí</h3>
       <div class="metrica">
@@ -485,7 +487,7 @@ body { margin:0; background-color:#0f2027; }
       </div>
     </div>
     </div>
-<div class="card-rio" id="rio-dona-francisca">
+<div class="card-rio" id="rio-dona-francisca" data-nome="Dona Francisca">
       
       <h3>Dona Francisca</h3>
       <div class="metrica">
@@ -539,7 +541,7 @@ body { margin:0; background-color:#0f2027; }
       </div>
     </div>
     </div>
-<div class="card-rio" id="rio-cachoeira-do-sul">
+<div class="card-rio" id="rio-cachoeira-do-sul" data-nome="Cachoeira do Sul">
       
       <h3>Cachoeira do Sul</h3>
       <div class="metrica">
@@ -593,7 +595,7 @@ body { margin:0; background-color:#0f2027; }
       </div>
     </div>
     </div>
-<div class="card-rio" id="rio-rio-pardo">
+<div class="card-rio" id="rio-rio-pardo" data-nome="Rio Pardo">
       
       <h3>Rio Pardo</h3>
       <div class="metrica">
@@ -647,19 +649,19 @@ body { margin:0; background-color:#0f2027; }
       </div>
     </div>
     </div>
-<div class="card-rio sem-dado-card" id="rio-sao-jeronimo">
+<div class="card-rio sem-dado-card" id="rio-sao-jeronimo" data-nome="São Jerônimo">
       <h3>São Jerônimo</h3>
       <p class="sem-dado-mini">Previsão estendida ainda não disponível pra esta estação - a régua da ANA aqui não mede vazão (só nível), e é a vazão que alimenta este cálculo específico. O acompanhamento normal de 5 dias continua funcionando normalmente pra este rio.</p>
     </div>
-<div class="card-rio sem-dado-card" id="rio-eldorado-do-sul-itai">
+<div class="card-rio sem-dado-card" id="rio-eldorado-do-sul-itai" data-nome="Eldorado do Sul (Itaí)">
       <h3>Eldorado do Sul (Itaí)</h3>
       <p class="sem-dado-mini">Previsão estendida ainda não disponível pra esta estação - a régua da ANA aqui não mede vazão (só nível), e é a vazão que alimenta este cálculo específico. O acompanhamento normal de 5 dias continua funcionando normalmente pra este rio.</p>
     </div>
-<div class="card-rio sem-dado-card" id="rio-taquara">
+<div class="card-rio sem-dado-card" id="rio-taquara" data-nome="Taquara">
       <h3>Taquara</h3>
       <p class="sem-dado-mini">Previsão estendida ainda não disponível pra esta estação - a régua da ANA aqui não mede vazão (só nível), e é a vazão que alimenta este cálculo específico. O acompanhamento normal de 5 dias continua funcionando normalmente pra este rio.</p>
     </div>
-<div class="card-rio" id="rio-campo-bom">
+<div class="card-rio" id="rio-campo-bom" data-nome="Campo Bom">
       
       <h3>Campo Bom</h3>
       <div class="metrica">
@@ -713,7 +715,7 @@ body { margin:0; background-color:#0f2027; }
       </div>
     </div>
     </div>
-<div class="card-rio" id="rio-sao-leopoldo">
+<div class="card-rio" id="rio-sao-leopoldo" data-nome="São Leopoldo">
       
       <h3>São Leopoldo</h3>
       <div class="metrica">
@@ -772,6 +774,32 @@ body { margin:0; background-color:#0f2027; }
   Sempre siga a orientação oficial da Defesa Civil do seu município.</p>
 </div>
 <script type="application/json" id="horizonte-help-data">{"previsao-estendida": {"titulo": "Previsão estendida (10 e 30 dias)", "oQue": "Uma leitura de mais longo prazo pra cada rio monitorado: qual a chance de chegar em cada um dos 3 patamares de risco (Atenção, Alerta e Inundação) nos próximos 10 dias, e também numa janela mais larga, de 11 a 30 dias. Complementa a previsão detalhada de 5 dias (36h/72h/120h) que já existe pra Porto Alegre e pra cada rio.", "comoInterpretar": "É uma classificação (de Muito baixa a Muito alta), não uma porcentagem - assim evita passar uma precisão maior do que o cálculo realmente tem. A chance de Alerta nunca é maior que a de Atenção, e a de Inundação nunca é maior que a de Alerta - às vezes duas caem na mesma faixa mesmo assim (a diferença real existe, só não é grande o bastante pra mudar de classificação); nesse caso o selo do nível mais severo aparece um pouco mais apagado, pra marcar que está na borda de baixo da faixa. Quanto mais longe no tempo (janela de 30 dias), maior a incerteza natural - trate como tendência, não como número fechado. Quando a chance de atingir a cota de inundação já está Alta ou Muito alta, aparece também uma estimativa de quanto o rio pode passar da cota, se isso realmente acontecer - baseada na própria previsão do momento, nunca no que já aconteceu antes."}}</script>
+<script>
+// Filtro por rio via ?rio=<slug> (19/09/2026, pedido do usuário: "quando
+// você está numa página de rio e ir pra previsão estendida, mostrar
+// todos os rios... acho que talvez faça mais sentido cada um ter sua
+// [própria visão]"). Em vez de 19 páginas HTML separadas (duplicaria
+// manutenção pra dado que já vem de uma execução única), esconde os
+// outros cards no cliente - link do rodapé do boletim continua sem o
+// parâmetro e mostra todos normalmente.
+(function () {
+  var params = new URLSearchParams(window.location.search);
+  var rio = params.get("rio");
+  if (!rio) return;
+  var alvo = document.getElementById("rio-" + rio);
+  if (!alvo) return;
+  document.querySelectorAll(".card-rio").forEach(function (c) {
+    if (c !== alvo) c.style.display = "none";
+  });
+  var h1 = document.querySelector("h1");
+  var nome = alvo.getAttribute("data-nome");
+  if (h1 && nome) h1.textContent = nome;
+  var aviso = document.createElement("div");
+  aviso.className = "filtro-aviso";
+  aviso.innerHTML = "Mostrando só este rio. <a href=\"previsao-estendida.html\">Ver todos os 19 rios &rarr;</a>";
+  alvo.parentNode.insertBefore(aviso, alvo);
+})();
+</script>
 <script>
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", function () {
