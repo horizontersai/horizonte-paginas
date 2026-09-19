@@ -1,0 +1,876 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0f2027">
+<title>Horizonte — Previsão estendida</title>
+<meta name="description" content="Chance de cada rio monitorado atingir a cota de atenção ou de inundação nos próximos 10 e 30 dias, com estimativa de quanto pode ultrapassar quando o risco é alto.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Horizonte — Previsão estendida">
+<meta property="og:description" content="Chance de cada rio monitorado atingir a cota de atenção ou de inundação nos próximos 10 e 30 dias, com estimativa de quanto pode ultrapassar quando o risco é alto.">
+<meta property="og:url" content="https://horizontersai.github.io/horizonte-paginas/previsao-estendida.html">
+<meta property="og:image" content="https://horizontersai.github.io/horizonte-paginas/icon-512.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Horizonte — Previsão estendida">
+<meta name="twitter:description" content="Chance de cada rio monitorado atingir a cota de atenção ou de inundação nos próximos 10 e 30 dias, com estimativa de quanto pode ultrapassar quando o risco é alto.">
+<meta name="twitter:image" content="https://horizontersai.github.io/horizonte-paginas/icon-512.png">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+<script data-goatcounter="https://horizonte-rs.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+<style>
+html { -webkit-text-size-adjust:100%; -ms-text-size-adjust:100%; text-size-adjust:100%; }
+body { margin:0; background-color:#0f2027; }
+.help-slot { display:none; }
+.help-btn { position:absolute; top:12px; right:14px; width:22px; height:22px; border-radius:50%; border:1px solid #344d52; background:#16262a; color:#7c9190; font-family:'Segoe UI',Arial,sans-serif; font-size:12px; font-weight:700; line-height:1; cursor:pointer; display:flex; align-items:center; justify-content:center; padding:0; z-index:2; }
+.help-btn:hover { border-color:#C48A4A; color:#C48A4A; }
+/* Janela flutuante, não modal de fundo escuro (07/09/2026, pedido do
+   usuário: "assim como já fizemos em outras partes do projeto") - mesmo
+   visual do .popup de gerar_mapa_bacias.py (card sem escurecer o resto
+   da tela), mas sempre CENTRALIZADA na tela (07/09/2026, correção do
+   usuário: a versão anterior posicionava perto do botão clicado, como
+   o mapa faz em telas largas - pedido explícito pra sempre centralizar,
+   independente do tamanho da tela). */
+.help-popup { display:none; position:fixed; z-index:50; top:50%; left:50%; transform:translate(-50%,-50%); width:min(300px, 88vw); background:#1c2f33; border:1px solid #344d52; border-radius:12px; padding:16px 18px; box-shadow:0 12px 32px rgba(0,0,0,.45); font-family:'Segoe UI',Arial,sans-serif; max-height:80vh; overflow-y:auto; }
+.help-popup.show { display:block; }
+.help-popup .close { position:absolute; top:8px; right:10px; background:none; border:none; cursor:pointer; color:#7c9190; font-size:18px; line-height:1; padding:6px; }
+.help-popup h4 { font-family:Georgia,serif; font-weight:400; font-size:16px; margin:0 22px 10px 0; color:#eef2f1; }
+.help-popup .secao-lbl { font-size:10.5px; text-transform:uppercase; letter-spacing:.05em; font-weight:700; color:#C48A4A; margin:12px 0 4px 0; }
+.help-popup .secao-lbl:first-of-type { margin-top:0; }
+.help-popup p { font-size:13px; line-height:1.5; color:#b9c8c7; margin:0; }
+</style>
+</head>
+<body>
+<style>
+  html { -webkit-text-size-adjust:100%; text-size-adjust:100%; }
+  body { margin:0; background-color:#0f2027; color:#eef2f1; font-family:'Segoe UI', Arial, sans-serif; }
+  .wrap { max-width: 480px; margin: 0 auto; padding: 20px 20px 60px; }
+  .hdr { display: flex; align-items: center; gap: 10px; margin-bottom: 18px; }
+  .hdr .marca-texto { font-family: Georgia, serif; font-size: 18px; font-weight: 700; }
+  .voltar { display: inline-flex; align-items: center; gap: 6px; margin: 0 0 16px 0; padding: 7px 14px; border-radius: 999px; background: #16262a; border: 1px solid #2a3f43; font-family: 'Courier New', monospace; font-size: 12px; font-weight: 600; color: #b9c8c7; text-decoration: none; }
+  h1 { font-size: 22px; margin: 0 0 2px 0; }
+  .subtitulo { font-size: 12.5px; color: #7c9190; text-transform: uppercase; letter-spacing: .5px; margin: 0 0 10px 0; }
+  .intro { font-size: 13.5px; color: #b9c8c7; line-height: 1.55; margin: 0 0 18px 0; }
+  .card-rio { margin-top: 14px; background-color: #16262a; border: 1px solid #2a3f43; border-radius: 14px; padding: 16px 18px; position: relative; }
+  .card-rio h3 { margin: 0 0 14px 0; font-size: 15px; font-weight: 700; color: #eef2f1; }
+  .metrica { padding: 10px 0; }
+  .metrica-titulo { font-size: 11px; text-transform: uppercase; letter-spacing: .4px; color: #b9c8c7; font-weight: 700; margin-bottom: 10px; }
+  .divisor-metrica { height: 1px; background: #2a3f43; margin: 2px 0; }
+  .metrica-janelas { display: grid; grid-template-columns: 1fr auto 1fr; align-items: start; }
+  .divisor-janela { width: 1px; background: #2a3f43; margin: 2px 16px; }
+  .cel-janela { text-align: left; }
+  .cel-tempo { font-size: 9.5px; text-transform: uppercase; letter-spacing: .4px; color: #7c9190; margin-bottom: 6px; }
+  .chance-badge { display: inline-block; padding: 2px 9px; border-radius: 999px; border: 1px solid; font-size: 10.5px; font-weight: 700; }
+  .magnitude { font-size: 10px; color: #7c9190; line-height: 1.4; margin: 8px 0 0 0; }
+  .sem-dado-mini-cel { font-size: 11px; color: #7c9190; margin: 0; font-style: italic; }
+  .sem-dado-card { opacity: .7; }
+  .sem-dado-mini { font-size: 12px; color: #7c9190; line-height: 1.5; margin: 0; }
+  .rodape-nota { font-size: 11px; color: #7c9190; line-height: 1.5; margin-top: 22px; }
+</style>
+<div class="wrap">
+  <a href="boletim.html" class="voltar">&larr; Voltar ao boletim</a>
+  <div class="hdr"><svg width="38" height="38" viewBox="45 45 150 150" aria-hidden="true">
+  <defs>
+    <linearGradient id="mSun" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#D7A468"/><stop offset="1" stop-color="#B06A2C"/>
+    </linearGradient>
+    <clipPath id="mClip"><path d="M -20,-20 L 260,-20 L 260,98 C 188,120 156,84 120,106 C 84,128 52,92 18,114 L -20,114 Z"/></clipPath>
+  </defs>
+  <circle cx="120" cy="110" r="54" fill="url(#mSun)" clip-path="url(#mClip)"/>
+  <path d="M 18,114 C 52,92 84,128 120,106 C 156,84 188,120 222,98" fill="none" stroke="#1E4750" stroke-width="6" stroke-linecap="round"/>
+  <path d="M 96,174 C 108,180 132,180 144,174" fill="none" stroke="#BD7433" stroke-width="3.2" stroke-linecap="round" opacity="0.55"/>
+  <path d="M 102,184 C 111,188 129,188 138,184" fill="none" stroke="#BD7433" stroke-width="2.6" stroke-linecap="round" opacity="0.35"/>
+</svg><span class="marca-texto">Horizonte</span></div>
+  <h1>Previsão estendida</h1>
+  <p class="subtitulo">Chance de cada rio atingir a cota de atenção, alerta ou inundação</p>
+  <p class="intro">Olhando mais pra frente do que a previsão de 5 dias de costume: os
+  próximos 10 dias, e também de 11 a 30 dias. Sempre por faixa de chance (nunca um número
+  bruto), e quando o risco de inundação já está Alto ou Muito alto, também uma estimativa
+  de por quanto o rio pode passar da cota.</p>
+  <div class="card-rio" id="rio-cais-maua" style="border-color:#3a5a52">
+      <span class="help-slot" data-help="previsao-estendida"></span>
+      <h3>Cais Mauá &middot; Porto Alegre</h3>
+      <div class="metrica">
+      <div class="metrica-titulo">Atenção &middot; cota 2.00m</div>
+      <div class="metrica-janelas">
+        <div class="cel-janela">
+      <div class="cel-tempo">Próximos 10 dias</div>
+      <span class="chance-badge" style="background:#3a3324;color:#d4a94f;border-color:#d4a94f55;">Moderada</span>
+      
+    </div>
+        <div class="divisor-janela"></div>
+        <div class="cel-janela">
+      <div class="cel-tempo">11 a 30 dias</div>
+      <span class="chance-badge" style="background:#3d3226;color:#d47a4f;border-color:#d47a4f55;">Alta</span>
+      
+    </div>
+      </div>
+    </div>
+      <div class="divisor-metrica"></div>
+      <div class="metrica">
+      <div class="metrica-titulo">Alerta &middot; cota 2.50m</div>
+      <div class="metrica-janelas">
+        <div class="cel-janela">
+      <div class="cel-tempo">Próximos 10 dias</div>
+      <span class="chance-badge" style="background:#2a3d3a;color:#6fa86f;border-color:#6fa86f55;">Baixa</span>
+      
+    </div>
+        <div class="divisor-janela"></div>
+        <div class="cel-janela">
+      <div class="cel-tempo">11 a 30 dias</div>
+      <span class="chance-badge" style="background:#3a3324;color:#d4a94f;border-color:#d4a94f55;">Moderada</span>
+      
+    </div>
+      </div>
+    </div>
+      <div class="divisor-metrica"></div>
+      <div class="metrica">
+      <div class="metrica-titulo">Inundação &middot; cota 3.00m</div>
+      <div class="metrica-janelas">
+        <div class="cel-janela">
+      <div class="cel-tempo">Próximos 10 dias</div>
+      <span class="chance-badge" style="background:#2a3d3a;color:#6fa86f;border-color:#6fa86f55;opacity:.65">Baixa</span>
+      
+    </div>
+        <div class="divisor-janela"></div>
+        <div class="cel-janela">
+      <div class="cel-tempo">11 a 30 dias</div>
+      <span class="chance-badge" style="background:#3a3324;color:#d4a94f;border-color:#d4a94f55;opacity:.65">Moderada</span>
+      
+    </div>
+      </div>
+    </div>
+    </div>
+<div class="card-rio sem-dado-card" id="rio-santa-tereza">
+      <h3>Santa Tereza</h3>
+      <p class="sem-dado-mini">Previsão estendida ainda não disponível pra esta estação - a régua da ANA aqui não mede vazão (só nível), e é a vazão que alimenta este cálculo específico. O acompanhamento normal de 5 dias continua funcionando normalmente pra este rio.</p>
+    </div>
+<div class="card-rio" id="rio-mucum">
+      
+      <h3>Muçum</h3>
+      <div class="metrica">
+      <div class="metrica-titulo">Atenção &middot; cota 6.57m</div>
+      <div class="metrica-janelas">
+        <div class="cel-janela">
+      <div class="cel-tempo">Próximos 10 dias</div>
+      <span class="chance-badge" style="background:#3d2530;color:#c9536b;border-color:#c9536b55;">Muito alta</span>
+      
+    </div>
+        <div class="divisor-janela"></div>
+        <div class="cel-janela">
+      <div class="cel-tempo">11 a 30 dias</div>
+      <span class="chance-badge" style="background:#3d2530;color:#c9536b;border-color:#c9536b55;">Muito alta</span>
+      
+    </div>
+      </div>
+    </div>
+      <div class="divisor-metrica"></div>
+      <div class="metrica">
+      <div class="metrica-titulo">Alerta &middot; cota 9.11m</div>
+      <div class="metrica-janelas">
+        <div class="cel-janela">
+      <div class="cel-tempo">Próximos 10 dias</div>
+      <span class="chance-badge" style="background:#3a3324;color:#d4a94f;border-color:#d4a94f55;">Moderada</span>
+      
+    </div>
+        <div class="divisor-janela"></div>
+        <div class="cel-janela">
+      <div class="cel-tempo">11 a 30 dias</div>
+      <span class="chance-badge" style="background:#3a3324;color:#d4a94f;border-color:#d4a94f55;">Moderada</span>
+      
+    </div>
+      </div>
+    </div>
+      <div class="divisor-metrica"></div>
+      <div class="metrica">
+      <div class="metrica-titulo">Inundação &middot; cota 18.00m</div>
+      <div class="metrica-janelas">
+        <div class="cel-janela">
+      <div class="cel-tempo">Próximos 10 dias</div>
+      <span class="chance-badge" style="background:#243638;color:#4a7c8c;border-color:#4a7c8c55;">Muito baixa</span>
+      
+    </div>
+        <div class="divisor-janela"></div>
+        <div class="cel-janela">
+      <div class="cel-tempo">11 a 30 dias</div>
+      <span class="chance-badge" style="background:#243638;color:#4a7c8c;border-color:#4a7c8c55;">Muito baixa</span>
+      
+    </div>
+      </div>
+    </div>
+    </div>
+<div class="card-rio sem-dado-card" id="rio-roca-sales">
+      <h3>Roca Sales</h3>
+      <p class="sem-dado-mini">Previsão estendida ainda não disponível pra esta estação - a régua da ANA aqui não mede vazão (só nível), e é a vazão que alimenta este cálculo específico. O acompanhamento normal de 5 dias continua funcionando normalmente pra este rio.</p>
+    </div>
+<div class="card-rio" id="rio-encantado">
+      
+      <h3>Encantado</h3>
+      <div class="metrica">
+      <div class="metrica-titulo">Atenção &middot; cota 4.88m</div>
+      <div class="metrica-janelas">
+        <div class="cel-janela">
+      <div class="cel-tempo">Próximos 10 dias</div>
+      <span class="chance-badge" style="background:#3d2530;color:#c9536b;border-color:#c9536b55;">Muito alta</span>
+      
+    </div>
+        <div class="divisor-janela"></div>
+        <div class="cel-janela">
+      <div class="cel-tempo">11 a 30 dias</div>
+      <span class="chance-badge" style="background:#3d2530;color:#c9536b;border-color:#c9536b55;">Muito alta</span>
+      
+    </div>
+      </div>
+    </div>
+      <div class="divisor-metrica"></div>
+      <div class="metrica">
+      <div class="metrica-titulo">Alerta &middot; cota 7.01m</div>
+      <div class="metrica-janelas">
+        <div class="cel-janela">
+      <div class="cel-tempo">Próximos 10 dias</div>
+      <span class="chance-badge" style="background:#3a3324;color:#d4a94f;border-color:#d4a94f55;">Moderada</span>
+      
+    </div>
+        <div class="divisor-janela"></div>
+        <div class="cel-janela">
+      <div class="cel-tempo">11 a 30 dias</div>
+      <span class="chance-badge" style="background:#3a3324;color:#d4a94f;border-color:#d4a94f55;">Moderada</span>
+      
+    </div>
+      </div>
+    </div>
+      <div class="divisor-metrica"></div>
+      <div class="metrica">
+      <div class="metrica-titulo">Inundação &middot; cota 12.00m</div>
+      <div class="metrica-janelas">
+        <div class="cel-janela">
+      <div class="cel-tempo">Próximos 10 dias</div>
+      <span class="chance-badge" style="background:#243638;color:#4a7c8c;border-color:#4a7c8c55;">Muito baixa</span>
+      
+    </div>
+        <div class="divisor-janela"></div>
+        <div class="cel-janela">
+      <div class="cel-tempo">11 a 30 dias</div>
+      <span class="chance-badge" style="background:#2a3d3a;color:#6fa86f;border-color:#6fa86f55;">Baixa</span>
+      
+    </div>
+      </div>
+    </div>
+    </div>
+<div class="card-rio" id="rio-lajeado">
+      
+      <h3>Lajeado</h3>
+      <div class="metrica">
+      <div class="metrica-titulo">Atenção &middot; cota 14.38m</div>
+      <div class="metrica-janelas">
+        <div class="cel-janela">
+      <div class="cel-tempo">Próximos 10 dias</div>
+      <span class="chance-badge" style="background:#3d3226;color:#d47a4f;border-color:#d47a4f55;">Alta</span>
+      
+    </div>
+        <div class="divisor-janela"></div>
+        <div class="cel-janela">
+      <div class="cel-tempo">11 a 30 dias</div>
+      <span class="chance-badge" style="background:#3d3226;color:#d47a4f;border-color:#d47a4f55;">Alta</span>
+      
+    </div>
+      </div>
+    </div>
+      <div class="divisor-metrica"></div>
+      <div class="metrica">
+      <div class="metrica-titulo">Alerta &middot; cota 16.73m</div>
+      <div class="metrica-janelas">
+        <div class="cel-janela">
+      <div class="cel-tempo">Próximos 10 dias</div>
+      <span class="chance-badge" style="background:#2a3d3a;color:#6fa86f;border-color:#6fa86f55;">Baixa</span>
+      
+    </div>
+        <div class="divisor-janela"></div>
+        <div class="cel-janela">
+      <div class="cel-tempo">11 a 30 dias</div>
+      <span class="chance-badge" style="background:#2a3d3a;color:#6fa86f;border-color:#6fa86f55;">Baixa</span>
+      
+    </div>
+      </div>
+    </div>
+      <div class="divisor-metrica"></div>
+      <div class="metrica">
+      <div class="metrica-titulo">Inundação &middot; cota 19.00m</div>
+      <div class="metrica-janelas">
+        <div class="cel-janela">
+      <div class="cel-tempo">Próximos 10 dias</div>
+      <span class="chance-badge" style="background:#2a3d3a;color:#6fa86f;border-color:#6fa86f55;opacity:.65">Baixa</span>
+      
+    </div>
+        <div class="divisor-janela"></div>
+        <div class="cel-janela">
+      <div class="cel-tempo">11 a 30 dias</div>
+      <span class="chance-badge" style="background:#2a3d3a;color:#6fa86f;border-color:#6fa86f55;opacity:.65">Baixa</span>
+      
+    </div>
+      </div>
+    </div>
+    </div>
+<div class="card-rio sem-dado-card" id="rio-bom-retiro-do-sul">
+      <h3>Bom Retiro do Sul</h3>
+      <p class="sem-dado-mini">Previsão estendida ainda não disponível pra esta estação - a régua da ANA aqui não mede vazão (só nível), e é a vazão que alimenta este cálculo específico. O acompanhamento normal de 5 dias continua funcionando normalmente pra este rio.</p>
+    </div>
+<div class="card-rio sem-dado-card" id="rio-taquari">
+      <h3>Taquari</h3>
+      <p class="sem-dado-mini">Previsão estendida ainda não disponível pra esta estação - a régua da ANA aqui não mede vazão (só nível), e é a vazão que alimenta este cálculo específico. O acompanhamento normal de 5 dias continua funcionando normalmente pra este rio.</p>
+    </div>
+<div class="card-rio sem-dado-card" id="rio-feliz">
+      <h3>Feliz</h3>
+      <p class="sem-dado-mini">Previsão estendida ainda não disponível pra esta estação - a régua da ANA aqui não mede vazão (só nível), e é a vazão que alimenta este cálculo específico. O acompanhamento normal de 5 dias continua funcionando normalmente pra este rio.</p>
+    </div>
+<div class="card-rio" id="rio-sao-sebastiao-do-cai">
+      
+      <h3>São Sebastião do Caí</h3>
+      <div class="metrica">
+      <div class="metrica-titulo">Atenção &middot; cota 7.41m</div>
+      <div class="metrica-janelas">
+        <div class="cel-janela">
+      <div class="cel-tempo">Próximos 10 dias</div>
+      <span class="chance-badge" style="background:#3d3226;color:#d47a4f;border-color:#d47a4f55;">Alta</span>
+      
+    </div>
+        <div class="divisor-janela"></div>
+        <div class="cel-janela">
+      <div class="cel-tempo">11 a 30 dias</div>
+      <span class="chance-badge" style="background:#3d2530;color:#c9536b;border-color:#c9536b55;">Muito alta</span>
+      
+    </div>
+      </div>
+    </div>
+      <div class="divisor-metrica"></div>
+      <div class="metrica">
+      <div class="metrica-titulo">Alerta &middot; cota 9.56m</div>
+      <div class="metrica-janelas">
+        <div class="cel-janela">
+      <div class="cel-tempo">Próximos 10 dias</div>
+      <span class="chance-badge" style="background:#2a3d3a;color:#6fa86f;border-color:#6fa86f55;">Baixa</span>
+      
+    </div>
+        <div class="divisor-janela"></div>
+        <div class="cel-janela">
+      <div class="cel-tempo">11 a 30 dias</div>
+      <span class="chance-badge" style="background:#3a3324;color:#d4a94f;border-color:#d4a94f55;">Moderada</span>
+      
+    </div>
+      </div>
+    </div>
+      <div class="divisor-metrica"></div>
+      <div class="metrica">
+      <div class="metrica-titulo">Inundação &middot; cota 10.00m</div>
+      <div class="metrica-janelas">
+        <div class="cel-janela">
+      <div class="cel-tempo">Próximos 10 dias</div>
+      <span class="chance-badge" style="background:#2a3d3a;color:#6fa86f;border-color:#6fa86f55;opacity:.65">Baixa</span>
+      
+    </div>
+        <div class="divisor-janela"></div>
+        <div class="cel-janela">
+      <div class="cel-tempo">11 a 30 dias</div>
+      <span class="chance-badge" style="background:#3a3324;color:#d4a94f;border-color:#d4a94f55;opacity:.65">Moderada</span>
+      
+    </div>
+      </div>
+    </div>
+    </div>
+<div class="card-rio" id="rio-montenegro">
+      
+      <h3>Montenegro</h3>
+      <div class="metrica">
+      <div class="metrica-titulo">Atenção &middot; cota 4.72m</div>
+      <div class="metrica-janelas">
+        <div class="cel-janela">
+      <div class="cel-tempo">Próximos 10 dias</div>
+      <span class="chance-badge" style="background:#3d3226;color:#d47a4f;border-color:#d47a4f55;">Alta</span>
+      
+    </div>
+        <div class="divisor-janela"></div>
+        <div class="cel-janela">
+      <div class="cel-tempo">11 a 30 dias</div>
+      <span class="chance-badge" style="background:#3d3226;color:#d47a4f;border-color:#d47a4f55;">Alta</span>
+      
+    </div>
+      </div>
+    </div>
+      <div class="divisor-metrica"></div>
+      <div class="metrica">
+      <div class="metrica-titulo">Alerta &middot; cota 5.70m</div>
+      <div class="metrica-janelas">
+        <div class="cel-janela">
+      <div class="cel-tempo">Próximos 10 dias</div>
+      <span class="chance-badge" style="background:#2a3d3a;color:#6fa86f;border-color:#6fa86f55;">Baixa</span>
+      
+    </div>
+        <div class="divisor-janela"></div>
+        <div class="cel-janela">
+      <div class="cel-tempo">11 a 30 dias</div>
+      <span class="chance-badge" style="background:#3a3324;color:#d4a94f;border-color:#d4a94f55;">Moderada</span>
+      
+    </div>
+      </div>
+    </div>
+      <div class="divisor-metrica"></div>
+      <div class="metrica">
+      <div class="metrica-titulo">Inundação &middot; cota 6.00m</div>
+      <div class="metrica-janelas">
+        <div class="cel-janela">
+      <div class="cel-tempo">Próximos 10 dias</div>
+      <span class="chance-badge" style="background:#2a3d3a;color:#6fa86f;border-color:#6fa86f55;opacity:.65">Baixa</span>
+      
+    </div>
+        <div class="divisor-janela"></div>
+        <div class="cel-janela">
+      <div class="cel-tempo">11 a 30 dias</div>
+      <span class="chance-badge" style="background:#3a3324;color:#d4a94f;border-color:#d4a94f55;opacity:.65">Moderada</span>
+      
+    </div>
+      </div>
+    </div>
+    </div>
+<div class="card-rio" id="rio-gravatai">
+      
+      <h3>Gravataí</h3>
+      <div class="metrica">
+      <div class="metrica-titulo">Atenção &middot; cota 4.63m</div>
+      <div class="metrica-janelas">
+        <div class="cel-janela">
+      <div class="cel-tempo">Próximos 10 dias</div>
+      <span class="chance-badge" style="background:#3d3226;color:#d47a4f;border-color:#d47a4f55;">Alta</span>
+      
+    </div>
+        <div class="divisor-janela"></div>
+        <div class="cel-janela">
+      <div class="cel-tempo">11 a 30 dias</div>
+      <span class="chance-badge" style="background:#3d3226;color:#d47a4f;border-color:#d47a4f55;">Alta</span>
+      
+    </div>
+      </div>
+    </div>
+      <div class="divisor-metrica"></div>
+      <div class="metrica">
+      <div class="metrica-titulo">Alerta &middot; cota 4.69m</div>
+      <div class="metrica-janelas">
+        <div class="cel-janela">
+      <div class="cel-tempo">Próximos 10 dias</div>
+      <span class="chance-badge" style="background:#3d3226;color:#d47a4f;border-color:#d47a4f55;opacity:.65">Alta</span>
+      
+    </div>
+        <div class="divisor-janela"></div>
+        <div class="cel-janela">
+      <div class="cel-tempo">11 a 30 dias</div>
+      <span class="chance-badge" style="background:#3d3226;color:#d47a4f;border-color:#d47a4f55;opacity:.65">Alta</span>
+      
+    </div>
+      </div>
+    </div>
+      <div class="divisor-metrica"></div>
+      <div class="metrica">
+      <div class="metrica-titulo">Inundação &middot; cota 4.75m</div>
+      <div class="metrica-janelas">
+        <div class="cel-janela">
+      <div class="cel-tempo">Próximos 10 dias</div>
+      <span class="chance-badge" style="background:#3a3324;color:#d4a94f;border-color:#d4a94f55;">Moderada</span>
+      
+    </div>
+        <div class="divisor-janela"></div>
+        <div class="cel-janela">
+      <div class="cel-tempo">11 a 30 dias</div>
+      <span class="chance-badge" style="background:#3a3324;color:#d4a94f;border-color:#d4a94f55;">Moderada</span>
+      
+    </div>
+      </div>
+    </div>
+    </div>
+<div class="card-rio" id="rio-dona-francisca">
+      
+      <h3>Dona Francisca</h3>
+      <div class="metrica">
+      <div class="metrica-titulo">Atenção &middot; cota 5.87m</div>
+      <div class="metrica-janelas">
+        <div class="cel-janela">
+      <div class="cel-tempo">Próximos 10 dias</div>
+      <span class="chance-badge" style="background:#2a3d3a;color:#6fa86f;border-color:#6fa86f55;">Baixa</span>
+      
+    </div>
+        <div class="divisor-janela"></div>
+        <div class="cel-janela">
+      <div class="cel-tempo">11 a 30 dias</div>
+      <span class="chance-badge" style="background:#3a3324;color:#d4a94f;border-color:#d4a94f55;">Moderada</span>
+      
+    </div>
+      </div>
+    </div>
+      <div class="divisor-metrica"></div>
+      <div class="metrica">
+      <div class="metrica-titulo">Alerta &middot; cota 7.12m</div>
+      <div class="metrica-janelas">
+        <div class="cel-janela">
+      <div class="cel-tempo">Próximos 10 dias</div>
+      <span class="chance-badge" style="background:#2a3d3a;color:#6fa86f;border-color:#6fa86f55;opacity:.65">Baixa</span>
+      
+    </div>
+        <div class="divisor-janela"></div>
+        <div class="cel-janela">
+      <div class="cel-tempo">11 a 30 dias</div>
+      <span class="chance-badge" style="background:#2a3d3a;color:#6fa86f;border-color:#6fa86f55;">Baixa</span>
+      
+    </div>
+      </div>
+    </div>
+      <div class="divisor-metrica"></div>
+      <div class="metrica">
+      <div class="metrica-titulo">Inundação &middot; cota 7.50m</div>
+      <div class="metrica-janelas">
+        <div class="cel-janela">
+      <div class="cel-tempo">Próximos 10 dias</div>
+      <span class="chance-badge" style="background:#243638;color:#4a7c8c;border-color:#4a7c8c55;">Muito baixa</span>
+      
+    </div>
+        <div class="divisor-janela"></div>
+        <div class="cel-janela">
+      <div class="cel-tempo">11 a 30 dias</div>
+      <span class="chance-badge" style="background:#2a3d3a;color:#6fa86f;border-color:#6fa86f55;opacity:.65">Baixa</span>
+      
+    </div>
+      </div>
+    </div>
+    </div>
+<div class="card-rio" id="rio-cachoeira-do-sul">
+      
+      <h3>Cachoeira do Sul</h3>
+      <div class="metrica">
+      <div class="metrica-titulo">Atenção &middot; cota 7.98m</div>
+      <div class="metrica-janelas">
+        <div class="cel-janela">
+      <div class="cel-tempo">Próximos 10 dias</div>
+      <span class="chance-badge" style="background:#2a3d3a;color:#6fa86f;border-color:#6fa86f55;">Baixa</span>
+      
+    </div>
+        <div class="divisor-janela"></div>
+        <div class="cel-janela">
+      <div class="cel-tempo">11 a 30 dias</div>
+      <span class="chance-badge" style="background:#3a3324;color:#d4a94f;border-color:#d4a94f55;">Moderada</span>
+      
+    </div>
+      </div>
+    </div>
+      <div class="divisor-metrica"></div>
+      <div class="metrica">
+      <div class="metrica-titulo">Alerta &middot; cota 8.55m</div>
+      <div class="metrica-janelas">
+        <div class="cel-janela">
+      <div class="cel-tempo">Próximos 10 dias</div>
+      <span class="chance-badge" style="background:#243638;color:#4a7c8c;border-color:#4a7c8c55;">Muito baixa</span>
+      
+    </div>
+        <div class="divisor-janela"></div>
+        <div class="cel-janela">
+      <div class="cel-tempo">11 a 30 dias</div>
+      <span class="chance-badge" style="background:#3a3324;color:#d4a94f;border-color:#d4a94f55;opacity:.65">Moderada</span>
+      
+    </div>
+      </div>
+    </div>
+      <div class="divisor-metrica"></div>
+      <div class="metrica">
+      <div class="metrica-titulo">Inundação &middot; cota 9.00m</div>
+      <div class="metrica-janelas">
+        <div class="cel-janela">
+      <div class="cel-tempo">Próximos 10 dias</div>
+      <span class="chance-badge" style="background:#243638;color:#4a7c8c;border-color:#4a7c8c55;opacity:.65">Muito baixa</span>
+      
+    </div>
+        <div class="divisor-janela"></div>
+        <div class="cel-janela">
+      <div class="cel-tempo">11 a 30 dias</div>
+      <span class="chance-badge" style="background:#3a3324;color:#d4a94f;border-color:#d4a94f55;opacity:.65">Moderada</span>
+      
+    </div>
+      </div>
+    </div>
+    </div>
+<div class="card-rio" id="rio-rio-pardo">
+      
+      <h3>Rio Pardo</h3>
+      <div class="metrica">
+      <div class="metrica-titulo">Atenção &middot; cota 9.68m</div>
+      <div class="metrica-janelas">
+        <div class="cel-janela">
+      <div class="cel-tempo">Próximos 10 dias</div>
+      <span class="chance-badge" style="background:#243638;color:#4a7c8c;border-color:#4a7c8c55;">Muito baixa</span>
+      
+    </div>
+        <div class="divisor-janela"></div>
+        <div class="cel-janela">
+      <div class="cel-tempo">11 a 30 dias</div>
+      <span class="chance-badge" style="background:#3a3324;color:#d4a94f;border-color:#d4a94f55;">Moderada</span>
+      
+    </div>
+      </div>
+    </div>
+      <div class="divisor-metrica"></div>
+      <div class="metrica">
+      <div class="metrica-titulo">Alerta &middot; cota 11.16m</div>
+      <div class="metrica-janelas">
+        <div class="cel-janela">
+      <div class="cel-tempo">Próximos 10 dias</div>
+      <span class="chance-badge" style="background:#243638;color:#4a7c8c;border-color:#4a7c8c55;opacity:.65">Muito baixa</span>
+      
+    </div>
+        <div class="divisor-janela"></div>
+        <div class="cel-janela">
+      <div class="cel-tempo">11 a 30 dias</div>
+      <span class="chance-badge" style="background:#2a3d3a;color:#6fa86f;border-color:#6fa86f55;">Baixa</span>
+      
+    </div>
+      </div>
+    </div>
+      <div class="divisor-metrica"></div>
+      <div class="metrica">
+      <div class="metrica-titulo">Inundação &middot; cota 12.50m</div>
+      <div class="metrica-janelas">
+        <div class="cel-janela">
+      <div class="cel-tempo">Próximos 10 dias</div>
+      <span class="chance-badge" style="background:#243638;color:#4a7c8c;border-color:#4a7c8c55;opacity:.65">Muito baixa</span>
+      
+    </div>
+        <div class="divisor-janela"></div>
+        <div class="cel-janela">
+      <div class="cel-tempo">11 a 30 dias</div>
+      <span class="chance-badge" style="background:#2a3d3a;color:#6fa86f;border-color:#6fa86f55;opacity:.65">Baixa</span>
+      
+    </div>
+      </div>
+    </div>
+    </div>
+<div class="card-rio sem-dado-card" id="rio-sao-jeronimo">
+      <h3>São Jerônimo</h3>
+      <p class="sem-dado-mini">Previsão estendida ainda não disponível pra esta estação - a régua da ANA aqui não mede vazão (só nível), e é a vazão que alimenta este cálculo específico. O acompanhamento normal de 5 dias continua funcionando normalmente pra este rio.</p>
+    </div>
+<div class="card-rio sem-dado-card" id="rio-eldorado-do-sul-itai">
+      <h3>Eldorado do Sul (Itaí)</h3>
+      <p class="sem-dado-mini">Previsão estendida ainda não disponível pra esta estação - a régua da ANA aqui não mede vazão (só nível), e é a vazão que alimenta este cálculo específico. O acompanhamento normal de 5 dias continua funcionando normalmente pra este rio.</p>
+    </div>
+<div class="card-rio sem-dado-card" id="rio-taquara">
+      <h3>Taquara</h3>
+      <p class="sem-dado-mini">Previsão estendida ainda não disponível pra esta estação - a régua da ANA aqui não mede vazão (só nível), e é a vazão que alimenta este cálculo específico. O acompanhamento normal de 5 dias continua funcionando normalmente pra este rio.</p>
+    </div>
+<div class="card-rio" id="rio-campo-bom">
+      
+      <h3>Campo Bom</h3>
+      <div class="metrica">
+      <div class="metrica-titulo">Atenção &middot; cota 6.39m</div>
+      <div class="metrica-janelas">
+        <div class="cel-janela">
+      <div class="cel-tempo">Próximos 10 dias</div>
+      <span class="chance-badge" style="background:#2a3d3a;color:#6fa86f;border-color:#6fa86f55;">Baixa</span>
+      
+    </div>
+        <div class="divisor-janela"></div>
+        <div class="cel-janela">
+      <div class="cel-tempo">11 a 30 dias</div>
+      <span class="chance-badge" style="background:#3a3324;color:#d4a94f;border-color:#d4a94f55;">Moderada</span>
+      
+    </div>
+      </div>
+    </div>
+      <div class="divisor-metrica"></div>
+      <div class="metrica">
+      <div class="metrica-titulo">Alerta &middot; cota 6.46m</div>
+      <div class="metrica-janelas">
+        <div class="cel-janela">
+      <div class="cel-tempo">Próximos 10 dias</div>
+      <span class="chance-badge" style="background:#2a3d3a;color:#6fa86f;border-color:#6fa86f55;opacity:.65">Baixa</span>
+      
+    </div>
+        <div class="divisor-janela"></div>
+        <div class="cel-janela">
+      <div class="cel-tempo">11 a 30 dias</div>
+      <span class="chance-badge" style="background:#3a3324;color:#d4a94f;border-color:#d4a94f55;opacity:.65">Moderada</span>
+      
+    </div>
+      </div>
+    </div>
+      <div class="divisor-metrica"></div>
+      <div class="metrica">
+      <div class="metrica-titulo">Inundação &middot; cota 6.80m</div>
+      <div class="metrica-janelas">
+        <div class="cel-janela">
+      <div class="cel-tempo">Próximos 10 dias</div>
+      <span class="chance-badge" style="background:#2a3d3a;color:#6fa86f;border-color:#6fa86f55;opacity:.65">Baixa</span>
+      
+    </div>
+        <div class="divisor-janela"></div>
+        <div class="cel-janela">
+      <div class="cel-tempo">11 a 30 dias</div>
+      <span class="chance-badge" style="background:#3a3324;color:#d4a94f;border-color:#d4a94f55;opacity:.65">Moderada</span>
+      
+    </div>
+      </div>
+    </div>
+    </div>
+<div class="card-rio" id="rio-sao-leopoldo">
+      
+      <h3>São Leopoldo</h3>
+      <div class="metrica">
+      <div class="metrica-titulo">Atenção &middot; cota 4.45m</div>
+      <div class="metrica-janelas">
+        <div class="cel-janela">
+      <div class="cel-tempo">Próximos 10 dias</div>
+      <span class="chance-badge" style="background:#3a3324;color:#d4a94f;border-color:#d4a94f55;">Moderada</span>
+      
+    </div>
+        <div class="divisor-janela"></div>
+        <div class="cel-janela">
+      <div class="cel-tempo">11 a 30 dias</div>
+      <span class="chance-badge" style="background:#3a3324;color:#d4a94f;border-color:#d4a94f55;">Moderada</span>
+      
+    </div>
+      </div>
+    </div>
+      <div class="divisor-metrica"></div>
+      <div class="metrica">
+      <div class="metrica-titulo">Alerta &middot; cota 4.47m</div>
+      <div class="metrica-janelas">
+        <div class="cel-janela">
+      <div class="cel-tempo">Próximos 10 dias</div>
+      <span class="chance-badge" style="background:#3a3324;color:#d4a94f;border-color:#d4a94f55;opacity:.65">Moderada</span>
+      
+    </div>
+        <div class="divisor-janela"></div>
+        <div class="cel-janela">
+      <div class="cel-tempo">11 a 30 dias</div>
+      <span class="chance-badge" style="background:#3a3324;color:#d4a94f;border-color:#d4a94f55;opacity:.65">Moderada</span>
+      
+    </div>
+      </div>
+    </div>
+      <div class="divisor-metrica"></div>
+      <div class="metrica">
+      <div class="metrica-titulo">Inundação &middot; cota 4.50m</div>
+      <div class="metrica-janelas">
+        <div class="cel-janela">
+      <div class="cel-tempo">Próximos 10 dias</div>
+      <span class="chance-badge" style="background:#3a3324;color:#d4a94f;border-color:#d4a94f55;opacity:.65">Moderada</span>
+      
+    </div>
+        <div class="divisor-janela"></div>
+        <div class="cel-janela">
+      <div class="cel-tempo">11 a 30 dias</div>
+      <span class="chance-badge" style="background:#3a3324;color:#d4a94f;border-color:#d4a94f55;opacity:.65">Moderada</span>
+      
+    </div>
+      </div>
+    </div>
+    </div>
+  <p class="rodape-nota">Atualizado 1x por dia. Estimativas de longo prazo têm incerteza
+  maior que a previsão de 5 dias - trate como tendência, não como número fechado.
+  Sempre siga a orientação oficial da Defesa Civil do seu município.</p>
+</div>
+<script type="application/json" id="horizonte-help-data">{"previsao-estendida": {"titulo": "Previsão estendida (10 e 30 dias)", "oQue": "Uma leitura de mais longo prazo pra cada rio monitorado: qual a chance de chegar em cada um dos 3 patamares de risco (Atenção, Alerta e Inundação) nos próximos 10 dias, e também numa janela mais larga, de 11 a 30 dias. Complementa a previsão detalhada de 5 dias (36h/72h/120h) que já existe pra Porto Alegre e pra cada rio.", "comoInterpretar": "É uma classificação (de Muito baixa a Muito alta), não uma porcentagem - assim evita passar uma precisão maior do que o cálculo realmente tem. A chance de Alerta nunca é maior que a de Atenção, e a de Inundação nunca é maior que a de Alerta - às vezes duas caem na mesma faixa mesmo assim (a diferença real existe, só não é grande o bastante pra mudar de classificação); nesse caso o selo do nível mais severo aparece um pouco mais apagado, pra marcar que está na borda de baixo da faixa. Quanto mais longe no tempo (janela de 30 dias), maior a incerteza natural - trate como tendência, não como número fechado. Quando a chance de atingir a cota de inundação já está Alta ou Muito alta, aparece também uma estimativa de quanto o rio pode passar da cota, se isso realmente acontecer - baseada na própria previsão do momento, nunca no que já aconteceu antes."}}</script>
+<script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", function () {
+    navigator.serviceWorker.register("sw.js").catch(function () {});
+  });
+}
+window.addEventListener("load", function () {
+  try {
+    var modoApp = (window.matchMedia && window.matchMedia("(display-mode: standalone)").matches)
+      || window.navigator.standalone === true;
+    if (modoApp && window.goatcounter && window.goatcounter.count) {
+      window.goatcounter.count({ path: "/app-open", title: "App aberto (modo standalone)", event: true });
+    }
+  } catch (e) {}
+});
+(function () {
+  var CARD_LARGURA = 640;
+  var card = document.getElementById("horizonte-card");
+  if (!card) return;
+  // 24 = padding:24px 12px do <td align="center"> que envolve o card em
+  // gerar_email_execucao.py (12px de cada lado) - não dá pra medir isso
+  // dinamicamente pelo parentElement porque, antes do zoom ser aplicado,
+  // a tabela externa (sem table-layout:fixed) já cresceu pra caber o
+  // card no tamanho natural de 640px, tornando a medida circular.
+  var PADDING_LATERAL = 24;
+  // 06/09/2026 - inverso exato do aumento de fonte do commit 5b66a30
+  // (+35%, pensado pro celular/app). Abaixo de CARD_LARGURA (celular),
+  // o zoom-to-fit de sempre já compensa isso de graça, proporcionalmente
+  // - comportamento intacto. Em telas maiores (desktop), sem esse
+  // encolhimento extra o texto herdava o tamanho já aumentado sem
+  // nenhuma compensação (achado do usuário) - agora aplica um zoom fixo
+  // que devolve o tamanho efetivo de texto de antes do aumento.
+  var FATOR_AUMENTO_FONTE_MOBILE = 1.35;
+  function ajustarEscala() {
+    var disponivel = document.documentElement.clientWidth - PADDING_LATERAL;
+    var escala = disponivel < CARD_LARGURA
+      ? disponivel / CARD_LARGURA
+      : 1 / FATOR_AUMENTO_FONTE_MOBILE;
+    card.style.zoom = escala;
+  }
+  ajustarEscala();
+  window.addEventListener("resize", ajustarEscala);
+})();
+(function () {
+  // Botão "?" em cada quadro (07/09/2026, pedido do usuário) - mecanismo
+  // genérico e reaproveitável por QUALQUER página empacotada aqui: acha
+  // o dado em #horizonte-help-data (só existe se o gerador da página
+  // tiver plantado o marcador HORIZONTE_HELP_DATA, ou embutido o script
+  // direto - ver gerar_email_execucao.py/gerar_boletim_artifact.py/
+  // gerar_pagina_rio.py) e os placeholders .help-slot[data-help="chave"]
+  // plantados dentro de cada card, troca cada um por um botão de
+  // verdade. Sem nenhum dos dois, não faz nada - seguro rodar em
+  // qualquer página, mesmo uma que ainda não adotou isso.
+  var dataEl = document.getElementById("horizonte-help-data");
+  if (!dataEl) return;
+  var HELP;
+  try { HELP = JSON.parse(dataEl.textContent); } catch (e) { return; }
+  var slots = document.querySelectorAll(".help-slot[data-help]");
+  if (!slots.length) return;
+  // Janela flutuante (não modal de fundo escuro), sempre CENTRALIZADA na
+  // tela (07/09/2026, pedido do usuário) - um único elemento reaproveitado
+  // por todos os botões, css cuida da centralização (position:fixed +
+  // transform, ver .help-popup acima), JS só troca o conteúdo e mostra.
+  var popup = document.createElement("div");
+  popup.className = "help-popup";
+  popup.innerHTML = '<button class="close" type="button" aria-label="Fechar">&times;</button><h4></h4><p class="secao-lbl">O que é</p><p class="help-oque"></p><p class="secao-lbl">Como interpretar</p><p class="help-como"></p>';
+  document.body.appendChild(popup);
+  var elTitulo = popup.querySelector("h4");
+  var elOQue = popup.querySelector(".help-oque");
+  var elComo = popup.querySelector(".help-como");
+  function fecharHelp() {
+    popup.classList.remove("show");
+  }
+  popup.querySelector(".close").addEventListener("click", fecharHelp);
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape") fecharHelp(); });
+  document.addEventListener("click", function (e) {
+    if (popup.classList.contains("show") && !popup.contains(e.target) && !e.target.classList.contains("help-btn")) {
+      fecharHelp();
+    }
+  });
+  slots.forEach(function (slot) {
+    var info = HELP[slot.dataset.help];
+    if (!info) return;
+    var btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "help-btn";
+    btn.textContent = "?";
+    btn.setAttribute("aria-label", "O que é isso?");
+    btn.addEventListener("click", function (e) {
+      e.stopPropagation();
+      elTitulo.textContent = info.titulo;
+      elOQue.textContent = info.oQue;
+      elComo.textContent = info.comoInterpretar;
+      popup.classList.add("show");
+    });
+    slot.parentElement.style.position = "relative";
+    slot.replaceWith(btn);
+  });
+})();
+</script>
+</body>
+</html>
