@@ -77,15 +77,57 @@ body { margin:0; background-color:#0f2027; }
   .hero-legenda-cotas { display: flex; justify-content: space-between; font-size: 11.5px; font-family: 'Courier New', monospace; flex-wrap: wrap; gap: 4px; }
   .link-mapa { display: inline-flex; align-items: center; gap: 6px; margin-top: 14px; padding: 7px 14px; border-radius: 999px; border: 1px solid #344d52; font-size: 12.5px; color: #b9c8c7; }
 
-  .secao { margin-bottom: 22px; }
-  .secao-topo { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; gap: 10px; }
-  .secao-titulo { font-size: 12px; text-transform: uppercase; letter-spacing: .6px; color: #7c9190; font-weight: 700; }
+  /* .secao é o alvo do JS de ajuda (empacotar_pagina_publica.py seta
+     position:relative nele) - o help-slot fica como filho DIRETO dela
+     (não de uma sub-linha estreita como .secao-topo, que causava o "?"
+     sobrepondo o conteúdo abaixo, achado real do usuário 19/09/2026:
+     ".secao" é alta o bastante (título + grade) pra encaixar o botão
+     absoluto (top:12/right:14) sem invadir o que vem depois). */
+  .secao { margin-bottom: 22px; position: relative; }
+  .secao-titulo { font-size: 12px; text-transform: uppercase; letter-spacing: .6px; color: #7c9190; font-weight: 700; margin-bottom: 12px; padding-right: 30px; }
 
   .previsao-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 10px; }
   .previsao-item { padding: 14px 6px; text-align: center; }
   .previsao-item .data { font-size: 10px; color: #7c9190; text-transform: uppercase; letter-spacing: .3px; margin-bottom: 8px; line-height: 1.4; }
   .previsao-item .valor { font-family: 'Courier New', monospace; font-size: 20px; font-weight: 700; font-variant-numeric: tabular-nums; }
   .previsao-item .valor small { font-size: 12px; color: #7c9190; font-weight: 600; }
+
+  /* Chance de passar de cada cota - grade própria (não a tabela do
+     e-mail), mesmo molde visual do previsao-grid acima. */
+  .chance-titulo { margin: 0 0 12px 0; font-size: 14.5px; font-weight: 700; color: #eef2f1; padding-right: 30px; }
+  .chance-titulo .fraca { color: #7c9190; font-weight: 400; font-size: 13px; }
+  .chance-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 8px; margin-bottom: 10px; }
+  .chance-item { text-align: center; }
+  .chance-item .data { font-size: 9.5px; color: #7c9190; text-transform: uppercase; letter-spacing: .3px; margin-bottom: 8px; line-height: 1.4; }
+  .chance-pill { display: inline-block; padding: 4px 8px; border-radius: 999px; font-size: 11.5px; font-weight: 600; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .link-secundario { margin: 10px 0 0 0; font-size: 12.5px; text-align: right; }
+  .link-secundario a { color: #b9c8c7; text-decoration: underline; }
+
+  /* Chuva prevista - atrás de <details>/<summary> (botão nativo, sem JS
+     próprio), círculos em flex-wrap (reflow em vez de cortar/exigir
+     arrastar - achado real do usuário 19/09/2026). */
+  .disclosure summary { list-style: none; cursor: pointer; display: flex; align-items: center; gap: 8px; padding: 16px 44px 16px 20px; font-size: 13.5px; font-weight: 700; color: #eef2f1; position: relative; }
+  .disclosure summary::-webkit-details-marker { display: none; }
+  /* Seta INLINE (não absoluta) de propósito - evita colidir com o botão
+     "?" (também absoluto, top:12/right:14 vindo da moldura) no mesmo
+     canto da caixa. */
+  .disclosure-seta { display: inline-block; font-size: 11px; color: #7c9190; transition: transform .15s ease; }
+  .disclosure[open] .disclosure-seta { transform: rotate(90deg); }
+  .disclosure-corpo { padding: 0 20px 18px 20px; }
+  .chuva-linha { padding-top: 12px; margin-top: 12px; border-top: 1px solid #2a3f43; }
+  .chuva-linha:first-child { padding-top: 0; margin-top: 0; border-top: none; }
+  .chuva-cabecalho { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; margin-bottom: 8px; }
+  .chuva-nome { font-size: 14px; font-weight: 700; color: #eef2f1; }
+  .chuva-local { font-size: 11.5px; color: #7c9190; }
+  .chuva-total { font-family: 'Courier New', monospace; font-size: 16px; font-weight: 700; white-space: nowrap; }
+  .chuva-total .un { font-size: 11px; color: #7c9190; font-weight: 400; }
+  .chuva-dias { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chuva-dia-item { text-align: center; width: 42px; }
+  .chuva-dia-lbl { font-size: 9px; color: #7c9190; text-transform: uppercase; margin-bottom: 4px; line-height: 1.3; }
+  .chuva-bola { display: inline-block; width: 30px; height: 30px; line-height: 27px; border-radius: 50%; border: 2px solid #C48A4A; font-family: 'Courier New', monospace; font-size: 10.5px; font-weight: 600; }
+  .legenda-chuva { margin-top: 14px; padding-top: 12px; border-top: 1px solid #2a3f43; }
+  .legenda-item { display: inline-block; margin: 0 10px 4px 0; font-size: 11.5px; color: #7c9190; }
+  .legenda-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; border: 2px solid; margin-right: 4px; }
 
   .nav-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 10px; }
   .nav-card { display: flex; flex-direction: column; gap: 10px; padding: 16px; }
@@ -96,10 +138,9 @@ body { margin:0; background-color:#0f2027; }
 
   .rodape { margin-top: 22px; padding-top: 16px; border-top: 1px solid #2a3f43; }
   .rodape p { font-size: 11px; line-height: 1.55; color: #7c9190; margin: 0; }
-  .rodape-links { display: flex; align-items: center; justify-content: center; gap: 8px; margin: 16px 0; font-size: 12.5px; flex-wrap: wrap; }
-  .rodape-links a { color: #b9c8c7; }
-  .rodape-links .sep { color: #344d52; }
-  .rodape-fontes { text-align: center; margin-top: 6px; }
+  .rodape-links { display: flex; align-items: center; justify-content: center; gap: 10px; margin: 16px 0; flex-wrap: wrap; }
+  .rodape-btn { display: inline-flex; align-items: center; gap: 7px; padding: 9px 16px; border-radius: 999px; border: 1px solid #344d52; background: #16262a; color: #eef2f1; font-size: 13px; font-weight: 700; }
+  .rodape-fontes { text-align: center; margin-top: 10px; }
   .rodape-fontes a { font-size: 12.5px; color: #b9c8c7; }
 </style>
 <div class="wrap">
@@ -125,31 +166,27 @@ body { margin:0; background-color:#0f2027; }
       <div class="aviso-titulo">⚠ Aviso do INMET: Tempestade (Perigo Potencial)</div>
       <div class="aviso-corpo">Válido a partir de 19/09 00:00. Chuva entre 20 e 30 mm/h ou até 50 mm/dia, ventos intensos (40-60 km/h), e queda de granizo. Baixo risco de corte de energia elétrica, estragos em plantações, queda de galhos de árvores e de alagamentos.<br><span class="aviso-fonte">Fonte: Instituto Nacional de Meteorologia (oficial) - informativo, não faz parte do cálculo do Horizonte.</span></div>
     </div>
-  <div class="aviso" style="border-color:#f0a839;">
-      <div class="aviso-titulo">⚠ Dado defasado</div>
-      <div class="aviso-corpo">2 pontos de referência estão sem leitura nova hoje (mais antigo: 19/09 21:00) - a previsão abaixo foi calculada usando o último valor conhecido deles. O nível atual do Cais Mauá continua sendo lido ao vivo.</div>
-    </div>
   <div class="card hero">
       <span class="help-slot" data-help="status-pa"></span>
       <div class="hero-topo">
         <div>
           <div class="hero-local">Guaíba &middot; Cais Mauá</div>
-          <div class="hero-atualizado">Leitura 19/09 &middot; 21:00 &middot; gerado 22:22</div>
+          <div class="hero-atualizado">Leitura 19/09 &middot; 22:00 &middot; gerado 23:18</div>
         </div>
         <span class="pill-status" style="margin-right:30px; background:#1c3328; color:#5ecb8f; border:1px solid #2f5540;"><span class="ponto"></span>Normal</span>
       </div>
       <p class="hero-resumo">Sem indicativo de risco elevado nos próximos 5 dias.</p>
       <div class="hero-numero">
-        <span class="valor" style="color:#eef2f1;">1,10</span>
+        <span class="valor" style="color:#eef2f1;">1,08</span>
         <span class="unidade">m</span>
         <span class="tendencia" style="color:#5ecb8f;">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M3 7l8 8 4-4 6 6"></path><path d="M17 7h6v6"></path></svg>
-          queda &middot; &#9660; 1,8 cm/h *
+          queda &middot; &#9660; 2,1 cm/h *
         </span>
       </div>
       <p class="nota-fraca">Nível normal (mediana, 10 anos de dado): 0,93 m</p>
       <p class="nota-fraca">* tendência do Cais Mauá indisponível nesta leitura - usando a do Gasômetro (régua vizinha, mesma fonte ANA) como aproximação.</p>
-      <div class="barra"><div class="preenchido" style="width:36.7%"></div></div>
+      <div class="barra"><div class="preenchido" style="width:36.0%"></div></div>
       <div class="hero-legenda-cotas">
         <span style="color:#f0a839;">Atenção &middot; 2,00 m</span>
         <span style="color:#ef8a4d;">Alerta &middot; 2,50 m</span>
@@ -158,23 +195,20 @@ body { margin:0; background-color:#0f2027; }
       <a href="mapa-portoalegre.html" class="link-mapa">📍 Ver localização das estações no mapa</a>
     </div>
   <div class="secao">
-      <div class="secao-topo">
-        <div class="secao-titulo">Previsão do nível</div>
-        <span class="help-slot" data-help="previsao-dias"></span>
-      </div>
+      <span class="help-slot" data-help="previsao-dias"></span>
+      <div class="secao-titulo">Previsão do nível</div>
       <div class="previsao-grid">
         <div class="card previsao-item">
         <div class="data">Seg &middot; 21/09<br>36h</div>
         <div class="valor" style="color:#eef2f1;">1,23<small> m</small></div>
       </div><div class="card previsao-item">
         <div class="data">Ter &middot; 22/09<br>72h</div>
-        <div class="valor" style="color:#eef2f1;">1,49<small> m</small></div>
+        <div class="valor" style="color:#eef2f1;">1,47<small> m</small></div>
       </div><div class="card previsao-item">
         <div class="data">Qui &middot; 24/09<br>120h</div>
-        <div class="valor" style="color:#eef2f1;">1,59<small> m</small></div>
+        <div class="valor" style="color:#eef2f1;">1,56<small> m</small></div>
       </div>
       </div>
-      <p class="nota-fraca">* Esta previsão já considera o efeito estimado do vento e da pressão atmosférica sobre o Guaíba, além da tendência dos afluentes e da chuva futura.</p>
     </div>
   <div class="secao">
       <div class="card" style="padding:18px 20px;">
@@ -187,105 +221,229 @@ body { margin:0; background-color:#0f2027; }
           <stop offset="1" stop-color="#C48A4A" stop-opacity="0.02"/>
         </linearGradient>
       </defs>
-      <line x1="46" y1="192.0" x2="566" y2="192.0" stroke="#2a3f43" stroke-width="1"/><text x="40" y="195.0" text-anchor="end" font-size="10" font-family="Courier New, monospace" fill="#7c9190">1,02</text><line x1="46" y1="133.3" x2="566" y2="133.3" stroke="#2a3f43" stroke-width="1"/><text x="40" y="136.3" text-anchor="end" font-size="10" font-family="Courier New, monospace" fill="#7c9190">1,25</text><line x1="46" y1="74.7" x2="566" y2="74.7" stroke="#2a3f43" stroke-width="1"/><text x="40" y="77.7" text-anchor="end" font-size="10" font-family="Courier New, monospace" fill="#7c9190">1,48</text><line x1="46" y1="16.0" x2="566" y2="16.0" stroke="#2a3f43" stroke-width="1"/><text x="40" y="19.0" text-anchor="end" font-size="10" font-family="Courier New, monospace" fill="#7c9190">1,71</text>
-      <rect x="505.2" y="161.6" width="43.7" height="30.4" fill="#4a7ba6" fill-opacity="0.55" rx="1.5"/>
+      <line x1="46" y1="192.0" x2="566" y2="192.0" stroke="#2a3f43" stroke-width="1"/><text x="40" y="195.0" text-anchor="end" font-size="10" font-family="Courier New, monospace" fill="#7c9190">1,00</text><line x1="46" y1="133.3" x2="566" y2="133.3" stroke="#2a3f43" stroke-width="1"/><text x="40" y="136.3" text-anchor="end" font-size="10" font-family="Courier New, monospace" fill="#7c9190">1,24</text><line x1="46" y1="74.7" x2="566" y2="74.7" stroke="#2a3f43" stroke-width="1"/><text x="40" y="77.7" text-anchor="end" font-size="10" font-family="Courier New, monospace" fill="#7c9190">1,47</text><line x1="46" y1="16.0" x2="566" y2="16.0" stroke="#2a3f43" stroke-width="1"/><text x="40" y="19.0" text-anchor="end" font-size="10" font-family="Courier New, monospace" fill="#7c9190">1,71</text>
+      <rect x="500.3" y="150.3" width="44.0" height="41.7" fill="#4a7ba6" fill-opacity="0.55" rx="1.5"/>
       <line x1="566.0" y1="192.0" x2="570.0" y2="192.0" stroke="#4a7ba6" stroke-width="1"/><text x="573.0" y="195.0" text-anchor="start" font-size="9.5" font-family="Courier New, monospace" fill="#4a7ba6">0</text><line x1="566.0" y1="163.8" x2="570.0" y2="163.8" stroke="#4a7ba6" stroke-width="1"/><text x="573.0" y="166.8" text-anchor="start" font-size="9.5" font-family="Courier New, monospace" fill="#4a7ba6">5,0</text><line x1="566.0" y1="135.7" x2="570.0" y2="135.7" stroke="#4a7ba6" stroke-width="1"/><text x="573.0" y="138.7" text-anchor="start" font-size="9.5" font-family="Courier New, monospace" fill="#4a7ba6">10</text>
       
-      <polygon points="46.0,192.0 46.0,51.6 54.7,59.3 59.0,61.9 67.7,67.0 72.0,69.5 76.3,72.1 85.0,74.6 89.3,74.6 93.7,74.6 98.0,72.1 102.3,69.5 106.7,64.4 111.0,59.3 115.3,59.3 119.7,54.2 124.0,49.1 128.3,51.6 132.7,59.3 137.0,61.9 145.7,72.1 150.0,69.5 154.3,67.0 158.7,72.1 163.0,77.2 167.3,79.7 171.7,84.8 180.3,92.5 184.7,92.5 189.0,92.5 193.3,84.8 197.7,72.1 202.0,51.6 210.7,38.9 215.0,36.3 219.3,36.3 223.7,38.9 228.0,41.4 232.3,44.0 241.0,49.1 245.3,51.6 249.7,51.6 254.0,56.7 258.3,59.3 262.7,61.9 267.0,64.4 280.0,72.1 284.3,77.2 288.7,79.7 297.3,84.8 301.7,84.8 306.0,84.8 310.3,90.0 314.7,92.5 319.0,92.5 332.0,90.0 336.3,84.8 349.3,77.2 353.7,77.2 358.0,77.2 362.3,77.2 366.7,79.7 375.3,82.3 379.7,84.8 384.0,90.0 388.3,92.5 397.0,97.6 401.3,102.7 405.7,102.7 410.0,105.3 423.0,102.7 427.3,102.7 431.7,97.6 440.3,87.4 444.7,87.4 449.0,84.8 453.3,87.4 457.7,90.0 470.7,97.6 475.0,100.2 479.3,105.3 483.7,115.5 488.0,123.2 496.7,130.8 501.0,135.9 509.7,143.6 514.0,151.3 518.3,148.7 527.0,158.9 531.3,161.5 535.7,158.9 540.0,158.9 544.3,158.9 548.7,158.9 553.0,158.9 561.7,169.1 566.0,171.7 566.0,192.0" fill="url(#gradHistorico)"/>
-      <polyline points="46.0,51.6 54.7,59.3 59.0,61.9 67.7,67.0 72.0,69.5 76.3,72.1 85.0,74.6 89.3,74.6 93.7,74.6 98.0,72.1 102.3,69.5 106.7,64.4 111.0,59.3 115.3,59.3 119.7,54.2 124.0,49.1 128.3,51.6 132.7,59.3 137.0,61.9 145.7,72.1 150.0,69.5 154.3,67.0 158.7,72.1 163.0,77.2 167.3,79.7 171.7,84.8 180.3,92.5 184.7,92.5 189.0,92.5 193.3,84.8 197.7,72.1 202.0,51.6 210.7,38.9 215.0,36.3 219.3,36.3 223.7,38.9 228.0,41.4 232.3,44.0 241.0,49.1 245.3,51.6 249.7,51.6 254.0,56.7 258.3,59.3 262.7,61.9 267.0,64.4 280.0,72.1 284.3,77.2 288.7,79.7 297.3,84.8 301.7,84.8 306.0,84.8 310.3,90.0 314.7,92.5 319.0,92.5 332.0,90.0 336.3,84.8 349.3,77.2 353.7,77.2 358.0,77.2 362.3,77.2 366.7,79.7 375.3,82.3 379.7,84.8 384.0,90.0 388.3,92.5 397.0,97.6 401.3,102.7 405.7,102.7 410.0,105.3 423.0,102.7 427.3,102.7 431.7,97.6 440.3,87.4 444.7,87.4 449.0,84.8 453.3,87.4 457.7,90.0 470.7,97.6 475.0,100.2 479.3,105.3 483.7,115.5 488.0,123.2 496.7,130.8 501.0,135.9 509.7,143.6 514.0,151.3 518.3,148.7 527.0,158.9 531.3,161.5 535.7,158.9 540.0,158.9 544.3,158.9 548.7,158.9 553.0,158.9 561.7,169.1 566.0,171.7" fill="none" stroke="#C48A4A" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"/>
-      <text x="50.3" y="212" text-anchor="middle" font-size="10" font-family="Courier New, monospace" fill="#7c9190">Seg 14/09</text><text x="108.8" y="212" text-anchor="middle" font-size="10" font-family="Courier New, monospace" fill="#7c9190">Ter 15/09</text><text x="212.8" y="212" text-anchor="middle" font-size="10" font-family="Courier New, monospace" fill="#7c9190">Qua 16/09</text><text x="316.8" y="212" text-anchor="middle" font-size="10" font-family="Courier New, monospace" fill="#7c9190">Qui 17/09</text><text x="423.0" y="212" text-anchor="middle" font-size="10" font-family="Courier New, monospace" fill="#7c9190">Sex 18/09</text><text x="520.5" y="212" text-anchor="middle" font-size="10" font-family="Courier New, monospace" fill="#7c9190">Sáb 19/09</text>
+      <polygon points="46.0,192.0 46.0,58.5 50.4,60.9 59.1,65.8 63.5,68.3 67.8,70.8 76.6,73.2 81.0,73.2 85.3,73.2 89.7,70.8 94.1,68.3 98.4,63.4 102.8,58.5 107.2,58.5 111.5,53.5 115.9,48.6 120.3,51.1 124.7,58.5 129.0,60.9 137.8,70.8 142.1,68.3 146.5,65.8 150.9,70.8 155.2,75.7 159.6,78.2 164.0,83.1 172.7,90.5 177.1,90.5 181.5,90.5 185.8,83.1 190.2,70.8 194.6,51.1 203.3,38.8 207.7,36.3 212.1,36.3 216.4,38.8 220.8,41.2 225.2,43.7 233.9,48.6 238.3,51.1 242.6,51.1 247.0,56.0 251.4,58.5 255.7,60.9 260.1,63.4 273.2,70.8 277.6,75.7 282.0,78.2 290.7,83.1 295.1,83.1 299.4,83.1 303.8,88.0 308.2,90.5 312.6,90.5 325.7,88.0 330.0,83.1 343.1,75.7 347.5,75.7 351.9,75.7 356.3,75.7 360.6,78.2 369.4,80.6 373.7,83.1 378.1,88.0 382.5,90.5 391.2,95.4 395.6,100.3 399.9,100.3 404.3,102.8 417.4,100.3 421.8,100.3 426.2,95.4 434.9,85.5 439.3,85.5 443.6,83.1 448.0,85.5 452.4,88.0 465.5,95.4 469.9,97.8 474.2,102.8 478.6,112.6 483.0,120.0 491.7,127.4 496.1,132.3 504.8,139.7 509.2,147.1 513.6,144.6 522.3,154.5 526.7,156.9 531.0,154.5 535.4,154.5 539.8,154.5 544.2,154.5 548.5,154.5 557.3,164.3 561.6,166.8 566.0,171.7 566.0,192.0" fill="url(#gradHistorico)"/>
+      <polyline points="46.0,58.5 50.4,60.9 59.1,65.8 63.5,68.3 67.8,70.8 76.6,73.2 81.0,73.2 85.3,73.2 89.7,70.8 94.1,68.3 98.4,63.4 102.8,58.5 107.2,58.5 111.5,53.5 115.9,48.6 120.3,51.1 124.7,58.5 129.0,60.9 137.8,70.8 142.1,68.3 146.5,65.8 150.9,70.8 155.2,75.7 159.6,78.2 164.0,83.1 172.7,90.5 177.1,90.5 181.5,90.5 185.8,83.1 190.2,70.8 194.6,51.1 203.3,38.8 207.7,36.3 212.1,36.3 216.4,38.8 220.8,41.2 225.2,43.7 233.9,48.6 238.3,51.1 242.6,51.1 247.0,56.0 251.4,58.5 255.7,60.9 260.1,63.4 273.2,70.8 277.6,75.7 282.0,78.2 290.7,83.1 295.1,83.1 299.4,83.1 303.8,88.0 308.2,90.5 312.6,90.5 325.7,88.0 330.0,83.1 343.1,75.7 347.5,75.7 351.9,75.7 356.3,75.7 360.6,78.2 369.4,80.6 373.7,83.1 378.1,88.0 382.5,90.5 391.2,95.4 395.6,100.3 399.9,100.3 404.3,102.8 417.4,100.3 421.8,100.3 426.2,95.4 434.9,85.5 439.3,85.5 443.6,83.1 448.0,85.5 452.4,88.0 465.5,95.4 469.9,97.8 474.2,102.8 478.6,112.6 483.0,120.0 491.7,127.4 496.1,132.3 504.8,139.7 509.2,147.1 513.6,144.6 522.3,154.5 526.7,156.9 531.0,154.5 535.4,154.5 539.8,154.5 544.2,154.5 548.5,154.5 557.3,164.3 561.6,166.8 566.0,171.7" fill="none" stroke="#C48A4A" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"/>
+      <text x="46.0" y="212" text-anchor="middle" font-size="10" font-family="Courier New, monospace" fill="#7c9190">Seg 14/09</text><text x="205.5" y="212" text-anchor="middle" font-size="10" font-family="Courier New, monospace" fill="#7c9190">Qua 16/09</text><text x="310.4" y="212" text-anchor="middle" font-size="10" font-family="Courier New, monospace" fill="#7c9190">Qui 17/09</text><text x="417.4" y="212" text-anchor="middle" font-size="10" font-family="Courier New, monospace" fill="#7c9190">Sex 18/09</text><text x="517.9" y="212" text-anchor="middle" font-size="10" font-family="Courier New, monospace" fill="#7c9190">Sáb 19/09</text>
     </svg>
             <div style="display:flex; justify-content:space-between; margin-top:12px; font-size:11px; color:#7c9190;">
-              <span>1,10 m &middot; mínimo</span>
+              <span>1,08 m &middot; mínimo</span>
               <span>1,63 m &middot; máximo</span>
             </div>
-            <div style="text-align:center; margin-top:4px; font-size:11px; color:#6ea3cc;">&#128167; 5,4 mm &middot; chuva no período</div>
+            <div style="text-align:center; margin-top:4px; font-size:11px; color:#6ea3cc;">&#128167; 7,4 mm &middot; chuva no período</div>
             <p style="margin:8px 0 0 0; font-size:10.5px; color:#7c9190; line-height:1.4;">Nível: leituras reais da ANA (estação telemétrica de Cais Mauá), a cada ~15 minutos - não é projeção.</p>
             <p style="margin:2px 0 0 0; font-size:10.5px; color:#7c9190; line-height:1.4;">Chuva em Porto Alegre: medição real (pluviômetro da mesma estação ANA do nível).</p>
             
       </div>
     </div>
-  <div class="secao" style="overflow-x:auto;"><div style="margin-top:14px; background-color:#0f2027; border:1px solid #2a3f43; border-radius:12px; padding:16px 18px;">
-              <span class="help-slot" data-help="chance-cota"></span>
-              <h4 style="margin:0 0 4px 0; font-size:15px; text-transform:uppercase; letter-spacing:1px; color:#93a8a8; font-weight:600;">Chance de passar de cada cota</h4>
-              <p style="margin:0 0 12px 0; font-size:16px; color:#7c9190; line-height:1.5;">Baseado em 5,7 anos de leituras reais da ANA para o Cais Mauá &mdash; não é a previsão de nível acima, é um cálculo complementar.</p>
-              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">
-                <tr>
-                  <td style="padding:0 4px 8px 0;"></td>
-                  <td align="center" style="padding:0 4px 8px 4px; font-size:13.5px; text-transform:uppercase; letter-spacing:.5px; color:#7c9190;">Seg &middot; 21/09<br>36h</td>
-                  <td align="center" style="padding:0 4px 8px 4px; font-size:13.5px; text-transform:uppercase; letter-spacing:.5px; color:#7c9190;">Ter &middot; 22/09<br>72h</td>
-                  <td align="center" style="padding:0 0 8px 4px; font-size:13.5px; text-transform:uppercase; letter-spacing:.5px; color:#7c9190;">Qui &middot; 24/09<br>120h</td>
-                </tr>
-                <tr>
-              <td style="padding:7px 4px 7px 0; font-family:'Courier New', monospace; font-size:17.5px; color:#b9c8c7; white-space:nowrap;">1,80 m <span style="color:#7c9190; font-size:13.5px;">e acima</span></td>
-              <td align="center" style="padding:7px 4px;"><span style="display:inline-block; padding:4px 10px; border-radius:999px; font-size:15px; font-weight:600; white-space:nowrap; background-color:#243638; color:#4a7c8c;">Muito baixa</span></td><td align="center" style="padding:7px 4px;"><span style="display:inline-block; padding:4px 10px; border-radius:999px; font-size:15px; font-weight:600; white-space:nowrap; background-color:#243638; color:#4a7c8c;">Muito baixa</span></td><td align="center" style="padding:7px 4px;"><span style="display:inline-block; padding:4px 10px; border-radius:999px; font-size:15px; font-weight:600; white-space:nowrap; background-color:#243638; color:#4a7c8c;">Muito baixa</span></td>
-            </tr>
-              </table>
-              <div style="margin-top:14px; background-color:#1c2f33; border:1px solid #2a3f43; border-radius:10px; padding:10px 12px;">
-                <div style="margin-bottom:8px;"><span style="display:inline-block; margin:0 8px 4px 0; font-size:13px; color:#7c9190;"><span style="display:inline-block; width:8px; height:8px; border-radius:50%; background-color:#4a7c8c; margin-right:4px;"></span>Muito baixa</span><span style="display:inline-block; margin:0 8px 4px 0; font-size:13px; color:#7c9190;"><span style="display:inline-block; width:8px; height:8px; border-radius:50%; background-color:#6fa86f; margin-right:4px;"></span>Baixa</span><span style="display:inline-block; margin:0 8px 4px 0; font-size:13px; color:#7c9190;"><span style="display:inline-block; width:8px; height:8px; border-radius:50%; background-color:#d4a94f; margin-right:4px;"></span>Moderada</span><span style="display:inline-block; margin:0 8px 4px 0; font-size:13px; color:#7c9190;"><span style="display:inline-block; width:8px; height:8px; border-radius:50%; background-color:#d47a4f; margin-right:4px;"></span>Alta</span><span style="display:inline-block; margin:0 8px 4px 0; font-size:13px; color:#7c9190;"><span style="display:inline-block; width:8px; height:8px; border-radius:50%; background-color:#c9536b; margin-right:4px;"></span>Muito alta</span></div>
-                <p style="margin:0; font-size:11.5px; color:#7c9190; border-top:1px solid #2a3f43; padding-top:8px;">Atenção a partir de 2,00 m e acima &middot; Alerta a partir de 2,50 m e acima &middot; Inundação a partir de 3,00 m e acima</p>
-              </div>
-              <p style="margin:10px 0 0 0; font-size:13.5px; text-align:right;">
-                <a href="https://horizontersai.github.io/horizonte-paginas/previsao-estendida.html?rio=cais-maua" style="color:#b9c8c7; text-decoration:underline;">Ver chance para os próximos 10 e 30 dias &rarr;</a>
-              </p>
-            </div></div>
   <div class="secao">
       <div class="card" style="padding:18px 20px;">
-        <span class="help-slot" data-help="chuva-prevista"></span>
-        <div style="overflow-x:auto;">
-        <h3 style="margin:0 0 12px 0; font-size:17.5px; text-transform:uppercase; letter-spacing:.5px; color:#eef2f1; font-weight:700;">Chuva prevista nos afluentes</h3>
-            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
-            <tr><td></td><td align="center" style="padding:4px 2px; font-size:13.5px; color:#7c9190; text-transform:uppercase; letter-spacing:.3px;">Hoje<br>19/09</td><td align="center" style="padding:4px 2px; font-size:13.5px; color:#7c9190; text-transform:uppercase; letter-spacing:.3px;">Dom<br>20/09</td><td align="center" style="padding:4px 2px; font-size:13.5px; color:#7c9190; text-transform:uppercase; letter-spacing:.3px;">Seg<br>21/09</td><td align="center" style="padding:4px 2px; font-size:13.5px; color:#7c9190; text-transform:uppercase; letter-spacing:.3px;">Ter<br>22/09</td><td align="center" style="padding:4px 2px; font-size:13.5px; color:#7c9190; text-transform:uppercase; letter-spacing:.3px;">Qua<br>23/09</td><td align="center" style="padding:4px 2px; font-size:13.5px; color:#7c9190; text-transform:uppercase; letter-spacing:.3px;">Qui<br>24/09</td><td align="center" style="padding:4px 0 4px 6px; font-size:13.5px; color:#7c9190; text-transform:uppercase; letter-spacing:.3px; border-left:1px solid #344d52;">Total<br>6d</td></tr>
-            <tr>
-              <td style="padding:6px 8px 6px 0;"><div style="color:#eef2f1; font-size:17.5px; font-weight:600;">Taquari</div>
-              <div style="color:#7c9190; font-size:14px;">Lajeado</div></td>
-              <td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #f0a839; font-family:'Courier New', monospace; font-size:13px; font-weight:600; color:#eef2f1;">15,9</span></td><td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #ef8a4d; font-family:'Courier New', monospace; font-size:13px; font-weight:600; color:#eef2f1;">29,1</span></td><td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #f0a839; font-family:'Courier New', monospace; font-size:13px; font-weight:600; color:#eef2f1;">16,7</span></td><td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #f0a839; font-family:'Courier New', monospace; font-size:13px; font-weight:600; color:#eef2f1;">7,1</span></td><td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #7c9190; font-family:'Courier New', monospace; font-size:13px; font-weight:600; color:#eef2f1;">1,8</span></td><td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #7c9190; font-family:'Courier New', monospace; font-size:13px; font-weight:600; color:#eef2f1;">1,9</span></td>
-              <td align="center" style="padding:4px 0 4px 6px; font-family:'Courier New', monospace; font-size:17.5px; font-weight:600; color:#ef4d6b; border-left:1px solid #344d52;">72,5<br>
-              <span style="font-size:12px; color:#7c9190; font-weight:400;">mm</span></td>
-            </tr><tr>
-              <td style="padding:6px 8px 6px 0;"><div style="color:#eef2f1; font-size:17.5px; font-weight:600;">Caí</div>
-              <div style="color:#7c9190; font-size:14px;">São Sebastião do Caí</div></td>
-              <td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #f0a839; font-family:'Courier New', monospace; font-size:13px; font-weight:600; color:#eef2f1;">13,4</span></td><td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #ef8a4d; font-family:'Courier New', monospace; font-size:13px; font-weight:600; color:#eef2f1;">27,0</span></td><td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #f0a839; font-family:'Courier New', monospace; font-size:13px; font-weight:600; color:#eef2f1;">16,2</span></td><td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #f0a839; font-family:'Courier New', monospace; font-size:13px; font-weight:600; color:#eef2f1;">7,7</span></td><td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #7c9190; font-family:'Courier New', monospace; font-size:13px; font-weight:600; color:#eef2f1;">2,5</span></td><td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #7c9190; font-family:'Courier New', monospace; font-size:13px; font-weight:600; color:#eef2f1;">1,2</span></td>
-              <td align="center" style="padding:4px 0 4px 6px; font-family:'Courier New', monospace; font-size:17.5px; font-weight:600; color:#ef4d6b; border-left:1px solid #344d52;">68,0<br>
-              <span style="font-size:12px; color:#7c9190; font-weight:400;">mm</span></td>
-            </tr><tr>
-              <td style="padding:6px 8px 6px 0;"><div style="color:#eef2f1; font-size:17.5px; font-weight:600;">Gravataí</div>
-              <div style="color:#7c9190; font-size:14px;">Gravataí</div></td>
-              <td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #f0a839; font-family:'Courier New', monospace; font-size:13px; font-weight:600; color:#eef2f1;">13,7</span></td><td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #ef8a4d; font-family:'Courier New', monospace; font-size:13px; font-weight:600; color:#eef2f1;">29,0</span></td><td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #f0a839; font-family:'Courier New', monospace; font-size:13px; font-weight:600; color:#eef2f1;">15,0</span></td><td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #7c9190; font-family:'Courier New', monospace; font-size:13px; font-weight:600; color:#eef2f1;">4,7</span></td><td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #7c9190; font-family:'Courier New', monospace; font-size:13px; font-weight:600; color:#eef2f1;">1,7</span></td><td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #7c9190; font-family:'Courier New', monospace; font-size:13px; font-weight:600; color:#eef2f1;">1,1</span></td>
-              <td align="center" style="padding:4px 0 4px 6px; font-family:'Courier New', monospace; font-size:17.5px; font-weight:600; color:#ef4d6b; border-left:1px solid #344d52;">65,2<br>
-              <span style="font-size:12px; color:#7c9190; font-weight:400;">mm</span></td>
-            </tr><tr>
-              <td style="padding:6px 8px 6px 0;"><div style="color:#eef2f1; font-size:17.5px; font-weight:600;">Jacuí</div>
-              <div style="color:#7c9190; font-size:14px;">Cachoeira do Sul</div></td>
-              <td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #f0a839; font-family:'Courier New', monospace; font-size:13px; font-weight:600; color:#eef2f1;">12,2</span></td><td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #ef8a4d; font-family:'Courier New', monospace; font-size:13px; font-weight:600; color:#eef2f1;">28,6</span></td><td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #f0a839; font-family:'Courier New', monospace; font-size:13px; font-weight:600; color:#eef2f1;">12,9</span></td><td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #7c9190; font-family:'Courier New', monospace; font-size:13px; font-weight:600; color:#eef2f1;">3,5</span></td><td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #7c9190; font-family:'Courier New', monospace; font-size:13px; font-weight:600; color:#eef2f1;">0,9</span></td><td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #7c9190; font-family:'Courier New', monospace; font-size:13px; font-weight:600; color:#eef2f1;">1,1</span></td>
-              <td align="center" style="padding:4px 0 4px 6px; font-family:'Courier New', monospace; font-size:17.5px; font-weight:600; color:#ef4d6b; border-left:1px solid #344d52;">59,2<br>
-              <span style="font-size:12px; color:#7c9190; font-weight:400;">mm</span></td>
-            </tr><tr>
-              <td style="padding:6px 8px 6px 0;"><div style="color:#eef2f1; font-size:17.5px; font-weight:600;">Sinos</div>
-              <div style="color:#7c9190; font-size:14px;">São Leopoldo</div></td>
-              <td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #f0a839; font-family:'Courier New', monospace; font-size:13px; font-weight:600; color:#eef2f1;">13,2</span></td><td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #ef8a4d; font-family:'Courier New', monospace; font-size:13px; font-weight:600; color:#eef2f1;">28,7</span></td><td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #f0a839; font-family:'Courier New', monospace; font-size:13px; font-weight:600; color:#eef2f1;">14,9</span></td><td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #f0a839; font-family:'Courier New', monospace; font-size:13px; font-weight:600; color:#eef2f1;">5,8</span></td><td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #7c9190; font-family:'Courier New', monospace; font-size:13px; font-weight:600; color:#eef2f1;">1,9</span></td><td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #7c9190; font-family:'Courier New', monospace; font-size:13px; font-weight:600; color:#eef2f1;">1,1</span></td>
-              <td align="center" style="padding:4px 0 4px 6px; font-family:'Courier New', monospace; font-size:17.5px; font-weight:600; color:#ef4d6b; border-left:1px solid #344d52;">65,6<br>
-              <span style="font-size:12px; color:#7c9190; font-weight:400;">mm</span></td>
-            </tr><tr>
-              <td style="padding:6px 8px 6px 0;"><div style="color:#eef2f1; font-size:17.5px; font-weight:600;">Guaíba</div>
-              <div style="color:#7c9190; font-size:14px;">Porto Alegre</div></td>
-              <td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #f0a839; font-family:'Courier New', monospace; font-size:13px; font-weight:600; color:#eef2f1;">13,8</span></td><td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #ef8a4d; font-family:'Courier New', monospace; font-size:13px; font-weight:600; color:#eef2f1;">31,3</span></td><td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #f0a839; font-family:'Courier New', monospace; font-size:13px; font-weight:600; color:#eef2f1;">13,3</span></td><td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #7c9190; font-family:'Courier New', monospace; font-size:13px; font-weight:600; color:#eef2f1;">3,5</span></td><td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #7c9190; font-family:'Courier New', monospace; font-size:13px; font-weight:600; color:#eef2f1;">0,8</span></td><td align="center" style="padding:5px 2px;"><span style="display:inline-block; width:34px; height:34px; line-height:30px; border-radius:50%; border:2px solid #7c9190; font-family:'Courier New', monospace; font-size:13px; font-weight:600; color:#eef2f1;">1,0</span></td>
-              <td align="center" style="padding:4px 0 4px 6px; font-family:'Courier New', monospace; font-size:17.5px; font-weight:600; color:#ef4d6b; border-left:1px solid #344d52;">63,7<br>
-              <span style="font-size:12px; color:#7c9190; font-weight:400;">mm</span></td>
-            </tr>
-            </table>
-            <div style="margin-top:12px; padding-top:10px; border-top:1px solid #344d52;"><span style="display:inline-block; margin:0 10px 4px 0; font-size:13px; color:#7c9190;"><span style="display:inline-block; width:8px; height:8px; border-radius:50%; border:2px solid #7c9190; margin-right:4px;"></span>calmo (< 5 mm)</span><span style="display:inline-block; margin:0 10px 4px 0; font-size:13px; color:#7c9190;"><span style="display:inline-block; width:8px; height:8px; border-radius:50%; border:2px solid #f0a839; margin-right:4px;"></span>leve (5-20 mm)</span><span style="display:inline-block; margin:0 10px 4px 0; font-size:13px; color:#7c9190;"><span style="display:inline-block; width:8px; height:8px; border-radius:50%; border:2px solid #ef8a4d; margin-right:4px;"></span>moderada (20-50 mm)</span><span style="display:inline-block; margin:0 10px 4px 0; font-size:13px; color:#7c9190;"><span style="display:inline-block; width:8px; height:8px; border-radius:50%; border:2px solid #ef4d6b; margin-right:4px;"></span>forte (> 50 mm)</span></div>
-            <p style="margin:6px 0 0 0; font-size:13px; color:#7c9190; line-height:1.4; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Open-Meteo &mdash; média de 3 modelos (GFS, ECMWF, ICON). Pode mudar a cada rodada.</p>
-        </div>
+        <span class="help-slot" data-help="chance-cota"></span>
+        <h4 class="chance-titulo">Chance de passar de 1,80 m <span class="fraca">e acima</span></h4>
+        <div class="chance-grid">
+          <div class="chance-item">
+        <div class="data">Seg &middot; 21/09<br>36H</div>
+        <span class="chance-pill" style="background:#243638; color:#4a7c8c;">Muito baixa</span>
+      </div><div class="chance-item">
+        <div class="data">Ter &middot; 22/09<br>72H</div>
+        <span class="chance-pill" style="background:#243638; color:#4a7c8c;">Muito baixa</span>
+      </div><div class="chance-item">
+        <div class="data">Qui &middot; 24/09<br>120H</div>
+        <span class="chance-pill" style="background:#243638; color:#4a7c8c;">Muito baixa</span>
       </div>
+        </div>
+        <p class="nota-fraca">Atenção a partir de 2,00 m e acima &middot; Alerta a partir de 2,50 m e acima &middot; Inundação a partir de 3,00 m e acima</p>
+        <p class="link-secundario"><a href="https://horizontersai.github.io/horizonte-paginas/previsao-estendida.html?rio=cais-maua">Ver chance para os próximos 10 e 30 dias &rarr;</a></p>
+      </div>
+    </div>
+  <div class="secao">
+      <details class="card disclosure">
+        <summary>
+          <span class="help-slot" data-help="chuva-prevista"></span>
+          <span class="disclosure-seta">&#9656;</span>
+          Ver chuva prevista nos afluentes
+        </summary>
+        <div class="disclosure-corpo">
+          <div class="chuva-linha">
+          <div class="chuva-cabecalho">
+            <div>
+              <div class="chuva-nome">Taquari</div>
+              <div class="chuva-local">Lajeado</div>
+            </div>
+            <div class="chuva-total" style="color:#ef4d6b;">72,2<span class="un"> mm</span></div>
+          </div>
+          <div class="chuva-dias"><div class="chuva-dia-item">
+              <div class="chuva-dia-lbl">Hoje<br>19/09</div>
+              <span class="chuva-bola" style="border-color:#f0a839;">18,6</span>
+            </div><div class="chuva-dia-item">
+              <div class="chuva-dia-lbl">Dom<br>20/09</div>
+              <span class="chuva-bola" style="border-color:#ef8a4d;">27,3</span>
+            </div><div class="chuva-dia-item">
+              <div class="chuva-dia-lbl">Seg<br>21/09</div>
+              <span class="chuva-bola" style="border-color:#f0a839;">15,4</span>
+            </div><div class="chuva-dia-item">
+              <div class="chuva-dia-lbl">Ter<br>22/09</div>
+              <span class="chuva-bola" style="border-color:#f0a839;">6,5</span>
+            </div><div class="chuva-dia-item">
+              <div class="chuva-dia-lbl">Qua<br>23/09</div>
+              <span class="chuva-bola" style="border-color:#7c9190;">1,6</span>
+            </div><div class="chuva-dia-item">
+              <div class="chuva-dia-lbl">Qui<br>24/09</div>
+              <span class="chuva-bola" style="border-color:#7c9190;">2,8</span>
+            </div></div>
+        </div><div class="chuva-linha">
+          <div class="chuva-cabecalho">
+            <div>
+              <div class="chuva-nome">Caí</div>
+              <div class="chuva-local">São Sebastião do Caí</div>
+            </div>
+            <div class="chuva-total" style="color:#ef4d6b;">67,1<span class="un"> mm</span></div>
+          </div>
+          <div class="chuva-dias"><div class="chuva-dia-item">
+              <div class="chuva-dia-lbl">Hoje<br>19/09</div>
+              <span class="chuva-bola" style="border-color:#f0a839;">14,4</span>
+            </div><div class="chuva-dia-item">
+              <div class="chuva-dia-lbl">Dom<br>20/09</div>
+              <span class="chuva-bola" style="border-color:#ef8a4d;">26,7</span>
+            </div><div class="chuva-dia-item">
+              <div class="chuva-dia-lbl">Seg<br>21/09</div>
+              <span class="chuva-bola" style="border-color:#f0a839;">15,3</span>
+            </div><div class="chuva-dia-item">
+              <div class="chuva-dia-lbl">Ter<br>22/09</div>
+              <span class="chuva-bola" style="border-color:#f0a839;">7,0</span>
+            </div><div class="chuva-dia-item">
+              <div class="chuva-dia-lbl">Qua<br>23/09</div>
+              <span class="chuva-bola" style="border-color:#7c9190;">2,3</span>
+            </div><div class="chuva-dia-item">
+              <div class="chuva-dia-lbl">Qui<br>24/09</div>
+              <span class="chuva-bola" style="border-color:#7c9190;">1,4</span>
+            </div></div>
+        </div><div class="chuva-linha">
+          <div class="chuva-cabecalho">
+            <div>
+              <div class="chuva-nome">Gravataí</div>
+              <div class="chuva-local">Gravataí</div>
+            </div>
+            <div class="chuva-total" style="color:#ef4d6b;">65,9<span class="un"> mm</span></div>
+          </div>
+          <div class="chuva-dias"><div class="chuva-dia-item">
+              <div class="chuva-dia-lbl">Hoje<br>19/09</div>
+              <span class="chuva-bola" style="border-color:#f0a839;">16,0</span>
+            </div><div class="chuva-dia-item">
+              <div class="chuva-dia-lbl">Dom<br>20/09</div>
+              <span class="chuva-bola" style="border-color:#ef8a4d;">28,2</span>
+            </div><div class="chuva-dia-item">
+              <div class="chuva-dia-lbl">Seg<br>21/09</div>
+              <span class="chuva-bola" style="border-color:#f0a839;">13,9</span>
+            </div><div class="chuva-dia-item">
+              <div class="chuva-dia-lbl">Ter<br>22/09</div>
+              <span class="chuva-bola" style="border-color:#7c9190;">4,3</span>
+            </div><div class="chuva-dia-item">
+              <div class="chuva-dia-lbl">Qua<br>23/09</div>
+              <span class="chuva-bola" style="border-color:#7c9190;">1,5</span>
+            </div><div class="chuva-dia-item">
+              <div class="chuva-dia-lbl">Qui<br>24/09</div>
+              <span class="chuva-bola" style="border-color:#7c9190;">2,0</span>
+            </div></div>
+        </div><div class="chuva-linha">
+          <div class="chuva-cabecalho">
+            <div>
+              <div class="chuva-nome">Jacuí</div>
+              <div class="chuva-local">Cachoeira do Sul</div>
+            </div>
+            <div class="chuva-total" style="color:#ef4d6b;">58,2<span class="un"> mm</span></div>
+          </div>
+          <div class="chuva-dias"><div class="chuva-dia-item">
+              <div class="chuva-dia-lbl">Hoje<br>19/09</div>
+              <span class="chuva-bola" style="border-color:#f0a839;">10,4</span>
+            </div><div class="chuva-dia-item">
+              <div class="chuva-dia-lbl">Dom<br>20/09</div>
+              <span class="chuva-bola" style="border-color:#ef8a4d;">30,1</span>
+            </div><div class="chuva-dia-item">
+              <div class="chuva-dia-lbl">Seg<br>21/09</div>
+              <span class="chuva-bola" style="border-color:#f0a839;">12,0</span>
+            </div><div class="chuva-dia-item">
+              <div class="chuva-dia-lbl">Ter<br>22/09</div>
+              <span class="chuva-bola" style="border-color:#7c9190;">3,2</span>
+            </div><div class="chuva-dia-item">
+              <div class="chuva-dia-lbl">Qua<br>23/09</div>
+              <span class="chuva-bola" style="border-color:#7c9190;">0,8</span>
+            </div><div class="chuva-dia-item">
+              <div class="chuva-dia-lbl">Qui<br>24/09</div>
+              <span class="chuva-bola" style="border-color:#7c9190;">1,7</span>
+            </div></div>
+        </div><div class="chuva-linha">
+          <div class="chuva-cabecalho">
+            <div>
+              <div class="chuva-nome">Sinos</div>
+              <div class="chuva-local">São Leopoldo</div>
+            </div>
+            <div class="chuva-total" style="color:#ef4d6b;">66,1<span class="un"> mm</span></div>
+          </div>
+          <div class="chuva-dias"><div class="chuva-dia-item">
+              <div class="chuva-dia-lbl">Hoje<br>19/09</div>
+              <span class="chuva-bola" style="border-color:#f0a839;">14,5</span>
+            </div><div class="chuva-dia-item">
+              <div class="chuva-dia-lbl">Dom<br>20/09</div>
+              <span class="chuva-bola" style="border-color:#ef8a4d;">29,2</span>
+            </div><div class="chuva-dia-item">
+              <div class="chuva-dia-lbl">Seg<br>21/09</div>
+              <span class="chuva-bola" style="border-color:#f0a839;">13,7</span>
+            </div><div class="chuva-dia-item">
+              <div class="chuva-dia-lbl">Ter<br>22/09</div>
+              <span class="chuva-bola" style="border-color:#f0a839;">5,3</span>
+            </div><div class="chuva-dia-item">
+              <div class="chuva-dia-lbl">Qua<br>23/09</div>
+              <span class="chuva-bola" style="border-color:#7c9190;">1,8</span>
+            </div><div class="chuva-dia-item">
+              <div class="chuva-dia-lbl">Qui<br>24/09</div>
+              <span class="chuva-bola" style="border-color:#7c9190;">1,6</span>
+            </div></div>
+        </div><div class="chuva-linha">
+          <div class="chuva-cabecalho">
+            <div>
+              <div class="chuva-nome">Guaíba</div>
+              <div class="chuva-local">Porto Alegre</div>
+            </div>
+            <div class="chuva-total" style="color:#ef4d6b;">63,9<span class="un"> mm</span></div>
+          </div>
+          <div class="chuva-dias"><div class="chuva-dia-item">
+              <div class="chuva-dia-lbl">Hoje<br>19/09</div>
+              <span class="chuva-bola" style="border-color:#f0a839;">13,6</span>
+            </div><div class="chuva-dia-item">
+              <div class="chuva-dia-lbl">Dom<br>20/09</div>
+              <span class="chuva-bola" style="border-color:#ef8a4d;">32,9</span>
+            </div><div class="chuva-dia-item">
+              <div class="chuva-dia-lbl">Seg<br>21/09</div>
+              <span class="chuva-bola" style="border-color:#f0a839;">12,3</span>
+            </div><div class="chuva-dia-item">
+              <div class="chuva-dia-lbl">Ter<br>22/09</div>
+              <span class="chuva-bola" style="border-color:#7c9190;">3,2</span>
+            </div><div class="chuva-dia-item">
+              <div class="chuva-dia-lbl">Qua<br>23/09</div>
+              <span class="chuva-bola" style="border-color:#7c9190;">0,8</span>
+            </div><div class="chuva-dia-item">
+              <div class="chuva-dia-lbl">Qui<br>24/09</div>
+              <span class="chuva-bola" style="border-color:#7c9190;">1,1</span>
+            </div></div>
+        </div>
+          <div class="legenda-chuva"><span class="legenda-item"><span class="legenda-dot" style="border-color:#7c9190;"></span>calmo (< 5 mm)</span><span class="legenda-item"><span class="legenda-dot" style="border-color:#f0a839;"></span>leve (5-20 mm)</span><span class="legenda-item"><span class="legenda-dot" style="border-color:#ef8a4d;"></span>moderada (20-50 mm)</span><span class="legenda-item"><span class="legenda-dot" style="border-color:#ef4d6b;"></span>forte (> 50 mm)</span></div>
+          <p class="nota-fraca">Open-Meteo &mdash; média de 3 modelos (GFS, ECMWF, ICON). Pode mudar a cada rodada. Previsão de 6 dias.</p>
+        </div>
+      </details>
     </div>
   
   <div class="secao" style="margin-bottom: 8px;">
-      <div class="secao-topo">
-        <div class="secao-titulo">Mais informações</div>
-        <span class="help-slot" data-help="mais-informacoes"></span>
-      </div>
+      <span class="help-slot" data-help="mais-informacoes"></span>
+      <div class="secao-titulo">Mais informações</div>
       <div class="nav-grid">
+        <a href="demais-rios.html" class="card nav-card">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"></path></svg>
+          <span class="rotulo">Demais rios</span>
+        </a>
         <a href="https://horizontersai.github.io/horizonte-paginas/mapa.html" class="card nav-card">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 11l18-7-7 18-3-8-8-3z"></path></svg>
           <span class="rotulo">Mapa das bacias</span>
@@ -298,10 +456,6 @@ body { margin:0; background-color:#0f2027; }
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
           <span class="rotulo">Notificações</span>
         </a>
-        <a href="fontes-de-dados.html" class="card nav-card">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 8v.01M12 11v5"></path></svg>
-          <span class="rotulo">Fontes de dados</span>
-        </a>
       </div>
     </div>
 
@@ -312,16 +466,21 @@ body { margin:0; background-color:#0f2027; }
   <div class="rodape">
     <p>O Horizonte é um projeto pessoal e independente de previsibilidade — não é um serviço oficial, não substitui e não tem qualquer vínculo com os canais da Defesa Civil. Quem escreve isso não é hidrólogo nem especialista em recursos hídricos; os números aqui são estimativas estatísticas construídas a partir de dados públicos, não uma previsão certificada. <strong style="color:#eef2f1;">Para alertas oficiais e qualquer decisão de segurança, siga sempre a Defesa Civil do seu município ou estado.</strong></p>
     <div class="rodape-links">
-      <a href="https://www.instagram.com/horizonte.rs/" target="_blank" rel="noopener">Instagram &middot; @horizonte.rs</a>
-      <span class="sep">&middot;</span>
-      <a href="mailto:horizonte.rs.ai@gmail.com">horizonte.rs.ai@gmail.com</a>
+      <a href="https://www.instagram.com/horizonte.rs/" target="_blank" rel="noopener" class="rodape-btn">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1"></circle></svg>
+        @horizonte.rs
+      </a>
+      <a href="mailto:horizonte.rs.ai@gmail.com" class="rodape-btn">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="m2 7 10 6 10-6"></path></svg>
+        E-mail
+      </a>
     </div>
     <div class="rodape-fontes">
       <a href="fontes-de-dados.html">Quais são as fontes de dados do Horizonte? &rarr;</a>
     </div>
   </div>
 </div>
-<script type="application/json" id="horizonte-help-data">{"status-pa": {"titulo": "Nível do Guaíba em Porto Alegre", "oQue": "O número mais importante do boletim: o nível real da água agora mesmo, medido pela régua oficial da ANA no Cais Mauá a cada ~15 minutos. A barra colorida mostra a distância até os 3 patamares de risco: Atenção, Alerta e Inundação.", "comoInterpretar": "Quanto mais preenchida a barra, mais perto da inundação. A tendência (subindo/descendo, em cm/h) mostra o que o rio está fazendo agora, em tempo real - a previsão vem no próximo quadro. Quando há um aviso oficial do INMET ativo pro município de Porto Alegre, ele aparece num quadro à parte, logo acima - é informativo (do órgão oficial), não faz parte do cálculo do Horizonte."}, "previsao-dias": {"titulo": "Previsão do nível nos próximos dias", "oQue": "Uma estimativa de qual deve ser o nível do rio daqui a 36h, 72h e 120h (5 dias), calculada a partir da tendência atual, da chuva prevista pra bacia inteira e, quando disponível, do efeito do vento e da pressão do ar sobre o Guaíba.", "comoInterpretar": "É uma estimativa: pode mudar de uma leitura pra outra, principalmente se a chuva prevista mudar. Quanto mais distante o horizonte, menos exato tende a ser o número (120h é mais incerto que 36h) - por isso o boletim é atualizado 8 vezes por dia. A cor de cada dia muda quando a projeção alcança uma cota de acompanhamento: laranja a partir da Atenção (2,00 m), alaranjado a partir do Alerta (2,50 m), vermelho a partir da Inundação (3,00 m) - sem cor quando fica abaixo das três."}, "chance-cota": {"titulo": "Chance de passar de cada cota", "oQue": "Complementa a previsão acima com uma leitura de quão perto o cenário está de cada patamar de risco. É calculada comparando a situação de hoje com quase 6 anos de situações parecidas já registradas pela régua.", "comoInterpretar": "É uma classificação (de Muito baixa a Muito alta), não uma porcentagem - assim evita passar uma precisão maior do que o cálculo realmente tem. Quanto mais alta a classificação, mais vezes situações parecidas já ultrapassaram aquela cota no passado."}, "chuva-prevista": {"titulo": "Chuva prevista nos afluentes", "oQue": "Quanto de chuva o modelo meteorológico espera pra cada um dos principais afluentes que alimentam a previsão de nível de Porto Alegre, dia a dia, nos próximos dias - um subconjunto dos 19 rios monitorados pelo Horizonte, os que entram nesse cálculo específico. Mostrada separada pra deixar visível a base do cálculo.", "comoInterpretar": "Vem do Open-Meteo (previsão de terceiros, a mesma fonte que qualquer aplicativo de tempo usa) e pode mudar de uma leitura pra outra - chuva é a parte mais difícil de prever com precisão. Cores mais fortes indicam chuva mais intensa naquele dia (ver legenda abaixo da tabela)."}, "historico": {"titulo": "Histórico realizado", "oQue": "O nível medido pela régua nos últimos dias - mostra o que já aconteceu, sem nenhuma previsão envolvida.", "comoInterpretar": "Serve pra ver a tendência recente com mais contexto do que só o número de agora - se o rio vem subindo, descendo ou estável. As linhas tracejadas marcam os patamares de risco, quando aparecem dentro da faixa mostrada no gráfico."}, "mais-informacoes": {"titulo": "Mais informações", "oQue": "O que antes ficava direto nesta tela — as outras 18 estações monitoradas, o mapa das bacias, a previsão de mais longo prazo e as fontes de dados do Horizonte — agora é 1 toque de distância, sem competir com o que importa primeiro: o Cais Mauá.", "comoInterpretar": "\"Mapa das bacias\" mostra as 19 estações na posição geográfica real, com nível e tendência de cada uma ao tocar num pino."}}</script>
+<script type="application/json" id="horizonte-help-data">{"status-pa": {"titulo": "Nível do Guaíba em Porto Alegre", "oQue": "O número mais importante do boletim: o nível real da água agora mesmo, medido pela régua oficial da ANA no Cais Mauá a cada ~15 minutos. A barra colorida mostra a distância até os 3 patamares de risco: Atenção, Alerta e Inundação.", "comoInterpretar": "Quanto mais preenchida a barra, mais perto da inundação. A tendência (subindo/descendo, em cm/h) mostra o que o rio está fazendo agora, em tempo real - a previsão vem no próximo quadro. Quando há um aviso oficial do INMET ativo pro município de Porto Alegre, ele aparece num quadro à parte, logo acima - é informativo (do órgão oficial), não faz parte do cálculo do Horizonte."}, "previsao-dias": {"titulo": "Previsão do nível nos próximos dias", "oQue": "Uma estimativa de qual deve ser o nível do rio daqui a 36h, 72h e 120h (5 dias), calculada a partir da tendência atual, da chuva prevista pra bacia inteira e, quando disponível, do efeito do vento e da pressão do ar sobre o Guaíba.", "comoInterpretar": "É uma estimativa: pode mudar de uma leitura pra outra, principalmente se a chuva prevista mudar. Quanto mais distante o horizonte, menos exato tende a ser o número (120h é mais incerto que 36h) - por isso o boletim é atualizado 8 vezes por dia. A cor de cada dia muda quando a projeção alcança uma cota de acompanhamento (sem cor quando fica abaixo das três).", "comoInterpretarHtml": "É uma estimativa: pode mudar de uma leitura pra outra, principalmente se a chuva prevista mudar. Quanto mais distante o horizonte, menos exato tende a ser o número (120h é mais incerto que 36h) - por isso o boletim é atualizado 8 vezes por dia. A cor de cada dia muda quando a projeção alcança uma cota de acompanhamento (sem cor quando fica abaixo das três).<br><br><span style=\"display:inline-block; width:8px; height:8px; border-radius:50%; background:#f0a839; margin-right:4px;\"></span>Atenção (2,00 m)&nbsp;&nbsp;<span style=\"display:inline-block; width:8px; height:8px; border-radius:50%; background:#ef8a4d; margin-right:4px;\"></span>Alerta (2,50 m)&nbsp;&nbsp;<span style=\"display:inline-block; width:8px; height:8px; border-radius:50%; background:#ef4d6b; margin-right:4px;\"></span>Inundação (3,00 m)<br><br>Esta previsão já considera o efeito estimado do vento e da pressão atmosférica sobre o Guaíba, além da tendência dos afluentes e da chuva futura."}, "chance-cota": {"titulo": "Chance de passar de cada cota", "oQue": "Complementa a previsão acima com uma leitura de quão perto o cenário está de cada patamar de risco. É calculada comparando a situação de hoje com quase 6 anos de situações parecidas já registradas pela régua.", "comoInterpretar": "É uma classificação (de Muito baixa a Muito alta), não uma porcentagem - assim evita passar uma precisão maior do que o cálculo realmente tem. Quanto mais alta a classificação, mais vezes situações parecidas já ultrapassaram aquela cota no passado.", "comoInterpretarHtml": "É uma classificação (de Muito baixa a Muito alta), não uma porcentagem - assim evita passar uma precisão maior do que o cálculo realmente tem. Quanto mais alta a classificação, mais vezes situações parecidas já ultrapassaram aquela cota no passado.<br><br><span style=\"display:inline-block; width:8px; height:8px; border-radius:50%; background:#4a7c8c; margin-right:4px;\"></span>Muito baixa&nbsp;&nbsp;<span style=\"display:inline-block; width:8px; height:8px; border-radius:50%; background:#6fa86f; margin-right:4px;\"></span>Baixa&nbsp;&nbsp;<span style=\"display:inline-block; width:8px; height:8px; border-radius:50%; background:#d4a94f; margin-right:4px;\"></span>Moderada&nbsp;&nbsp;<span style=\"display:inline-block; width:8px; height:8px; border-radius:50%; background:#d47a4f; margin-right:4px;\"></span>Alta&nbsp;&nbsp;<span style=\"display:inline-block; width:8px; height:8px; border-radius:50%; background:#c9536b; margin-right:4px;\"></span>Muito alta"}, "chuva-prevista": {"titulo": "Chuva prevista nos afluentes", "oQue": "Quanto de chuva o modelo meteorológico espera pra cada um dos principais afluentes que alimentam a previsão de nível de Porto Alegre, dia a dia, nos próximos dias - um subconjunto dos 19 rios monitorados pelo Horizonte, os que entram nesse cálculo específico. Mostrada separada pra deixar visível a base do cálculo.", "comoInterpretar": "Vem do Open-Meteo (previsão de terceiros, a mesma fonte que qualquer aplicativo de tempo usa) e pode mudar de uma leitura pra outra - chuva é a parte mais difícil de prever com precisão. Cores mais fortes indicam chuva mais intensa naquele dia (ver legenda abaixo da tabela)."}, "historico": {"titulo": "Histórico realizado", "oQue": "O nível medido pela régua nos últimos dias - mostra o que já aconteceu, sem nenhuma previsão envolvida.", "comoInterpretar": "Serve pra ver a tendência recente com mais contexto do que só o número de agora - se o rio vem subindo, descendo ou estável. As linhas tracejadas marcam os patamares de risco, quando aparecem dentro da faixa mostrada no gráfico."}, "mais-informacoes": {"titulo": "Mais informações", "oQue": "O que antes ficava direto nesta tela — as outras 18 estações monitoradas, o mapa das bacias e a previsão de mais longo prazo — agora é 1 toque de distância, sem competir com o que importa primeiro: o Cais Mauá.", "comoInterpretar": "\"Demais rios\" lista as outras 18 estações com nível, tendência e avisos. \"Mapa das bacias\" mostra as 19 estações na posição geográfica real, com nível e tendência de cada uma ao tocar num pino."}}</script>
 <script>
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", function () {
@@ -414,7 +573,16 @@ window.addEventListener("load", function () {
       e.stopPropagation();
       elTitulo.textContent = info.titulo;
       elOQue.textContent = info.oQue;
-      elComo.textContent = info.comoInterpretar;
+      // comoInterpretarHtml (19/09/2026, pedido do usuário: "legenda de
+      // cores ter um destaque com cores de fato") - campo OPCIONAL, só
+      // pra quando o gerador da página precisa de destaque visual (bolinha
+      // colorida) que texto puro não permite. Nenhum HELP_TEXTS existente
+      // usa esse campo - continuam 100% em textContent, sem mudança.
+      if (info.comoInterpretarHtml) {
+        elComo.innerHTML = info.comoInterpretarHtml;
+      } else {
+        elComo.textContent = info.comoInterpretar;
+      }
       popup.classList.add("show");
     });
     slot.parentElement.style.position = "relative";

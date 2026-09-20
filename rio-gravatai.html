@@ -117,7 +117,7 @@ body { margin:0; background-color:#0f2027; }
               <div class="proj-valor">3,37 m</div>
               <div class="proj-rotulo">72h &middot; 22/09</div>
             </td><td align="center" class="proj-col">
-              <div class="proj-valor">3,36 m</div>
+              <div class="proj-valor">3,37 m</div>
               <div class="proj-rotulo">120h &middot; 24/09</div>
             </td></tr></table>
     </div>
@@ -128,7 +128,7 @@ body { margin:0; background-color:#0f2027; }
   <div class="card">
           <span class="help-slot" data-help="chuva-rio"></span>
           <h2>Chuva prevista</h2>
-          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td align="center" class="chuva-col"><div class="chuva-dia">Hoje<br>19/09</div><span class="chuva-bola" style="border-color:#f0a839;">15,7</span></td><td align="center" class="chuva-col"><div class="chuva-dia">Dom<br>20/09</div><span class="chuva-bola" style="border-color:#ef4d6b;">51,4</span></td><td align="center" class="chuva-col"><div class="chuva-dia">Seg<br>21/09</div><span class="chuva-bola" style="border-color:#7c9190;">1,0</span></td><td align="center" class="chuva-col"><div class="chuva-dia">Ter<br>22/09</div><span class="chuva-bola" style="border-color:#7c9190;">0,1</span></td><td align="center" class="chuva-col"><div class="chuva-dia">Qua<br>23/09</div><span class="chuva-bola" style="border-color:#7c9190;">0,0</span></td><td align="center" class="chuva-col"><div class="chuva-dia">Qui<br>24/09</div><span class="chuva-bola" style="border-color:#7c9190;">0,8</span></td><td align="center" class="chuva-col chuva-total-col"><div class="chuva-dia">Total<br>6d</div><span class="chuva-total-valor" style="color:#ef4d6b;">69,0</span><div class="chuva-total-un">mm</div></td></tr></table>
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td align="center" class="chuva-col"><div class="chuva-dia">Hoje<br>19/09</div><span class="chuva-bola" style="border-color:#ef8a4d;">26,2</span></td><td align="center" class="chuva-col"><div class="chuva-dia">Dom<br>20/09</div><span class="chuva-bola" style="border-color:#ef8a4d;">41,7</span></td><td align="center" class="chuva-col"><div class="chuva-dia">Seg<br>21/09</div><span class="chuva-bola" style="border-color:#7c9190;">0,8</span></td><td align="center" class="chuva-col"><div class="chuva-dia">Ter<br>22/09</div><span class="chuva-bola" style="border-color:#7c9190;">0,0</span></td><td align="center" class="chuva-col"><div class="chuva-dia">Qua<br>23/09</div><span class="chuva-bola" style="border-color:#7c9190;">0,0</span></td><td align="center" class="chuva-col"><div class="chuva-dia">Qui<br>24/09</div><span class="chuva-bola" style="border-color:#f0a839;">5,0</span></td><td align="center" class="chuva-col chuva-total-col"><div class="chuva-dia">Total<br>6d</div><span class="chuva-total-valor" style="color:#ef4d6b;">73,7</span><div class="chuva-total-un">mm</div></td></tr></table>
           <div class="legenda-chuva"><span class="legenda-item"><span class="legenda-dot" style="border-color:#7c9190;"></span>calmo (< 5 mm)</span><span class="legenda-item"><span class="legenda-dot" style="border-color:#f0a839;"></span>leve (5-20 mm)</span><span class="legenda-item"><span class="legenda-dot" style="border-color:#ef8a4d;"></span>moderada (20-50 mm)</span><span class="legenda-item"><span class="legenda-dot" style="border-color:#ef4d6b;"></span>forte (> 50 mm)</span></div>
           <p class="linha-fraca-2" style="margin-top:10px;">Previsão Open-Meteo &mdash; média de 3 modelos (GFS, ECMWF, ICON). Valores podem mudar a cada nova rodada.</p>
         </div>
@@ -317,7 +317,16 @@ window.addEventListener("load", function () {
       e.stopPropagation();
       elTitulo.textContent = info.titulo;
       elOQue.textContent = info.oQue;
-      elComo.textContent = info.comoInterpretar;
+      // comoInterpretarHtml (19/09/2026, pedido do usuário: "legenda de
+      // cores ter um destaque com cores de fato") - campo OPCIONAL, só
+      // pra quando o gerador da página precisa de destaque visual (bolinha
+      // colorida) que texto puro não permite. Nenhum HELP_TEXTS existente
+      // usa esse campo - continuam 100% em textContent, sem mudança.
+      if (info.comoInterpretarHtml) {
+        elComo.innerHTML = info.comoInterpretarHtml;
+      } else {
+        elComo.textContent = info.comoInterpretar;
+      }
       popup.classList.add("show");
     });
     slot.parentElement.style.position = "relative";
