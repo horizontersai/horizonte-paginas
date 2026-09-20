@@ -107,15 +107,15 @@ body { margin:0; background-color:#0f2027; }
   .secao-titulo-principal { font-size: 16px; text-transform: none; letter-spacing: normal; color: #eef2f1; font-weight: 800; }
 
   .previsao-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 10px; }
-  /* Fundo índigo/violeta PRÓPRIO (20/09/2026, pedido do usuário - "Previsão
-     do nível" é a comunicação principal do boletim, precisa de mais
-     destaque). Cor testada e escolhida entre 3 opções via Artifact -
-     família de cor (roxo) que não existe em mais nenhum lugar do
-     boletim, então nunca é confundida com Atenção/Alerta/Inundação
-     (âmbar/laranja/vermelho) - os números dentro do card continuam
-     com a cor de risco de sempre (cor_por_cota_caismaua), só o FUNDO
-     mudou. */
-  .previsao-item { background: #2a2148; border: 1px solid #40356e; padding: 14px 6px; text-align: center; }
+  /* Fundo violeta acinzentado PRÓPRIO (20/09/2026, pedido do usuário -
+     "Previsão do nível" é a comunicação principal do boletim, precisa
+     de mais destaque). Cor testada entre 6 opções via Artifact - a
+     primeira escolha (índigo forte, #2a2148) ficou "muito forte" no
+     contraste do celular; esta é a versão suave (opção F). Família de
+     cor (roxo) que não existe em mais nenhum lugar do boletim, então
+     nunca é confundida com Atenção/Alerta/Inundação (âmbar/laranja/
+     vermelho) - os números dentro do card seguem _cor_nivel_web(). */
+  .previsao-item { background: #262038; border: 1px solid #363048; padding: 14px 6px; text-align: center; }
   .previsao-item .data { font-size: 10px; color: #7c9190; text-transform: uppercase; letter-spacing: .3px; margin-bottom: 8px; line-height: 1.4; }
   .previsao-item .valor { font-family: 'Courier New', monospace; font-size: 20px; font-weight: 700; font-variant-numeric: tabular-nums; }
   .previsao-item .valor small { font-size: 12px; color: #7c9190; font-weight: 600; }
@@ -201,13 +201,13 @@ body { margin:0; background-color:#0f2027; }
       <div class="hero-topo">
         <div>
           <div class="hero-local">Guaíba &middot; Cais Mauá</div>
-          <div class="hero-atualizado">Leitura 19/09 &middot; 23:15 &middot; gerado 00:14</div>
+          <div class="hero-atualizado">Leitura 19/09 &middot; 23:15 &middot; gerado 00:28</div>
         </div>
         <span class="pill-status" style="margin-right:30px; background:#1c3328; color:#5ecb8f; border:1px solid #2f5540;"><span class="ponto"></span>Normal</span>
       </div>
       <p class="hero-resumo">Sem indicativo de risco elevado nos próximos 5 dias.</p>
       <div class="hero-numero">
-        <span class="valor" style="color:#eef2f1;">1,08</span>
+        <span class="valor" style="color:#5ecb8f;">1,08</span>
         <span class="unidade">m</span>
         <span class="tendencia" style="color:#5ecb8f;">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M3 7l8 8 4-4 6 6"></path><path d="M17 7h6v6"></path></svg>
@@ -235,13 +235,13 @@ body { margin:0; background-color:#0f2027; }
       <div class="previsao-grid">
         <div class="card previsao-item">
         <div class="data">Seg &middot; 21/09<br>36h</div>
-        <div class="valor" style="color:#eef2f1;">1,24<small> m</small></div>
+        <div class="valor" style="color:#5ecb8f;">1,25<small> m</small></div>
       </div><div class="card previsao-item">
         <div class="data">Qua &middot; 23/09<br>72h</div>
-        <div class="valor" style="color:#eef2f1;">1,52<small> m</small></div>
+        <div class="valor" style="color:#5ecb8f;">1,51<small> m</small></div>
       </div><div class="card previsao-item">
         <div class="data">Sex &middot; 25/09<br>120h</div>
-        <div class="valor" style="color:#eef2f1;">1,58<small> m</small></div>
+        <div class="valor" style="color:#5ecb8f;">1,57<small> m</small></div>
       </div>
       </div>
     </div>
@@ -310,26 +310,26 @@ body { margin:0; background-color:#0f2027; }
               <div class="chuva-nome">Taquari</div>
               <div class="chuva-local">Lajeado</div>
             </div>
-            <div class="chuva-total" style="color:#ef4d6b;">70,5<span class="un"> mm</span></div>
+            <div class="chuva-total" style="color:#ef4d6b;">70,1<span class="un"> mm</span></div>
           </div>
           <div class="chuva-dias"><div class="chuva-dia-item">
               <div class="chuva-dia-lbl">Hoje<br>20/09</div>
-              <span class="chuva-bola" style="border-color:#ef8a4d;">20,6</span>
+              <span class="chuva-bola" style="border-color:#ef8a4d;">21,6</span>
             </div><div class="chuva-dia-item">
               <div class="chuva-dia-lbl">Seg<br>21/09</div>
-              <span class="chuva-bola" style="border-color:#ef8a4d;">28,3</span>
+              <span class="chuva-bola" style="border-color:#ef8a4d;">28,1</span>
             </div><div class="chuva-dia-item">
               <div class="chuva-dia-lbl">Ter<br>22/09</div>
-              <span class="chuva-bola" style="border-color:#f0a839;">12,0</span>
+              <span class="chuva-bola" style="border-color:#f0a839;">11,0</span>
             </div><div class="chuva-dia-item">
               <div class="chuva-dia-lbl">Qua<br>23/09</div>
-              <span class="chuva-bola" style="border-color:#f0a839;">5,0</span>
+              <span class="chuva-bola" style="border-color:#7c9190;">4,6</span>
             </div><div class="chuva-dia-item">
               <div class="chuva-dia-lbl">Qui<br>24/09</div>
-              <span class="chuva-bola" style="border-color:#7c9190;">1,3</span>
+              <span class="chuva-bola" style="border-color:#7c9190;">1,2</span>
             </div><div class="chuva-dia-item">
               <div class="chuva-dia-lbl">Sex<br>25/09</div>
-              <span class="chuva-bola" style="border-color:#7c9190;">3,3</span>
+              <span class="chuva-bola" style="border-color:#7c9190;">3,6</span>
             </div></div>
         </div><div class="chuva-linha">
           <div class="chuva-cabecalho">
@@ -337,26 +337,26 @@ body { margin:0; background-color:#0f2027; }
               <div class="chuva-nome">Caí</div>
               <div class="chuva-local">São Sebastião do Caí</div>
             </div>
-            <div class="chuva-total" style="color:#ef4d6b;">65,2<span class="un"> mm</span></div>
+            <div class="chuva-total" style="color:#ef4d6b;">64,6<span class="un"> mm</span></div>
           </div>
           <div class="chuva-dias"><div class="chuva-dia-item">
               <div class="chuva-dia-lbl">Hoje<br>20/09</div>
-              <span class="chuva-bola" style="border-color:#f0a839;">14,7</span>
+              <span class="chuva-bola" style="border-color:#f0a839;">15,0</span>
             </div><div class="chuva-dia-item">
               <div class="chuva-dia-lbl">Seg<br>21/09</div>
-              <span class="chuva-bola" style="border-color:#ef8a4d;">29,6</span>
+              <span class="chuva-bola" style="border-color:#ef8a4d;">30,1</span>
             </div><div class="chuva-dia-item">
               <div class="chuva-dia-lbl">Ter<br>22/09</div>
-              <span class="chuva-bola" style="border-color:#f0a839;">12,2</span>
+              <span class="chuva-bola" style="border-color:#f0a839;">11,4</span>
             </div><div class="chuva-dia-item">
               <div class="chuva-dia-lbl">Qua<br>23/09</div>
-              <span class="chuva-bola" style="border-color:#f0a839;">5,4</span>
+              <span class="chuva-bola" style="border-color:#7c9190;">4,9</span>
             </div><div class="chuva-dia-item">
               <div class="chuva-dia-lbl">Qui<br>24/09</div>
-              <span class="chuva-bola" style="border-color:#7c9190;">1,8</span>
+              <span class="chuva-bola" style="border-color:#7c9190;">1,6</span>
             </div><div class="chuva-dia-item">
               <div class="chuva-dia-lbl">Sex<br>25/09</div>
-              <span class="chuva-bola" style="border-color:#7c9190;">1,5</span>
+              <span class="chuva-bola" style="border-color:#7c9190;">1,6</span>
             </div></div>
         </div><div class="chuva-linha">
           <div class="chuva-cabecalho">
@@ -364,26 +364,26 @@ body { margin:0; background-color:#0f2027; }
               <div class="chuva-nome">Gravataí</div>
               <div class="chuva-local">Gravataí</div>
             </div>
-            <div class="chuva-total" style="color:#ef4d6b;">67,6<span class="un"> mm</span></div>
+            <div class="chuva-total" style="color:#ef4d6b;">68,1<span class="un"> mm</span></div>
           </div>
           <div class="chuva-dias"><div class="chuva-dia-item">
               <div class="chuva-dia-lbl">Hoje<br>20/09</div>
-              <span class="chuva-bola" style="border-color:#f0a839;">18,1</span>
+              <span class="chuva-bola" style="border-color:#f0a839;">19,0</span>
             </div><div class="chuva-dia-item">
               <div class="chuva-dia-lbl">Seg<br>21/09</div>
-              <span class="chuva-bola" style="border-color:#ef8a4d;">31,5</span>
+              <span class="chuva-bola" style="border-color:#ef8a4d;">32,0</span>
             </div><div class="chuva-dia-item">
               <div class="chuva-dia-lbl">Ter<br>22/09</div>
-              <span class="chuva-bola" style="border-color:#f0a839;">10,9</span>
+              <span class="chuva-bola" style="border-color:#f0a839;">10,1</span>
             </div><div class="chuva-dia-item">
               <div class="chuva-dia-lbl">Qua<br>23/09</div>
-              <span class="chuva-bola" style="border-color:#7c9190;">3,3</span>
+              <span class="chuva-bola" style="border-color:#7c9190;">3,0</span>
             </div><div class="chuva-dia-item">
               <div class="chuva-dia-lbl">Qui<br>24/09</div>
-              <span class="chuva-bola" style="border-color:#7c9190;">1,2</span>
+              <span class="chuva-bola" style="border-color:#7c9190;">1,1</span>
             </div><div class="chuva-dia-item">
               <div class="chuva-dia-lbl">Sex<br>25/09</div>
-              <span class="chuva-bola" style="border-color:#7c9190;">2,6</span>
+              <span class="chuva-bola" style="border-color:#7c9190;">2,9</span>
             </div></div>
         </div><div class="chuva-linha">
           <div class="chuva-cabecalho">
@@ -391,26 +391,26 @@ body { margin:0; background-color:#0f2027; }
               <div class="chuva-nome">Jacuí</div>
               <div class="chuva-local">Cachoeira do Sul</div>
             </div>
-            <div class="chuva-total" style="color:#ef4d6b;">57,2<span class="un"> mm</span></div>
+            <div class="chuva-total" style="color:#ef4d6b;">56,6<span class="un"> mm</span></div>
           </div>
           <div class="chuva-dias"><div class="chuva-dia-item">
               <div class="chuva-dia-lbl">Hoje<br>20/09</div>
-              <span class="chuva-bola" style="border-color:#f0a839;">9,4</span>
+              <span class="chuva-bola" style="border-color:#f0a839;">8,8</span>
             </div><div class="chuva-dia-item">
               <div class="chuva-dia-lbl">Seg<br>21/09</div>
-              <span class="chuva-bola" style="border-color:#ef8a4d;">33,2</span>
+              <span class="chuva-bola" style="border-color:#ef8a4d;">34,1</span>
             </div><div class="chuva-dia-item">
               <div class="chuva-dia-lbl">Ter<br>22/09</div>
-              <span class="chuva-bola" style="border-color:#f0a839;">9,2</span>
+              <span class="chuva-bola" style="border-color:#f0a839;">8,4</span>
             </div><div class="chuva-dia-item">
               <div class="chuva-dia-lbl">Qua<br>23/09</div>
-              <span class="chuva-bola" style="border-color:#7c9190;">2,5</span>
+              <span class="chuva-bola" style="border-color:#7c9190;">2,3</span>
             </div><div class="chuva-dia-item">
               <div class="chuva-dia-lbl">Qui<br>24/09</div>
-              <span class="chuva-bola" style="border-color:#7c9190;">0,7</span>
+              <span class="chuva-bola" style="border-color:#7c9190;">0,6</span>
             </div><div class="chuva-dia-item">
               <div class="chuva-dia-lbl">Sex<br>25/09</div>
-              <span class="chuva-bola" style="border-color:#7c9190;">2,2</span>
+              <span class="chuva-bola" style="border-color:#7c9190;">2,4</span>
             </div></div>
         </div><div class="chuva-linha">
           <div class="chuva-cabecalho">
@@ -418,26 +418,26 @@ body { margin:0; background-color:#0f2027; }
               <div class="chuva-nome">Sinos</div>
               <div class="chuva-local">São Leopoldo</div>
             </div>
-            <div class="chuva-total" style="color:#ef4d6b;">66,8<span class="un"> mm</span></div>
+            <div class="chuva-total" style="color:#ef4d6b;">67,2<span class="un"> mm</span></div>
           </div>
           <div class="chuva-dias"><div class="chuva-dia-item">
               <div class="chuva-dia-lbl">Hoje<br>20/09</div>
-              <span class="chuva-bola" style="border-color:#f0a839;">15,8</span>
+              <span class="chuva-bola" style="border-color:#f0a839;">16,3</span>
             </div><div class="chuva-dia-item">
               <div class="chuva-dia-lbl">Seg<br>21/09</div>
-              <span class="chuva-bola" style="border-color:#ef8a4d;">33,0</span>
+              <span class="chuva-bola" style="border-color:#ef8a4d;">33,9</span>
             </div><div class="chuva-dia-item">
               <div class="chuva-dia-lbl">Ter<br>22/09</div>
-              <span class="chuva-bola" style="border-color:#f0a839;">10,6</span>
+              <span class="chuva-bola" style="border-color:#f0a839;">9,8</span>
             </div><div class="chuva-dia-item">
               <div class="chuva-dia-lbl">Qua<br>23/09</div>
-              <span class="chuva-bola" style="border-color:#7c9190;">4,1</span>
+              <span class="chuva-bola" style="border-color:#7c9190;">3,8</span>
             </div><div class="chuva-dia-item">
               <div class="chuva-dia-lbl">Qui<br>24/09</div>
-              <span class="chuva-bola" style="border-color:#7c9190;">1,4</span>
+              <span class="chuva-bola" style="border-color:#7c9190;">1,3</span>
             </div><div class="chuva-dia-item">
               <div class="chuva-dia-lbl">Sex<br>25/09</div>
-              <span class="chuva-bola" style="border-color:#7c9190;">1,9</span>
+              <span class="chuva-bola" style="border-color:#7c9190;">2,1</span>
             </div></div>
         </div><div class="chuva-linha">
           <div class="chuva-cabecalho">
@@ -445,26 +445,26 @@ body { margin:0; background-color:#0f2027; }
               <div class="chuva-nome">Guaíba</div>
               <div class="chuva-local">Porto Alegre</div>
             </div>
-            <div class="chuva-total" style="color:#ef4d6b;">65,1<span class="un"> mm</span></div>
+            <div class="chuva-total" style="color:#ef4d6b;">65,4<span class="un"> mm</span></div>
           </div>
           <div class="chuva-dias"><div class="chuva-dia-item">
               <div class="chuva-dia-lbl">Hoje<br>20/09</div>
               <span class="chuva-bola" style="border-color:#f0a839;">13,6</span>
             </div><div class="chuva-dia-item">
               <div class="chuva-dia-lbl">Seg<br>21/09</div>
-              <span class="chuva-bola" style="border-color:#ef8a4d;">37,5</span>
+              <span class="chuva-bola" style="border-color:#ef8a4d;">38,7</span>
             </div><div class="chuva-dia-item">
               <div class="chuva-dia-lbl">Ter<br>22/09</div>
-              <span class="chuva-bola" style="border-color:#f0a839;">9,6</span>
+              <span class="chuva-bola" style="border-color:#f0a839;">8,9</span>
             </div><div class="chuva-dia-item">
               <div class="chuva-dia-lbl">Qua<br>23/09</div>
-              <span class="chuva-bola" style="border-color:#7c9190;">2,5</span>
+              <span class="chuva-bola" style="border-color:#7c9190;">2,3</span>
             </div><div class="chuva-dia-item">
               <div class="chuva-dia-lbl">Qui<br>24/09</div>
-              <span class="chuva-bola" style="border-color:#7c9190;">0,6</span>
+              <span class="chuva-bola" style="border-color:#7c9190;">0,5</span>
             </div><div class="chuva-dia-item">
               <div class="chuva-dia-lbl">Sex<br>25/09</div>
-              <span class="chuva-bola" style="border-color:#7c9190;">1,3</span>
+              <span class="chuva-bola" style="border-color:#7c9190;">1,4</span>
             </div></div>
         </div>
           <div class="legenda-chuva"><span class="legenda-item"><span class="legenda-dot" style="border-color:#7c9190;"></span>calmo (< 5 mm)</span><span class="legenda-item"><span class="legenda-dot" style="border-color:#f0a839;"></span>leve (5-20 mm)</span><span class="legenda-item"><span class="legenda-dot" style="border-color:#ef8a4d;"></span>moderada (20-50 mm)</span><span class="legenda-item"><span class="legenda-dot" style="border-color:#ef4d6b;"></span>forte (> 50 mm)</span></div>
