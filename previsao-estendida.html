@@ -290,7 +290,7 @@ body { margin:0; background-color:#0f2027; }
         <div class="divisor-janela"></div>
         <div class="cel-janela">
       <div class="cel-tempo">11 a 30 dias</div>
-      <span class="chance-badge" style="background:#2a3d3a;color:#6fa86f;border-color:#6fa86f55;">Baixa</span>
+      <span class="chance-badge" style="background:#3a3324;color:#d4a94f;border-color:#d4a94f55;">Moderada</span>
       
     </div>
       </div>
@@ -307,7 +307,7 @@ body { margin:0; background-color:#0f2027; }
         <div class="divisor-janela"></div>
         <div class="cel-janela">
       <div class="cel-tempo">11 a 30 dias</div>
-      <span class="chance-badge" style="background:#2a3d3a;color:#6fa86f;border-color:#6fa86f55;opacity:.65">Baixa</span>
+      <span class="chance-badge" style="background:#2a3d3a;color:#6fa86f;border-color:#6fa86f55;">Baixa</span>
       
     </div>
       </div>
@@ -481,7 +481,7 @@ body { margin:0; background-color:#0f2027; }
         <div class="divisor-janela"></div>
         <div class="cel-janela">
       <div class="cel-tempo">11 a 30 dias</div>
-      <span class="chance-badge" style="background:#3a3324;color:#d4a94f;border-color:#d4a94f55;">Moderada</span>
+      <span class="chance-badge" style="background:#3d3226;color:#d47a4f;border-color:#d47a4f55;opacity:.65">Alta</span>
       
     </div>
       </div>
@@ -729,7 +729,7 @@ body { margin:0; background-color:#0f2027; }
         <div class="divisor-janela"></div>
         <div class="cel-janela">
       <div class="cel-tempo">11 a 30 dias</div>
-      <span class="chance-badge" style="background:#3a3324;color:#d4a94f;border-color:#d4a94f55;">Moderada</span>
+      <span class="chance-badge" style="background:#3d3226;color:#d47a4f;border-color:#d47a4f55;">Alta</span>
       
     </div>
       </div>
@@ -746,7 +746,7 @@ body { margin:0; background-color:#0f2027; }
         <div class="divisor-janela"></div>
         <div class="cel-janela">
       <div class="cel-tempo">11 a 30 dias</div>
-      <span class="chance-badge" style="background:#3a3324;color:#d4a94f;border-color:#d4a94f55;opacity:.65">Moderada</span>
+      <span class="chance-badge" style="background:#3d3226;color:#d47a4f;border-color:#d47a4f55;opacity:.65">Alta</span>
       
     </div>
       </div>
@@ -763,7 +763,7 @@ body { margin:0; background-color:#0f2027; }
         <div class="divisor-janela"></div>
         <div class="cel-janela">
       <div class="cel-tempo">11 a 30 dias</div>
-      <span class="chance-badge" style="background:#3a3324;color:#d4a94f;border-color:#d4a94f55;opacity:.65">Moderada</span>
+      <span class="chance-badge" style="background:#3a3324;color:#d4a94f;border-color:#d4a94f55;">Moderada</span>
       
     </div>
       </div>
@@ -892,7 +892,16 @@ window.addEventListener("load", function () {
       e.stopPropagation();
       elTitulo.textContent = info.titulo;
       elOQue.textContent = info.oQue;
-      elComo.textContent = info.comoInterpretar;
+      // comoInterpretarHtml (19/09/2026, pedido do usuário: "legenda de
+      // cores ter um destaque com cores de fato") - campo OPCIONAL, só
+      // pra quando o gerador da página precisa de destaque visual (bolinha
+      // colorida) que texto puro não permite. Nenhum HELP_TEXTS existente
+      // usa esse campo - continuam 100% em textContent, sem mudança.
+      if (info.comoInterpretarHtml) {
+        elComo.innerHTML = info.comoInterpretarHtml;
+      } else {
+        elComo.textContent = info.comoInterpretar;
+      }
       popup.classList.add("show");
     });
     slot.parentElement.style.position = "relative";
