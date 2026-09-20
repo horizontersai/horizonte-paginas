@@ -101,7 +101,7 @@ body { margin:0; background-color:#0f2027; }
           <span class="help-slot" data-help="status-rio"></span>
           <span class="badge" style="background-color:#1c3328; border-color:#2f5540; color:#5ecb8f;">Normal</span>
           <div class="nivel">1,09<span class="nivel-un">m</span></div>
-          <p class="linha-fraca">Tendência: sem dado (?)</p>
+          <p class="linha-fraca">Tendência: estável (= -0,1 cm/h)</p>
           <p class="linha-fraca">Cota de inundação: 6,00 m</p>
           <div class="gauge"><div class="gauge-fill" style="width:14.0%; background-color:#5ecb8f;"></div></div>
           <p class="gauge-pct" style="color:#5ecb8f;">18% da cota de inundação</p>
@@ -111,13 +111,13 @@ body { margin:0; background-color:#0f2027; }
       <span class="help-slot" data-help="previsao-rio"></span>
       <h2>Previsão do nível</h2>
       <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td align="center" class="proj-col">
-              <div class="proj-valor">1,14 m</div>
+              <div class="proj-valor">1,85 m</div>
               <div class="proj-rotulo">36h &middot; 21/09</div>
             </td><td align="center" class="proj-col">
-              <div class="proj-valor">1,20 m</div>
+              <div class="proj-valor">1,07 m</div>
               <div class="proj-rotulo">72h &middot; 22/09</div>
             </td><td align="center" class="proj-col">
-              <div class="proj-valor">1,28 m</div>
+              <div class="proj-valor">1,09 m</div>
               <div class="proj-rotulo">120h &middot; 24/09</div>
             </td></tr></table>
     </div>
@@ -176,7 +176,7 @@ body { margin:0; background-color:#0f2027; }
 </div>
 <script>
 (function() {
-  const pontos = [{"nome": "Taquara", "nome_oficial": "FOZ DO PARANHANA", "lat": -29.6858, "lon": -50.8122, "nivel_m": 1.09, "tendencia_cm_h": null, "cota_inundacao_m": 6.0}];
+  const pontos = [{"nome": "Taquara", "nome_oficial": "FOZ DO PARANHANA", "lat": -29.6858, "lon": -50.8122, "nivel_m": 1.09, "tendencia_cm_h": -0.08, "cota_inundacao_m": 6.0}];
   const mapa = L.map('mapa-estacao', { scrollWheelZoom: false }).setView([-29.6858, -50.8122], 15);
 
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
