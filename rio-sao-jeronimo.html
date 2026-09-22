@@ -96,26 +96,26 @@ body { margin:0; background-color:#0f2027; }
   <div class="card">
           <span class="help-slot" data-help="status-rio"></span>
           <span class="badge" style="background-color:#1c3328; border-color:#2f5540; color:#5ecb8f;">Normal</span>
-          <div class="nivel">2,36<span class="nivel-un">m</span></div>
-          <p class="linha-fraca">Tendência: subida (&#9650; 10,0 cm/h)</p>
+          <div class="nivel">2,34<span class="nivel-un">m</span></div>
+          <p class="linha-fraca">Tendência: subida (&#9650; 9,3 cm/h)</p>
           
           
           <p class="linha-fraca">Cota de inundação: 4,64 m</p>
-          <div class="gauge"><div class="gauge-fill" style="width:39.1%; background-color:#5ecb8f;"></div></div>
-          <p class="gauge-pct" style="color:#5ecb8f;">51% da cota de inundação</p>
+          <div class="gauge"><div class="gauge-fill" style="width:38.8%; background-color:#5ecb8f;"></div></div>
+          <p class="gauge-pct" style="color:#5ecb8f;">50% da cota de inundação</p>
           <div class="gauge-escala"><span>0 m</span><span>cota de inundação &middot; 4,64 m</span></div>
         </div>
   <div class="card">
       <span class="help-slot" data-help="previsao-rio"></span>
       <h2>Previsão do nível</h2>
       <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td align="center" class="proj-col">
-              <div class="proj-valor">2,33 m</div>
+              <div class="proj-valor">2,31 m</div>
               <div class="proj-rotulo">36h &middot; 23/09</div>
             </td><td align="center" class="proj-col">
-              <div class="proj-valor">2,27 m</div>
+              <div class="proj-valor">2,25 m</div>
               <div class="proj-rotulo">72h &middot; 25/09</div>
             </td><td align="center" class="proj-col">
-              <div class="proj-valor">2,17 m</div>
+              <div class="proj-valor">2,15 m</div>
               <div class="proj-rotulo">120h &middot; 27/09</div>
             </td></tr></table>
     </div>
@@ -147,8 +147,8 @@ body { margin:0; background-color:#0f2027; }
             </div>
             <div style="text-align:center; margin-top:4px; font-size:11px; color:#6ea3cc;">&#128167; 107,1 mm &middot; chuva no período</div>
             <p style="margin:8px 0 0 0; font-size:10.5px; color:#7c9190; line-height:1.4;">Nível: leituras reais da ANA (estação telemétrica de São Jerônimo), a cada ~15 minutos - não é projeção.</p>
-            <p style="margin:2px 0 0 0; font-size:10.5px; color:#7c9190; line-height:1.4;">Chuva em São Jerônimo: medição real (pluviômetro da mesma estação ANA do nível).</p>
-            </div>
+            <p style="margin:2px 0 0 0; font-size:10.5px; color:#7c9190; line-height:1.4;">Chuva em São Jerônimo: último dado disponível (pode não ser desta execução).</p>
+            <p style="margin:8px 0 0 0; padding:6px 10px; background-color:#1c2f33; border:1px solid #344d52; border-radius:6px; font-size:10.5px; color:#b9c8c7; line-height:1.4;">&#9888; ANA sem resposta nesta execução &mdash; mostrando o último histórico salvo (de 22/09 às 01:22), não o mais recente.</p></div>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <style>
@@ -169,7 +169,7 @@ body { margin:0; background-color:#0f2027; }
 </div>
 <script>
 (function() {
-  const pontos = [{"nome": "São Jerônimo", "nome_oficial": "SÃO JERÔNIMO", "lat": -29.955, "lon": -51.7631, "nivel_m": 2.36, "tendencia_cm_h": 9.956043956044091, "cota_inundacao_m": 4.64}];
+  const pontos = [{"nome": "São Jerônimo", "nome_oficial": "SÃO JERÔNIMO", "lat": -29.955, "lon": -51.7631, "nivel_m": 2.34, "tendencia_cm_h": 9.29, "cota_inundacao_m": 4.64}];
   const mapa = L.map('mapa-estacao', { scrollWheelZoom: false }).setView([-29.955, -51.7631], 15);
 
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
