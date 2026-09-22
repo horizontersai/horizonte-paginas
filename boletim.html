@@ -118,18 +118,15 @@ body { margin:0; background-color:#0f2027; }
   .secao-titulo-principal { font-size: 16px; text-transform: none; letter-spacing: normal; color: #eef2f1; font-weight: 800; }
 
   .previsao-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 10px; }
-  /* Fundo violeta acinzentado PRÓPRIO (20/09/2026, pedido do usuário -
-     "Previsão do nível" é a comunicação principal do boletim, precisa
-     de mais destaque). Cor testada entre 6 opções via Artifact - a
-     primeira escolha (índigo forte, #2a2148) ficou "muito forte" no
-     contraste do celular; esta é a versão suave (opção F). Família de
-     cor (roxo) que não existe em mais nenhum lugar do boletim, então
-     nunca é confundida com Atenção/Alerta/Inundação (âmbar/laranja/
-     vermelho) - os números dentro do card seguem _cor_nivel_web(). */
-  .previsao-item { background: #262038; border: 1px solid #363048; padding: 14px 6px; text-align: center; }
-  .previsao-item .data { font-size: 10px; color: #7c9190; text-transform: uppercase; letter-spacing: .3px; margin-bottom: 8px; line-height: 1.4; }
-  .previsao-item .valor { font-family: 'Courier New', monospace; font-size: 20px; font-weight: 700; font-variant-numeric: tabular-nums; }
-  .previsao-item .valor small { font-size: 12px; color: #7c9190; font-weight: 600; }
+  /* 22/09/2026 (pedido do usuário): a cor de criticidade saiu do número
+     e foi pro FUNDO do quadro (verde = normal, abaixo de Atenção; depois
+     Atenção/Alerta/Inundação - ver _fundo_nivel_web), com texto sempre
+     branco. Substitui o fundo violeta fixo de 20/09. O violeta abaixo só
+     sobra como reserva pra quando não há nível. */
+  .previsao-item { background: #262038; border: 1px solid #363048; padding: 14px 6px; text-align: center; color: #ffffff; }
+  .previsao-item .data { font-size: 10px; color: rgba(255,255,255,.85); text-transform: uppercase; letter-spacing: .3px; margin-bottom: 8px; line-height: 1.4; }
+  .previsao-item .valor { font-family: 'Courier New', monospace; font-size: 20px; font-weight: 700; font-variant-numeric: tabular-nums; color: #ffffff; }
+  .previsao-item .valor small { font-size: 12px; color: rgba(255,255,255,.8); font-weight: 600; }
 
   /* Chance de passar de cada cota - grade própria (não a tabela do
      e-mail), mesmo molde visual do previsao-grid acima. */
@@ -209,7 +206,7 @@ body { margin:0; background-color:#0f2027; }
       <div class="hero-topo">
         <div>
           <div class="hero-local">Guaíba &middot; Cais Mauá</div>
-          <div class="hero-atualizado">Leitura 22/09 &middot; 16:00 &middot; gerado 18:55</div>
+          <div class="hero-atualizado">Leitura 22/09 &middot; 16:00 &middot; gerado 19:11</div>
         </div>
         <span class="pill-status" style="margin-right:30px; background:#1c3328; color:#5ecb8f; border:1px solid #2f5540;"><span class="ponto"></span>Normal</span>
       </div>
@@ -218,7 +215,7 @@ body { margin:0; background-color:#0f2027; }
         <span class="valor" style="color:#5ecb8f;">1,91</span>
         <span class="unidade">m</span>
         <span class="tendencia" style="color:#ef4d6b;">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M3 17l8-8 4 4 6-6"></path><path d="M17 7h6v6"></path></svg>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#ef4d6b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="subida"><title>subida</title><path d="M3 17l8-8 4 4 6-6"></path><path d="M17 7h6v6"></path></svg>
           subida &middot; &#9650; 0,6 cm/h *
         </span>
       </div>
@@ -248,50 +245,62 @@ body { margin:0; background-color:#0f2027; }
           <span class="ponto" style="background:#ef4d6b;"></span>
           <span class="nome">São Sebastião do Caí</span>
           <span class="tier" style="color:#ef4d6b;">Crítico</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#5ecb8f" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="queda"><title>queda</title><path d="M3 7l8 8 4-4 6 6"></path><path d="M17 17h6v-6"></path></svg>
         </a><a href="rio-montenegro.html" class="rio-atencao-chip" style="border-color:#ef4d6b;">
           <span class="ponto" style="background:#ef4d6b;"></span>
           <span class="nome">Montenegro</span>
           <span class="tier" style="color:#ef4d6b;">Crítico</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ef4d6b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="subida"><title>subida</title><path d="M3 17l8-8 4 4 6-6"></path><path d="M17 7h6v6"></path></svg>
         </a><a href="rio-lajeado.html" class="rio-atencao-chip" style="border-color:#ef4d6b;">
           <span class="ponto" style="background:#ef4d6b;"></span>
           <span class="nome">Lajeado</span>
           <span class="tier" style="color:#ef4d6b;">Crítico</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ef4d6b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="subida"><title>subida</title><path d="M3 17l8-8 4 4 6-6"></path><path d="M17 7h6v6"></path></svg>
         </a><a href="rio-taquara.html" class="rio-atencao-chip" style="border-color:#ef5a4d;">
           <span class="ponto" style="background:#ef5a4d;"></span>
           <span class="nome">Taquara</span>
           <span class="tier" style="color:#ef5a4d;">Extremo</span>
+          
         </a><a href="rio-taquari.html" class="rio-atencao-chip" style="border-color:#ef8a4d;">
           <span class="ponto" style="background:#ef8a4d;"></span>
           <span class="nome">Taquari</span>
           <span class="tier" style="color:#ef8a4d;">Muito alto</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ef4d6b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="subida"><title>subida</title><path d="M3 17l8-8 4 4 6-6"></path><path d="M17 7h6v6"></path></svg>
         </a><a href="rio-bom-retiro-do-sul.html" class="rio-atencao-chip" style="border-color:#ef8a4d;">
           <span class="ponto" style="background:#ef8a4d;"></span>
           <span class="nome">Bom Retiro do Sul</span>
           <span class="tier" style="color:#ef8a4d;">Muito alto</span>
+          
         </a><a href="rio-roca-sales.html" class="rio-atencao-chip" style="border-color:#ef8a4d;">
           <span class="ponto" style="background:#ef8a4d;"></span>
           <span class="nome">Roca Sales</span>
           <span class="tier" style="color:#ef8a4d;">Muito alto</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#5ecb8f" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="queda"><title>queda</title><path d="M3 7l8 8 4-4 6 6"></path><path d="M17 17h6v-6"></path></svg>
         </a><a href="rio-campo-bom.html" class="rio-atencao-chip" style="border-color:#ef8a4d;">
           <span class="ponto" style="background:#ef8a4d;"></span>
           <span class="nome">Campo Bom</span>
           <span class="tier" style="color:#ef8a4d;">Muito alto</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ef4d6b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="subida"><title>subida</title><path d="M3 17l8-8 4 4 6-6"></path><path d="M17 7h6v6"></path></svg>
         </a><a href="rio-encantado.html" class="rio-atencao-chip" style="border-color:#ef8a4d;">
           <span class="ponto" style="background:#ef8a4d;"></span>
           <span class="nome">Encantado</span>
           <span class="tier" style="color:#ef8a4d;">Muito alto</span>
+          
         </a><a href="rio-sao-leopoldo.html" class="rio-atencao-chip" style="border-color:#f0a839;">
           <span class="ponto" style="background:#f0a839;"></span>
           <span class="nome">São Leopoldo</span>
           <span class="tier" style="color:#f0a839;">Elevado</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ef4d6b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="subida"><title>subida</title><path d="M3 17l8-8 4 4 6-6"></path><path d="M17 7h6v6"></path></svg>
         </a><a href="rio-gravatai.html" class="rio-atencao-chip" style="border-color:#f0a839;">
           <span class="ponto" style="background:#f0a839;"></span>
           <span class="nome">Gravataí</span>
           <span class="tier" style="color:#f0a839;">Elevado</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ef4d6b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="subida"><title>subida</title><path d="M3 17l8-8 4 4 6-6"></path><path d="M17 7h6v6"></path></svg>
         </a><a href="rio-sao-jeronimo.html" class="rio-atencao-chip" style="border-color:#f0a839;">
           <span class="ponto" style="background:#f0a839;"></span>
           <span class="nome">São Jerônimo</span>
           <span class="tier" style="color:#f0a839;">Elevado</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ef4d6b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="subida"><title>subida</title><path d="M3 17l8-8 4 4 6-6"></path><path d="M17 7h6v6"></path></svg>
         </a>
           </div>
         </div>
@@ -303,15 +312,15 @@ body { margin:0; background-color:#0f2027; }
         <span class="help-slot" data-help="previsao-dias"></span>
       </div>
       <div class="previsao-grid">
-        <div class="card previsao-item">
+        <div class="card previsao-item" style="background:#a8600c; border-color:#a8600c;">
         <div class="data">Qui &middot; 24/09<br>36h</div>
-        <div class="valor" style="color:#f0a839;">2,41<small> m</small></div>
-      </div><div class="card previsao-item">
+        <div class="valor">2,41<small> m</small></div>
+      </div><div class="card previsao-item" style="background:#b84a1c; border-color:#b84a1c;">
         <div class="data">Sex &middot; 25/09<br>72h</div>
-        <div class="valor" style="color:#ef8a4d;">2,78<small> m</small></div>
-      </div><div class="card previsao-item">
+        <div class="valor">2,78<small> m</small></div>
+      </div><div class="card previsao-item" style="background:#a8600c; border-color:#a8600c;">
         <div class="data">Dom &middot; 27/09<br>120h</div>
-        <div class="valor" style="color:#f0a839;">2,38<small> m</small></div>
+        <div class="valor">2,38<small> m</small></div>
       </div>
       </div>
     </div>
@@ -616,7 +625,7 @@ body { margin:0; background-color:#0f2027; }
     </div>
   </div>
 </div>
-<script type="application/json" id="horizonte-help-data">{"status-pa": {"titulo": "Nível do Guaíba em Porto Alegre", "oQue": "O número mais importante do boletim: o nível real da água agora mesmo, medido pela régua oficial da ANA no Cais Mauá a cada ~15 minutos. A barra colorida mostra a distância até os 3 patamares de risco: Atenção, Alerta e Inundação.", "comoInterpretar": "Quanto mais preenchida a barra, mais perto da inundação. A tendência (subindo/descendo, em cm/h) mostra o que o rio está fazendo agora, em tempo real - a previsão vem no próximo quadro. Quando há um aviso oficial do INMET ativo pro município de Porto Alegre, ele aparece num quadro à parte, logo acima - é informativo (do órgão oficial), não faz parte do cálculo do Horizonte. \"Nível normal\" é a mediana de 10 anos de leituras da régua - metade do tempo o rio fica acima desse valor, metade abaixo; não é um limite de risco, só uma referência do que é comum."}, "previsao-dias": {"titulo": "Previsão do nível nos próximos dias", "oQue": "Uma estimativa de qual deve ser o nível do rio daqui a 36h, 72h e 120h (5 dias), calculada a partir da tendência atual, da chuva prevista pra bacia inteira e, quando disponível, do efeito do vento e da pressão do ar sobre o Guaíba.", "comoInterpretar": "É uma estimativa: pode mudar de uma leitura pra outra, principalmente se a chuva prevista mudar. Quanto mais distante o horizonte, menos exato tende a ser o número (120h é mais incerto que 36h) - por isso o boletim é atualizado 8 vezes por dia. A cor de cada dia muda quando a projeção alcança uma cota de acompanhamento (sem cor quando fica abaixo das três).", "comoInterpretarHtml": "É uma estimativa: pode mudar de uma leitura pra outra, principalmente se a chuva prevista mudar. Quanto mais distante o horizonte, menos exato tende a ser o número (120h é mais incerto que 36h) - por isso o boletim é atualizado 8 vezes por dia. A cor de cada dia muda quando a projeção alcança uma cota de acompanhamento (sem cor quando fica abaixo das três).<br><br><span style=\"display:inline-block; width:8px; height:8px; border-radius:50%; background:#f0a839; margin-right:4px;\"></span>Atenção (2,00 m)&nbsp;&nbsp;<span style=\"display:inline-block; width:8px; height:8px; border-radius:50%; background:#ef8a4d; margin-right:4px;\"></span>Alerta (2,50 m)&nbsp;&nbsp;<span style=\"display:inline-block; width:8px; height:8px; border-radius:50%; background:#ef4d6b; margin-right:4px;\"></span>Inundação (3,00 m)<br><br>Esta previsão já considera o efeito estimado do vento e da pressão atmosférica sobre o Guaíba, além da tendência dos afluentes e da chuva futura."}, "chance-cota": {"titulo": "Chance de passar de cada cota", "oQue": "Complementa a previsão acima com uma leitura de quão perto o cenário está de cada patamar de risco. É calculada comparando a situação de hoje com quase 6 anos de situações parecidas já registradas pela régua.", "comoInterpretar": "É uma classificação (de Muito baixa a Muito alta), não uma porcentagem - assim evita passar uma precisão maior do que o cálculo realmente tem. Quanto mais alta a classificação, mais vezes situações parecidas já ultrapassaram aquela cota no passado.", "comoInterpretarHtml": "É uma classificação (de Muito baixa a Muito alta), não uma porcentagem - assim evita passar uma precisão maior do que o cálculo realmente tem. Quanto mais alta a classificação, mais vezes situações parecidas já ultrapassaram aquela cota no passado.<br><br><span style=\"display:inline-block; width:8px; height:8px; border-radius:50%; background:#4a7c8c; margin-right:4px;\"></span>Muito baixa&nbsp;&nbsp;<span style=\"display:inline-block; width:8px; height:8px; border-radius:50%; background:#6fa86f; margin-right:4px;\"></span>Baixa&nbsp;&nbsp;<span style=\"display:inline-block; width:8px; height:8px; border-radius:50%; background:#d4a94f; margin-right:4px;\"></span>Moderada&nbsp;&nbsp;<span style=\"display:inline-block; width:8px; height:8px; border-radius:50%; background:#d47a4f; margin-right:4px;\"></span>Alta&nbsp;&nbsp;<span style=\"display:inline-block; width:8px; height:8px; border-radius:50%; background:#c9536b; margin-right:4px;\"></span>Muito alta<br><br>Pode parecer estranho quando a previsão acima já mostra um número perto ou passando de uma cota, mas a chance sai apenas “Moderada” - isso acontece quando esse número está a poucos centímetros da cota: nessa distância, o erro típico do modelo nesse horizonte (alguns centímetros pra mais ou pra menos) já é maior que a margem, então o resultado real ainda é incerto, mesmo que a previsão central já tenha cruzado a linha."}, "chuva-prevista": {"titulo": "Chuva prevista nos afluentes", "oQue": "Quanto de chuva o modelo meteorológico espera pra cada um dos principais afluentes que alimentam a previsão de nível de Porto Alegre, dia a dia, nos próximos dias - um subconjunto dos 19 rios monitorados pelo Horizonte, os que entram nesse cálculo específico. Mostrada separada pra deixar visível a base do cálculo.", "comoInterpretar": "Vem do Open-Meteo (previsão de terceiros, a mesma fonte que qualquer aplicativo de tempo usa) e pode mudar de uma leitura pra outra - chuva é a parte mais difícil de prever com precisão. Cores mais fortes indicam chuva mais intensa naquele dia (ver legenda abaixo da tabela)."}, "historico": {"titulo": "Histórico realizado", "oQue": "O nível medido pela régua nos últimos dias - mostra o que já aconteceu, sem nenhuma previsão envolvida.", "comoInterpretar": "Serve pra ver a tendência recente com mais contexto do que só o número de agora - se o rio vem subindo, descendo ou estável. As linhas tracejadas marcam os patamares de risco, quando aparecem dentro da faixa mostrada no gráfico."}, "mais-informacoes": {"titulo": "Mais informações", "oQue": "O que antes ficava direto nesta tela — as outras 18 estações monitoradas, o mapa das bacias e a previsão de mais longo prazo — agora é 1 toque de distância, sem competir com o que importa primeiro: o Cais Mauá.", "comoInterpretar": "\"Demais rios\" lista as outras 18 estações com nível, tendência e avisos. \"Mapa das bacias\" mostra as 19 estações na posição geográfica real, com nível e tendência de cada uma ao tocar num pino."}, "rios-atencao": {"titulo": "Outros rios em atenção", "oQue": "Lista rápida de todos os rios monitorados (além de Porto Alegre) que já estão em Elevado ou pior agora - mesma classificação de cor usada no mapa e nas páginas de cada rio.", "comoInterpretar": "Ordenado do mais crítico pro menos. Cada chip mostra o nome do rio e a faixa atual; toque num rio pra ver o nível, a previsão e o histórico dele. Some da lista assim que o nível volta a Normal (abaixo de 70% da cota de inundação)."}}</script>
+<script type="application/json" id="horizonte-help-data">{"status-pa": {"titulo": "Nível do Guaíba em Porto Alegre", "oQue": "O número mais importante do boletim: o nível real da água agora mesmo, medido pela régua oficial da ANA no Cais Mauá a cada ~15 minutos. A barra colorida mostra a distância até os 3 patamares de risco: Atenção, Alerta e Inundação.", "comoInterpretar": "Quanto mais preenchida a barra, mais perto da inundação. A tendência (subindo/descendo, em cm/h) mostra o que o rio está fazendo agora, em tempo real - a previsão vem no próximo quadro. Quando há um aviso oficial do INMET ativo pro município de Porto Alegre, ele aparece num quadro à parte, logo acima - é informativo (do órgão oficial), não faz parte do cálculo do Horizonte. \"Nível normal\" é a mediana de 10 anos de leituras da régua - metade do tempo o rio fica acima desse valor, metade abaixo; não é um limite de risco, só uma referência do que é comum."}, "previsao-dias": {"titulo": "Previsão do nível nos próximos dias", "oQue": "Uma estimativa de qual deve ser o nível do rio daqui a 36h, 72h e 120h (5 dias), calculada a partir da tendência atual, da chuva prevista pra bacia inteira e, quando disponível, do efeito do vento e da pressão do ar sobre o Guaíba.", "comoInterpretar": "É uma estimativa: pode mudar de uma leitura pra outra, principalmente se a chuva prevista mudar. Quanto mais distante o horizonte, menos exato tende a ser o número (120h é mais incerto que 36h) - por isso o boletim é atualizado 8 vezes por dia. A cor de cada dia muda quando a projeção alcança uma cota de acompanhamento (sem cor quando fica abaixo das três).", "comoInterpretarHtml": "É uma estimativa: pode mudar de uma leitura pra outra, principalmente se a chuva prevista mudar. Quanto mais distante o horizonte, menos exato tende a ser o número (120h é mais incerto que 36h) - por isso o boletim é atualizado 8 vezes por dia. A cor de fundo de cada dia mostra a faixa que a projeção alcança: verde enquanto fica abaixo da cota de Atenção, e muda ao chegar em cada cota.<br><br><span style=\"display:inline-block; width:8px; height:8px; border-radius:50%; background:#2b7a4b; margin-right:4px;\"></span>Normal (abaixo de 2,00 m)&nbsp;&nbsp;<span style=\"display:inline-block; width:8px; height:8px; border-radius:50%; background:#a8600c; margin-right:4px;\"></span>Atenção (2,00 m)&nbsp;&nbsp;<span style=\"display:inline-block; width:8px; height:8px; border-radius:50%; background:#b84a1c; margin-right:4px;\"></span>Alerta (2,50 m)&nbsp;&nbsp;<span style=\"display:inline-block; width:8px; height:8px; border-radius:50%; background:#b0233f; margin-right:4px;\"></span>Inundação (3,00 m)<br><br>Esta previsão já considera o efeito estimado do vento e da pressão atmosférica sobre o Guaíba, além da tendência dos afluentes e da chuva futura."}, "chance-cota": {"titulo": "Chance de passar de cada cota", "oQue": "Complementa a previsão acima com uma leitura de quão perto o cenário está de cada patamar de risco. É calculada comparando a situação de hoje com quase 6 anos de situações parecidas já registradas pela régua.", "comoInterpretar": "É uma classificação (de Muito baixa a Muito alta), não uma porcentagem - assim evita passar uma precisão maior do que o cálculo realmente tem. Quanto mais alta a classificação, mais vezes situações parecidas já ultrapassaram aquela cota no passado.", "comoInterpretarHtml": "É uma classificação (de Muito baixa a Muito alta), não uma porcentagem - assim evita passar uma precisão maior do que o cálculo realmente tem. Quanto mais alta a classificação, mais vezes situações parecidas já ultrapassaram aquela cota no passado.<br><br><span style=\"display:inline-block; width:8px; height:8px; border-radius:50%; background:#4a7c8c; margin-right:4px;\"></span>Muito baixa&nbsp;&nbsp;<span style=\"display:inline-block; width:8px; height:8px; border-radius:50%; background:#6fa86f; margin-right:4px;\"></span>Baixa&nbsp;&nbsp;<span style=\"display:inline-block; width:8px; height:8px; border-radius:50%; background:#d4a94f; margin-right:4px;\"></span>Moderada&nbsp;&nbsp;<span style=\"display:inline-block; width:8px; height:8px; border-radius:50%; background:#d47a4f; margin-right:4px;\"></span>Alta&nbsp;&nbsp;<span style=\"display:inline-block; width:8px; height:8px; border-radius:50%; background:#c9536b; margin-right:4px;\"></span>Muito alta<br><br>Pode parecer estranho quando a previsão acima já mostra um número perto ou passando de uma cota, mas a chance sai apenas “Moderada” - isso acontece quando esse número está a poucos centímetros da cota: nessa distância, o erro típico do modelo nesse horizonte (alguns centímetros pra mais ou pra menos) já é maior que a margem, então o resultado real ainda é incerto, mesmo que a previsão central já tenha cruzado a linha."}, "chuva-prevista": {"titulo": "Chuva prevista nos afluentes", "oQue": "Quanto de chuva o modelo meteorológico espera pra cada um dos principais afluentes que alimentam a previsão de nível de Porto Alegre, dia a dia, nos próximos dias - um subconjunto dos 19 rios monitorados pelo Horizonte, os que entram nesse cálculo específico. Mostrada separada pra deixar visível a base do cálculo.", "comoInterpretar": "Vem do Open-Meteo (previsão de terceiros, a mesma fonte que qualquer aplicativo de tempo usa) e pode mudar de uma leitura pra outra - chuva é a parte mais difícil de prever com precisão. Cores mais fortes indicam chuva mais intensa naquele dia (ver legenda abaixo da tabela)."}, "historico": {"titulo": "Histórico realizado", "oQue": "O nível medido pela régua nos últimos dias - mostra o que já aconteceu, sem nenhuma previsão envolvida.", "comoInterpretar": "Serve pra ver a tendência recente com mais contexto do que só o número de agora - se o rio vem subindo, descendo ou estável. As linhas tracejadas marcam os patamares de risco, quando aparecem dentro da faixa mostrada no gráfico."}, "mais-informacoes": {"titulo": "Mais informações", "oQue": "O que antes ficava direto nesta tela — as outras 18 estações monitoradas, o mapa das bacias e a previsão de mais longo prazo — agora é 1 toque de distância, sem competir com o que importa primeiro: o Cais Mauá.", "comoInterpretar": "\"Demais rios\" lista as outras 18 estações com nível, tendência e avisos. \"Mapa das bacias\" mostra as 19 estações na posição geográfica real, com nível e tendência de cada uma ao tocar num pino."}, "rios-atencao": {"titulo": "Outros rios em atenção", "oQue": "Lista rápida de todos os rios monitorados (além de Porto Alegre) que já estão em Elevado ou pior agora - mesma classificação de cor usada no mapa e nas páginas de cada rio.", "comoInterpretar": "Ordenado do mais crítico pro menos. Cada chip mostra o nome do rio e a faixa atual; toque num rio pra ver o nível, a previsão e o histórico dele. Some da lista assim que o nível volta a Normal (abaixo de 70% da cota de inundação)."}}</script>
 <script>
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", function () {
