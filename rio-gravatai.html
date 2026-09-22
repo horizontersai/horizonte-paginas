@@ -58,12 +58,15 @@ body { margin:0; background-color:#0f2027; }
   .linha-fraca { font-size: 13px; color: #b9c8c7; margin: 6px 0 0 0; }
   .linha-fraca-2 { font-size: 10.5px; color: #7c9190; margin: 6px 0 0 0; }
   .gauge-pct { font-size: 12.5px; font-weight: 700; margin: 8px 0 0 0; }
-  .gauge-escala { display: flex; justify-content: space-between; font-size: 10.5px; color: #7c9190; margin: 6px 0 0 0; }
+  .gauge-escala { position: relative; height: 14px; font-size: 10.5px; color: #7c9190; margin: 4px 0 0 0; }
+  .gauge-escala-cota { position: absolute; top: 0; transform: translateX(-50%); white-space: nowrap; color: #b9c8c7; font-weight: 700; }
+  .gauge-marca { position: absolute; top: -3px; bottom: -3px; width: 2px; margin-left: -1px; background-color: #eef2f1; }
   .sem-dado { font-size: 13px; color: #b9c8c7; line-height: 1.5; margin: 0; }
-  .gauge { margin-top: 12px; height: 10px; border-radius: 6px; background-color: #1c2f33; overflow: hidden; }
+  .gauge { position: relative; margin-top: 12px; height: 10px; border-radius: 6px; background-color: #1c2f33; }
   .gauge-fill { height: 100%; border-radius: 6px; }
   .proj-col { padding: 4px; }
-  .proj-valor { font-family: 'Courier New', monospace; font-weight: 700; font-size: 15px; }
+  .proj-valor { font-family: 'Courier New', monospace; font-weight: 800; font-size: 19px; font-variant-numeric: tabular-nums; }
+  .proj-un { font-size: 12px; font-weight: 600; color: #7c9190; }
   .proj-rotulo { font-size: 10px; color: #7c9190; text-transform: uppercase; letter-spacing: .3px; margin-top: 4px; }
   .chuva-col { padding: 4px; }
   .chuva-dia { font-size: 9.5px; color: #7c9190; text-transform: uppercase; margin-bottom: 6px; }
@@ -101,21 +104,21 @@ body { margin:0; background-color:#0f2027; }
           
           
           <p class="linha-fraca">Cota de inundação: 4,75 m</p>
-          <div class="gauge"><div class="gauge-fill" style="width:60.7%; background-color:#f0a839;"></div></div>
+          <div class="gauge"><div class="gauge-fill" style="width:60.7%; background-color:#f0a839;"></div><div class="gauge-marca" style="left:76.9%;"></div></div>
+          <div class="gauge-escala"><span>0 m</span><span class="gauge-escala-cota" style="left:76.9%;">&#9650; cota 4,75 m</span></div>
           <p class="gauge-pct" style="color:#f0a839;">79% da cota de inundação</p>
-          <div class="gauge-escala"><span>0 m</span><span>cota de inundação &middot; 4,75 m</span></div>
         </div>
   <div class="card">
       <span class="help-slot" data-help="previsao-rio"></span>
       <h2>Previsão do nível</h2>
       <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td align="center" class="proj-col">
-              <div class="proj-valor">3,84 m</div>
+              <div class="proj-valor" style="color:#f0a839;">3,84<span class="proj-un"> m</span></div>
               <div class="proj-rotulo">36h &middot; 24/09</div>
             </td><td align="center" class="proj-col">
-              <div class="proj-valor">3,74 m</div>
+              <div class="proj-valor" style="color:#f0a839;">3,74<span class="proj-un"> m</span></div>
               <div class="proj-rotulo">72h &middot; 25/09</div>
             </td><td align="center" class="proj-col">
-              <div class="proj-valor">3,55 m</div>
+              <div class="proj-valor" style="color:#f0a839;">3,55<span class="proj-un"> m</span></div>
               <div class="proj-rotulo">120h &middot; 27/09</div>
             </td></tr></table>
     </div>
@@ -223,7 +226,7 @@ body { margin:0; background-color:#0f2027; }
 </script>
   <p class="disclaimer">* O Horizonte é um projeto pessoal e independente de previsibilidade — não é um serviço oficial, não substitui e não tem qualquer vínculo com os canais da Defesa Civil. Quem escreve isso não é hidrólogo nem especialista em recursos hídricos; os números aqui são estimativas estatísticas construídas a partir de dados públicos, não uma previsão certificada. Para alertas oficiais e qualquer decisão de segurança, siga sempre a Defesa Civil do seu município ou estado.</p>
 </div>
-<script type="application/json" id="horizonte-help-data">{"status-rio": {"titulo": "Nível deste rio", "oQue": "O nível real da água agora mesmo, medido pela régua oficial da ANA. A barra colorida mostra a distância até a cota de inundação.", "comoInterpretar": "Quanto mais preenchida a barra, mais perto da inundação. A tendência (subindo/descendo, em cm/h) mostra o que o rio está fazendo agora, em tempo real - a previsão vem no próximo quadro. Quando há um aviso oficial do INMET ativo pro município deste rio, ele aparece num quadro à parte, no topo da página - é informativo (do órgão oficial), não faz parte do cálculo do Horizonte."}, "previsao-rio": {"titulo": "Previsão do nível", "oQue": "Uma estimativa de qual deve ser o nível do rio daqui a 36h, 72h e 120h (5 dias), calculada a partir da tendência atual e da chuva prevista pra bacia deste rio.", "comoInterpretar": "É uma estimativa: pode mudar de uma leitura pra outra, principalmente se a chuva prevista mudar. Quanto mais distante o horizonte, menos exato tende a ser o número - por isso a página é atualizada 8 vezes por dia."}, "chuva-rio": {"titulo": "Chuva prevista", "oQue": "Quanto de chuva o modelo meteorológico espera pra bacia deste rio, dia a dia, nos próximos dias. É a mesma chuva que alimenta a previsão de nível acima.", "comoInterpretar": "Vem do Open-Meteo (previsão de terceiros, a mesma fonte que qualquer aplicativo de tempo usa) e pode mudar de uma leitura pra outra - chuva é a parte mais difícil de prever com precisão. Cores mais fortes indicam chuva mais intensa naquele dia (ver legenda abaixo da tabela)."}, "historico-rio": {"titulo": "Histórico realizado", "oQue": "O nível medido pela régua nos últimos dias - mostra o que já aconteceu, sem nenhuma estimativa envolvida.", "comoInterpretar": "Serve pra ver a tendência recente com mais contexto do que só o número de agora - se o rio vem subindo, descendo ou estável. A linha tracejada marca a cota de inundação, quando aparece dentro da faixa mostrada no gráfico."}}</script>
+<script type="application/json" id="horizonte-help-data">{"status-rio": {"titulo": "Nível deste rio", "oQue": "O nível real da água agora mesmo, medido pela régua oficial da ANA. A barra colorida mostra a distância até a cota de inundação.", "comoInterpretar": "Quanto mais preenchida a barra, mais perto da inundação. A marca vertical (▲ cota) é a cota de inundação: a barra passando da marca significa que o rio já está acima dela. A tendência (subindo/descendo, em cm/h) mostra o que o rio está fazendo agora, em tempo real - a previsão vem no próximo quadro. Quando há um aviso oficial do INMET ativo pro município deste rio, ele aparece num quadro à parte, no topo da página - é informativo (do órgão oficial), não faz parte do cálculo do Horizonte."}, "previsao-rio": {"titulo": "Previsão do nível", "oQue": "Uma estimativa de qual deve ser o nível do rio daqui a 36h, 72h e 120h (5 dias), calculada a partir da tendência atual e da chuva prevista pra bacia deste rio.", "comoInterpretar": "É uma estimativa: pode mudar de uma leitura pra outra, principalmente se a chuva prevista mudar. Quanto mais distante o horizonte, menos exato tende a ser o número - por isso a página é atualizada 8 vezes por dia. A cor de cada número mostra a faixa que o nível previsto alcança em relação à cota de inundação deste rio - as mesmas cores do selo do quadro de nível acima (verde Normal, depois Elevado, Muito alto, Extremo e Crítico)."}, "chuva-rio": {"titulo": "Chuva prevista", "oQue": "Quanto de chuva o modelo meteorológico espera pra bacia deste rio, dia a dia, nos próximos dias. É a mesma chuva que alimenta a previsão de nível acima.", "comoInterpretar": "Vem do Open-Meteo (previsão de terceiros, a mesma fonte que qualquer aplicativo de tempo usa) e pode mudar de uma leitura pra outra - chuva é a parte mais difícil de prever com precisão. Cores mais fortes indicam chuva mais intensa naquele dia (ver legenda abaixo da tabela)."}, "historico-rio": {"titulo": "Histórico realizado", "oQue": "O nível medido pela régua nos últimos dias - mostra o que já aconteceu, sem nenhuma estimativa envolvida.", "comoInterpretar": "Serve pra ver a tendência recente com mais contexto do que só o número de agora - se o rio vem subindo, descendo ou estável. A linha tracejada marca a cota de inundação, quando aparece dentro da faixa mostrada no gráfico."}}</script>
 <script>
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", function () {
