@@ -51,6 +51,14 @@ body { margin:0; background-color:#0f2027; }
   --extremo: #C0472E; --extremo-bg: #FBE1DC;
   --critico: #A83A2E; --critico-bg: #FBEAE7;
   --semdado: #8A9998; --semdado-bg: #EEEAE0;
+  /* Versão VIVA de cada faixa, só pro preenchimento dos círculos do mapa e
+     pros pontos da legenda (22/09/2026, pedido do usuário: Elevado, Muito
+     alto, Extremo e Crítico estavam quase indistinguíveis no mapa). Mesma
+     família de cor de cada faixa, só mais saturada e mais espaçada entre
+     si; o texto das pílulas do popup continua com as cores acima, que têm
+     contraste pra leitura sobre o fundo claro. */
+  --bom-vivo: #3FB872; --elevado-vivo: #F2A516; --muitoalto-vivo: #F46A12;
+  --extremo-vivo: #E0301A; --critico-vivo: #B00C2E; --semdado-vivo: #8A9998;
   --accent: #B06A2C;
   --rio-linha: #9FB0AD;
   --font-serif: Georgia, 'Times New Roman', serif;
@@ -67,6 +75,8 @@ body { margin:0; background-color:#0f2027; }
     --extremo: #E2694A; --extremo-bg: #3A2416;
     --critico: #E2695A; --critico-bg: #3A211D;
     --semdado: #7C7768; --semdado-bg: #26302E;
+    --bom-vivo: #4DDB8C; --elevado-vivo: #FFBE2E; --muitoalto-vivo: #FF8126;
+    --extremo-vivo: #FF4A26; --critico-vivo: #FF1F4F; --semdado-vivo: #7C7768;
     --accent: #D7A468;
     --rio-linha: #3B4B48;
   }
@@ -80,6 +90,8 @@ body { margin:0; background-color:#0f2027; }
   --extremo: #E2694A; --extremo-bg: #3A2416;
   --critico: #E2695A; --critico-bg: #3A211D;
   --semdado: #7C7768; --semdado-bg: #26302E;
+  --bom-vivo: #4DDB8C; --elevado-vivo: #FFBE2E; --muitoalto-vivo: #FF8126;
+  --extremo-vivo: #FF4A26; --critico-vivo: #FF1F4F; --semdado-vivo: #7C7768;
   --accent: #D7A468;
   --rio-linha: #3B4B48;
 }
@@ -172,7 +184,7 @@ h1.titulo { font-family: var(--font-serif); font-weight: 400; font-size: 27px; m
 </svg>
       <span class="brand-text">Horizonte</span>
     </div>
-    <span class="periodo">Leitura 22/09 18:00 &middot; gerado 19:14</span>
+    <span class="periodo">Leitura 22/09 18:00 &middot; gerado 19:27</span>
   </div>
 
   <a href="boletim.html" class="voltar-boletim">&larr; Voltar ao boletim</a>
@@ -269,7 +281,7 @@ nodes.forEach((n, i) => {
   const g = el('g', {});
   const circ = el('circle', {
     cx: n.x, cy: n.y, r: raioPara(n), class: 'node-circ',
-    fill: `var(--${classe})`, 'data-idx': i,
+    fill: `var(--${classe}-vivo)`, 'data-idx': i,
   });
   g.appendChild(circ);
   const hit = el('circle', { cx: n.x, cy: n.y, r: raioPara(n) + 10, class: 'node-hit', 'data-idx': i });
@@ -384,7 +396,7 @@ document.getElementById('popupClose').addEventListener('click', () => {
 
 const legendItems = ['bom', 'elevado', 'muitoalto', 'extremo', 'critico', 'semdado'];
 document.getElementById('legend').innerHTML = legendItems.map(c =>
-  `<span class="item"><span class="dot" style="background:var(--${c});"></span>${TIER_LABELS[c] || 'Sem dado'}</span>`).join('');
+  `<span class="item"><span class="dot" style="background:var(--${c}-vivo);"></span>${TIER_LABELS[c] || 'Sem dado'}</span>`).join('');
 
 // "Rio mais próximo de mim" (14/09/2026) - roda inteiramente no
 // navegador: geolocalização é uma API padrão (precisa de HTTPS, que o
