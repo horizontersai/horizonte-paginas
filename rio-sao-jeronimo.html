@@ -99,27 +99,27 @@ body { margin:0; background-color:#0f2027; }
   <div class="card">
           <span class="help-slot" data-help="status-rio"></span>
           <span class="badge" style="background-color:#3a2f18; border-color:#5c4a26; color:#f0a839;">Elevado</span>
-          <div class="nivel">3,64<span class="nivel-un">m</span></div>
-          <p class="linha-fraca">Tendência agora (últimas 4h): queda (&#9660; 5,1 cm/h)</p>
+          <div class="nivel">3,52<span class="nivel-un">m</span></div>
+          <p class="linha-fraca">Tendência agora (últimas 4h): queda (&#9660; 4,6 cm/h)</p>
           
           
-          <p class="linha-fraca">O pico parece ter passado: máximo medido de <b>4,41 m</b> às 12:45 de 23/09, e desde então o nível baixou 0,77 m. Um novo aumento ainda pode acontecer se voltar a chover ou se a água de rios acima chegar aqui.</p>
+          <p class="linha-fraca">O pico parece ter passado: máximo medido de <b>4,41 m</b> às 12:45 de 23/09, e desde então o nível baixou 0,89 m. Um novo aumento ainda pode acontecer se voltar a chover ou se a água de rios acima chegar aqui.</p>
           <p class="linha-fraca">Cota de inundação: 4,64 m</p>
-          <div class="gauge"><div class="gauge-fill" style="width:60.3%; background-color:#f0a839;"></div><div class="gauge-marca" style="left:76.9%;"></div></div>
+          <div class="gauge"><div class="gauge-fill" style="width:58.4%; background-color:#f0a839;"></div><div class="gauge-marca" style="left:76.9%;"></div></div>
           <div class="gauge-escala"><span>0 m</span><span class="gauge-escala-cota" style="left:76.9%;">&#9650; cota 4,64 m</span></div>
-          <p class="gauge-pct" style="color:#f0a839;">78% da cota de inundação</p>
+          <p class="gauge-pct" style="color:#f0a839;">76% da cota de inundação</p>
         </div>
   <div class="card">
       <span class="help-slot" data-help="previsao-rio"></span>
       <h2>Previsão do nível</h2>
       <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td align="center" class="proj-col">
-              <div class="proj-valor" style="color:#f0a839;">3,57<span class="proj-un"> m</span></div>
+              <div class="proj-valor" style="color:#f0a839;">3,46<span class="proj-un"> m</span></div>
               <div class="proj-rotulo">36h &middot; 26/09</div>
             </td><td align="center" class="proj-col">
-              <div class="proj-valor" style="color:#f0a839;">3,44<span class="proj-un"> m</span></div>
+              <div class="proj-valor" style="color:#f0a839;">3,33<span class="proj-un"> m</span></div>
               <div class="proj-rotulo">72h &middot; 27/09</div>
             </td><td align="center" class="proj-col">
-              <div class="proj-valor" style="color:#5ecb8f;">3,23<span class="proj-un"> m</span></div>
+              <div class="proj-valor" style="color:#5ecb8f;">3,13<span class="proj-un"> m</span></div>
               <div class="proj-rotulo">120h &middot; 29/09</div>
             </td></tr></table>
       
@@ -152,8 +152,8 @@ body { margin:0; background-color:#0f2027; }
             </div>
             <div style="text-align:center; margin-top:4px; font-size:11px; color:#6ea3cc;">&#128167; 107,1 mm &middot; chuva no período</div>
             <p style="margin:8px 0 0 0; font-size:10.5px; color:#7c9190; line-height:1.4;">Nível: leituras reais da ANA (estação telemétrica de São Jerônimo), a cada ~15 minutos - não é projeção.</p>
-            <p style="margin:2px 0 0 0; font-size:10.5px; color:#7c9190; line-height:1.4;">Chuva em São Jerônimo: medição real (pluviômetro da mesma estação ANA do nível).</p>
-            </div>
+            <p style="margin:2px 0 0 0; font-size:10.5px; color:#7c9190; line-height:1.4;">Chuva em São Jerônimo: último dado disponível (pode não ser desta execução).</p>
+            <p style="margin:8px 0 0 0; padding:6px 10px; background-color:#1c2f33; border:1px solid #344d52; border-radius:6px; font-size:10.5px; color:#b9c8c7; line-height:1.4;">&#9888; ANA sem resposta nesta execução &mdash; mostrando o último histórico salvo (de 24/09 às 13:13), não o mais recente.</p></div>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <style>
@@ -174,7 +174,7 @@ body { margin:0; background-color:#0f2027; }
 </div>
 <script>
 (function() {
-  const pontos = [{"nome": "São Jerônimo", "nome_oficial": "SÃO JERÔNIMO", "lat": -29.955, "lon": -51.7631, "nivel_m": 3.64, "tendencia_cm_h": -5.087755102040781, "cota_inundacao_m": 4.64}];
+  const pontos = [{"nome": "São Jerônimo", "nome_oficial": "SÃO JERÔNIMO", "lat": -29.955, "lon": -51.7631, "nivel_m": 3.52, "tendencia_cm_h": -4.628571428571418, "cota_inundacao_m": 4.64}];
   const mapa = L.map('mapa-estacao', { scrollWheelZoom: false }).setView([-29.955, -51.7631], 15);
 
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
