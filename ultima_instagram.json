@@ -1,18 +1,18 @@
 {
   "deve_postar": true,
   "motivo": null,
-  "id_execucao": "2026-09-24_191419_v9",
-  "nivel": "atencao",
-  "nivel_label": "Atenção",
-  "atual_m": 2.07,
-  "atualizado": "2026-09-24T18:15",
+  "id_execucao": "2026-09-25_191323_v9",
+  "nivel": "normal",
+  "nivel_label": "Normal",
+  "atual_m": 1.8,
+  "atualizado": "2026-09-25T18:15",
   "urls_publicas": [
-    "https://i.ibb.co/kr4P9sb/slide1.png",
-    "https://i.ibb.co/BHGcc4Mv/slide2.png",
-    "https://i.ibb.co/fYsjYZr6/slide3.png",
-    "https://i.ibb.co/4nqjbdV4/slide4.png",
-    "https://i.ibb.co/mCRVTcYm/slide5.png",
-    "https://i.ibb.co/t6NCzK5/slide6.png"
+    "https://i.ibb.co/Q7QYp29d/slide1.png",
+    "https://i.ibb.co/9H3057bC/slide2.png",
+    "https://i.ibb.co/ynSYjvHp/slide3.png",
+    "https://i.ibb.co/kV3kLZ0H/slide4.png",
+    "https://i.ibb.co/Q71bdRwQ/slide5.png",
+    "https://i.ibb.co/LhN4Lgxn/slide6.png"
   ],
-  "legenda": "Guaíba em Porto Alegre: atenção, 2,07 m\n\nLeitura de hoje (24/09) às 18h15 no Cais Mauá — estável.\n\nPrevisão: 1,99 m (Sáb 26/09) / 1,97 m (Dom 27/09) / 2,26 m (Ter 29/09)\n\nPassa o card pra ver a previsão e como estão os outros rios da bacia →\n\nEste é um alerta de sensibilidade alta, não uma garantia. Mais um olhar sobre o rio, para somar aos canais oficiais.\n\n#PortoAlegre #Guaíba #RS #EnchenteRS #PrevisãoDeCheia"
+  "legenda": "Guaíba em Porto Alegre: normal, 1,80 m\n\nLeitura de hoje (25/09) às 18h15 no Cais Mauá — queda.\n\nPrevisão: 1,67 m (Dom 27/09) / 1,68 m (Seg 28/09) / 1,97 m (Qua 30/09)\n\nPassa o card pra ver a previsão e como estão os outros rios da bacia →\n\nEste é um alerta de sensibilidade alta, não uma garantia. Mais um olhar sobre o rio, para somar aos canais oficiais.\n\n#PortoAlegre #Guaíba #RS #EnchenteRS #PrevisãoDeCheia"
 }
