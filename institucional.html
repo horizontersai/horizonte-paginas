@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0f2027">
+<title>Horizonte — Conheça o projeto</title>
+<meta name="description" content="Os rios da bacia do Guaíba, explicados com clareza. Conheça o Horizonte em pouco mais de um minuto.">
+<meta property="og:type" content="video.other">
+<meta property="og:title" content="Horizonte — Conheça o projeto">
+<meta property="og:description" content="Os rios da bacia do Guaíba, explicados com clareza. Conheça o Horizonte em pouco mais de um minuto.">
+<meta property="og:url" content="https://horizontersai.github.io/horizonte-paginas/institucional.html">
+<meta property="og:image" content="https://horizontersai.github.io/horizonte-paginas/horizonte-institucional.jpg">
+<meta property="og:image:width" content="1920">
+<meta property="og:image:height" content="1080">
+<meta property="og:video" content="https://horizontersai.github.io/horizonte-paginas/horizonte-institucional.mp4">
+<meta property="og:video:type" content="video/mp4">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Horizonte — Conheça o projeto">
+<meta name="twitter:description" content="Os rios da bacia do Guaíba, explicados com clareza.">
+<meta name="twitter:image" content="https://horizontersai.github.io/horizonte-paginas/horizonte-institucional.jpg">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="icon" href="icon-192.png">
+<style>
+  :root {
+    --fundo: #0f2027;
+    --superficie: #16262a;
+    --borda: #344d52;
+    --texto: #eef2f1;
+    --suave: #b9c8c7;
+    --apagado: #7c9190;
+    --ambar: #C48A4A;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background-color: var(--fundo); color: var(--texto); }
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  header {
+    display: flex; align-items: center; gap: 12px;
+    width: min(1040px, 100%); margin: 0 auto; padding: 20px 20px 8px;
+  }
+  header img { width: 36px; height: 36px; border-radius: 8px; }
+  header a { color: var(--texto); text-decoration: none; font-family: Georgia, serif; font-size: 22px; }
+  main { width: min(1040px, 100%); margin: 0 auto; padding: 12px 20px 40px; flex: 1; }
+  h1 {
+    font-family: Georgia, serif; font-weight: 400;
+    font-size: clamp(26px, 4.4vw, 40px); line-height: 1.2;
+    margin: 18px 0 8px; max-width: 22ch;
+  }
+  .intro { color: var(--suave); font-size: 16px; line-height: 1.6; margin: 0 0 24px; max-width: 60ch; }
+  .tela {
+    position: relative; border-radius: 14px; overflow: hidden;
+    border: 1px solid var(--borda); background: #000;
+    box-shadow: 0 18px 50px rgba(0, 0, 0, .45);
+    aspect-ratio: 16 / 9;
+  }
+  video { display: block; width: 100%; height: 100%; }
+  .acoes { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
+  .botao {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 12px 20px; border-radius: 999px; font-size: 15px; font-weight: 600;
+    text-decoration: none; border: 1px solid var(--borda); color: var(--texto); background: var(--superficie);
+  }
+  .botao.principal { background: var(--ambar); border-color: var(--ambar); color: #1a1208; }
+  .botao:hover { border-color: var(--ambar); }
+  .botao.principal:hover { filter: brightness(1.08); }
+  .botao:focus-visible, video:focus-visible, header a:focus-visible { outline: 2px solid var(--ambar); outline-offset: 3px; }
+  footer { width: min(1040px, 100%); margin: 0 auto; padding: 0 20px 28px; color: var(--apagado); font-size: 13px; }
+  footer a { color: var(--suave); }
+  footer p { margin: 0 0 6px; line-height: 1.5; max-width: 70ch; }
+  footer .aviso { color: var(--suave); }
+</style>
+</head>
+<body>
+<header>
+  <img src="icon-192.png" alt="">
+  <a href="boletim.html">Horizonte</a>
+</header>
+
+<main>
+  <h1>Os rios da nossa região, explicados com clareza.</h1>
+  <p class="intro">Conheça o Horizonte em pouco mais de um minuto: como ele acompanha os rios da bacia do Guaíba e o que você encontra no boletim.</p>
+
+  <div class="tela">
+    <video controls playsinline preload="metadata"
+           poster="horizonte-institucional.jpg"
+           aria-label="Vídeo institucional do Horizonte">
+      <source src="horizonte-institucional.mp4" type="video/mp4">
+      Seu navegador não conseguiu reproduzir o vídeo. <a href="horizonte-institucional.mp4">Baixe o arquivo</a>.
+    </video>
+  </div>
+
+  <div class="acoes">
+    <a class="botao principal" href="boletim.html">Ver o boletim de hoje</a>
+    <a class="botao" href="https://www.instagram.com/horizonte.rs/" target="_blank" rel="noopener">Seguir @horizonte.rs</a>
+  </div>
+</main>
+
+<footer>
+  <p>Horizonte · previsão do nível dos rios da bacia do Guaíba</p>
+  <p class="aviso">Projeto pessoal e independente, sem vínculo com órgãos oficiais. Para alertas e decisões de segurança, siga sempre a Defesa Civil.</p>
+</footer>
+</body>
+</html>
