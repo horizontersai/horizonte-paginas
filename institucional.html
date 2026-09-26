@@ -53,9 +53,9 @@
   h1 {
     font-family: Georgia, serif; font-weight: 400;
     font-size: clamp(26px, 4.4vw, 40px); line-height: 1.2;
-    margin: 18px 0 8px; max-width: 22ch;
+    margin: 18px 0 8px; max-width: 22ch; text-wrap: balance;
   }
-  .intro { color: var(--suave); font-size: 16px; line-height: 1.6; margin: 0 0 24px; max-width: 60ch; }
+  .intro { color: var(--suave); font-size: 16px; line-height: 1.6; margin: 0 0 24px; text-wrap: pretty; }
   .tela {
     position: relative; border-radius: 14px; overflow: hidden;
     border: 1px solid var(--borda); background: #000;
@@ -77,9 +77,51 @@
   footer a { color: var(--suave); }
   footer p { margin: 0 0 6px; line-height: 1.5; max-width: 70ch; }
   footer .aviso { color: var(--suave); }
+
+  /* ---- tiras de filme (cheias de 1941 e 2024) ---- */
+  :root { --borda-filme: #c9a26b; }
+  /* intensidade: largura da tira, opacidade das fotos, tamanho do quadro no celular */
+  .pagina { --tira-larg: 112px; --foto-op: .42; --quadro-movel: 78px; --pelicula: rgba(0,0,0,.28); --furo: rgba(0,0,0,.45); }
+  .pagina { flex: 1; display: grid; grid-template-columns: minmax(0, 1fr); }
+  .tira { display: none; }
+  .tira-movel { display: block; margin: 32px 0 0; }
+  .nota-tiras { display: none; }
+  @media (min-width: 1100px) {
+    .modo-ambos { grid-template-columns: var(--tira-larg) minmax(0, 1fr) var(--tira-larg); column-gap: 28px; }
+    .pagina > header, .pagina > main, .pagina > footer { grid-column: 2; }
+    .tira { display: block; position: sticky; top: 0; height: 100vh; grid-row: 1 / span 3; align-self: start; }
+    .tira-esq { grid-column: 1; }
+    .tira-dir { grid-column: 3; }
+    .tira-movel { display: none; }
+    .nota-tiras { display: block; margin: 20px 0 0; }
+  }
+  .tira { background: var(--pelicula); overflow: hidden; }
+  /* furos de tração nas duas bordas */
+  .tira::before, .tira::after { content: ""; position: absolute; top: 0; bottom: 0; width: 6px; z-index: 2;
+    background: repeating-linear-gradient(to bottom, transparent 0 7px, var(--furo) 7px 15px, transparent 15px 22px); }
+  .tira::before { left: 4px; } .tira::after { right: 4px; }
+  .borda-texto { position: absolute; z-index: 3; top: 50%; left: 14px; transform: translate(-50%, -50%) rotate(-90deg);
+    font: 600 8px/1 'Courier New', monospace; letter-spacing: .3em; color: var(--borda-filme); opacity: .45; white-space: nowrap; }
+  .rolo { position: absolute; inset: 0 14px 0 20px; overflow: hidden; }
+  .faixa { display: flex; flex-direction: column; gap: 8px; padding: 8px 0; }
+  .quadro { aspect-ratio: 4 / 3; background: transparent; border-radius: 3px; overflow: hidden; flex: none; }
+  .quadro img { width: 100%; height: 100%; object-fit: cover; display: block; opacity: var(--foto-op); }
+  /* tira horizontal (celular / tela estreita) */
+  .pelicula-h { position: relative; background: var(--pelicula); border-radius: 4px; overflow: hidden; padding: 14px 0; }
+  .pelicula-h::before, .pelicula-h::after { content: ""; position: absolute; left: 0; right: 0; height: 6px;
+    background: repeating-linear-gradient(to right, transparent 0 7px, var(--furo) 7px 17px, transparent 17px 24px); }
+  .pelicula-h::before { top: 4px; } .pelicula-h::after { bottom: 4px; }
+  .faixa-h { display: flex; gap: 6px; width: max-content; }
+  .tira-movel .quadro { width: var(--quadro-movel); }
+  .tira-movel figcaption, .nota-tiras { color: var(--apagado); font-size: 12.5px; line-height: 1.5; margin-top: 10px; }
+  footer details { margin-top: 10px; } footer summary { cursor: pointer; }
+  footer details ul { margin: 8px 0 0; padding-left: 18px; font-size: 12px; line-height: 1.6; }
 </style>
 </head>
 <body>
+<div class="pagina modo-ambos">
+<aside class="tira tira-esq" aria-hidden="true"><div class="borda-texto">PORTO ALEGRE · 1941</div><div class="rolo"><div class="faixa"><div class="quadro"><img src="institucional-fotos/cheia-1941-1.jpg" alt=""></div><div class="quadro"><img src="institucional-fotos/cheia-1941-199.jpg" alt=""></div><div class="quadro"><img src="institucional-fotos/cheia-1941-3.jpg" alt=""></div><div class="quadro"><img src="institucional-fotos/cheia-1941-196.jpg" alt=""></div><div class="quadro"><img src="institucional-fotos/cheia-1941-198.jpg" alt=""></div><div class="quadro"><img src="institucional-fotos/cheia-1941-200.jpg" alt=""></div><div class="quadro"><img src="institucional-fotos/cheia-1941-197.jpg" alt=""></div><div class="quadro"><img src="institucional-fotos/cheia-1941-206.jpg" alt=""></div><div class="quadro"><img src="institucional-fotos/cheia-1941-1.jpg" alt=""></div><div class="quadro"><img src="institucional-fotos/cheia-1941-199.jpg" alt=""></div><div class="quadro"><img src="institucional-fotos/cheia-1941-3.jpg" alt=""></div><div class="quadro"><img src="institucional-fotos/cheia-1941-196.jpg" alt=""></div><div class="quadro"><img src="institucional-fotos/cheia-1941-198.jpg" alt=""></div><div class="quadro"><img src="institucional-fotos/cheia-1941-200.jpg" alt=""></div><div class="quadro"><img src="institucional-fotos/cheia-1941-197.jpg" alt=""></div><div class="quadro"><img src="institucional-fotos/cheia-1941-206.jpg" alt=""></div></div></div></aside>
+<aside class="tira tira-dir" aria-hidden="true"><div class="borda-texto">PORTO ALEGRE · 2024</div><div class="rolo"><div class="faixa"><div class="quadro"><img src="institucional-fotos/cheia-2024-23.jpg" alt=""></div><div class="quadro"><img src="institucional-fotos/cheia-2024-21.jpg" alt=""></div><div class="quadro"><img src="institucional-fotos/cheia-2024-0.jpg" alt=""></div><div class="quadro"><img src="institucional-fotos/cheia-2024-83.jpg" alt=""></div><div class="quadro"><img src="institucional-fotos/cheia-2024-55.jpg" alt=""></div><div class="quadro"><img src="institucional-fotos/cheia-2024-57.jpg" alt=""></div><div class="quadro"><img src="institucional-fotos/cheia-2024-47.jpg" alt=""></div><div class="quadro"><img src="institucional-fotos/cheia-2024-12.jpg" alt=""></div><div class="quadro"><img src="institucional-fotos/cheia-2024-23.jpg" alt=""></div><div class="quadro"><img src="institucional-fotos/cheia-2024-21.jpg" alt=""></div><div class="quadro"><img src="institucional-fotos/cheia-2024-0.jpg" alt=""></div><div class="quadro"><img src="institucional-fotos/cheia-2024-83.jpg" alt=""></div><div class="quadro"><img src="institucional-fotos/cheia-2024-55.jpg" alt=""></div><div class="quadro"><img src="institucional-fotos/cheia-2024-57.jpg" alt=""></div><div class="quadro"><img src="institucional-fotos/cheia-2024-47.jpg" alt=""></div><div class="quadro"><img src="institucional-fotos/cheia-2024-12.jpg" alt=""></div></div></div></aside>
 <header>
   <img src="icon-192.png" alt="">
   <a href="boletim.html">Horizonte</a>
@@ -102,11 +144,15 @@
     <a class="botao principal" href="boletim.html">Ver o boletim de hoje</a>
     <a class="botao" href="https://www.instagram.com/horizonte.rs/" target="_blank" rel="noopener"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1"></circle></svg>@horizonte.rs</a>
   </div>
+  <p class="nota-tiras">Nas laterais, Porto Alegre em 1941 e em 2024: a mesma água, 83 anos depois.</p>
+  <section class="tira-movel" aria-label="Fotos das cheias de 1941 e 2024 em Porto Alegre"><div class="pelicula-h" aria-hidden="true"><div class="faixa-h"><div class="quadro"><img src="institucional-fotos/cheia-1941-1.jpg" alt=""></div><div class="quadro"><img src="institucional-fotos/cheia-2024-23.jpg" alt=""></div><div class="quadro"><img src="institucional-fotos/cheia-1941-199.jpg" alt=""></div><div class="quadro"><img src="institucional-fotos/cheia-2024-21.jpg" alt=""></div><div class="quadro"><img src="institucional-fotos/cheia-1941-3.jpg" alt=""></div><div class="quadro"><img src="institucional-fotos/cheia-2024-0.jpg" alt=""></div><div class="quadro"><img src="institucional-fotos/cheia-1941-196.jpg" alt=""></div><div class="quadro"><img src="institucional-fotos/cheia-2024-83.jpg" alt=""></div><div class="quadro"><img src="institucional-fotos/cheia-1941-198.jpg" alt=""></div><div class="quadro"><img src="institucional-fotos/cheia-2024-55.jpg" alt=""></div><div class="quadro"><img src="institucional-fotos/cheia-1941-200.jpg" alt=""></div><div class="quadro"><img src="institucional-fotos/cheia-2024-57.jpg" alt=""></div><div class="quadro"><img src="institucional-fotos/cheia-1941-197.jpg" alt=""></div><div class="quadro"><img src="institucional-fotos/cheia-2024-47.jpg" alt=""></div><div class="quadro"><img src="institucional-fotos/cheia-1941-206.jpg" alt=""></div><div class="quadro"><img src="institucional-fotos/cheia-2024-12.jpg" alt=""></div><div class="quadro"><img src="institucional-fotos/cheia-1941-1.jpg" alt=""></div><div class="quadro"><img src="institucional-fotos/cheia-2024-23.jpg" alt=""></div><div class="quadro"><img src="institucional-fotos/cheia-1941-199.jpg" alt=""></div><div class="quadro"><img src="institucional-fotos/cheia-2024-21.jpg" alt=""></div><div class="quadro"><img src="institucional-fotos/cheia-1941-3.jpg" alt=""></div><div class="quadro"><img src="institucional-fotos/cheia-2024-0.jpg" alt=""></div><div class="quadro"><img src="institucional-fotos/cheia-1941-196.jpg" alt=""></div><div class="quadro"><img src="institucional-fotos/cheia-2024-83.jpg" alt=""></div><div class="quadro"><img src="institucional-fotos/cheia-1941-198.jpg" alt=""></div><div class="quadro"><img src="institucional-fotos/cheia-2024-55.jpg" alt=""></div><div class="quadro"><img src="institucional-fotos/cheia-1941-200.jpg" alt=""></div><div class="quadro"><img src="institucional-fotos/cheia-2024-57.jpg" alt=""></div><div class="quadro"><img src="institucional-fotos/cheia-1941-197.jpg" alt=""></div><div class="quadro"><img src="institucional-fotos/cheia-2024-47.jpg" alt=""></div><div class="quadro"><img src="institucional-fotos/cheia-1941-206.jpg" alt=""></div><div class="quadro"><img src="institucional-fotos/cheia-2024-12.jpg" alt=""></div></div></div><figcaption>Porto Alegre em 1941 e em 2024: a mesma água, 83 anos depois.</figcaption></section>
 </main>
 
 <footer>
   <p>Horizonte · previsão do nível dos rios da bacia do Guaíba</p>
   <p class="aviso">Projeto pessoal e independente, sem vínculo com órgãos oficiais. Para alertas e decisões de segurança, siga sempre a Defesa Civil.</p>
+  <details><summary>Créditos das fotos</summary><ul><li><a href="https://commons.wikimedia.org/wiki/File:Porto_Alegre_Enchente_Mercado.jpg" target="_blank" rel="noopener">Porto Alegre Enchente Mercado</a> — Autor desconhecido · Public domain</li><li><a href="https://commons.wikimedia.org/wiki/File:Porto_Alegre_Cais_do_Porto_Enchente_1941.png" target="_blank" rel="noopener">Porto Alegre Cais do Porto Enchente 1941</a> — Autor desconhecido · Public domain</li><li><a href="https://commons.wikimedia.org/wiki/File:Porto_Alegre_Mercado_P%C3%BAblico_Enchente_1941.jpg" target="_blank" rel="noopener">Porto Alegre Mercado Público Enchente 1941</a> — Autor desconhecido · Public domain</li><li><a href="https://commons.wikimedia.org/wiki/File:Enchente_em_Porto_Alegre_em_1941_07.webp" target="_blank" rel="noopener">Enchente em Porto Alegre em 1941 07</a> — Studio os Dois, Casa do Amador, Sioma · Public domain</li><li><a href="https://commons.wikimedia.org/wiki/File:Porto_Alegre_Allianca_Enchente_1941.jpg" target="_blank" rel="noopener">Porto Alegre Allianca Enchente 1941</a> — Autor desconhecido · Public domain</li><li><a href="https://commons.wikimedia.org/wiki/File:Porto_Alegre_Enchente_1941.jpg" target="_blank" rel="noopener">Porto Alegre Enchente 1941</a> — Autor desconhecido · Public domain</li><li><a href="https://commons.wikimedia.org/wiki/File:Enchente_em_Porto_Alegre_em_1941_08.webp" target="_blank" rel="noopener">Enchente em Porto Alegre em 1941 08</a> — Studio os Dois, Casa do Amador, Sioma · Public domain</li><li><a href="https://commons.wikimedia.org/wiki/File:Porto_Alegre_Enchente_1941_2.jpg" target="_blank" rel="noopener">Porto Alegre Enchente 1941 2</a> — Autor desconhecido · Public domain</li><li><a href="https://commons.wikimedia.org/wiki/File:IBPA_134149_-_Centro_Hist%C3%B3rico_de_Porto_Alegre_alagado_pela_-_2024-05-05_-_Gustavo_Garbino-PMPA.jpg" target="_blank" rel="noopener">IBPA 134149 - Centro Histórico de Porto Alegre alagado pela - 2024-05-</a> — Gustavo Garbino/ PMPA · Attribution</li><li><a href="https://commons.wikimedia.org/wiki/File:IBPA_134142_-_Centro_Hist%C3%B3rico_de_Porto_Alegre_alagado_pela_-_2024-05-05_-_Gustavo_Garbino-PMPA.jpg" target="_blank" rel="noopener">IBPA 134142 - Centro Histórico de Porto Alegre alagado pela - 2024-05-</a> — Gustavo Garbino/ PMPA · Attribution</li><li><a href="https://commons.wikimedia.org/wiki/File:Enchente_Porto_Alegre_2024_07.jpg" target="_blank" rel="noopener">Enchente Porto Alegre 2024 07</a> — Ricardo André Frantz · CC BY 4.0</li><li><a href="https://commons.wikimedia.org/wiki/File:IBPA_135306_-_Sobrevoo_sobre_%C3%A1reas_alagadas_de_Porto_Alegre._-_2024-05-17_-_Giulian_Serafim-PMPA.jpg" target="_blank" rel="noopener">IBPA 135306 - Sobrevoo sobre áreas alagadas de Porto Alegre. - 2024-05</a> — Giulian Serafim/PMPA · Attribution</li><li><a href="https://commons.wikimedia.org/wiki/File:IBPA_135160_-_Ruas_do_Centro_Hist%C3%B3rico_de_Porto_Alegre_alagadas,_-_2024-05-16_-_Giulian_Serafim-PMPA.jpg" target="_blank" rel="noopener">IBPA 135160 - Ruas do Centro Histórico de Porto Alegre alagadas, - 202</a> — Giulian Serafim/PMPA · Attribution</li><li><a href="https://commons.wikimedia.org/wiki/File:IBPA_135162_-_Ruas_do_Centro_Hist%C3%B3rico_de_Porto_Alegre_alagadas,_-_2024-05-16_-_Giulian_Serafim-PMPA.jpg" target="_blank" rel="noopener">IBPA 135162 - Ruas do Centro Histórico de Porto Alegre alagadas, - 202</a> — Giulian Serafim/PMPA · Attribution</li><li><a href="https://commons.wikimedia.org/wiki/File:IBPA_135142_-_Ruas_do_Centro_Hist%C3%B3rico_de_Porto_Alegre_alagadas,_-_2024-05-16_-_Giulian_Serafim-PMPA.jpg" target="_blank" rel="noopener">IBPA 135142 - Ruas do Centro Histórico de Porto Alegre alagadas, - 202</a> — Giulian Serafim/PMPA · Attribution</li><li><a href="https://commons.wikimedia.org/wiki/File:Porto_Alegre_ap%C3%B3s_a_enchente_48.jpg" target="_blank" rel="noopener">Porto Alegre após a enchente 48</a> — CarolSiBa · CC BY 4.0</li></ul></details>
 </footer>
+</div>
 </body>
 </html>
