@@ -78,6 +78,31 @@ body { margin:0; background-color:#0f2027; }
   .legenda-item { display: inline-block; margin: 0 10px 4px 0; font-size: 11px; color: #7c9190; }
   .legenda-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; border: 2px solid; margin-right: 4px; }
   .disclaimer { margin-top: 20px; font-size: 11.5px; line-height: 1.5; color: #7c9190; }
+
+  .data-chip { display:inline-block; padding:1px 7px; border-radius:6px; background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.22); font-size:.86em; letter-spacing:.02em; white-space:nowrap; }
+  .data-chip b { font-weight:700; }
+  .f2-titulo { margin:0 0 12px 0; font-size:17px; line-height:1.6; text-wrap:balance; }
+  .f2-chance { display:inline-block; padding:3px 12px; border-radius:999px; font-weight:700; }
+  .f2-frase { margin:10px 0 0 0; font-size:15px; line-height:1.7; }
+  .gl { margin:6px -8px 4px -8px; padding-left:36px; container-type:inline-size; }
+  .gl-topo, .gl-eixo { position:relative; }
+  .gl-topo { height:24px; }
+  .gl-eixo { height:40px; margin-top:6px; }
+  .gl-topo > span, .gl-eixo > span { position:absolute; top:0; white-space:nowrap; }
+  .gl-v { font-family:'Courier New', monospace; font-weight:700; font-size:clamp(11.5px, 5.2cqw, 14px); letter-spacing:-.02em; }
+  .gl-v small { font-size:10px; opacity:.7; margin-left:2px; }
+  .gl-incerto { opacity:.55; color:#b9c8c7; }
+  .gl-plot { position:relative; height:150px; }
+  .gl-plot svg { display:block; width:100%; height:100%; overflow:visible; }
+  .gl-y { position:absolute; left:-36px; width:32px; text-align:right; transform:translateY(-50%); font-size:10.5px; color:#8fa3a2; font-family:'Courier New', monospace; white-space:nowrap; }
+  .gl-pt { position:absolute; width:9px; height:9px; border-radius:50%; border:2px solid #16262a; transform:translate(-50%, -50%); }
+  .gl-cota { position:absolute; transform:translateY(-115%); font-size:11px; font-weight:700; color:#ef5a4d; background:#16262a; padding:0 4px; border-radius:4px; }
+  .gl-alto { position:absolute; transform:translateY(-50%); font-size:10.5px; line-height:1.15; font-weight:700; white-space:nowrap; background:#16262a; padding:1px 3px; border-radius:4px; }
+  .gl-d { font-size:clamp(10px, 4.2cqw, 11px); line-height:1.25; text-align:center; padding:2px 5px; }
+  .gl-agora { border-radius:6px; border:1px solid rgba(255,255,255,.22); background:rgba(255,255,255,.05); opacity:.75; font-size:10.5px; }
+  .gl-passado { font-size:11px; opacity:.5; top:4px !important; }
+  @container (max-width:250px) { .gl-v small, .gl-passado { display:none; } .gl-agora { font-size:9.5px; padding:2px 3px; } }
+
 </style>
 <div class="wrap">
   <a href="boletim.html" class="voltar">&larr; Voltar ao boletim</a>
@@ -103,27 +128,27 @@ body { margin:0; background-color:#0f2027; }
   <div class="card">
           <span class="help-slot" data-help="status-rio"></span>
           <span class="badge" style="background-color:#1c3328; border-color:#2f5540; color:#5ecb8f;">Normal</span>
-          <div class="nivel">5,67<span class="nivel-un">m</span></div>
-          <p class="linha-fraca">Tendência: queda (&#9660; 14,1 cm/h)</p>
+          <div class="nivel">5,58<span class="nivel-un">m</span></div>
+          <p class="linha-fraca">Tendência: queda (&#9660; 14,7 cm/h)</p>
           
           
           
           <p class="linha-fraca">Cota de inundação: 18,00 m</p>
-          <div class="gauge"><div class="gauge-fill" style="width:24.2%; background-color:#5ecb8f;"></div><div class="gauge-marca" style="left:76.9%;"></div></div>
+          <div class="gauge"><div class="gauge-fill" style="width:23.8%; background-color:#5ecb8f;"></div><div class="gauge-marca" style="left:76.9%;"></div></div>
           <div class="gauge-escala"><span>0 m</span><span class="gauge-escala-cota" style="left:76.9%;">&#9650; cota 18,00 m</span></div>
-          <p class="gauge-pct" style="color:#5ecb8f;">32% da cota de inundação</p>
+          <p class="gauge-pct" style="color:#5ecb8f;">31% da cota de inundação</p>
         </div>
   <div class="card">
       <span class="help-slot" data-help="previsao-rio"></span>
       <h2>Previsão do nível</h2>
       <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td align="center" class="proj-col">
-              <div class="proj-valor" style="color:#5ecb8f;">5,09<span class="proj-un"> m</span></div>
+              <div class="proj-valor" style="color:#5ecb8f;">5,02<span class="proj-un"> m</span></div>
               <div class="proj-rotulo">36h &middot; 29/09</div>
             </td><td align="center" class="proj-col">
-              <div class="proj-valor" style="color:#5ecb8f;">5,22<span class="proj-un"> m</span></div>
+              <div class="proj-valor" style="color:#5ecb8f;">5,17<span class="proj-un"> m</span></div>
               <div class="proj-rotulo">72h &middot; 30/09</div>
             </td><td align="center" class="proj-col">
-              <div class="proj-valor" style="color:#5ecb8f;">5,18<span class="proj-un"> m</span></div>
+              <div class="proj-valor" style="color:#5ecb8f;">5,13<span class="proj-un"> m</span></div>
               <div class="proj-rotulo">120h &middot; 02/10</div>
             </td></tr></table>
       
@@ -138,7 +163,7 @@ body { margin:0; background-color:#0f2027; }
   
   <p class="disclaimer">* O Horizonte é um projeto pessoal e independente de previsibilidade — não é um serviço oficial, não substitui e não tem qualquer vínculo com os canais da Defesa Civil. Quem escreve isso não é hidrólogo nem especialista em recursos hídricos; os números aqui são estimativas estatísticas construídas a partir de dados públicos, não uma previsão certificada. Para alertas oficiais e qualquer decisão de segurança, siga sempre a Defesa Civil do seu município ou estado.</p>
 </div>
-<script type="application/json" id="horizonte-help-data">{"status-rio": {"titulo": "Nível deste rio", "oQue": "O nível real da água agora mesmo, medido pela régua oficial da ANA. A barra colorida mostra a distância até a cota de inundação.", "comoInterpretar": "Quanto mais preenchida a barra, mais perto da inundação. A marca vertical (▲ cota) é a cota de inundação: a barra passando da marca significa que o rio já está acima dela. A tendência agora (subindo/descendo, em cm/h) é medida nas últimas 4h de leituras - a previsão vem no próximo quadro. Em Lajeado, Cachoeira do Sul, Bom Retiro do Sul e Encantado, usinas a montante fazem o nível oscilar ao longo do dia, por isso também mostramos a variação média das últimas 24h. Quando o rio já passou do pico e está descendo, mostramos o maior nível medido e a hora em que ocorreu. Quando há um aviso oficial do INMET ativo pro município deste rio, ele aparece num quadro à parte, no topo da página - é informativo (do órgão oficial), não faz parte do cálculo do Horizonte."}, "previsao-rio": {"titulo": "Previsão do nível", "oQue": "Uma estimativa de qual deve ser o nível do rio daqui a 36h, 72h e 120h (5 dias), calculada a partir da tendência atual e da chuva prevista pra bacia deste rio.", "comoInterpretar": "É uma estimativa: pode mudar de uma leitura pra outra, principalmente se a chuva prevista mudar. Quanto mais distante o horizonte, menos exato tende a ser o número - por isso a página é atualizada 8 vezes por dia. A cor de cada número mostra a faixa que o nível previsto alcança em relação à cota de inundação deste rio - as mesmas cores do selo do quadro de nível acima (verde Normal, depois Elevado, Muito alto, Extremo e Crítico)."}, "chuva-rio": {"titulo": "Chuva prevista", "oQue": "Quanto de chuva o modelo meteorológico espera pra bacia deste rio, dia a dia, nos próximos dias. É a mesma chuva que alimenta a previsão de nível acima.", "comoInterpretar": "Vem do Open-Meteo (previsão de terceiros, a mesma fonte que qualquer aplicativo de tempo usa) e pode mudar de uma leitura pra outra - chuva é a parte mais difícil de prever com precisão. Cores mais fortes indicam chuva mais intensa naquele dia (ver legenda abaixo da tabela)."}, "chance-obs-rio": {"titulo": "Chance de passar da cota", "oQue": "Uma estimativa da chance de o rio passar da cota de inundação nas próximas 12 e 24 horas, calculada com o que JÁ foi medido: a chuva dos pluviômetros da ANA nesta bacia nas últimas 48 horas, o nível e a tendência deste rio e o nível dos rios acima dele.", "comoInterpretar": "As chances de 12 e 24 horas não dependem da previsão de chuva - por isso costumam perceber a cheia antes da previsão de nível. Foram testadas em 10 anos de dados: quando dizem Moderada, o rio passou da cota em cerca de 1 a cada 3 vezes; Alta, em cerca de metade; Muito alta, em cerca de 3 a cada 4. A chance dos próximos 3 dias soma a chuva prevista pelo modelo mais chuvoso entre os 3 usados (antecipa em até 2-3 dias, mas depende da previsão se confirmar): testada com previsões reais de 2024 a 2026, Moderada virou cheia em cerca de 4 a cada 10 vezes e Alta em cerca de 6 a cada 10. Só aparece a partir de Baixa."}, "historico-rio": {"titulo": "Histórico realizado", "oQue": "O nível medido pela régua nos últimos dias - mostra o que já aconteceu, sem nenhuma estimativa envolvida.", "comoInterpretar": "Serve pra ver a tendência recente com mais contexto do que só o número de agora - se o rio vem subindo, descendo ou estável. A linha tracejada marca a cota de inundação, quando aparece dentro da faixa mostrada no gráfico."}}</script>
+<script type="application/json" id="horizonte-help-data">{"status-rio": {"titulo": "Nível deste rio", "oQue": "O nível real da água agora mesmo, medido pela régua oficial da ANA. A barra colorida mostra a distância até a cota de inundação.", "comoInterpretar": "Quanto mais preenchida a barra, mais perto da inundação. A marca vertical (▲ cota) é a cota de inundação: a barra passando da marca significa que o rio já está acima dela. A tendência agora (subindo/descendo, em cm/h) é medida nas últimas 4h de leituras - a previsão vem no próximo quadro. Em Lajeado, Cachoeira do Sul, Bom Retiro do Sul e Encantado, usinas a montante fazem o nível oscilar ao longo do dia, por isso também mostramos a variação média das últimas 24h. Quando o rio já passou do pico e está descendo, mostramos o maior nível medido e a hora em que ocorreu. Quando há um aviso oficial do INMET ativo pro município deste rio, ele aparece num quadro à parte, no topo da página - é informativo (do órgão oficial), não faz parte do cálculo do Horizonte."}, "previsao-rio": {"titulo": "Previsão do nível", "oQue": "Uma estimativa de qual deve ser o nível do rio daqui a 36h, 72h e 120h (5 dias), calculada a partir da tendência atual e da chuva prevista pra bacia deste rio.", "comoInterpretar": "É uma estimativa: pode mudar de uma leitura pra outra, principalmente se a chuva prevista mudar. Quanto mais distante o horizonte, menos exato tende a ser o número - por isso a página é atualizada 8 vezes por dia. A cor de cada número mostra a faixa que o nível previsto alcança em relação à cota de inundação deste rio - as mesmas cores do selo do quadro de nível acima (verde Normal, depois Elevado, Muito alto, Extremo e Crítico)."}, "chuva-rio": {"titulo": "Chuva prevista", "oQue": "Quanto de chuva o modelo meteorológico espera pra bacia deste rio, dia a dia, nos próximos dias. É a mesma chuva que alimenta a previsão de nível acima.", "comoInterpretar": "Vem do Open-Meteo (previsão de terceiros, a mesma fonte que qualquer aplicativo de tempo usa) e pode mudar de uma leitura pra outra - chuva é a parte mais difícil de prever com precisão. Cores mais fortes indicam chuva mais intensa naquele dia (ver legenda abaixo da tabela)."}, "chance-obs-rio": {"titulo": "Chance de passar da cota", "oQue": "Uma estimativa da chance de o rio passar da cota de inundação nas próximas 12 e 24 horas, calculada com o que JÁ foi medido: a chuva dos pluviômetros da ANA nesta bacia nas últimas 48 horas, o nível e a tendência deste rio e o nível dos rios acima dele.", "comoInterpretar": "As chances de 12 e 24 horas não dependem da previsão de chuva - por isso costumam perceber a cheia antes da previsão de nível. Foram testadas em 10 anos de dados: quando dizem Moderada, o rio passou da cota em cerca de 1 a cada 3 vezes; Alta, em cerca de metade; Muito alta, em cerca de 3 a cada 4. A chance dos próximos 3 dias soma a chuva prevista pelo modelo mais chuvoso entre os 3 usados (antecipa em até 2-3 dias, mas depende da previsão se confirmar): testada com previsões reais de 2024 a 2026, Moderada virou cheia em cerca de 4 a cada 10 vezes e Alta em cerca de 6 a cada 10. Só aparece a partir de Baixa."}, "historico-rio": {"titulo": "Histórico realizado", "oQue": "O nível medido pela régua nos últimos dias - mostra o que já aconteceu, sem nenhuma estimativa envolvida.", "comoInterpretar": "Serve pra ver a tendência recente com mais contexto do que só o número de agora - se o rio vem subindo, descendo ou estável. A linha tracejada marca a cota de inundação, quando aparece dentro da faixa mostrada no gráfico."}, "previsao-motor-rio": {"titulo": "Previsão do nível", "oQue": "O gráfico mostra o nível medido até agora (linha cheia) e a previsão (tracejado): o nível máximo mais provável até cada data. A faixa clara acima do tracejado é até onde o rio pode chegar se chover mais do que o previsto. A área riscada é o 5º dia: com essa antecedência a altura depende de chuva ainda muito incerta, então mostramos só a chance.", "comoInterpretar": "Chance alta: em situações parecidas de 2024 a 2026, o rio passou da cota em cerca de 6 a 9 de cada 10 vezes; moderada, em cerca de 1 a cada 3; muito baixa, em cerca de 1 a cada 10. O tracejado liga os pontos previstos - o horário exato em que o rio cruza a cota não é previsto, vale a data do título. Em época de cheia, a diferença para o nível real costuma ser de 1 a 1,5 m (nos rios do vale do Taquari, de 3 a 5 m), para mais ou para menos. É uma estimativa: siga sempre a orientação da Defesa Civil do seu município."}}</script>
 <script>
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", function () {
