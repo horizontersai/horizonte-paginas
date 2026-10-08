@@ -130,7 +130,7 @@ body { margin:0; background-color:#0f2027; }
           <span class="help-slot" data-help="status-rio"></span>
           <span class="badge" style="background-color:#3a2f18; border-color:#5c4a26; color:#f0a839;">Elevado</span>
           <div class="nivel">10,58<span class="nivel-un">m</span></div>
-          <p class="linha-fraca">Tendência: sem dado (?)</p>
+          <p class="linha-fraca">Tendência agora (últimas 4h): queda (&#9660; 2,2 cm/h)</p>
           
           
           
@@ -204,7 +204,7 @@ body { margin:0; background-color:#0f2027; }
 </div>
 <script>
 (function() {
-  const pontos = [{"nome": "Rio Pardo", "nome_oficial": "RIO PARDO", "lat": -29.995, "lon": -52.3756, "nivel_m": 10.58, "tendencia_cm_h": null, "cota_inundacao_m": 12.5}];
+  const pontos = [{"nome": "Rio Pardo", "nome_oficial": "RIO PARDO", "lat": -29.995, "lon": -52.3756, "nivel_m": 10.58, "tendencia_cm_h": -1.7499999999999998, "cota_inundacao_m": 12.5}];
   const mapa = L.map('mapa-estacao', { scrollWheelZoom: false }).setView([-29.995, -52.3756], 15);
 
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
