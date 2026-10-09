@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://horizontersai.github.io/horizonte-paginas/sitemap.xml
+Sitemap: https://horizonters.com/sitemap.xml
