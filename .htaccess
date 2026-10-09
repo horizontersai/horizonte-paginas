@@ -1,0 +1,4 @@
+# Hostinger (horizonters.com): a página de entrada é a institucional.
+# A "Central Horizonte" (index.html) continua acessível em /index.html.
+# O GitHub Pages ignora este arquivo - lá a raiz segue como antes.
+DirectoryIndex institucional.html index.html
