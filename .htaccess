@@ -1,4 +1,25 @@
-# Hostinger (horizonters.com): a página de entrada é a institucional.
-# A "Central Horizonte" (index.html) continua acessível em /index.html.
-# O GitHub Pages ignora este arquivo - lá a raiz segue como antes.
+# Hostinger (horizonters.com) - o GitHub Pages ignora este arquivo.
+# Página de entrada: a institucional (index.html redireciona pra ela; a antiga Central fica em central.html).
 DirectoryIndex institucional.html index.html
+
+# Um endereço só (10/10/2026): www.horizonters.com -> horizonters.com (atalho, notificações e Google no mesmo endereço).
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{HTTP_HOST} ^www\.horizonters\.com$ [NC]
+  RewriteRule ^(.*)$ https://horizonters.com/$1 [R=301,L]
+</IfModule>
+
+# Cache (10/10/2026): páginas, dados e o sw.js sempre conferem com o servidor (o boletim muda a cada rodada - antes iam
+# sem instrução e o celular podia mostrar a versão velha); ícones e imagens ficam guardados 7 dias.
+<IfModule mod_headers.c>
+  <FilesMatch "\.(html|json|xml|txt|webmanifest)$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+  <FilesMatch "^sw\.js$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+  <FilesMatch "\.(png|jpg|jpeg|svg|webp|ico|gif|mp4|webm|woff2?)$">
+    Header set Cache-Control "public, max-age=604800"
+  </FilesMatch>
+  Header always set X-Content-Type-Options "nosniff"
+</IfModule>
