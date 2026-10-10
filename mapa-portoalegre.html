@@ -39,6 +39,7 @@ body { margin:0; background-color:#0f2027; }
 .help-popup .secao-lbl:first-of-type { margin-top:0; }
 .help-popup p { font-size:13px; line-height:1.5; color:#b9c8c7; margin:0; }
 </style>
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "1a45ef1cb2ed446eae02c441db451b44"}'></script><!-- End Cloudflare Web Analytics -->
 </head>
 <body>
 <style>
@@ -91,7 +92,7 @@ body { margin:0; background-color:#0f2027; }
 </div>
 <script>
 (function() {
-  const pontos = [{"nome": "Cais Mauá", "nome_oficial": "CAIS MAUÁ C6", "lat": -30.0211, "lon": -51.2211, "nivel_m": 2.14, "tendencia_cm_h": 0.9714285714285472, "cota_inundacao_m": 3.0}, {"nome": "Gasômetro", "nome_oficial": "USINA DO GASÔMETRO", "lat": -30.0347, "lon": -51.2419, "nivel_m": 1.63, "tendencia_cm_h": 0.7941176470588196, "cota_inundacao_m": 2.6}];
+  const pontos = [{"nome": "Cais Mauá", "nome_oficial": "CAIS MAUÁ C6", "lat": -30.0211, "lon": -51.2211, "nivel_m": 2.13, "tendencia_cm_h": -0.20000000000002655, "cota_inundacao_m": 3.0}, {"nome": "Gasômetro", "nome_oficial": "USINA DO GASÔMETRO", "lat": -30.0347, "lon": -51.2419, "nivel_m": 1.62, "tendencia_cm_h": -0.10784313725489338, "cota_inundacao_m": 2.6}];
   const mapa = L.map('mapa-portoalegre', { scrollWheelZoom: false }).setView([-30.027900000000002, -51.2315], 13);
 
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -142,7 +143,7 @@ body { margin:0; background-color:#0f2027; }
 <script>
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", function () {
-    navigator.serviceWorker.register("sw.js").catch(function () {});
+    navigator.serviceWorker.register("sw.js?v=2").catch(function () {});  // ?v=N: troca o endereço quando o sw.js muda (o CDN da Hostinger guarda o sw.js por 7 dias)
   });
 }
 window.addEventListener("load", function () {

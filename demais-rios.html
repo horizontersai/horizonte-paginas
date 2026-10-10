@@ -39,6 +39,7 @@ body { margin:0; background-color:#0f2027; }
 .help-popup .secao-lbl:first-of-type { margin-top:0; }
 .help-popup p { font-size:13px; line-height:1.5; color:#b9c8c7; margin:0; }
 </style>
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "1a45ef1cb2ed446eae02c441db451b44"}'></script><!-- End Cloudflare Web Analytics -->
 </head>
 <body>
 <style>
@@ -81,14 +82,18 @@ body { margin:0; background-color:#0f2027; }
   }
   .disclaimer { margin-top: 20px; font-size: 11.5px; line-height: 1.5; color: #7c9190; }
   .help-slot { display: none; }
-  /* Computador (09/10/2026, mesmo critério do boletim): a partir de 1000px
-     as bacias ficam em duas colunas, lidas de cima pra baixo (mesma ordem
-     do celular); nenhuma bacia é partida entre as colunas. */
+  /* Computador (10/10/2026, pedido do usuário: mesmo equilíbrio do boletim e da página dos rios - antes as duas colunas
+     de bacias terminavam em alturas diferentes): cada bacia é um cartão na largura toda, com os rios em duas colunas
+     alinhadas dentro dele, na ordem de sempre; rodapé centralizado com linha. */
   @media (min-width: 1000px) {
     .wrap { max-width: 1080px; padding-top: 28px; }
-    .grupos { columns: 2; column-gap: 48px; }
-    .grupo { break-inside: avoid; }
-    .disclaimer { max-width: 720px; }
+    .grupos { display: flex; flex-direction: column; gap: 18px; }
+    .grupo { margin: 0; display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); column-gap: 40px;
+      background: #16262a; border: 1px solid #2a3f43; border-radius: 14px; padding: 16px 22px 8px; }
+    .grupo-titulo { grid-column: 1 / -1; }
+    a.linha-rio { border-bottom: none; border-top: 1px solid #2a3f43; }
+    .grupo-titulo + a.linha-rio, .grupo-titulo + a.linha-rio + a.linha-rio { border-top: none; }
+    .disclaimer { margin-top: 28px; padding-top: 16px; border-top: 1px solid #2a3f43; text-align: center; }
   }
 </style>
 <div class="wrap">
@@ -120,11 +125,11 @@ body { margin:0; background-color:#0f2027; }
           <span class="rio-icones"><span title="Aviso do INMET: Tempestade" style="color:#FFFE00;">&#9888;</span></span>
         </div>
         <div class="rio-valores">
-          <div class="rio-valor-item"><span class="lbl">Tend.</span><span class="val">&#9660; 10,2 cm/h</span></div>
-          <div class="rio-valor-item"><span class="lbl">Atual</span><span class="val" style="color:#5ecb8f; font-weight:700;">4,21 m</span></div>
+          <div class="rio-valor-item"><span class="lbl">Tend.</span><span class="val">&#9660; 1,2 cm/h</span></div>
+          <div class="rio-valor-item"><span class="lbl">Atual</span><span class="val" style="color:#5ecb8f; font-weight:700;">4,11 m</span></div>
           <div class="rio-valor-item"><span class="lbl">Cota</span><span class="val">15,00 m</span></div>
           <div class="rio-valor-item"><span class="lbl">Pico 3 dias</span><span class="val" style="color:#5ecb8f; font-weight:700;">4,75 m</span></div>
-          <div class="rio-valor-item"><span class="lbl">Chuva<br>prev. 6<span style="text-transform:none;">d</span></span><span class="val" style="color:#ef8a4d; font-weight:700;">26,3 mm</span></div>
+          <div class="rio-valor-item"><span class="lbl">Chuva<br>prev. 6<span style="text-transform:none;">d</span></span><span class="val" style="color:#ef8a4d; font-weight:700;">26,0 mm</span></div>
         </div>
       </a><a href="rio-mucum.html" class="linha-rio">
         <div class="rio-nome-col">
@@ -132,11 +137,11 @@ body { margin:0; background-color:#0f2027; }
           <span class="rio-icones"><span title="Aviso do INMET: Tempestade" style="color:#FFFE00;">&#9888;</span></span>
         </div>
         <div class="rio-valores">
-          <div class="rio-valor-item"><span class="lbl">Tend.</span><span class="val">= -0,3 cm/h</span></div>
-          <div class="rio-valor-item"><span class="lbl">Atual</span><span class="val" style="color:#5ecb8f; font-weight:700;">4,80 m</span></div>
+          <div class="rio-valor-item"><span class="lbl">Tend.</span><span class="val">&#9660; 17,0 cm/h</span></div>
+          <div class="rio-valor-item"><span class="lbl">Atual</span><span class="val" style="color:#5ecb8f; font-weight:700;">4,19 m</span></div>
           <div class="rio-valor-item"><span class="lbl">Cota</span><span class="val">18,00 m</span></div>
           <div class="rio-valor-item"><span class="lbl">Pico 3 dias</span><span class="val" style="color:#5ecb8f; font-weight:700;">5,06 m</span></div>
-          <div class="rio-valor-item"><span class="lbl">Chuva<br>prev. 6<span style="text-transform:none;">d</span></span><span class="val" style="color:#ef8a4d; font-weight:700;">24,9 mm</span></div>
+          <div class="rio-valor-item"><span class="lbl">Chuva<br>prev. 6<span style="text-transform:none;">d</span></span><span class="val" style="color:#ef8a4d; font-weight:700;">24,4 mm</span></div>
         </div>
       </a><a href="rio-roca-sales.html" class="linha-rio">
         <div class="rio-nome-col">
@@ -144,8 +149,8 @@ body { margin:0; background-color:#0f2027; }
           <span class="rio-icones"></span>
         </div>
         <div class="rio-valores">
-          <div class="rio-valor-item"><span class="lbl">Tend.</span><span class="val">&#9660; 2,4 cm/h</span></div>
-          <div class="rio-valor-item"><span class="lbl">Atual</span><span class="val" style="color:#5ecb8f; font-weight:700;">7,07 m</span></div>
+          <div class="rio-valor-item"><span class="lbl">Tend.</span><span class="val">&#9660; 4,8 cm/h</span></div>
+          <div class="rio-valor-item"><span class="lbl">Atual</span><span class="val" style="color:#5ecb8f; font-weight:700;">7,05 m</span></div>
           <div class="rio-valor-item"><span class="lbl">Cota</span><span class="val">18,00 m</span></div>
           <div class="rio-valor-item"><span class="lbl">Pico 3 dias</span><span class="val" style="color:#5ecb8f; font-weight:700;">7,31 m</span></div>
           <div class="rio-valor-item"><span class="lbl">Chuva<br>prev.</span><span class="val" style="color:#7c9190;">&mdash;</span></div>
@@ -156,11 +161,11 @@ body { margin:0; background-color:#0f2027; }
           <span class="rio-icones"></span>
         </div>
         <div class="rio-valores">
-          <div class="rio-valor-item"><span class="lbl">Tend.</span><span class="val">&#9660; 0,9 cm/h</span></div>
-          <div class="rio-valor-item"><span class="lbl">Atual</span><span class="val" style="color:#5ecb8f; font-weight:700;">2,91 m</span></div>
+          <div class="rio-valor-item"><span class="lbl">Tend.</span><span class="val">&#9660; 9,4 cm/h</span></div>
+          <div class="rio-valor-item"><span class="lbl">Atual</span><span class="val" style="color:#5ecb8f; font-weight:700;">2,57 m</span></div>
           <div class="rio-valor-item"><span class="lbl">Cota</span><span class="val">12,00 m</span></div>
           <div class="rio-valor-item"><span class="lbl">Pico 3 dias</span><span class="val" style="color:#5ecb8f; font-weight:700;">3,22 m</span></div>
-          <div class="rio-valor-item"><span class="lbl">Chuva<br>prev. 6<span style="text-transform:none;">d</span></span><span class="val" style="color:#ef8a4d; font-weight:700;">27,1 mm</span></div>
+          <div class="rio-valor-item"><span class="lbl">Chuva<br>prev. 6<span style="text-transform:none;">d</span></span><span class="val" style="color:#ef8a4d; font-weight:700;">23,4 mm</span></div>
         </div>
       </a><a href="rio-lajeado.html" class="linha-rio">
         <div class="rio-nome-col">
@@ -168,11 +173,11 @@ body { margin:0; background-color:#0f2027; }
           <span class="rio-icones"></span>
         </div>
         <div class="rio-valores">
-          <div class="rio-valor-item"><span class="lbl">Tend.</span><span class="val">&#9660; 7,7 cm/h</span></div>
-          <div class="rio-valor-item"><span class="lbl">Atual</span><span class="val" style="color:#f0a839; font-weight:700;">13,60 m</span></div>
+          <div class="rio-valor-item"><span class="lbl">Tend.</span><span class="val">&#9650; 2,4 cm/h</span></div>
+          <div class="rio-valor-item"><span class="lbl">Atual</span><span class="val" style="color:#f0a839; font-weight:700;">13,65 m</span></div>
           <div class="rio-valor-item"><span class="lbl">Cota</span><span class="val">19,00 m</span></div>
           <div class="rio-valor-item"><span class="lbl">Pico 3 dias</span><span class="val" style="color:#f0a839; font-weight:700;">13,71 m</span></div>
-          <div class="rio-valor-item"><span class="lbl">Chuva<br>prev. 6<span style="text-transform:none;">d</span></span><span class="val" style="color:#ef8a4d; font-weight:700;">26,3 mm</span></div>
+          <div class="rio-valor-item"><span class="lbl">Chuva<br>prev. 6<span style="text-transform:none;">d</span></span><span class="val" style="color:#ef8a4d; font-weight:700;">25,8 mm</span></div>
         </div>
       </a><a href="rio-bom-retiro-do-sul.html" class="linha-rio">
         <div class="rio-nome-col">
@@ -180,11 +185,11 @@ body { margin:0; background-color:#0f2027; }
           <span class="rio-icones"></span>
         </div>
         <div class="rio-valores">
-          <div class="rio-valor-item"><span class="lbl">Tend.</span><span class="val">&#9650; 5,2 cm/h</span></div>
-          <div class="rio-valor-item"><span class="lbl">Atual</span><span class="val" style="color:#5ecb8f; font-weight:700;">7,67 m</span></div>
+          <div class="rio-valor-item"><span class="lbl">Tend.</span><span class="val">&#9660; 15,2 cm/h</span></div>
+          <div class="rio-valor-item"><span class="lbl">Atual</span><span class="val" style="color:#5ecb8f; font-weight:700;">7,19 m</span></div>
           <div class="rio-valor-item"><span class="lbl">Cota</span><span class="val">19,00 m</span></div>
           <div class="rio-valor-item"><span class="lbl">Pico 3 dias</span><span class="val" style="color:#5ecb8f; font-weight:700;">7,80 m</span></div>
-          <div class="rio-valor-item"><span class="lbl">Chuva<br>prev. 6<span style="text-transform:none;">d</span></span><span class="val" style="color:#ef8a4d; font-weight:700;">26,6 mm</span></div>
+          <div class="rio-valor-item"><span class="lbl">Chuva<br>prev. 6<span style="text-transform:none;">d</span></span><span class="val" style="color:#ef8a4d; font-weight:700;">26,3 mm</span></div>
         </div>
       </a><a href="rio-taquari.html" class="linha-rio">
         <div class="rio-nome-col">
@@ -192,11 +197,11 @@ body { margin:0; background-color:#0f2027; }
           <span class="rio-icones"></span>
         </div>
         <div class="rio-valores">
-          <div class="rio-valor-item"><span class="lbl">Tend.</span><span class="val">&#9650; 1,2 cm/h</span></div>
-          <div class="rio-valor-item"><span class="lbl">Atual</span><span class="val" style="color:#5ecb8f; font-weight:700;">5,81 m</span></div>
+          <div class="rio-valor-item"><span class="lbl">Tend.</span><span class="val">&#9660; 0,5 cm/h</span></div>
+          <div class="rio-valor-item"><span class="lbl">Atual</span><span class="val" style="color:#5ecb8f; font-weight:700;">5,79 m</span></div>
           <div class="rio-valor-item"><span class="lbl">Cota</span><span class="val">8,50 m</span></div>
           <div class="rio-valor-item"><span class="lbl">Pico 3 dias</span><span class="val" style="color:#f0a839; font-weight:700;">6,10 m</span></div>
-          <div class="rio-valor-item"><span class="lbl">Chuva<br>prev. 6<span style="text-transform:none;">d</span></span><span class="val" style="color:#ef8a4d; font-weight:700;">24,0 mm</span></div>
+          <div class="rio-valor-item"><span class="lbl">Chuva<br>prev. 6<span style="text-transform:none;">d</span></span><span class="val" style="color:#ef8a4d; font-weight:700;">27,3 mm</span></div>
         </div>
       </a>
     </div><div class="grupo">
@@ -207,11 +212,11 @@ body { margin:0; background-color:#0f2027; }
           <span class="rio-icones"></span>
         </div>
         <div class="rio-valores">
-          <div class="rio-valor-item"><span class="lbl">Tend.</span><span class="val">= 0,2 cm/h</span></div>
-          <div class="rio-valor-item"><span class="lbl">Atual</span><span class="val" style="color:#5ecb8f; font-weight:700;">1,94 m</span></div>
+          <div class="rio-valor-item"><span class="lbl">Tend.</span><span class="val">&#9660; 0,9 cm/h</span></div>
+          <div class="rio-valor-item"><span class="lbl">Atual</span><span class="val" style="color:#5ecb8f; font-weight:700;">1,91 m</span></div>
           <div class="rio-valor-item"><span class="lbl">Cota</span><span class="val">9,00 m</span></div>
           <div class="rio-valor-item"><span class="lbl">Pico 3 dias</span><span class="val" style="color:#5ecb8f; font-weight:700;">2,36 m</span></div>
-          <div class="rio-valor-item"><span class="lbl">Chuva<br>prev. 6<span style="text-transform:none;">d</span></span><span class="val" style="color:#ef8a4d; font-weight:700;">34,0 mm</span></div>
+          <div class="rio-valor-item"><span class="lbl">Chuva<br>prev. 6<span style="text-transform:none;">d</span></span><span class="val" style="color:#ef8a4d; font-weight:700;">39,5 mm</span></div>
         </div>
       </a><a href="rio-sao-sebastiao-do-cai.html" class="linha-rio">
         <div class="rio-nome-col">
@@ -219,11 +224,11 @@ body { margin:0; background-color:#0f2027; }
           <span class="rio-icones"></span>
         </div>
         <div class="rio-valores">
-          <div class="rio-valor-item"><span class="lbl">Tend.</span><span class="val">&#9660; 1,0 cm/h</span></div>
-          <div class="rio-valor-item"><span class="lbl">Atual</span><span class="val" style="color:#5ecb8f; font-weight:700;">4,95 m</span></div>
+          <div class="rio-valor-item"><span class="lbl">Tend.</span><span class="val">&#9650; 2,2 cm/h</span></div>
+          <div class="rio-valor-item"><span class="lbl">Atual</span><span class="val" style="color:#5ecb8f; font-weight:700;">5,03 m</span></div>
           <div class="rio-valor-item"><span class="lbl">Cota</span><span class="val">10,00 m</span></div>
           <div class="rio-valor-item"><span class="lbl">Pico 3 dias</span><span class="val" style="color:#5ecb8f; font-weight:700;">5,35 m</span></div>
-          <div class="rio-valor-item"><span class="lbl">Chuva<br>prev. 6<span style="text-transform:none;">d</span></span><span class="val" style="color:#ef8a4d; font-weight:700;">29,4 mm</span></div>
+          <div class="rio-valor-item"><span class="lbl">Chuva<br>prev. 6<span style="text-transform:none;">d</span></span><span class="val" style="color:#ef8a4d; font-weight:700;">39,1 mm</span></div>
         </div>
       </a><a href="rio-montenegro.html" class="linha-rio">
         <div class="rio-nome-col">
@@ -231,11 +236,11 @@ body { margin:0; background-color:#0f2027; }
           <span class="rio-icones"></span>
         </div>
         <div class="rio-valores">
-          <div class="rio-valor-item"><span class="lbl">Tend.</span><span class="val">&#9660; 0,6 cm/h</span></div>
+          <div class="rio-valor-item"><span class="lbl">Tend.</span><span class="val">= -0,0 cm/h</span></div>
           <div class="rio-valor-item"><span class="lbl">Atual</span><span class="val" style="color:#5ecb8f; font-weight:700;">3,28 m</span></div>
           <div class="rio-valor-item"><span class="lbl">Cota</span><span class="val">6,00 m</span></div>
           <div class="rio-valor-item"><span class="lbl">Pico 3 dias</span><span class="val" style="color:#5ecb8f; font-weight:700;">3,83 m</span></div>
-          <div class="rio-valor-item"><span class="lbl">Chuva<br>prev. 6<span style="text-transform:none;">d</span></span><span class="val" style="color:#ef8a4d; font-weight:700;">29,3 mm</span></div>
+          <div class="rio-valor-item"><span class="lbl">Chuva<br>prev. 6<span style="text-transform:none;">d</span></span><span class="val" style="color:#ef8a4d; font-weight:700;">38,6 mm</span></div>
         </div>
       </a>
     </div><div class="grupo">
@@ -246,11 +251,11 @@ body { margin:0; background-color:#0f2027; }
           <span class="rio-icones"></span>
         </div>
         <div class="rio-valores">
-          <div class="rio-valor-item"><span class="lbl">Tend.</span><span class="val">= -0,0 cm/h</span></div>
-          <div class="rio-valor-item"><span class="lbl">Atual</span><span class="val" style="color:#f0a839; font-weight:700;">3,66 m</span></div>
+          <div class="rio-valor-item"><span class="lbl">Tend.</span><span class="val">= 0,1 cm/h</span></div>
+          <div class="rio-valor-item"><span class="lbl">Atual</span><span class="val" style="color:#f0a839; font-weight:700;">3,67 m</span></div>
           <div class="rio-valor-item"><span class="lbl">Cota</span><span class="val">4,75 m</span></div>
           <div class="rio-valor-item"><span class="lbl">Pico 3 dias</span><span class="val" style="color:#f0a839; font-weight:700;">3,67 m</span></div>
-          <div class="rio-valor-item"><span class="lbl">Chuva<br>prev. 6<span style="text-transform:none;">d</span></span><span class="val" style="color:#ef8a4d; font-weight:700;">29,0 mm</span></div>
+          <div class="rio-valor-item"><span class="lbl">Chuva<br>prev. 6<span style="text-transform:none;">d</span></span><span class="val" style="color:#ef8a4d; font-weight:700;">40,3 mm</span></div>
         </div>
       </a>
     </div><div class="grupo">
@@ -261,11 +266,11 @@ body { margin:0; background-color:#0f2027; }
           <span class="rio-icones"></span>
         </div>
         <div class="rio-valores">
-          <div class="rio-valor-item"><span class="lbl">Tend.</span><span class="val">&#9650; 2,7 cm/h</span></div>
-          <div class="rio-valor-item"><span class="lbl">Atual</span><span class="val" style="color:#f0a839; font-weight:700;">6,74 m</span></div>
+          <div class="rio-valor-item"><span class="lbl">Tend.</span><span class="val">&#9660; 4,6 cm/h</span></div>
+          <div class="rio-valor-item"><span class="lbl">Atual</span><span class="val" style="color:#f0a839; font-weight:700;">6,56 m</span></div>
           <div class="rio-valor-item"><span class="lbl">Cota</span><span class="val">7,50 m</span></div>
           <div class="rio-valor-item"><span class="lbl">Pico 3 dias</span><span class="val" style="color:#ef8a4d; font-weight:700;">6,89 m</span></div>
-          <div class="rio-valor-item"><span class="lbl">Chuva<br>prev. 6<span style="text-transform:none;">d</span></span><span class="val" style="color:#f0a839; font-weight:700;">8,3 mm</span></div>
+          <div class="rio-valor-item"><span class="lbl">Chuva<br>prev. 6<span style="text-transform:none;">d</span></span><span class="val" style="color:#f0a839; font-weight:700;">17,9 mm</span></div>
         </div>
       </a><a href="rio-cachoeira-do-sul.html" class="linha-rio">
         <div class="rio-nome-col">
@@ -273,11 +278,11 @@ body { margin:0; background-color:#0f2027; }
           <span class="rio-icones"><span title="Chance alta de passar da cota até 11/10" style="color:#ef4d6b;">&#9873;</span></span>
         </div>
         <div class="rio-valores">
-          <div class="rio-valor-item"><span class="lbl">Tend.</span><span class="val">= 0,4 cm/h</span></div>
+          <div class="rio-valor-item"><span class="lbl">Tend.</span><span class="val">= 0,1 cm/h</span></div>
           <div class="rio-valor-item"><span class="lbl">Atual</span><span class="val" style="color:#ef8a4d; font-weight:700;">8,92 m</span></div>
           <div class="rio-valor-item"><span class="lbl">Cota</span><span class="val">9,00 m</span></div>
           <div class="rio-valor-item"><span class="lbl">Pico 3 dias</span><span class="val" style="color:#ef5a4d; font-weight:700;">9,17 m</span></div>
-          <div class="rio-valor-item"><span class="lbl">Chuva<br>prev. 6<span style="text-transform:none;">d</span></span><span class="val" style="color:#f0a839; font-weight:700;">11,4 mm</span></div>
+          <div class="rio-valor-item"><span class="lbl">Chuva<br>prev. 6<span style="text-transform:none;">d</span></span><span class="val" style="color:#f0a839; font-weight:700;">18,2 mm</span></div>
         </div>
       </a><a href="rio-rio-pardo.html" class="linha-rio">
         <div class="rio-nome-col">
@@ -285,11 +290,11 @@ body { margin:0; background-color:#0f2027; }
           <span class="rio-icones"></span>
         </div>
         <div class="rio-valores">
-          <div class="rio-valor-item"><span class="lbl">Tend.</span><span class="val">= 0,4 cm/h</span></div>
+          <div class="rio-valor-item"><span class="lbl">Tend.</span><span class="val">= 0,1 cm/h</span></div>
           <div class="rio-valor-item"><span class="lbl">Atual</span><span class="val" style="color:#f0a839; font-weight:700;">10,05 m</span></div>
           <div class="rio-valor-item"><span class="lbl">Cota</span><span class="val">12,50 m</span></div>
           <div class="rio-valor-item"><span class="lbl">Pico</span><span class="val" style="color:#7c9190; font-weight:700;">&mdash;</span></div>
-          <div class="rio-valor-item"><span class="lbl">Chuva<br>prev. 6<span style="text-transform:none;">d</span></span><span class="val" style="color:#f0a839; font-weight:700;">11,4 mm</span></div>
+          <div class="rio-valor-item"><span class="lbl">Chuva<br>prev. 6<span style="text-transform:none;">d</span></span><span class="val" style="color:#f0a839; font-weight:700;">18,2 mm</span></div>
         </div>
       </a><a href="rio-sao-jeronimo.html" class="linha-rio">
         <div class="rio-nome-col">
@@ -297,8 +302,8 @@ body { margin:0; background-color:#0f2027; }
           <span class="rio-icones"></span>
         </div>
         <div class="rio-valores">
-          <div class="rio-valor-item"><span class="lbl">Tend.</span><span class="val">&#9660; 0,7 cm/h</span></div>
-          <div class="rio-valor-item"><span class="lbl">Atual</span><span class="val" style="color:#f0a839; font-weight:700;">3,92 m</span></div>
+          <div class="rio-valor-item"><span class="lbl">Tend.</span><span class="val">&#9650; 1,1 cm/h</span></div>
+          <div class="rio-valor-item"><span class="lbl">Atual</span><span class="val" style="color:#f0a839; font-weight:700;">4,00 m</span></div>
           <div class="rio-valor-item"><span class="lbl">Cota</span><span class="val">4,64 m</span></div>
           <div class="rio-valor-item"><span class="lbl">Pico</span><span class="val" style="color:#7c9190; font-weight:700;">&mdash;</span></div>
           <div class="rio-valor-item"><span class="lbl">Chuva<br>prev.</span><span class="val" style="color:#7c9190;">&mdash;</span></div>
@@ -309,7 +314,7 @@ body { margin:0; background-color:#0f2027; }
           <span class="rio-icones"></span>
         </div>
         <div class="rio-valores">
-          <div class="rio-valor-item"><span class="lbl">Tend.</span><span class="val">&#9660; 1,6 cm/h</span></div>
+          <div class="rio-valor-item"><span class="lbl">Tend.</span><span class="val">= -0,0 cm/h</span></div>
           <div class="rio-valor-item"><span class="lbl">Atual</span><span class="val" style="color:#7c9190; font-weight:700;">1,52 m</span></div>
           <div class="rio-valor-item"><span class="lbl">Cota</span><span class="val">? m</span></div>
           <div class="rio-valor-item"><span class="lbl">Pico</span><span class="val" style="color:#7c9190; font-weight:700;">&mdash;</span></div>
@@ -325,10 +330,10 @@ body { margin:0; background-color:#0f2027; }
         </div>
         <div class="rio-valores">
           <div class="rio-valor-item"><span class="lbl">Tend.</span><span class="val">?</span></div>
-          <div class="rio-valor-item"><span class="lbl">Atual</span><span class="val" style="color:#5ecb8f; font-weight:700;">1,26 m</span></div>
+          <div class="rio-valor-item"><span class="lbl">Atual</span><span class="val" style="color:#5ecb8f; font-weight:700;">1,28 m</span></div>
           <div class="rio-valor-item"><span class="lbl">Cota</span><span class="val">6,00 m</span></div>
           <div class="rio-valor-item"><span class="lbl">Pico 3 dias</span><span class="val" style="color:#5ecb8f; font-weight:700;">1,67 m</span></div>
-          <div class="rio-valor-item"><span class="lbl">Chuva<br>prev. 6<span style="text-transform:none;">d</span></span><span class="val" style="color:#ef8a4d; font-weight:700;">31,5 mm</span></div>
+          <div class="rio-valor-item"><span class="lbl">Chuva<br>prev. 6<span style="text-transform:none;">d</span></span><span class="val" style="color:#ef8a4d; font-weight:700;">39,0 mm</span></div>
         </div>
       </a><a href="rio-campo-bom.html" class="linha-rio">
         <div class="rio-nome-col">
@@ -336,11 +341,11 @@ body { margin:0; background-color:#0f2027; }
           <span class="rio-icones"></span>
         </div>
         <div class="rio-valores">
-          <div class="rio-valor-item"><span class="lbl">Tend.</span><span class="val">= -0,3 cm/h</span></div>
+          <div class="rio-valor-item"><span class="lbl">Tend.</span><span class="val">= -0,0 cm/h</span></div>
           <div class="rio-valor-item"><span class="lbl">Atual</span><span class="val" style="color:#5ecb8f; font-weight:700;">4,05 m</span></div>
           <div class="rio-valor-item"><span class="lbl">Cota</span><span class="val">6,80 m</span></div>
           <div class="rio-valor-item"><span class="lbl">Pico 3 dias</span><span class="val" style="color:#5ecb8f; font-weight:700;">4,42 m</span></div>
-          <div class="rio-valor-item"><span class="lbl">Chuva<br>prev. 6<span style="text-transform:none;">d</span></span><span class="val" style="color:#ef8a4d; font-weight:700;">34,8 mm</span></div>
+          <div class="rio-valor-item"><span class="lbl">Chuva<br>prev. 6<span style="text-transform:none;">d</span></span><span class="val" style="color:#ef8a4d; font-weight:700;">41,1 mm</span></div>
         </div>
       </a><a href="rio-sao-leopoldo.html" class="linha-rio">
         <div class="rio-nome-col">
@@ -348,11 +353,11 @@ body { margin:0; background-color:#0f2027; }
           <span class="rio-icones"></span>
         </div>
         <div class="rio-valores">
-          <div class="rio-valor-item"><span class="lbl">Tend.</span><span class="val">&#9650; 0,6 cm/h</span></div>
-          <div class="rio-valor-item"><span class="lbl">Atual</span><span class="val" style="color:#f0a839; font-weight:700;">3,35 m</span></div>
+          <div class="rio-valor-item"><span class="lbl">Tend.</span><span class="val">= -0,3 cm/h</span></div>
+          <div class="rio-valor-item"><span class="lbl">Atual</span><span class="val" style="color:#f0a839; font-weight:700;">3,33 m</span></div>
           <div class="rio-valor-item"><span class="lbl">Cota</span><span class="val">4,50 m</span></div>
           <div class="rio-valor-item"><span class="lbl">Pico 3 dias</span><span class="val" style="color:#f0a839; font-weight:700;">3,37 m</span></div>
-          <div class="rio-valor-item"><span class="lbl">Chuva<br>prev. 6<span style="text-transform:none;">d</span></span><span class="val" style="color:#ef8a4d; font-weight:700;">33,2 mm</span></div>
+          <div class="rio-valor-item"><span class="lbl">Chuva<br>prev. 6<span style="text-transform:none;">d</span></span><span class="val" style="color:#ef8a4d; font-weight:700;">40,8 mm</span></div>
         </div>
       </a>
     </div></div>
@@ -362,7 +367,7 @@ body { margin:0; background-color:#0f2027; }
 <script>
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", function () {
-    navigator.serviceWorker.register("sw.js").catch(function () {});
+    navigator.serviceWorker.register("sw.js?v=2").catch(function () {});  // ?v=N: troca o endereço quando o sw.js muda (o CDN da Hostinger guarda o sw.js por 7 dias)
   });
 }
 window.addEventListener("load", function () {

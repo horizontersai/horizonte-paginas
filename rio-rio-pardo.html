@@ -39,6 +39,7 @@ body { margin:0; background-color:#0f2027; }
 .help-popup .secao-lbl:first-of-type { margin-top:0; }
 .help-popup p { font-size:13px; line-height:1.5; color:#b9c8c7; margin:0; }
 </style>
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "1a45ef1cb2ed446eae02c441db451b44"}'></script><!-- End Cloudflare Web Analytics -->
 </head>
 <body>
 <style>
@@ -78,15 +79,26 @@ body { margin:0; background-color:#0f2027; }
   .legenda-item { display: inline-block; margin: 0 10px 4px 0; font-size: 11px; color: #7c9190; }
   .legenda-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; border: 2px solid; margin-right: 4px; }
   .disclaimer { margin-top: 20px; font-size: 11.5px; line-height: 1.5; color: #7c9190; }
-  /* Computador (09/10/2026, mesmo layout do boletim): duas colunas a
-     partir de 1000px - à esquerda nível e previsão, à direita chuva,
-     histórico e localização. No celular as colunas ficam uma embaixo da
-     outra, na mesma ordem de antes. */
+  /* Computador (10/10/2026, pedido do usuário: as duas colunas terminavam em alturas diferentes, sobrava um buraco
+     e o rodapé ficava solto): LINHAS pareadas a partir de 1000px - nível | chuva, previsão | histórico (cartões da
+     mesma altura lado a lado), avisos e localização na largura toda, rodapé centralizado com linha, como no boletim.
+     No celular a ordem é a de sempre (order). */
+  .grade-rio { display: flex; flex-direction: column; }
+  .g-status { order: 1; } .g-prev { order: 2; } .g-link { order: 3; } .g-extra { order: 4; }
+  .g-chuva { order: 5; } .g-hist { order: 6; } .g-mapa { order: 7; }
   @media (min-width: 1000px) {
     .wrap { max-width: 1080px; padding-top: 28px; }
-    .colunas { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); column-gap: 28px; align-items: start; }
-    .col { min-width: 0; }
-    .disclaimer { max-width: 720px; }
+    .grade-rio { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 18px 24px; margin-top: 14px;
+      grid-template-areas: "status chuva" "prev hist" "link link" "extra extra" "mapa mapa"; }
+    .g-status { grid-area: status; } .g-chuva { grid-area: chuva; } .g-prev { grid-area: prev; }
+    .g-hist { grid-area: hist; } .g-extra { grid-area: extra; } .g-mapa { grid-area: mapa; }
+    .g-link { grid-area: link; margin-top: -8px; }
+    .grade-rio > div { display: flex; flex-direction: column; min-width: 0; }
+    .grade-rio > div > .card { margin-top: 0; }
+    .g-status > .card, .g-chuva > .card, .g-prev > .card, .g-hist > .card { flex: 1; }
+    .g-extra { gap: 14px; }
+    .g-mapa #mapa-estacao { height: 340px; }
+    .disclaimer { margin-top: 28px; padding-top: 16px; border-top: 1px solid #2a3f43; text-align: center; }
   }
 
   .data-chip { display:inline-block; padding:1px 7px; border-radius:6px; background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.22); font-size:.86em; letter-spacing:.02em; white-space:nowrap; }
@@ -132,13 +144,12 @@ body { margin:0; background-color:#0f2027; }
   <h1>Rio Pardo</h1>
   <p class="subtitulo">Jacuí &middot; estação monitorada</p>
   
-  <div class="colunas">
-    <div class="col">
-      <div class="card">
+  <div class="grade-rio">
+    <div class="g-status"><div class="card">
           <span class="help-slot" data-help="status-rio"></span>
           <span class="badge" style="background-color:#3a2f18; border-color:#5c4a26; color:#f0a839;">Elevado</span>
           <div class="nivel">10,05<span class="nivel-un">m</span></div>
-          <p class="linha-fraca">Tendência agora (últimas 4h): estável (= 0,4 cm/h)</p><p class="linha-fraca-2" style="color:#e0a458;">Nível estimado a partir de Cachoeira do Sul (a montante): a régua de Rio Pardo está sem atualizar. É uma aproximação, não uma leitura direta.</p>
+          <p class="linha-fraca">Tendência agora (últimas 4h): estável (= 0,1 cm/h)</p><p class="linha-fraca-2" style="color:#e0a458;">Nível estimado a partir de Cachoeira do Sul (a montante): a régua de Rio Pardo está sem atualizar. É uma aproximação, não uma leitura direta.</p>
           
           
           
@@ -146,37 +157,33 @@ body { margin:0; background-color:#0f2027; }
           <div class="gauge"><div class="gauge-fill" style="width:61.8%; background-color:#f0a839;"></div><div class="gauge-marca" style="left:76.9%;"></div></div>
           <div class="gauge-escala"><span>0 m</span><span class="gauge-escala-cota" style="left:76.9%;">&#9650; cota 12,50 m</span></div>
           <p class="gauge-pct" style="color:#f0a839;">80% da cota de inundação</p>
-        </div>
-      <div class="card">
+        </div></div>
+    <div class="g-chuva"><div class="card">
+          <span class="help-slot" data-help="chuva-rio"></span>
+          <h2>Chuva prevista</h2>
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td align="center" class="chuva-col"><div class="chuva-dia">Hoje<br>10/10</div><span class="chuva-bola" style="border-color:#7c9190;">0,3</span></td><td align="center" class="chuva-col"><div class="chuva-dia">Dom<br>11/10</div><span class="chuva-bola" style="border-color:#7c9190;">1,9</span></td><td align="center" class="chuva-col"><div class="chuva-dia">Seg<br>12/10</div><span class="chuva-bola" style="border-color:#f0a839;">5,3</span></td><td align="center" class="chuva-col"><div class="chuva-dia">Ter<br>13/10</div><span class="chuva-bola" style="border-color:#7c9190;">0,5</span></td><td align="center" class="chuva-col"><div class="chuva-dia">Qua<br>14/10</div><span class="chuva-bola" style="border-color:#7c9190;">0,1</span></td><td align="center" class="chuva-col"><div class="chuva-dia">Qui<br>15/10</div><span class="chuva-bola" style="border-color:#f0a839;">10,1</span></td><td align="center" class="chuva-col chuva-total-col"><div class="chuva-dia">Total<br>6d</div><span class="chuva-total-valor" style="color:#f0a839;">18,2</span><div class="chuva-total-un">mm</div></td></tr></table>
+          <div class="legenda-chuva"><span class="legenda-item"><span class="legenda-dot" style="border-color:#7c9190;"></span>calmo (< 5 mm)</span><span class="legenda-item"><span class="legenda-dot" style="border-color:#f0a839;"></span>leve (5-20 mm)</span><span class="legenda-item"><span class="legenda-dot" style="border-color:#ef8a4d;"></span>moderada (20-50 mm)</span><span class="legenda-item"><span class="legenda-dot" style="border-color:#ef4d6b;"></span>forte (> 50 mm)</span></div>
+          <p class="linha-fraca-2" style="margin-top:10px;">Previsão Open-Meteo &mdash; média de 3 modelos (GFS, ECMWF, ICON) (chuva prevista em Cachoeira do Sul, a montante, na mesma bacia). Valores podem mudar a cada nova rodada.</p>
+        </div></div>
+    <div class="g-prev"><div class="card">
       <span class="help-slot" data-help="previsao-rio"></span>
       <h2>Previsão do nível</h2>
       <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td align="center" class="proj-col">
-              <div class="proj-valor" style="color:#f0a839;">10,22<span class="proj-un"> m</span></div>
-              <div class="proj-rotulo">36h &middot; 11/10</div>
+              <div class="proj-valor" style="color:#f0a839;">10,18<span class="proj-un"> m</span></div>
+              <div class="proj-rotulo">36h &middot; 12/10</div>
             </td><td align="center" class="proj-col">
-              <div class="proj-valor" style="color:#f0a839;">10,38<span class="proj-un"> m</span></div>
+              <div class="proj-valor" style="color:#f0a839;">10,27<span class="proj-un"> m</span></div>
               <div class="proj-rotulo">72h &middot; 13/10</div>
             </td><td align="center" class="proj-col">
-              <div class="proj-valor" style="color:#f0a839;">10,34<span class="proj-un"> m</span></div>
+              <div class="proj-valor" style="color:#f0a839;">10,17<span class="proj-un"> m</span></div>
               <div class="proj-rotulo">120h &middot; 15/10</div>
             </td></tr></table>
       
-    </div>
-      <p style="margin:8px 0 0 0; font-size:13.5px; text-align:right;">
+    </div></div>
+    <div class="g-link"><p style="margin:8px 0 0 0; font-size:13.5px; text-align:right;">
       <a href="https://horizonters.com/previsao-estendida.html?rio=rio-pardo" style="color:#b9c8c7; text-decoration:underline;">Ver chance para os próximos 10 e 30 dias &rarr;</a>
-    </p>
-      
-      
-    </div>
-    <div class="col">
-      <div class="card">
-          <span class="help-slot" data-help="chuva-rio"></span>
-          <h2>Chuva prevista</h2>
-          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td align="center" class="chuva-col"><div class="chuva-dia">Hoje<br>10/10</div><span class="chuva-bola" style="border-color:#7c9190;">0,4</span></td><td align="center" class="chuva-col"><div class="chuva-dia">Dom<br>11/10</div><span class="chuva-bola" style="border-color:#7c9190;">0,5</span></td><td align="center" class="chuva-col"><div class="chuva-dia">Seg<br>12/10</div><span class="chuva-bola" style="border-color:#7c9190;">4,7</span></td><td align="center" class="chuva-col"><div class="chuva-dia">Ter<br>13/10</div><span class="chuva-bola" style="border-color:#7c9190;">0,3</span></td><td align="center" class="chuva-col"><div class="chuva-dia">Qua<br>14/10</div><span class="chuva-bola" style="border-color:#7c9190;">0,5</span></td><td align="center" class="chuva-col"><div class="chuva-dia">Qui<br>15/10</div><span class="chuva-bola" style="border-color:#f0a839;">5,0</span></td><td align="center" class="chuva-col chuva-total-col"><div class="chuva-dia">Total<br>6d</div><span class="chuva-total-valor" style="color:#f0a839;">11,4</span><div class="chuva-total-un">mm</div></td></tr></table>
-          <div class="legenda-chuva"><span class="legenda-item"><span class="legenda-dot" style="border-color:#7c9190;"></span>calmo (< 5 mm)</span><span class="legenda-item"><span class="legenda-dot" style="border-color:#f0a839;"></span>leve (5-20 mm)</span><span class="legenda-item"><span class="legenda-dot" style="border-color:#ef8a4d;"></span>moderada (20-50 mm)</span><span class="legenda-item"><span class="legenda-dot" style="border-color:#ef4d6b;"></span>forte (> 50 mm)</span></div>
-          <p class="linha-fraca-2" style="margin-top:10px;">Previsão Open-Meteo &mdash; média de 3 modelos (GFS, ECMWF, ICON) (chuva prevista em Cachoeira do Sul, a montante, na mesma bacia). Valores podem mudar a cada nova rodada.</p>
-        </div>
-      <div class="card"><span class="help-slot" data-help="historico-rio"></span><h2 style="margin:0 0 12px 0; font-size:13px; text-transform:uppercase; letter-spacing:1px; color:#eef2f1; font-weight:700;">Histórico &mdash; últimos 5 dias</h2>
+    </p></div>
+    <div class="g-hist"><div class="card"><span class="help-slot" data-help="historico-rio"></span><h2 style="margin:0 0 12px 0; font-size:13px; text-transform:uppercase; letter-spacing:1px; color:#eef2f1; font-weight:700;">Histórico &mdash; últimos 5 dias</h2>
             <svg viewBox="0 0 600 220" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:auto; display:block;">
       <defs>
         <linearGradient id="gradHistorico" x1="0" y1="0" x2="0" y2="1">
@@ -199,8 +206,9 @@ body { margin:0; background-color:#0f2027; }
             
             <p style="margin:8px 0 0 0; font-size:10.5px; color:#7c9190; line-height:1.4;">Nível: leituras reais da ANA (estação telemétrica de Rio Pardo), a cada ~15 minutos - não é projeção.</p>
             
-            </div>
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
+            </div></div>
+    
+    <div class="g-mapa"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <style>
   #mapa-estacao { width: 100%; height: 240px; border-radius: 12px; overflow: hidden; }
@@ -220,7 +228,7 @@ body { margin:0; background-color:#0f2027; }
 </div>
 <script>
 (function() {
-  const pontos = [{"nome": "Rio Pardo", "nome_oficial": "RIO PARDO", "lat": -29.995, "lon": -52.3756, "nivel_m": 10.05, "tendencia_cm_h": -0.29166666666666785, "cota_inundacao_m": 12.5}];
+  const pontos = [{"nome": "Rio Pardo", "nome_oficial": "RIO PARDO", "lat": -29.995, "lon": -52.3756, "nivel_m": 10.05, "tendencia_cm_h": -0.20833333333333628, "cota_inundacao_m": 12.5}];
   const mapa = L.map('mapa-estacao', { scrollWheelZoom: false }).setView([-29.995, -52.3756], 15);
 
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -265,8 +273,7 @@ body { margin:0; background-color:#0f2027; }
     mapa.fitBounds(grupo.getBounds().pad(0.35));
   }
 })();
-</script>
-    </div>
+</script></div>
   </div>
   <p class="disclaimer">* O Horizonte é um projeto pessoal e independente de previsibilidade — não é um serviço oficial, não substitui e não tem qualquer vínculo com os canais da Defesa Civil. Quem escreve isso não é hidrólogo nem especialista em recursos hídricos; os números aqui são estimativas estatísticas construídas a partir de dados públicos, não uma previsão certificada. Para alertas oficiais e qualquer decisão de segurança, siga sempre a Defesa Civil do seu município ou estado.</p>
 </div>
@@ -274,7 +281,7 @@ body { margin:0; background-color:#0f2027; }
 <script>
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", function () {
-    navigator.serviceWorker.register("sw.js").catch(function () {});
+    navigator.serviceWorker.register("sw.js?v=2").catch(function () {});  // ?v=N: troca o endereço quando o sw.js muda (o CDN da Hostinger guarda o sw.js por 7 dias)
   });
 }
 window.addEventListener("load", function () {

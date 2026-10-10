@@ -39,6 +39,7 @@ body { margin:0; background-color:#0f2027; }
 .help-popup .secao-lbl:first-of-type { margin-top:0; }
 .help-popup p { font-size:13px; line-height:1.5; color:#b9c8c7; margin:0; }
 </style>
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "1a45ef1cb2ed446eae02c441db451b44"}'></script><!-- End Cloudflare Web Analytics -->
 </head>
 <body>
 <style>
@@ -69,17 +70,19 @@ body { margin:0; background-color:#0f2027; }
   .rodape-nota { font-size: 11px; color: #7c9190; line-height: 1.5; margin-top: 22px; }
   .filtro-aviso { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin: 14px 0 0 0; padding: 8px 14px; background: #1c2f33; border: 1px solid #2a3f43; border-radius: 999px; font-size: 12px; color: #7c9190; }
   .filtro-aviso a { color: #b9c8c7; text-decoration: underline; white-space: nowrap; }
-  /* Computador (09/10/2026, mesmo critério do boletim): a partir de 1000px
-     os cartões ficam em duas colunas, lidos de cima pra baixo na 1ª coluna
-     e depois na 2ª (mesma ordem do celular). Margem embaixo em vez de em
-     cima, pra as duas colunas começarem na mesma altura. Com ?rio= (um
-     cartão só) volta a uma coluna. */
+  /* Computador (10/10/2026, pedido do usuário: mesmo equilíbrio do boletim e da página dos rios - antes as duas colunas
+     de cartões terminavam em alturas diferentes): cartões em PARES da mesma altura, na ordem de sempre; os rios ainda
+     sem previsão estendida (cartão curto) vão pro fim, emparelhados entre si, pra não esticar ao lado de um cartão
+     completo. Com ?rio= (um cartão só) volta a uma coluna. Celular sem mudança. */
   @media (min-width: 1000px) {
     .wrap { max-width: 1080px; padding-top: 28px; }
-    .intro, .rodape-nota { max-width: 720px; }
-    .cards { columns: 2; column-gap: 28px; margin-top: 14px; }
-    .cards .card-rio { break-inside: avoid; margin: 0 0 14px 0; }
-    .cards.filtrado { columns: 1; max-width: 526px; }
+    .intro { max-width: 760px; }
+    .cards { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 16px 24px; margin-top: 16px;
+      align-items: stretch; }
+    .cards .card-rio { margin: 0; }
+    .cards .sem-dado-card { order: 1; }
+    .cards.filtrado { grid-template-columns: minmax(0,1fr); max-width: 526px; }
+    .rodape-nota { margin-top: 28px; padding-top: 16px; border-top: 1px solid #2a3f43; text-align: center; }
   }
 </style>
 <div class="wrap">
@@ -786,7 +789,7 @@ body { margin:0; background-color:#0f2027; }
   </div>
   <p class="rodape-nota">A chance de 10 e 30 dias é recalculada 1x por dia (mais vezes
   quando algum rio sai do Normal). O que já foi medido ("Já ultrapassou") e a chance dos
-  próximos dias são conferidos a cada 3 horas, junto com o boletim (última conferência: 10/10 às 10h28).
+  próximos dias são conferidos a cada 3 horas, junto com o boletim (última conferência: 10/10 às 14h38).
   Estimativas de longo prazo têm incerteza maior que a previsão de 5 dias - trate como
   tendência, não como número fechado. Sempre siga a orientação oficial da Defesa Civil
   do seu município.</p>
@@ -823,7 +826,7 @@ body { margin:0; background-color:#0f2027; }
 <script>
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", function () {
-    navigator.serviceWorker.register("sw.js").catch(function () {});
+    navigator.serviceWorker.register("sw.js?v=2").catch(function () {});  // ?v=N: troca o endereço quando o sw.js muda (o CDN da Hostinger guarda o sw.js por 7 dias)
   });
 }
 window.addEventListener("load", function () {

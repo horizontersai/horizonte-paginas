@@ -2,7 +2,11 @@
 // Estratégia: network-first pras páginas (boletim/mapa mudam 4x/dia, nunca
 // mostrar dado velho se tiver internet), cache-first só pros ícones/manifest
 // (não mudam). Sem isso, o app não abriria nada offline nem seria instalável.
-const CACHE = "horizonte-v1";
+// v2 (10/10/2026, revisão do site em horizonters.com): só guarda cópia de arquivos DO PRÓPRIO SITE - a v1 guardava
+// tudo, inclusive os quadradinhos do mapa (OpenStreetMap) das páginas dos rios, e o espaço no celular crescia sem
+// limite; ao ativar, apaga os caches de versões antigas. Busca as páginas com cache: "no-cache" (sempre confere com o
+// servidor - nunca mostra boletim velho se houver internet).
+const CACHE = "horizonte-v2";
 const ESTATICOS = ["manifest.json", "icon-192.png", "icon-512.png"];
 
 self.addEventListener("install", (evento) => {
@@ -13,13 +17,18 @@ self.addEventListener("install", (evento) => {
 });
 
 self.addEventListener("activate", (evento) => {
-  evento.waitUntil(self.clients.claim());
+  evento.waitUntil(
+    caches.keys()
+      .then((nomes) => Promise.all(nomes.filter((n) => n !== CACHE).map((n) => caches.delete(n))))
+      .then(() => self.clients.claim())
+  );
 });
 
 self.addEventListener("fetch", (evento) => {
   if (evento.request.method !== "GET") return;
 
   const url = new URL(evento.request.url);
+  if (url.origin !== self.location.origin) return;  // mapa, fontes etc.: o navegador cuida, sem cópia aqui
   const ehEstatico = ESTATICOS.some((f) => url.pathname.endsWith(f));
 
   if (ehEstatico) {
@@ -30,10 +39,12 @@ self.addEventListener("fetch", (evento) => {
   }
 
   evento.respondWith(
-    fetch(evento.request)
+    fetch(evento.request, { cache: "no-cache" })
       .then((resposta) => {
-        const copia = resposta.clone();
-        caches.open(CACHE).then((cache) => cache.put(evento.request, copia));
+        if (resposta.ok) {
+          const copia = resposta.clone();
+          caches.open(CACHE).then((cache) => cache.put(evento.request, copia));
+        }
         return resposta;
       })
       .catch(() => caches.match(evento.request))
