@@ -51,6 +51,17 @@ body { margin:0; background-color:#0f2027; }
   a { text-decoration: none; color: inherit; }
 
   .cabecalho { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+  .link-sobre { font-size: 12.5px; color: #e0a458; text-decoration: underline; text-underline-offset: 3px; }
+  .seu-rio { background: #16262a; border: 1px solid #2a3f43; border-radius: 14px; padding: 12px 14px; margin-bottom: 16px; }
+  .sr-topo { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+  .sr-rotulo { font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: #9fb3b3; }
+  .sr-fechar { background: none; border: 0; color: #9fb3b3; font-size: 20px; line-height: 1; cursor: pointer; padding: 0 2px; }
+  .sr-corpo { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; color: #eef2f1; text-decoration: none; }
+  .sr-nome { font-size: 16px; font-weight: 700; }
+  .sr-nivel { font-size: 20px; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .sr-faixa { font-size: 13px; font-weight: 600; }
+  .sr-tend, .sr-3d { font-size: 13px; color: #c9d6d4; }
+  .sr-ver { flex-basis: 100%; font-size: 12.5px; color: #e0a458; margin-top: 2px; }
   .logo { display: flex; align-items: center; gap: 9px; }
   .logo span { font-size: 19px; font-weight: 700; }
 
@@ -293,7 +304,30 @@ body { margin:0; background-color:#0f2027; }
 </svg>
       <span class="marca">Horizonte</span>
     </div>
+    <a href="institucional.html" class="link-sobre">O que é o Horizonte?</a>
   </div>
+  <div id="seu-rio" class="seu-rio" style="display:none;"></div>
+<script>
+(function () {
+  var D = {"santa-tereza": {"n": "Santa Tereza", "a": "3,43", "c": "#5ecb8f", "f": "Normal", "t": "&#9660; 14,0 cm/h", "p": "4,46", "pr": "Pico 3 dias", "u": "rio-santa-tereza.html"}, "mucum": {"n": "Muçum", "a": "3,65", "c": "#5ecb8f", "f": "Normal", "t": "&#9660; 20,0 cm/h", "p": "4,68", "pr": "Pico 3 dias", "u": "rio-mucum.html"}, "roca-sales": {"n": "Roca Sales", "a": "6,61", "c": "#5ecb8f", "f": "Normal", "t": "&#9660; 4,6 cm/h", "p": "6,70", "pr": "Pico 3 dias", "u": "rio-roca-sales.html"}, "encantado": {"n": "Encantado", "a": "2,16", "c": "#5ecb8f", "f": "Normal", "t": "&#9660; 8,4 cm/h", "p": "2,61", "pr": "Pico 3 dias", "u": "rio-encantado.html"}, "lajeado": {"n": "Lajeado", "a": "13,28", "c": "#5ecb8f", "f": "Normal", "t": "&#9660; 7,0 cm/h", "p": "13,59", "pr": "Pico 3 dias", "u": "rio-lajeado.html"}, "bom-retiro-do-sul": {"n": "Bom Retiro do Sul", "a": "6,77", "c": "#5ecb8f", "f": "Normal", "t": "&#9650; 4,9 cm/h", "p": "7,17", "pr": "Pico 3 dias", "u": "rio-bom-retiro-do-sul.html"}, "taquari": {"n": "Taquari", "a": "5,41", "c": "#5ecb8f", "f": "Normal", "t": "= -0,0 cm/h", "p": "5,48", "pr": "Pico 3 dias", "u": "rio-taquari.html"}, "feliz": {"n": "Feliz", "a": "1,74", "c": "#5ecb8f", "f": "Normal", "t": "= -0,5 cm/h", "p": "2,25", "pr": "Pico 3 dias", "u": "rio-feliz.html"}, "sao-sebastiao-do-cai": {"n": "São Sebastião do Caí", "a": "4,46", "c": "#5ecb8f", "f": "Normal", "t": "&#9660; 1,5 cm/h", "p": "5,56", "pr": "Pico 3 dias", "u": "rio-sao-sebastiao-do-cai.html"}, "montenegro": {"n": "Montenegro", "a": "2,96", "c": "#5ecb8f", "f": "Normal", "t": "&#9660; 1,1 cm/h", "p": "3,61", "pr": "Pico 3 dias", "u": "rio-montenegro.html"}, "gravatai": {"n": "Gravataí", "a": "3,63", "c": "#f0a839", "f": "Elevado", "t": "= -0,0 cm/h", "p": "3,50", "pr": "Em 3 dias", "u": "rio-gravatai.html"}, "dona-francisca": {"n": "Dona Francisca", "a": "4,77", "c": "#5ecb8f", "f": "Normal", "t": "&#9660; 6,6 cm/h", "p": "4,85", "pr": "Pico 3 dias", "u": "rio-dona-francisca.html"}, "cachoeira-do-sul": {"n": "Cachoeira do Sul", "a": "8,92", "c": "#ef8a4d", "f": "Muito alto", "t": "= -0,0 cm/h", "p": "7,94", "pr": "Em 3 dias", "u": "rio-cachoeira-do-sul.html"}, "rio-pardo": {"n": "Rio Pardo", "a": "10,05", "c": "#f0a839", "f": "Elevado", "t": "= -0,0 cm/h", "p": null, "pr": "Pico", "u": "rio-rio-pardo.html"}, "sao-jeronimo": {"n": "São Jerônimo", "a": "3,55", "c": "#f0a839", "f": "Elevado", "t": "&#9660; 0,6 cm/h", "p": null, "pr": "Pico", "u": "rio-sao-jeronimo.html"}, "eldorado-do-sul-itai": {"n": "Eldorado do Sul (Itaí)", "a": "1,55", "c": "#7c9190", "f": "", "t": "&#9650; 0,5 cm/h", "p": null, "pr": "Pico", "u": "rio-eldorado-do-sul-itai.html"}, "taquara": {"n": "Taquara", "a": "1,22", "c": "#5ecb8f", "f": "Normal", "t": "?", "p": "2,00", "pr": "Pico 3 dias", "u": "rio-taquara.html"}, "campo-bom": {"n": "Campo Bom", "a": "3,72", "c": "#5ecb8f", "f": "Normal", "t": "&#9660; 0,8 cm/h", "p": "4,31", "pr": "Pico 3 dias", "u": "rio-campo-bom.html"}, "sao-leopoldo": {"n": "São Leopoldo", "a": "3,15", "c": "#5ecb8f", "f": "Normal", "t": "&#9660; 0,5 cm/h", "p": "3,16", "pr": "Pico 3 dias", "u": "rio-sao-leopoldo.html"}}, s = null;
+  try { s = localStorage.getItem("horizonte_rio"); } catch (e) { return; }
+  var r = s && D[s]; if (!r) return;
+  var el = document.getElementById("seu-rio");
+  var tres = r.p ? '<span class="sr-3d">' + r.pr + ': <b>' + r.p + ' m</b></span>' : '';
+  el.innerHTML = '<div class="sr-topo"><span class="sr-rotulo">Seu rio</span>' +
+    '<button type="button" class="sr-fechar" aria-label="Esquecer este rio" title="Esquecer este rio">&times;</button></div>' +
+    '<a class="sr-corpo" href="' + r.u + '"><span class="sr-nome">' + r.n + '</span>' +
+    '<span class="sr-nivel" style="color:' + r.c + ';">' + r.a + ' m</span>' +
+    '<span class="sr-faixa" style="color:' + r.c + ';">' + r.f + '</span>' +
+    '<span class="sr-tend">' + r.t + '</span>' + tres +
+    '<span class="sr-ver">Ver página do rio &rarr;</span></a>';
+  el.style.display = "";
+  el.querySelector(".sr-fechar").onclick = function () {
+    try { localStorage.removeItem("horizonte_rio"); } catch (e) {}
+    el.style.display = "none";
+  };
+})();
+</script>
   
   
   <div class="painel">
@@ -302,23 +336,23 @@ body { margin:0; background-color:#0f2027; }
       <div class="hero-topo">
         <div>
           <div class="hero-local">Guaíba &middot; Cais Mauá</div>
-          <div class="hero-atualizado">Leitura 12/10 &middot; 09:15 &middot; gerado 10:29</div>
+          <div class="hero-atualizado">Leitura 12/10 &middot; 12:00 &middot; gerado 13:29</div>
         </div>
         <span class="pill-status" style="margin-right:30px; background:#3a2f18; color:#f0a839; border:1px solid #5c4a26;"><span class="ponto"></span>Atenção</span>
       </div>
-      <p class="hero-resumo">Pico provável até Sáb 17/10 (previsão das 7h28): 2,30 m (entre 2,14 e 2,58 m), na faixa de Atenção. Chance baixa de passar de 2,50 m (Alerta) nesse período.</p>
+      <p class="hero-resumo">Pico provável até Sáb 17/10: 2,28 m (entre 2,12 e 2,56 m), na faixa de Atenção. Chance baixa de passar de 2,50 m (Alerta) nesse período.</p>
       <div class="hero-numero">
-        <span class="valor" style="color:#f0a839;">2,11</span>
+        <span class="valor" style="color:#f0a839;">2,09</span>
         <span class="unidade">m</span>
-        <span class="tendencia" style="color:#5ecb8f;">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#5ecb8f" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="queda"><title>queda</title><path d="M3 7l8 8 4-4 6 6"></path><path d="M17 17h6v-6"></path></svg>
-          queda &middot; &#9660; 0,9 cm/h
+        <span class="tendencia" style="color:#7c9190;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#7c9190" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="estável"><title>estável</title><path d="M3 12h18"></path><path d="M17 8l4 4-4 4"></path></svg>
+          estável &middot; = -0,5 cm/h
         </span>
       </div>
       <p class="nota-hero-extra">Nível normal: 0,93 m</p>
       
       <div class="barra" style="background:linear-gradient(90deg, #5ecb8f 0%, #5ecb8f 66.7%, #f0a839 66.7%, #f0a839 83.3%, #ef8a4d 83.3%, #ef4d6b 100%);">
-        <div class="sombra" style="width:29.7%"></div>
+        <div class="sombra" style="width:30.3%"></div>
       </div>
       <p class="nota-hero-extra" style="text-align:right;">70% da cota de inundação</p>
       <div class="hero-legenda-cotas">
@@ -333,7 +367,7 @@ body { margin:0; background-color:#0f2027; }
         <summary>
           <span class="help-slot" data-help="rios-atencao"></span>
           <span class="disclosure-seta">&#9656;</span>
-          Outros rios em atenção (6)
+          Outros rios em atenção (4)
         </summary>
         <div class="disclosure-corpo">
           <div class="rios-atencao-lista">
@@ -361,18 +395,6 @@ body { margin:0; background-color:#0f2027; }
           <span class="tier" style="color:#f0a839;">Elevado</span>
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#7c9190" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="estável"><title>estável</title><path d="M3 12h18"></path><path d="M17 8l4 4-4 4"></path></svg>
           
-        </a><a href="rio-lajeado.html" class="rio-atencao-chip" style="border-color:#f0a839;">
-          <span class="ponto" style="background:#f0a839;"></span>
-          <span class="nome">Lajeado</span>
-          <span class="tier" style="color:#f0a839;">Elevado</span>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ef4d6b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="subida"><title>subida</title><path d="M3 17l8-8 4 4 6-6"></path><path d="M17 7h6v6"></path></svg>
-          
-        </a><a href="rio-sao-leopoldo.html" class="rio-atencao-chip" style="border-color:#f0a839;">
-          <span class="ponto" style="background:#f0a839;"></span>
-          <span class="nome">São Leopoldo</span>
-          <span class="tier" style="color:#f0a839;">Elevado</span>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#7c9190" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="estável"><title>estável</title><path d="M3 12h18"></path><path d="M17 8l4 4-4 4"></path></svg>
-          
         </a>
           </div>
         </div>
@@ -384,12 +406,12 @@ body { margin:0; background-color:#0f2027; }
         <span class="help-slot" data-help="previsao-dias"></span>
       </div>
       <div class="card" style="padding:18px 20px;">
-        <p class="f2-aviso">Previsão da atualização das 7h28: a seguinte ficou sem os dados necessários (fonte fora do ar). O nível de agora está no quadro de cima.</p><p class="f2-titulo"><span class="f2-chance" style="background:#2a3d3a; color:#6fa86f;">Chance baixa</span> de passar da cota de alerta até <span style="white-space:nowrap;"><span class="data-chip"><b>QUI</b> 15/10</span></span></p><div class="gl"><div class="gl-topo"><span class="gl-v" style="left:22.2%;transform:translateX(-50%);color:#f0a839;">2,12<small>m</small></span><span class="gl-v" style="left:44.4%;transform:translateX(-50%);color:#f0a839;">2,16<small>m</small></span><span class="gl-v" style="left:66.7%;transform:translateX(-50%);color:#ef8a4d;">2,26<small>m</small></span><span class="gl-v" style="left:96.3%;transform:translateX(-100%);color:#ef8a4d;">2,30<small>m</small></span></div><div class="gl-plot"><svg viewBox="0 0 300 150" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><linearGradient id="cm1a" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C48A4A" stop-opacity="0.5"/><stop offset="1" stop-color="#C48A4A" stop-opacity="0.02"/></linearGradient><pattern id="cm1h" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#ffffff" stroke-width="2" stroke-opacity="0.08"/></pattern><clipPath id="cm1c"><rect x="0" y="0" width="300" height="55.2"/></clipPath></defs><line x1="0" y1="112.6" x2="300" y2="112.6" stroke="#2a3f43" stroke-width="1" vector-effect="non-scaling-stroke"/><line x1="0" y1="55.2" x2="300" y2="55.2" stroke="#2a3f43" stroke-width="1" vector-effect="non-scaling-stroke"/><rect x="66.7" y="0" width="233.3" height="150" fill="#ffffff" fill-opacity="0.035"/><line x1="66.7" y1="0" x2="66.7" y2="150" stroke="#7c9190" stroke-width="1" stroke-dasharray="2,3" vector-effect="non-scaling-stroke"/><line x1="0" y1="55.2" x2="300" y2="55.2" stroke="#ef5a4d" stroke-width="1.5" stroke-dasharray="5,4" vector-effect="non-scaling-stroke"/><polygon points="0.0,150 0.0,97.7 1.9,96.5 3.7,95.4 7.4,96.5 9.3,95.4 11.1,96.5 13.0,95.4 14.8,96.5 16.7,97.7 18.5,97.7 20.4,97.7 22.2,97.7 24.1,96.5 25.9,95.4 27.8,95.4 29.6,95.4 31.5,95.4 33.3,96.5 35.2,95.4 37.0,95.4 38.9,95.4 42.6,96.5 44.4,95.4 46.3,95.4 48.1,94.2 50.0,95.4 51.9,95.4 53.7,95.4 55.6,96.5 59.3,97.7 61.1,97.7 63.0,98.8 64.8,98.8 66.7,98.8 66.7,150" fill="url(#cm1a)"/><polyline points="0.0,97.7 1.9,96.5 3.7,95.4 7.4,96.5 9.3,95.4 11.1,96.5 13.0,95.4 14.8,96.5 16.7,97.7 18.5,97.7 20.4,97.7 22.2,97.7 24.1,96.5 25.9,95.4 27.8,95.4 29.6,95.4 31.5,95.4 33.3,96.5 35.2,95.4 37.0,95.4 38.9,95.4 42.6,96.5 44.4,95.4 46.3,95.4 48.1,94.2 50.0,95.4 51.9,95.4 53.7,95.4 55.6,96.5 59.3,97.7 61.1,97.7 63.0,98.8 64.8,98.8 66.7,98.8" fill="none" stroke="#C48A4A" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"/><polyline points="66.7,98.8 133.3,94.2 200.0,82.8 288.9,78.2" fill="none" stroke="#C48A4A" stroke-width="2.6" stroke-dasharray="7,5" stroke-linecap="round" vector-effect="non-scaling-stroke"/><polyline points="66.7,98.8 133.3,94.2 200.0,82.8 288.9,78.2" fill="none" stroke="#ef5a4d" stroke-width="2.8" stroke-dasharray="7,5" stroke-linecap="round" clip-path="url(#cm1c)" vector-effect="non-scaling-stroke"/></svg><span class="gl-y" style="top:75.1%;">2,0 m</span><span class="gl-y" style="top:36.8%;">2,5 m</span><i class="gl-pt" style="left:22.2%;top:65.9%;background:#f0a839;"></i><i class="gl-pt" style="left:44.4%;top:62.8%;background:#f0a839;"></i><i class="gl-pt" style="left:66.7%;top:55.2%;background:#ef8a4d;"></i><i class="gl-pt" style="left:96.3%;top:52.1%;background:#ef8a4d;"></i><span class="gl-cota" style="right:2px;top:36.8%;">alerta 2,50 m</span></div><div class="gl-eixo"><span class="gl-d gl-agora" style="left:22.2%;transform:translateX(-50%);">7h28</span><span class="gl-d data-chip" style="left:44.4%;transform:translateX(-50%);"><b>TER</b><br>13/10</span><span class="gl-d data-chip" style="left:66.7%;transform:translateX(-50%);"><b>QUI</b><br>15/10</span><span class="gl-d data-chip" style="left:96.3%;transform:translateX(-100%);"><b>SÁB</b><br>17/10</span></div></div>
+        <p class="f2-titulo"><span class="f2-chance" style="background:#2a3d3a; color:#6fa86f;">Chance baixa</span> de passar da cota de alerta até <span style="white-space:nowrap;"><span class="data-chip"><b>SÁB</b> 17/10</span></span></p><div class="gl"><div class="gl-topo"><span class="gl-v" style="left:22.2%;transform:translateX(-50%);color:#f0a839;">2,09<small>m</small></span><span class="gl-v" style="left:44.4%;transform:translateX(-50%);color:#f0a839;">2,13<small>m</small></span><span class="gl-v" style="left:66.7%;transform:translateX(-50%);color:#f0a839;">2,24<small>m</small></span><span class="gl-v" style="left:96.3%;transform:translateX(-100%);color:#ef8a4d;">2,28<small>m</small></span></div><div class="gl-plot"><svg viewBox="0 0 300 150" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><linearGradient id="cm1a" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C48A4A" stop-opacity="0.5"/><stop offset="1" stop-color="#C48A4A" stop-opacity="0.02"/></linearGradient><pattern id="cm1h" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#ffffff" stroke-width="2" stroke-opacity="0.08"/></pattern><clipPath id="cm1c"><rect x="0" y="0" width="300" height="53.4"/></clipPath></defs><line x1="0" y1="110.9" x2="300" y2="110.9" stroke="#2a3f43" stroke-width="1" vector-effect="non-scaling-stroke"/><line x1="0" y1="53.4" x2="300" y2="53.4" stroke="#2a3f43" stroke-width="1" vector-effect="non-scaling-stroke"/><rect x="66.7" y="0" width="233.3" height="150" fill="#ffffff" fill-opacity="0.035"/><line x1="66.7" y1="0" x2="66.7" y2="150" stroke="#7c9190" stroke-width="1" stroke-dasharray="2,3" vector-effect="non-scaling-stroke"/><line x1="0" y1="53.4" x2="300" y2="53.4" stroke="#ef5a4d" stroke-width="1.5" stroke-dasharray="5,4" vector-effect="non-scaling-stroke"/><polygon points="0.0,150 0.0,94.8 1.9,93.7 3.7,94.8 5.6,96.0 7.4,96.0 9.3,96.0 11.1,96.0 13.0,94.8 14.8,93.7 16.7,93.7 18.5,93.7 20.4,93.7 22.2,94.8 24.1,93.7 25.9,93.7 27.8,93.7 31.5,94.8 33.3,93.7 35.2,93.7 37.0,92.5 38.9,93.7 40.7,93.7 42.6,93.7 44.4,94.8 48.1,96.0 50.0,96.0 51.9,97.1 53.7,97.1 55.6,97.1 57.4,97.1 59.3,98.3 63.0,99.4 64.8,99.4 66.7,100.6 66.7,150" fill="url(#cm1a)"/><polyline points="0.0,94.8 1.9,93.7 3.7,94.8 5.6,96.0 7.4,96.0 9.3,96.0 11.1,96.0 13.0,94.8 14.8,93.7 16.7,93.7 18.5,93.7 20.4,93.7 22.2,94.8 24.1,93.7 25.9,93.7 27.8,93.7 31.5,94.8 33.3,93.7 35.2,93.7 37.0,92.5 38.9,93.7 40.7,93.7 42.6,93.7 44.4,94.8 48.1,96.0 50.0,96.0 51.9,97.1 53.7,97.1 55.6,97.1 57.4,97.1 59.3,98.3 63.0,99.4 64.8,99.4 66.7,100.6" fill="none" stroke="#C48A4A" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"/><polyline points="66.7,100.6 133.3,96.0 200.0,83.3 288.9,78.7" fill="none" stroke="#C48A4A" stroke-width="2.6" stroke-dasharray="7,5" stroke-linecap="round" vector-effect="non-scaling-stroke"/><polyline points="66.7,100.6 133.3,96.0 200.0,83.3 288.9,78.7" fill="none" stroke="#ef5a4d" stroke-width="2.8" stroke-dasharray="7,5" stroke-linecap="round" clip-path="url(#cm1c)" vector-effect="non-scaling-stroke"/></svg><span class="gl-y" style="top:73.9%;">2,0 m</span><span class="gl-y" style="top:35.6%;">2,5 m</span><i class="gl-pt" style="left:22.2%;top:67.0%;background:#f0a839;"></i><i class="gl-pt" style="left:44.4%;top:64.0%;background:#f0a839;"></i><i class="gl-pt" style="left:66.7%;top:55.5%;background:#f0a839;"></i><i class="gl-pt" style="left:96.3%;top:52.5%;background:#ef8a4d;"></i><span class="gl-cota" style="right:2px;top:35.6%;">alerta 2,50 m</span></div><div class="gl-eixo"><span class="gl-d gl-agora" style="left:22.2%;transform:translateX(-50%);">AGORA</span><span class="gl-d data-chip" style="left:44.4%;transform:translateX(-50%);"><b>QUA</b><br>14/10</span><span class="gl-d data-chip" style="left:66.7%;transform:translateX(-50%);"><b>QUI</b><br>15/10</span><span class="gl-d data-chip" style="left:96.3%;transform:translateX(-100%);"><b>SÁB</b><br>17/10</span><span class="gl-passado" style="left:7.4%;transform:translateX(0);">dom</span></div></div>
       </div>
     </div></div>
     <div class="p-rios"><div class="secao">
       <div class="secao-titulo">
-        <span>Rios monitorados <span class="pr-contagem"><span class="pr-tier" style="color:#5ecb8f;"><span class="pr-ponto" style="background:#5ecb8f;"></span>Normal 12</span><span class="pr-tier" style="color:#f0a839;"><span class="pr-ponto" style="background:#f0a839;"></span>Elevado 5</span><span class="pr-tier" style="color:#ef8a4d;"><span class="pr-ponto" style="background:#ef8a4d;"></span>Muito alto 1</span></span></span>
+        <span>Rios monitorados <span class="pr-contagem"><span class="pr-tier" style="color:#5ecb8f;"><span class="pr-ponto" style="background:#5ecb8f;"></span>Normal 14</span><span class="pr-tier" style="color:#f0a839;"><span class="pr-ponto" style="background:#f0a839;"></span>Elevado 3</span><span class="pr-tier" style="color:#ef8a4d;"><span class="pr-ponto" style="background:#ef8a4d;"></span>Muito alto 1</span></span></span>
         <a href="demais-rios.html" class="pr-mais">Ver detalhes &rarr;</a>
       </div>
       <div class="card pr-card">
@@ -398,66 +420,66 @@ body { margin:0; background-color:#0f2027; }
           <a href="rio-santa-tereza.html" class="pr-linha">
             <span class="pr-ponto" style="background:#5ecb8f;"></span>
             <span class="pr-nome">Santa Tereza<span class="pr-icones"><span title="Aviso do INMET: Tempestade" style="color:#FFFE00;">&#9888;</span></span></span>
-            <span class="pr-agora" style="color:#5ecb8f;">3,67</span>
+            <span class="pr-agora" style="color:#5ecb8f;">3,43</span>
             <span class="pr-seta"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#5ecb8f" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="queda"><title>queda</title><path d="M3 7l8 8 4-4 6 6"></path><path d="M17 17h6v-6"></path></svg></span>
-            <span class="pr-3d" style="color:#5ecb8f;" title="Pico 3 dias">4,71</span>
+            <span class="pr-3d" style="color:#5ecb8f;" title="Pico 3 dias">4,46</span>
           </a><a href="rio-mucum.html" class="pr-linha">
             <span class="pr-ponto" style="background:#5ecb8f;"></span>
             <span class="pr-nome">Muçum<span class="pr-icones"><span title="Aviso do INMET: Tempestade" style="color:#FFFE00;">&#9888;</span></span></span>
-            <span class="pr-agora" style="color:#5ecb8f;">4,31</span>
+            <span class="pr-agora" style="color:#5ecb8f;">3,65</span>
             <span class="pr-seta"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#5ecb8f" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="queda"><title>queda</title><path d="M3 7l8 8 4-4 6 6"></path><path d="M17 17h6v-6"></path></svg></span>
-            <span class="pr-3d" style="color:#5ecb8f;" title="Pico 3 dias">5,55</span>
+            <span class="pr-3d" style="color:#5ecb8f;" title="Pico 3 dias">4,68</span>
           </a><a href="rio-roca-sales.html" class="pr-linha">
             <span class="pr-ponto" style="background:#5ecb8f;"></span>
             <span class="pr-nome">Roca Sales<span class="pr-icones"></span></span>
-            <span class="pr-agora" style="color:#5ecb8f;">6,75</span>
+            <span class="pr-agora" style="color:#5ecb8f;">6,61</span>
             <span class="pr-seta"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#5ecb8f" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="queda"><title>queda</title><path d="M3 7l8 8 4-4 6 6"></path><path d="M17 17h6v-6"></path></svg></span>
-            <span class="pr-3d" style="color:#5ecb8f;" title="Pico 3 dias">7,31</span>
+            <span class="pr-3d" style="color:#5ecb8f;" title="Pico 3 dias">6,70</span>
           </a><a href="rio-encantado.html" class="pr-linha">
             <span class="pr-ponto" style="background:#5ecb8f;"></span>
             <span class="pr-nome">Encantado<span class="pr-icones"></span></span>
-            <span class="pr-agora" style="color:#5ecb8f;">2,47</span>
+            <span class="pr-agora" style="color:#5ecb8f;">2,16</span>
             <span class="pr-seta"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#5ecb8f" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="queda"><title>queda</title><path d="M3 7l8 8 4-4 6 6"></path><path d="M17 17h6v-6"></path></svg></span>
-            <span class="pr-3d" style="color:#5ecb8f;" title="Pico 3 dias">3,22</span>
+            <span class="pr-3d" style="color:#5ecb8f;" title="Pico 3 dias">2,61</span>
           </a><a href="rio-lajeado.html" class="pr-linha">
-            <span class="pr-ponto" style="background:#f0a839;"></span>
+            <span class="pr-ponto" style="background:#5ecb8f;"></span>
             <span class="pr-nome">Lajeado<span class="pr-icones"></span></span>
-            <span class="pr-agora" style="color:#f0a839;">13,49</span>
-            <span class="pr-seta"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#ef4d6b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="subida"><title>subida</title><path d="M3 17l8-8 4 4 6-6"></path><path d="M17 7h6v6"></path></svg></span>
-            <span class="pr-3d" style="color:#f0a839;" title="Pico 3 dias">14,12</span>
+            <span class="pr-agora" style="color:#5ecb8f;">13,28</span>
+            <span class="pr-seta"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#5ecb8f" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="queda"><title>queda</title><path d="M3 7l8 8 4-4 6 6"></path><path d="M17 17h6v-6"></path></svg></span>
+            <span class="pr-3d" style="color:#f0a839;" title="Pico 3 dias">13,59</span>
           </a><a href="rio-bom-retiro-do-sul.html" class="pr-linha">
             <span class="pr-ponto" style="background:#5ecb8f;"></span>
             <span class="pr-nome">Bom Retiro do Sul<span class="pr-icones"></span></span>
-            <span class="pr-agora" style="color:#5ecb8f;">6,70</span>
+            <span class="pr-agora" style="color:#5ecb8f;">6,77</span>
             <span class="pr-seta"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#ef4d6b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="subida"><title>subida</title><path d="M3 17l8-8 4 4 6-6"></path><path d="M17 7h6v6"></path></svg></span>
-            <span class="pr-3d" style="color:#5ecb8f;" title="Pico 3 dias">7,46</span>
+            <span class="pr-3d" style="color:#5ecb8f;" title="Pico 3 dias">7,17</span>
           </a><a href="rio-taquari.html" class="pr-linha">
             <span class="pr-ponto" style="background:#5ecb8f;"></span>
             <span class="pr-nome">Taquari<span class="pr-icones"></span></span>
             <span class="pr-agora" style="color:#5ecb8f;">5,41</span>
-            <span class="pr-seta"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#5ecb8f" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="queda"><title>queda</title><path d="M3 7l8 8 4-4 6 6"></path><path d="M17 17h6v-6"></path></svg></span>
-            <span class="pr-3d" style="color:#5ecb8f;" title="Pico 3 dias">5,46</span>
+            <span class="pr-seta"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#7c9190" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="estável"><title>estável</title><path d="M3 12h18"></path><path d="M17 8l4 4-4 4"></path></svg></span>
+            <span class="pr-3d" style="color:#5ecb8f;" title="Pico 3 dias">5,48</span>
           </a>
         </div><div class="pr-grupo">
           <div class="pr-grupo-topo"><span>Caí</span><span class="pr-cab">agora</span><span></span><span class="pr-cab">3 dias</span></div>
           <a href="rio-feliz.html" class="pr-linha">
             <span class="pr-ponto" style="background:#5ecb8f;"></span>
             <span class="pr-nome">Feliz<span class="pr-icones"></span></span>
-            <span class="pr-agora" style="color:#5ecb8f;">1,75</span>
-            <span class="pr-seta"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#5ecb8f" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="queda"><title>queda</title><path d="M3 7l8 8 4-4 6 6"></path><path d="M17 17h6v-6"></path></svg></span>
-            <span class="pr-3d" style="color:#5ecb8f;" title="Pico 3 dias">2,14</span>
+            <span class="pr-agora" style="color:#5ecb8f;">1,74</span>
+            <span class="pr-seta"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#7c9190" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="estável"><title>estável</title><path d="M3 12h18"></path><path d="M17 8l4 4-4 4"></path></svg></span>
+            <span class="pr-3d" style="color:#5ecb8f;" title="Pico 3 dias">2,25</span>
           </a><a href="rio-sao-sebastiao-do-cai.html" class="pr-linha">
             <span class="pr-ponto" style="background:#5ecb8f;"></span>
             <span class="pr-nome">São Sebastião do Caí<span class="pr-icones"></span></span>
-            <span class="pr-agora" style="color:#5ecb8f;">4,50</span>
+            <span class="pr-agora" style="color:#5ecb8f;">4,46</span>
             <span class="pr-seta"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#5ecb8f" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="queda"><title>queda</title><path d="M3 7l8 8 4-4 6 6"></path><path d="M17 17h6v-6"></path></svg></span>
-            <span class="pr-3d" style="color:#5ecb8f;" title="Pico 3 dias">5,11</span>
+            <span class="pr-3d" style="color:#5ecb8f;" title="Pico 3 dias">5,56</span>
           </a><a href="rio-montenegro.html" class="pr-linha">
             <span class="pr-ponto" style="background:#5ecb8f;"></span>
             <span class="pr-nome">Montenegro<span class="pr-icones"></span></span>
-            <span class="pr-agora" style="color:#5ecb8f;">2,99</span>
+            <span class="pr-agora" style="color:#5ecb8f;">2,96</span>
             <span class="pr-seta"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#5ecb8f" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="queda"><title>queda</title><path d="M3 7l8 8 4-4 6 6"></path><path d="M17 17h6v-6"></path></svg></span>
-            <span class="pr-3d" style="color:#5ecb8f;" title="Pico 3 dias">3,17</span>
+            <span class="pr-3d" style="color:#5ecb8f;" title="Pico 3 dias">3,61</span>
           </a>
         </div><div class="pr-grupo">
           <div class="pr-grupo-topo"><span>Gravataí</span><span class="pr-cab">agora</span><span></span><span class="pr-cab">3 dias</span></div>
@@ -473,19 +495,19 @@ body { margin:0; background-color:#0f2027; }
           <a href="rio-dona-francisca.html" class="pr-linha">
             <span class="pr-ponto" style="background:#5ecb8f;"></span>
             <span class="pr-nome">Dona Francisca<span class="pr-icones"></span></span>
-            <span class="pr-agora" style="color:#5ecb8f;">5,01</span>
+            <span class="pr-agora" style="color:#5ecb8f;">4,77</span>
             <span class="pr-seta"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#5ecb8f" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="queda"><title>queda</title><path d="M3 7l8 8 4-4 6 6"></path><path d="M17 17h6v-6"></path></svg></span>
-            <span class="pr-3d" style="color:#f0a839;" title="Pico 3 dias">5,35</span>
+            <span class="pr-3d" style="color:#5ecb8f;" title="Pico 3 dias">4,85</span>
           </a><a href="rio-cachoeira-do-sul.html" class="pr-linha">
             <span class="pr-ponto" style="background:#ef8a4d;"></span>
             <span class="pr-nome">Cachoeira do Sul<span class="pr-icones"></span></span>
-            <span class="pr-agora" style="color:#ef8a4d;">8,93</span>
+            <span class="pr-agora" style="color:#ef8a4d;">8,92</span>
             <span class="pr-seta"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#7c9190" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="estável"><title>estável</title><path d="M3 12h18"></path><path d="M17 8l4 4-4 4"></path></svg></span>
-            <span class="pr-3d" style="color:#ef8a4d;" title="Pico 3 dias">8,95</span>
+            <span class="pr-3d" style="color:#f0a839;" title="Em 3 dias">7,94</span>
           </a><a href="rio-rio-pardo.html" class="pr-linha">
             <span class="pr-ponto" style="background:#f0a839;"></span>
             <span class="pr-nome">Rio Pardo<span class="pr-icones"></span></span>
-            <span class="pr-agora" style="color:#f0a839;">10,06</span>
+            <span class="pr-agora" style="color:#f0a839;">10,05</span>
             <span class="pr-seta"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#7c9190" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="estável"><title>estável</title><path d="M3 12h18"></path><path d="M17 8l4 4-4 4"></path></svg></span>
             <span class="pr-3d">&mdash;</span>
           </a><a href="rio-sao-jeronimo.html" class="pr-linha">
@@ -497,8 +519,8 @@ body { margin:0; background-color:#0f2027; }
           </a><a href="rio-eldorado-do-sul-itai.html" class="pr-linha">
             <span class="pr-ponto" style="background:#7c9190;"></span>
             <span class="pr-nome">Eldorado do Sul (Itaí)<span class="pr-icones"></span></span>
-            <span class="pr-agora" style="color:#7c9190;">1,53</span>
-            <span class="pr-seta"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#5ecb8f" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="queda"><title>queda</title><path d="M3 7l8 8 4-4 6 6"></path><path d="M17 17h6v-6"></path></svg></span>
+            <span class="pr-agora" style="color:#7c9190;">1,55</span>
+            <span class="pr-seta"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#ef4d6b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="subida"><title>subida</title><path d="M3 17l8-8 4 4 6-6"></path><path d="M17 7h6v6"></path></svg></span>
             <span class="pr-3d">&mdash;</span>
           </a>
         </div><div class="pr-grupo">
@@ -506,21 +528,21 @@ body { margin:0; background-color:#0f2027; }
           <a href="rio-taquara.html" class="pr-linha">
             <span class="pr-ponto" style="background:#5ecb8f;"></span>
             <span class="pr-nome">Taquara<span class="pr-icones"></span></span>
-            <span class="pr-agora" style="color:#5ecb8f;">1,23</span>
-            <span class="pr-seta"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#5ecb8f" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="queda"><title>queda</title><path d="M3 7l8 8 4-4 6 6"></path><path d="M17 17h6v-6"></path></svg></span>
-            <span class="pr-3d" style="color:#5ecb8f;" title="Pico 3 dias">1,70</span>
+            <span class="pr-agora" style="color:#5ecb8f;">1,22</span>
+            <span class="pr-seta"></span>
+            <span class="pr-3d" style="color:#5ecb8f;" title="Pico 3 dias">2,00</span>
           </a><a href="rio-campo-bom.html" class="pr-linha">
             <span class="pr-ponto" style="background:#5ecb8f;"></span>
             <span class="pr-nome">Campo Bom<span class="pr-icones"></span></span>
-            <span class="pr-agora" style="color:#5ecb8f;">3,75</span>
+            <span class="pr-agora" style="color:#5ecb8f;">3,72</span>
             <span class="pr-seta"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#5ecb8f" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="queda"><title>queda</title><path d="M3 7l8 8 4-4 6 6"></path><path d="M17 17h6v-6"></path></svg></span>
-            <span class="pr-3d" style="color:#5ecb8f;" title="Pico 3 dias">4,12</span>
+            <span class="pr-3d" style="color:#5ecb8f;" title="Pico 3 dias">4,31</span>
           </a><a href="rio-sao-leopoldo.html" class="pr-linha">
-            <span class="pr-ponto" style="background:#f0a839;"></span>
+            <span class="pr-ponto" style="background:#5ecb8f;"></span>
             <span class="pr-nome">São Leopoldo<span class="pr-icones"></span></span>
-            <span class="pr-agora" style="color:#f0a839;">3,16</span>
-            <span class="pr-seta"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#7c9190" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="estável"><title>estável</title><path d="M3 12h18"></path><path d="M17 8l4 4-4 4"></path></svg></span>
-            <span class="pr-3d" style="color:#f0a839;" title="Pico 3 dias">3,17</span>
+            <span class="pr-agora" style="color:#5ecb8f;">3,15</span>
+            <span class="pr-seta"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#5ecb8f" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="queda"><title>queda</title><path d="M3 7l8 8 4-4 6 6"></path><path d="M17 17h6v-6"></path></svg></span>
+            <span class="pr-3d" style="color:#f0a839;" title="Pico 3 dias">3,16</span>
           </a>
         </div></div>
         <p class="pr-nota">Nível em metros, na cor da faixa de cada rio. "3 dias": o maior nível mais provável até 3 dias (ou o nível em 3 dias, quando o rio está baixando). Clique num rio para ver a previsão completa.</p>
@@ -548,26 +570,26 @@ body { margin:0; background-color:#0f2027; }
               <div class="chuva-nome">Taquari</div>
               <div class="chuva-local">Lajeado</div>
             </div>
-            <div class="chuva-total" style="color:#ef8a4d;">40,0<span class="un"> mm</span></div>
+            <div class="chuva-total" style="color:#ef8a4d;">39,4<span class="un"> mm</span></div>
           </div>
           <div class="chuva-dias"><div class="chuva-dia-item">
               <div class="chuva-dia-lbl">Hoje<br>12/10</div>
-              <span class="chuva-bola" style="border-color:#f0a839;">19,0</span>
+              <span class="chuva-bola" style="border-color:#f0a839;">19,8</span>
             </div><div class="chuva-dia-item">
               <div class="chuva-dia-lbl">Ter<br>13/10</div>
-              <span class="chuva-bola" style="border-color:#f0a839;">7,0</span>
+              <span class="chuva-bola" style="border-color:#f0a839;">6,2</span>
             </div><div class="chuva-dia-item">
               <div class="chuva-dia-lbl">Qua<br>14/10</div>
               <span class="chuva-bola" style="border-color:#7c9190;">2,3</span>
             </div><div class="chuva-dia-item">
               <div class="chuva-dia-lbl">Qui<br>15/10</div>
-              <span class="chuva-bola" style="border-color:#7c9190;">3,9</span>
+              <span class="chuva-bola" style="border-color:#7c9190;">4,3</span>
             </div><div class="chuva-dia-item">
               <div class="chuva-dia-lbl">Sex<br>16/10</div>
-              <span class="chuva-bola" style="border-color:#7c9190;">3,5</span>
+              <span class="chuva-bola" style="border-color:#7c9190;">2,8</span>
             </div><div class="chuva-dia-item">
               <div class="chuva-dia-lbl">Sáb<br>17/10</div>
-              <span class="chuva-bola" style="border-color:#7c9190;">4,3</span>
+              <span class="chuva-bola" style="border-color:#7c9190;">4,0</span>
             </div></div>
         </div><div class="chuva-linha">
           <div class="chuva-cabecalho">
@@ -575,26 +597,26 @@ body { margin:0; background-color:#0f2027; }
               <div class="chuva-nome">Caí</div>
               <div class="chuva-local">São Sebastião do Caí</div>
             </div>
-            <div class="chuva-total" style="color:#ef4d6b;">51,2<span class="un"> mm</span></div>
+            <div class="chuva-total" style="color:#ef8a4d;">48,8<span class="un"> mm</span></div>
           </div>
           <div class="chuva-dias"><div class="chuva-dia-item">
               <div class="chuva-dia-lbl">Hoje<br>12/10</div>
-              <span class="chuva-bola" style="border-color:#f0a839;">18,5</span>
+              <span class="chuva-bola" style="border-color:#f0a839;">17,9</span>
             </div><div class="chuva-dia-item">
               <div class="chuva-dia-lbl">Ter<br>13/10</div>
-              <span class="chuva-bola" style="border-color:#f0a839;">5,1</span>
+              <span class="chuva-bola" style="border-color:#7c9190;">4,2</span>
             </div><div class="chuva-dia-item">
               <div class="chuva-dia-lbl">Qua<br>14/10</div>
               <span class="chuva-bola" style="border-color:#7c9190;">2,6</span>
             </div><div class="chuva-dia-item">
               <div class="chuva-dia-lbl">Qui<br>15/10</div>
-              <span class="chuva-bola" style="border-color:#f0a839;">9,7</span>
+              <span class="chuva-bola" style="border-color:#f0a839;">10,6</span>
             </div><div class="chuva-dia-item">
               <div class="chuva-dia-lbl">Sex<br>16/10</div>
-              <span class="chuva-bola" style="border-color:#f0a839;">6,8</span>
+              <span class="chuva-bola" style="border-color:#f0a839;">5,8</span>
             </div><div class="chuva-dia-item">
               <div class="chuva-dia-lbl">Sáb<br>17/10</div>
-              <span class="chuva-bola" style="border-color:#f0a839;">8,5</span>
+              <span class="chuva-bola" style="border-color:#f0a839;">7,7</span>
             </div></div>
         </div><div class="chuva-linha">
           <div class="chuva-cabecalho">
@@ -602,26 +624,26 @@ body { margin:0; background-color:#0f2027; }
               <div class="chuva-nome">Gravataí</div>
               <div class="chuva-local">Gravataí</div>
             </div>
-            <div class="chuva-total" style="color:#ef8a4d;">48,1<span class="un"> mm</span></div>
+            <div class="chuva-total" style="color:#ef8a4d;">46,7<span class="un"> mm</span></div>
           </div>
           <div class="chuva-dias"><div class="chuva-dia-item">
               <div class="chuva-dia-lbl">Hoje<br>12/10</div>
-              <span class="chuva-bola" style="border-color:#ef8a4d;">20,7</span>
+              <span class="chuva-bola" style="border-color:#ef8a4d;">20,4</span>
             </div><div class="chuva-dia-item">
               <div class="chuva-dia-lbl">Ter<br>13/10</div>
-              <span class="chuva-bola" style="border-color:#f0a839;">7,0</span>
+              <span class="chuva-bola" style="border-color:#f0a839;">6,9</span>
             </div><div class="chuva-dia-item">
               <div class="chuva-dia-lbl">Qua<br>14/10</div>
-              <span class="chuva-bola" style="border-color:#7c9190;">2,3</span>
+              <span class="chuva-bola" style="border-color:#7c9190;">2,5</span>
             </div><div class="chuva-dia-item">
               <div class="chuva-dia-lbl">Qui<br>15/10</div>
-              <span class="chuva-bola" style="border-color:#f0a839;">5,9</span>
+              <span class="chuva-bola" style="border-color:#f0a839;">6,4</span>
             </div><div class="chuva-dia-item">
               <div class="chuva-dia-lbl">Sex<br>16/10</div>
-              <span class="chuva-bola" style="border-color:#f0a839;">6,1</span>
+              <span class="chuva-bola" style="border-color:#f0a839;">5,9</span>
             </div><div class="chuva-dia-item">
               <div class="chuva-dia-lbl">Sáb<br>17/10</div>
-              <span class="chuva-bola" style="border-color:#f0a839;">6,1</span>
+              <span class="chuva-bola" style="border-color:#7c9190;">4,6</span>
             </div></div>
         </div><div class="chuva-linha">
           <div class="chuva-cabecalho">
@@ -629,26 +651,26 @@ body { margin:0; background-color:#0f2027; }
               <div class="chuva-nome">Jacuí</div>
               <div class="chuva-local">Cachoeira do Sul</div>
             </div>
-            <div class="chuva-total" style="color:#f0a839;">18,4<span class="un"> mm</span></div>
+            <div class="chuva-total" style="color:#f0a839;">17,2<span class="un"> mm</span></div>
           </div>
           <div class="chuva-dias"><div class="chuva-dia-item">
               <div class="chuva-dia-lbl">Hoje<br>12/10</div>
-              <span class="chuva-bola" style="border-color:#f0a839;">7,1</span>
+              <span class="chuva-bola" style="border-color:#f0a839;">7,5</span>
             </div><div class="chuva-dia-item">
               <div class="chuva-dia-lbl">Ter<br>13/10</div>
-              <span class="chuva-bola" style="border-color:#7c9190;">3,5</span>
+              <span class="chuva-bola" style="border-color:#7c9190;">3,0</span>
             </div><div class="chuva-dia-item">
               <div class="chuva-dia-lbl">Qua<br>14/10</div>
               <span class="chuva-bola" style="border-color:#7c9190;">0,7</span>
             </div><div class="chuva-dia-item">
               <div class="chuva-dia-lbl">Qui<br>15/10</div>
-              <span class="chuva-bola" style="border-color:#7c9190;">2,4</span>
+              <span class="chuva-bola" style="border-color:#7c9190;">2,6</span>
             </div><div class="chuva-dia-item">
               <div class="chuva-dia-lbl">Sex<br>16/10</div>
-              <span class="chuva-bola" style="border-color:#7c9190;">2,9</span>
+              <span class="chuva-bola" style="border-color:#7c9190;">1,9</span>
             </div><div class="chuva-dia-item">
               <div class="chuva-dia-lbl">Sáb<br>17/10</div>
-              <span class="chuva-bola" style="border-color:#7c9190;">1,8</span>
+              <span class="chuva-bola" style="border-color:#7c9190;">1,5</span>
             </div></div>
         </div><div class="chuva-linha">
           <div class="chuva-cabecalho">
@@ -656,26 +678,26 @@ body { margin:0; background-color:#0f2027; }
               <div class="chuva-nome">Sinos</div>
               <div class="chuva-local">São Leopoldo</div>
             </div>
-            <div class="chuva-total" style="color:#ef8a4d;">44,6<span class="un"> mm</span></div>
+            <div class="chuva-total" style="color:#ef8a4d;">43,5<span class="un"> mm</span></div>
           </div>
           <div class="chuva-dias"><div class="chuva-dia-item">
               <div class="chuva-dia-lbl">Hoje<br>12/10</div>
-              <span class="chuva-bola" style="border-color:#f0a839;">18,2</span>
+              <span class="chuva-bola" style="border-color:#f0a839;">17,4</span>
             </div><div class="chuva-dia-item">
               <div class="chuva-dia-lbl">Ter<br>13/10</div>
-              <span class="chuva-bola" style="border-color:#f0a839;">6,0</span>
+              <span class="chuva-bola" style="border-color:#f0a839;">6,2</span>
             </div><div class="chuva-dia-item">
               <div class="chuva-dia-lbl">Qua<br>14/10</div>
-              <span class="chuva-bola" style="border-color:#7c9190;">2,1</span>
+              <span class="chuva-bola" style="border-color:#7c9190;">2,3</span>
             </div><div class="chuva-dia-item">
               <div class="chuva-dia-lbl">Qui<br>15/10</div>
-              <span class="chuva-bola" style="border-color:#f0a839;">5,3</span>
+              <span class="chuva-bola" style="border-color:#f0a839;">5,7</span>
             </div><div class="chuva-dia-item">
               <div class="chuva-dia-lbl">Sex<br>16/10</div>
-              <span class="chuva-bola" style="border-color:#7c9190;">4,9</span>
+              <span class="chuva-bola" style="border-color:#7c9190;">4,6</span>
             </div><div class="chuva-dia-item">
               <div class="chuva-dia-lbl">Sáb<br>17/10</div>
-              <span class="chuva-bola" style="border-color:#f0a839;">8,1</span>
+              <span class="chuva-bola" style="border-color:#f0a839;">7,3</span>
             </div></div>
         </div><div class="chuva-linha">
           <div class="chuva-cabecalho">
@@ -683,26 +705,26 @@ body { margin:0; background-color:#0f2027; }
               <div class="chuva-nome">Guaíba</div>
               <div class="chuva-local">Porto Alegre</div>
             </div>
-            <div class="chuva-total" style="color:#ef8a4d;">43,6<span class="un"> mm</span></div>
+            <div class="chuva-total" style="color:#ef8a4d;">41,8<span class="un"> mm</span></div>
           </div>
           <div class="chuva-dias"><div class="chuva-dia-item">
               <div class="chuva-dia-lbl">Hoje<br>12/10</div>
-              <span class="chuva-bola" style="border-color:#f0a839;">19,4</span>
+              <span class="chuva-bola" style="border-color:#f0a839;">18,8</span>
             </div><div class="chuva-dia-item">
               <div class="chuva-dia-lbl">Ter<br>13/10</div>
-              <span class="chuva-bola" style="border-color:#f0a839;">8,7</span>
+              <span class="chuva-bola" style="border-color:#f0a839;">7,3</span>
             </div><div class="chuva-dia-item">
               <div class="chuva-dia-lbl">Qua<br>14/10</div>
-              <span class="chuva-bola" style="border-color:#7c9190;">2,9</span>
+              <span class="chuva-bola" style="border-color:#7c9190;">3,0</span>
             </div><div class="chuva-dia-item">
               <div class="chuva-dia-lbl">Qui<br>15/10</div>
-              <span class="chuva-bola" style="border-color:#7c9190;">4,5</span>
+              <span class="chuva-bola" style="border-color:#7c9190;">4,9</span>
             </div><div class="chuva-dia-item">
               <div class="chuva-dia-lbl">Sex<br>16/10</div>
-              <span class="chuva-bola" style="border-color:#7c9190;">4,4</span>
+              <span class="chuva-bola" style="border-color:#7c9190;">4,7</span>
             </div><div class="chuva-dia-item">
               <div class="chuva-dia-lbl">Sáb<br>17/10</div>
-              <span class="chuva-bola" style="border-color:#7c9190;">3,7</span>
+              <span class="chuva-bola" style="border-color:#7c9190;">3,1</span>
             </div></div>
         </div>
           <div class="legenda-chuva"><span class="legenda-item"><span class="legenda-dot" style="border-color:#7c9190;"></span>calmo (< 5 mm)</span><span class="legenda-item"><span class="legenda-dot" style="border-color:#f0a839;"></span>leve (5-20 mm)</span><span class="legenda-item"><span class="legenda-dot" style="border-color:#ef8a4d;"></span>moderada (20-50 mm)</span><span class="legenda-item"><span class="legenda-dot" style="border-color:#ef4d6b;"></span>forte (> 50 mm)</span></div>
@@ -743,12 +765,12 @@ body { margin:0; background-color:#0f2027; }
         </linearGradient>
       </defs>
       <line x1="46" y1="192.0" x2="566" y2="192.0" stroke="#2a3f43" stroke-width="1"/><text x="40" y="195.0" text-anchor="end" font-size="10" font-family="Courier New, monospace" fill="#7c9190">1,88</text><line x1="46" y1="133.3" x2="566" y2="133.3" stroke="#2a3f43" stroke-width="1"/><text x="40" y="136.3" text-anchor="end" font-size="10" font-family="Courier New, monospace" fill="#7c9190">1,99</text><line x1="46" y1="74.7" x2="566" y2="74.7" stroke="#2a3f43" stroke-width="1"/><text x="40" y="77.7" text-anchor="end" font-size="10" font-family="Courier New, monospace" fill="#7c9190">2,09</text><line x1="46" y1="16.0" x2="566" y2="16.0" stroke="#2a3f43" stroke-width="1"/><text x="40" y="19.0" text-anchor="end" font-size="10" font-family="Courier New, monospace" fill="#7c9190">2,20</text>
-      <rect x="145.5" y="138.8" width="43.7" height="53.2" fill="#4a7ba6" fill-opacity="0.55" rx="1.5"/><rect x="249.5" y="190.6" width="43.7" height="1.4" fill="#4a7ba6" fill-opacity="0.55" rx="1.5"/><rect x="353.5" y="170.4" width="43.7" height="21.6" fill="#4a7ba6" fill-opacity="0.55" rx="1.5"/><rect x="457.5" y="191.5" width="43.7" height="0.5" fill="#4a7ba6" fill-opacity="0.55" rx="1.5"/>
+      <rect x="128.2" y="138.8" width="43.7" height="53.2" fill="#4a7ba6" fill-opacity="0.55" rx="1.5"/><rect x="232.2" y="190.6" width="43.7" height="1.4" fill="#4a7ba6" fill-opacity="0.55" rx="1.5"/><rect x="336.2" y="170.4" width="43.7" height="21.6" fill="#4a7ba6" fill-opacity="0.55" rx="1.5"/><rect x="440.2" y="191.5" width="43.7" height="0.5" fill="#4a7ba6" fill-opacity="0.55" rx="1.5"/>
       <line x1="566.0" y1="192.0" x2="570.0" y2="192.0" stroke="#4a7ba6" stroke-width="1"/><text x="573.0" y="195.0" text-anchor="start" font-size="9.5" font-family="Courier New, monospace" fill="#4a7ba6">0</text><line x1="566.0" y1="163.8" x2="570.0" y2="163.8" stroke="#4a7ba6" stroke-width="1"/><text x="573.0" y="166.8" text-anchor="start" font-size="9.5" font-family="Courier New, monospace" fill="#4a7ba6">12</text><line x1="566.0" y1="135.7" x2="570.0" y2="135.7" stroke="#4a7ba6" stroke-width="1"/><text x="573.0" y="138.7" text-anchor="start" font-size="9.5" font-family="Courier New, monospace" fill="#4a7ba6">25</text>
       <line x1="46" y1="126.6" x2="566" y2="126.6" stroke="#f0a839" stroke-width="1.5" stroke-dasharray="5,4"/><text x="566" y="121.6" text-anchor="end" font-size="10.5" font-weight="700" font-family="Courier New, monospace" fill="#f0a839">Atenção &middot; 2,00 m</text>
-      <polygon points="46.0,192.0 46.0,104.0 50.3,104.0 54.7,104.0 59.0,104.0 63.3,98.4 72.0,104.0 76.3,104.0 80.7,98.4 85.0,98.4 89.3,104.0 93.7,104.0 106.7,115.3 111.0,120.9 115.3,126.6 124.0,137.8 132.7,149.1 137.0,154.8 158.7,171.7 163.0,154.8 167.3,149.1 171.7,137.8 176.0,137.8 180.3,154.8 189.0,154.8 193.3,154.8 197.7,154.8 202.0,149.1 206.3,149.1 215.0,137.8 219.3,137.8 223.7,132.2 228.0,132.2 232.3,126.6 241.0,120.9 249.7,120.9 254.0,120.9 262.7,120.9 267.0,115.3 271.3,104.0 275.7,104.0 280.0,92.7 288.7,75.8 293.0,70.2 297.3,64.5 301.7,64.5 306.0,58.9 310.3,53.2 319.0,58.9 327.7,58.9 332.0,58.9 336.3,58.9 340.7,64.5 345.0,64.5 353.7,53.2 358.0,36.3 362.3,47.6 366.7,53.2 375.3,53.2 379.7,53.2 384.0,58.9 388.3,70.2 401.3,53.2 405.7,47.6 410.0,41.9 418.7,47.6 423.0,41.9 427.3,47.6 431.7,41.9 436.0,47.6 440.3,53.2 444.7,53.2 449.0,53.2 453.3,53.2 457.7,47.6 462.0,41.9 466.3,41.9 470.7,41.9 475.0,41.9 479.3,47.6 483.7,41.9 488.0,41.9 492.3,41.9 501.0,47.6 505.3,41.9 509.7,41.9 514.0,36.3 518.3,41.9 522.7,41.9 527.0,41.9 531.3,47.6 540.0,53.2 544.3,53.2 548.7,58.9 553.0,58.9 557.3,58.9 561.7,58.9 566.0,64.5 566.0,192.0" fill="url(#gradHistorico)"/>
-      <polyline points="46.0,104.0 50.3,104.0 54.7,104.0 59.0,104.0 63.3,98.4 72.0,104.0 76.3,104.0 80.7,98.4 85.0,98.4 89.3,104.0 93.7,104.0 106.7,115.3 111.0,120.9 115.3,126.6 124.0,137.8 132.7,149.1 137.0,154.8 158.7,171.7 163.0,154.8 167.3,149.1 171.7,137.8 176.0,137.8 180.3,154.8 189.0,154.8 193.3,154.8 197.7,154.8 202.0,149.1 206.3,149.1 215.0,137.8 219.3,137.8 223.7,132.2 228.0,132.2 232.3,126.6 241.0,120.9 249.7,120.9 254.0,120.9 262.7,120.9 267.0,115.3 271.3,104.0 275.7,104.0 280.0,92.7 288.7,75.8 293.0,70.2 297.3,64.5 301.7,64.5 306.0,58.9 310.3,53.2 319.0,58.9 327.7,58.9 332.0,58.9 336.3,58.9 340.7,64.5 345.0,64.5 353.7,53.2 358.0,36.3 362.3,47.6 366.7,53.2 375.3,53.2 379.7,53.2 384.0,58.9 388.3,70.2 401.3,53.2 405.7,47.6 410.0,41.9 418.7,47.6 423.0,41.9 427.3,47.6 431.7,41.9 436.0,47.6 440.3,53.2 444.7,53.2 449.0,53.2 453.3,53.2 457.7,47.6 462.0,41.9 466.3,41.9 470.7,41.9 475.0,41.9 479.3,47.6 483.7,41.9 488.0,41.9 492.3,41.9 501.0,47.6 505.3,41.9 509.7,41.9 514.0,36.3 518.3,41.9 522.7,41.9 527.0,41.9 531.3,47.6 540.0,53.2 544.3,53.2 548.7,58.9 553.0,58.9 557.3,58.9 561.7,58.9 566.0,64.5" fill="none" stroke="#C48A4A" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"/>
-      <text x="78.5" y="212" text-anchor="middle" font-size="10" font-family="Courier New, monospace" fill="#7c9190">Qua 07/10</text><text x="165.2" y="212" text-anchor="middle" font-size="10" font-family="Courier New, monospace" fill="#7c9190">Qui 08/10</text><text x="269.2" y="212" text-anchor="middle" font-size="10" font-family="Courier New, monospace" fill="#7c9190">Sex 09/10</text><text x="375.3" y="212" text-anchor="middle" font-size="10" font-family="Courier New, monospace" fill="#7c9190">Sáb 10/10</text><text x="477.2" y="212" text-anchor="middle" font-size="10" font-family="Courier New, monospace" fill="#7c9190">Dom 11/10</text><text x="548.7" y="212" text-anchor="middle" font-size="10" font-family="Courier New, monospace" fill="#7c9190">Seg 12/10</text>
+      <polygon points="46.0,192.0 46.0,98.4 54.7,104.0 59.0,104.0 63.3,98.4 67.7,98.4 72.0,104.0 76.3,104.0 89.3,115.3 93.7,120.9 98.0,126.6 106.7,137.8 115.3,149.1 119.7,154.8 141.3,171.7 145.7,154.8 150.0,149.1 154.3,137.8 158.7,137.8 163.0,154.8 171.7,154.8 176.0,154.8 180.3,154.8 184.7,149.1 189.0,149.1 197.7,137.8 202.0,137.8 206.3,132.2 210.7,132.2 215.0,126.6 223.7,120.9 232.3,120.9 236.7,120.9 245.3,120.9 249.7,115.3 254.0,104.0 258.3,104.0 262.7,92.7 271.3,75.8 275.7,70.2 280.0,64.5 284.3,64.5 288.7,58.9 293.0,53.2 301.7,58.9 310.3,58.9 314.7,58.9 319.0,58.9 323.3,64.5 327.7,64.5 336.3,53.2 340.7,36.3 345.0,47.6 349.3,53.2 358.0,53.2 362.3,53.2 366.7,58.9 371.0,70.2 384.0,53.2 388.3,47.6 392.7,41.9 401.3,47.6 405.7,41.9 410.0,47.6 414.3,41.9 418.7,47.6 423.0,53.2 427.3,53.2 431.7,53.2 436.0,53.2 440.3,47.6 444.7,41.9 449.0,41.9 453.3,41.9 457.7,41.9 462.0,47.6 466.3,41.9 470.7,41.9 475.0,41.9 483.7,47.6 488.0,41.9 492.3,41.9 496.7,36.3 501.0,41.9 505.3,41.9 509.7,41.9 514.0,47.6 522.7,53.2 527.0,53.2 531.3,58.9 535.7,58.9 540.0,58.9 544.3,58.9 548.7,64.5 557.3,70.2 561.7,70.2 566.0,75.8 566.0,192.0" fill="url(#gradHistorico)"/>
+      <polyline points="46.0,98.4 54.7,104.0 59.0,104.0 63.3,98.4 67.7,98.4 72.0,104.0 76.3,104.0 89.3,115.3 93.7,120.9 98.0,126.6 106.7,137.8 115.3,149.1 119.7,154.8 141.3,171.7 145.7,154.8 150.0,149.1 154.3,137.8 158.7,137.8 163.0,154.8 171.7,154.8 176.0,154.8 180.3,154.8 184.7,149.1 189.0,149.1 197.7,137.8 202.0,137.8 206.3,132.2 210.7,132.2 215.0,126.6 223.7,120.9 232.3,120.9 236.7,120.9 245.3,120.9 249.7,115.3 254.0,104.0 258.3,104.0 262.7,92.7 271.3,75.8 275.7,70.2 280.0,64.5 284.3,64.5 288.7,58.9 293.0,53.2 301.7,58.9 310.3,58.9 314.7,58.9 319.0,58.9 323.3,64.5 327.7,64.5 336.3,53.2 340.7,36.3 345.0,47.6 349.3,53.2 358.0,53.2 362.3,53.2 366.7,58.9 371.0,70.2 384.0,53.2 388.3,47.6 392.7,41.9 401.3,47.6 405.7,41.9 410.0,47.6 414.3,41.9 418.7,47.6 423.0,53.2 427.3,53.2 431.7,53.2 436.0,53.2 440.3,47.6 444.7,41.9 449.0,41.9 453.3,41.9 457.7,41.9 462.0,47.6 466.3,41.9 470.7,41.9 475.0,41.9 483.7,47.6 488.0,41.9 492.3,41.9 496.7,36.3 501.0,41.9 505.3,41.9 509.7,41.9 514.0,47.6 522.7,53.2 527.0,53.2 531.3,58.9 535.7,58.9 540.0,58.9 544.3,58.9 548.7,64.5 557.3,70.2 561.7,70.2 566.0,75.8" fill="none" stroke="#C48A4A" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"/>
+      <text x="69.8" y="212" text-anchor="middle" font-size="10" font-family="Courier New, monospace" fill="#7c9190">Qua 07/10</text><text x="147.8" y="212" text-anchor="middle" font-size="10" font-family="Courier New, monospace" fill="#7c9190">Qui 08/10</text><text x="251.8" y="212" text-anchor="middle" font-size="10" font-family="Courier New, monospace" fill="#7c9190">Sex 09/10</text><text x="358.0" y="212" text-anchor="middle" font-size="10" font-family="Courier New, monospace" fill="#7c9190">Sáb 10/10</text><text x="459.8" y="212" text-anchor="middle" font-size="10" font-family="Courier New, monospace" fill="#7c9190">Dom 11/10</text><text x="540.0" y="212" text-anchor="middle" font-size="10" font-family="Courier New, monospace" fill="#7c9190">Seg 12/10</text>
     </svg>
             <div style="display:flex; justify-content:space-between; margin-top:12px; font-size:11px; color:#7c9190;">
               <span>1,92 m &middot; mínimo</span>
@@ -784,7 +806,6 @@ body { margin:0; background-color:#0f2027; }
       </a>
     </div>
     <div class="rodape-fontes">
-      <a href="institucional.html">O que é o Horizonte? Veja em vídeo &rarr;</a>
       <a href="fontes-de-dados.html">Quais são as fontes de dados do Horizonte? &rarr;</a>
     </div>
   </div>
