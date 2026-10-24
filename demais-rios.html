@@ -46,58 +46,53 @@ body { margin:0; background-color:#0f2027; }
   html { -webkit-text-size-adjust:100%; text-size-adjust:100%; }
   body { margin:0; background-color:#0f2027; color:#eef2f1; font-family:'Segoe UI', Arial, sans-serif; }
   .wrap { max-width: 480px; margin: 0 auto; padding: 20px 20px 60px; }
-  .hdr { display: flex; align-items: center; gap: 10px; margin-bottom: 18px; }
+  .hdr { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
   .hdr .marca-texto { font-family: Georgia, serif; font-size: 18px; font-weight: 700; }
   .voltar { display: inline-flex; align-items: center; gap: 6px; margin: 0 0 16px 0; padding: 7px 14px; border-radius: 999px; background: #16262a; border: 1px solid #2a3f43; font-family: 'Courier New', monospace; font-size: 12px; font-weight: 600; color: #b9c8c7; text-decoration: none; }
   /* .pagina-cabecalho é o alvo do JS de ajuda (position:relative setado
      por ele) - precisa ser alto o bastante (h1+subtitulo) pra caber o
      botão "?" absoluto sem sobrepor o conteúdo seguinte (mesmo bug real
      corrigido em gerar_boletim_web.py 19/09/2026 - ver .secao lá). */
-  .pagina-cabecalho { position: relative; padding-right: 34px; margin-bottom: 18px; }
-  h1 { font-size: 22px; margin: 0 0 2px 0; }
-  .subtitulo { font-size: 12.5px; color: #7c9190; margin: 0; }
-  .secao-lbl { font-size: 11px; text-transform: uppercase; letter-spacing: .6px; color: #7c9190; font-weight: 700; margin-bottom: 8px; }
-  .legenda-tiers { margin-bottom: 22px; }
-  .tier-pill { display: inline-block; margin: 0 6px 6px 0; padding: 4px 10px; border-radius: 999px; font-size: 12.5px; font-weight: 600; border: 1px solid; font-family: 'Courier New', monospace; }
-  .grupo { margin-bottom: 22px; }
-  .grupo-titulo { margin: 0 0 8px 0; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; color: #eef2f1; padding-bottom: 6px; border-bottom: 1px solid #344d52; }
-  a.linha-rio { display: block; padding: 10px 0; border-bottom: 1px solid #2a3f43; text-decoration: none; color: inherit; }
-  a.linha-rio:last-child { border-bottom: none; }
-  .rio-nome-col { display: flex; align-items: center; gap: 6px; margin-bottom: 6px; }
-  .rio-nome { font-size: 14.5px; font-weight: 700; }
-  .rio-icones { font-size: 13px; }
-  /* 5 colunas desde 02/10/2026 (coluna "Chuva prev.", pedido do usuário; página vista
-     principalmente no celular): a 1ª coluna (tendência, texto mais longo - "▼ 1,2 cm/h") fica mais larga,
-     o rótulo de duas linhas da chuva alinha pelo pé (justify-content:flex-end) pra os valores
-     ficarem na mesma linha, e abaixo de 400px a fonte/gap diminuem pra tudo caber em 360-390px
-     sem rolagem horizontal. */
-  .rio-valores { display: grid; grid-template-columns: 1.35fr 1fr .9fr 1fr 1fr; gap: 4px; }
-  .rio-valor-item { display: flex; flex-direction: column; justify-content: flex-end; min-width: 0; }
-  .rio-valor-item .lbl { font-size: 9px; line-height: 1.15; text-transform: uppercase; letter-spacing: .3px; color: #7c9190; margin-bottom: 2px; }
-  .rio-valor-item .val { font-family: 'Courier New', monospace; font-size: 13px; color: #b9c8c7; white-space: nowrap; }
-  @media (max-width: 400px) {
-    .wrap { padding-left: 14px; padding-right: 14px; }
-    .rio-valor-item .lbl { font-size: 8.5px; letter-spacing: .1px; }
-    .rio-valor-item .val { font-size: 11.5px; }
-  }
+  .pagina-cabecalho { position: relative; padding-right: 34px; margin-bottom: 14px; }
+  h1 { font-family: Georgia, serif; font-weight: 400; font-size: 25px; margin: 0 0 4px 0; }
+  .subtitulo { font-size: 13px; line-height: 1.45; color: #b9c8c7; margin: 0; }
+  /* Visual novo (25/10/2026, usuário: "parece tudo uma coisa só, não acompanha o resto do site"): cada rio é um cartão
+     como os do boletim - nome e faixa, nível grande na cor da faixa, quanto falta para a cota, e pico/chuva embaixo.
+     Os números são os mesmos de antes (dados_rio_lista). */
+  .resumo { background: #16262a; border: 1px solid #2a3f43; border-radius: 14px; padding: 12px 14px 8px; margin-bottom: 22px; }
+  .resumo-frase { margin: 0 0 8px; font-size: 14.5px; font-weight: 600; }
+  .tier-pill { display: inline-block; margin: 0 6px 6px 0; padding: 3px 10px; border-radius: 999px; font-size: 12.5px; font-weight: 700; border: 1px solid; }
+  .grupo { margin-bottom: 24px; }
+  .grupo-titulo { display: flex; align-items: baseline; justify-content: space-between; margin: 0 0 10px 2px; font-family: 'Courier New', monospace; font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #e0a458; }
+  .grupo-titulo span { font-family: 'Segoe UI', Arial, sans-serif; font-size: 11.5px; font-weight: 600; letter-spacing: 0; text-transform: none; color: #7c9190; }
+  .rio-grade { display: grid; gap: 10px; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+  a.rio-card { display: block; position: relative; padding: 12px 14px 12px 16px; background: #16262a; border: 1px solid #2a3f43; border-radius: 14px; text-decoration: none; color: inherit; overflow: hidden; -webkit-tap-highlight-color: transparent; }
+  a.rio-card::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--c); opacity: .85; }
+  a.rio-card:active { transform: scale(.99); }
+  a.rio-card:focus-visible { outline: 2px solid #e0a458; outline-offset: 2px; }
+  .rc-topo { display: flex; align-items: center; gap: 6px; }
+  .rc-nome { font-size: 16px; font-weight: 700; }
+  .rc-icones { font-size: 13px; }
+  .rc-pill { margin-left: auto; padding: 2px 9px; border-radius: 999px; border: 1px solid; font-size: 11.5px; font-weight: 700; white-space: nowrap; }
+  .rc-nivel { display: flex; align-items: baseline; gap: 4px; margin: 4px 0 2px; }
+  .rc-nivel b { font-family: 'Courier New', monospace; font-size: 30px; line-height: 1.1; letter-spacing: -.02em; }
+  .rc-nivel small { font-size: 13px; color: #b9c8c7; }
+  .rc-tend { margin-left: auto; font-family: 'Courier New', monospace; font-size: 13px; font-weight: 700; color: #b9c8c7; white-space: nowrap; }
+  .rc-cota { margin: 0 0 10px; font-size: 12.5px; color: #7c9190; }
+  .rc-cota b { color: #b9c8c7; }
+  .rc-dados { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding-top: 9px; border-top: 1px solid #2a3f43; }
+  .rc-dados div { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+  .rc-dados span:not(.val) { font-size: 11px; color: #7c9190; }
+  .rc-dados b, .rc-dados .val { font-family: 'Courier New', monospace; font-size: 14px; font-weight: 700; white-space: nowrap; }
   .disclaimer { margin-top: 20px; font-size: 11.5px; line-height: 1.5; color: #7c9190; }
   .help-slot { display: none; }
-  /* Computador (10/10/2026, pedido do usuário: mesmo equilíbrio do boletim e da página dos rios - antes as duas colunas
-     de bacias terminavam em alturas diferentes): cada bacia é um cartão na largura toda, com os rios em duas colunas
-     alinhadas dentro dele, na ordem de sempre; rodapé centralizado com linha. */
+  @media (max-width: 599px) { .voltar { display: none; } .wrap { padding: 16px 16px 40px; } }
   @media (min-width: 1000px) {
     .wrap { max-width: 1080px; padding-top: 28px; }
-    .grupos { display: flex; flex-direction: column; gap: 18px; }
-    .grupo { margin: 0; display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); column-gap: 40px;
-      background: #16262a; border: 1px solid #2a3f43; border-radius: 14px; padding: 16px 22px 8px; }
-    .grupo-titulo { grid-column: 1 / -1; }
-    a.linha-rio { border-bottom: none; border-top: 1px solid #2a3f43; }
-    .grupo-titulo + a.linha-rio, .grupo-titulo + a.linha-rio + a.linha-rio { border-top: none; }
     .disclaimer { margin-top: 28px; padding-top: 16px; border-top: 1px solid #2a3f43; text-align: center; }
   }
 </style>
 <div class="wrap">
-  <a href="boletim.html" class="voltar">&larr; Voltar ao boletim</a>
   <div class="hdr"><svg width="38" height="38" viewBox="45 45 150 150" aria-hidden="true">
   <defs>
     <linearGradient id="mSun" x1="0" y1="0" x2="0" y2="1">
@@ -110,260 +105,291 @@ body { margin:0; background-color:#0f2027; }
   <path d="M 96,174 C 108,180 132,180 144,174" fill="none" stroke="#BD7433" stroke-width="3.2" stroke-linecap="round" opacity="0.55"/>
   <path d="M 102,184 C 111,188 129,188 138,184" fill="none" stroke="#BD7433" stroke-width="2.6" stroke-linecap="round" opacity="0.35"/>
 </svg><span class="marca-texto">Horizonte</span></div>
+  <a href="boletim.html" class="voltar">&larr; Voltar ao boletim</a>
   <div class="pagina-cabecalho">
     <span class="help-slot" data-help="demais-rios"></span>
     <h1>Demais rios monitorados</h1>
     <p class="subtitulo">Nível atual, tendência e cota de inundação dos outros 18 rios que o Horizonte acompanha.</p>
   </div>
-  <div class="secao-lbl">Legenda</div>
-  <div class="legenda-tiers"><span class="tier-pill" style="border-color:#2f5540; background-color:#1c3328; color:#5ecb8f;">Normal 18</span><span class="tier-pill" style="border-color:#5c4a26; background-color:#3a2f18; color:#f0a839;">Elevado 0</span><span class="tier-pill" style="border-color:#5c3a26; background-color:#3a2418; color:#ef8a4d;">Muito alto 0</span><span class="tier-pill" style="border-color:#5c3026; background-color:#3a1e18; color:#ef5a4d;">Extremo 0</span><span class="tier-pill" style="border-color:#5c2636; background-color:#3a1822; color:#ef4d6b;">Crítico 0</span></div>
-  <div class="grupos"><div class="grupo">
-      <h3 class="grupo-titulo">Taquari</h3>
-      <a href="rio-santa-tereza.html" class="linha-rio">
-        <div class="rio-nome-col">
-          <span class="rio-nome" style="color:#5ecb8f;">Santa Tereza</span>
-          <span class="rio-icones"><span title="Aviso do INMET: Tempestade" style="color:#FFFE00;">&#9888;</span></span>
+  <div class="resumo"><p class="resumo-frase">Os 18 rios estão em nível normal.</p><div class="legenda-tiers"></div></div>
+  <div class="grupos"><section class="grupo">
+      <h3 class="grupo-titulo">Taquari<span>7 rios</span></h3>
+      <div class="rio-grade"><a href="rio-santa-tereza.html" class="rio-card" style="--c:#5ecb8f;">
+        <div class="rc-topo"><span class="rc-nome">Santa Tereza</span><span class="rc-icones"><span title="Aviso do INMET: Tempestade" style="color:#FFFE00;">&#9888;</span></span><span class="rc-pill" style="color:#5ecb8f; background:#1c3328; border-color:#2f5540;">Normal</span></div>
+        <div class="rc-nivel"><b style="color:#5ecb8f;">1,80</b><small>m</small><span class="rc-tend">&#9660; 13,0 cm/h</span></div>
+        <p class="rc-cota">Faltam <b>13,20 m</b> para a cota de inundação (15,00 m)</p>
+        <div class="rc-dados">
+          <div><span>Pico 3 dias</span><b style="color:#5ecb8f;">2,77 m</b></div>
+          <div><span>Chuva prevista 6 dias</span><span class="val" style="color:#ef8a4d; font-weight:700;">25,2 mm</span></div>
         </div>
-        <div class="rio-valores">
-          <div class="rio-valor-item"><span class="lbl">Tend.</span><span class="val">&#9660; 11,8 cm/h</span></div>
-          <div class="rio-valor-item"><span class="lbl">Atual</span><span class="val" style="color:#5ecb8f; font-weight:700;">2,02 m</span></div>
-          <div class="rio-valor-item"><span class="lbl">Cota</span><span class="val">15,00 m</span></div>
-          <div class="rio-valor-item"><span class="lbl">Pico 3 dias</span><span class="val" style="color:#5ecb8f; font-weight:700;">3,24 m</span></div>
-          <div class="rio-valor-item"><span class="lbl">Chuva<br>prev. 6<span style="text-transform:none;">d</span></span><span class="val" style="color:#ef8a4d; font-weight:700;">35,8 mm</span></div>
+      </a><a href="rio-mucum.html" class="rio-card" style="--c:#5ecb8f;">
+        <div class="rc-topo"><span class="rc-nome">Muçum</span><span class="rc-icones"><span title="Aviso do INMET: Tempestade" style="color:#FFFE00;">&#9888;</span></span><span class="rc-pill" style="color:#5ecb8f; background:#1c3328; border-color:#2f5540;">Normal</span></div>
+        <div class="rc-nivel"><b style="color:#5ecb8f;">2,06</b><small>m</small><span class="rc-tend">&#9660; 8,1 cm/h</span></div>
+        <p class="rc-cota">Faltam <b>15,94 m</b> para a cota de inundação (18,00 m)</p>
+        <div class="rc-dados">
+          <div><span>Pico 3 dias</span><b style="color:#5ecb8f;">2,60 m</b></div>
+          <div><span>Chuva prevista 6 dias</span><span class="val" style="color:#ef8a4d; font-weight:700;">23,5 mm</span></div>
         </div>
-      </a><a href="rio-mucum.html" class="linha-rio">
-        <div class="rio-nome-col">
-          <span class="rio-nome" style="color:#5ecb8f;">Muçum</span>
-          <span class="rio-icones"><span title="Aviso do INMET: Tempestade" style="color:#FFFE00;">&#9888;</span></span>
+      </a><a href="rio-roca-sales.html" class="rio-card" style="--c:#5ecb8f;">
+        <div class="rc-topo"><span class="rc-nome">Roca Sales</span><span class="rc-icones"><span title="Aviso do INMET: Tempestade" style="color:#FFFE00;">&#9888;</span></span><span class="rc-pill" style="color:#5ecb8f; background:#1c3328; border-color:#2f5540;">Normal</span></div>
+        <div class="rc-nivel"><b style="color:#5ecb8f;">5,01</b><small>m</small><span class="rc-tend">&#9660; 6,5 cm/h</span></div>
+        <p class="rc-cota">Faltam <b>12,99 m</b> para a cota de inundação (18,00 m)</p>
+        <div class="rc-dados">
+          <div><span>Pico 3 dias</span><b style="color:#5ecb8f;">5,01 m</b></div>
+          <div><span>Chuva prevista</span><span class="val" style="color:#7c9190;">&mdash;</span></div>
         </div>
-        <div class="rio-valores">
-          <div class="rio-valor-item"><span class="lbl">Tend.</span><span class="val">&#9660; 7,6 cm/h</span></div>
-          <div class="rio-valor-item"><span class="lbl">Atual</span><span class="val" style="color:#5ecb8f; font-weight:700;">2,27 m</span></div>
-          <div class="rio-valor-item"><span class="lbl">Cota</span><span class="val">18,00 m</span></div>
-          <div class="rio-valor-item"><span class="lbl">Pico 3 dias</span><span class="val" style="color:#5ecb8f; font-weight:700;">3,08 m</span></div>
-          <div class="rio-valor-item"><span class="lbl">Chuva<br>prev. 6<span style="text-transform:none;">d</span></span><span class="val" style="color:#ef8a4d; font-weight:700;">34,6 mm</span></div>
+      </a><a href="rio-encantado.html" class="rio-card" style="--c:#5ecb8f;">
+        <div class="rc-topo"><span class="rc-nome">Encantado</span><span class="rc-icones"><span title="Aviso do INMET: Tempestade" style="color:#FFFE00;">&#9888;</span></span><span class="rc-pill" style="color:#5ecb8f; background:#1c3328; border-color:#2f5540;">Normal</span></div>
+        <div class="rc-nivel"><b style="color:#5ecb8f;">0,62</b><small>m</small><span class="rc-tend">&#9660; 5,3 cm/h</span></div>
+        <p class="rc-cota">Faltam <b>11,38 m</b> para a cota de inundação (12,00 m)</p>
+        <div class="rc-dados">
+          <div><span>Pico 3 dias</span><b style="color:#5ecb8f;">1,07 m</b></div>
+          <div><span>Chuva prevista 6 dias</span><span class="val" style="color:#ef8a4d; font-weight:700;">26,8 mm</span></div>
         </div>
-      </a><a href="rio-roca-sales.html" class="linha-rio">
-        <div class="rio-nome-col">
-          <span class="rio-nome" style="color:#5ecb8f;">Roca Sales</span>
-          <span class="rio-icones"><span title="Aviso do INMET: Tempestade" style="color:#FFFE00;">&#9888;</span></span>
+      </a><a href="rio-lajeado.html" class="rio-card" style="--c:#5ecb8f;">
+        <div class="rc-topo"><span class="rc-nome">Lajeado</span><span class="rc-icones"><span title="Aviso do INMET: Tempestade" style="color:#FFFE00;">&#9888;</span></span><span class="rc-pill" style="color:#5ecb8f; background:#1c3328; border-color:#2f5540;">Normal</span></div>
+        <div class="rc-nivel"><b style="color:#5ecb8f;">12,93</b><small>m</small><span class="rc-tend">&#9660; 3,1 cm/h</span></div>
+        <p class="rc-cota">Faltam <b>6,07 m</b> para a cota de inundação (19,00 m)</p>
+        <div class="rc-dados">
+          <div><span>Pico 3 dias</span><b style="color:#5ecb8f;">13,06 m</b></div>
+          <div><span>Chuva prevista 6 dias</span><span class="val" style="color:#ef8a4d; font-weight:700;">26,3 mm</span></div>
         </div>
-        <div class="rio-valores">
-          <div class="rio-valor-item"><span class="lbl">Tend.</span><span class="val">&#9660; 3,0 cm/h</span></div>
-          <div class="rio-valor-item"><span class="lbl">Atual</span><span class="val" style="color:#5ecb8f; font-weight:700;">4,86 m</span></div>
-          <div class="rio-valor-item"><span class="lbl">Cota</span><span class="val">18,00 m</span></div>
-          <div class="rio-valor-item"><span class="lbl">Pico 3 dias</span><span class="val" style="color:#5ecb8f; font-weight:700;">5,54 m</span></div>
-          <div class="rio-valor-item"><span class="lbl">Chuva<br>prev.</span><span class="val" style="color:#7c9190;">&mdash;</span></div>
+      </a><a href="rio-bom-retiro-do-sul.html" class="rio-card" style="--c:#5ecb8f;">
+        <div class="rc-topo"><span class="rc-nome">Bom Retiro do Sul</span><span class="rc-icones"><span title="Aviso do INMET: Tempestade" style="color:#FFFE00;">&#9888;</span></span><span class="rc-pill" style="color:#5ecb8f; background:#1c3328; border-color:#2f5540;">Normal</span></div>
+        <div class="rc-nivel"><b style="color:#5ecb8f;">3,44</b><small>m</small><span class="rc-tend">&#9650; 16,7 cm/h</span></div>
+        <p class="rc-cota">Faltam <b>15,56 m</b> para a cota de inundação (19,00 m)</p>
+        <div class="rc-dados">
+          <div><span>Pico 3 dias</span><b style="color:#5ecb8f;">3,94 m</b></div>
+          <div><span>Chuva prevista 6 dias</span><span class="val" style="color:#ef8a4d; font-weight:700;">26,6 mm</span></div>
         </div>
-      </a><a href="rio-encantado.html" class="linha-rio">
-        <div class="rio-nome-col">
-          <span class="rio-nome" style="color:#5ecb8f;">Encantado</span>
-          <span class="rio-icones"><span title="Aviso do INMET: Tempestade" style="color:#FFFE00;">&#9888;</span></span>
+      </a><a href="rio-taquari.html" class="rio-card" style="--c:#5ecb8f;">
+        <div class="rc-topo"><span class="rc-nome">Taquari</span><span class="rc-icones"><span title="Aviso do INMET: Tempestade" style="color:#FFFE00;">&#9888;</span></span><span class="rc-pill" style="color:#5ecb8f; background:#1c3328; border-color:#2f5540;">Normal</span></div>
+        <div class="rc-nivel"><b style="color:#5ecb8f;">3,17</b><small>m</small><span class="rc-tend">&#9650; 0,6 cm/h</span></div>
+        <p class="rc-cota">Faltam <b>5,33 m</b> para a cota de inundação (8,50 m)</p>
+        <div class="rc-dados">
+          <div><span>Pico 3 dias</span><b style="color:#5ecb8f;">3,51 m</b></div>
+          <div><span>Chuva prevista 6 dias</span><span class="val" style="color:#ef8a4d; font-weight:700;">21,9 mm</span></div>
         </div>
-        <div class="rio-valores">
-          <div class="rio-valor-item"><span class="lbl">Tend.</span><span class="val">&#9660; 5,0 cm/h</span></div>
-          <div class="rio-valor-item"><span class="lbl">Atual</span><span class="val" style="color:#5ecb8f; font-weight:700;">0,75 m</span></div>
-          <div class="rio-valor-item"><span class="lbl">Cota</span><span class="val">12,00 m</span></div>
-          <div class="rio-valor-item"><span class="lbl">Pico 3 dias</span><span class="val" style="color:#5ecb8f; font-weight:700;">1,54 m</span></div>
-          <div class="rio-valor-item"><span class="lbl">Chuva<br>prev. 6<span style="text-transform:none;">d</span></span><span class="val" style="color:#ef8a4d; font-weight:700;">37,5 mm</span></div>
+      </a></div>
+    </section><section class="grupo">
+      <h3 class="grupo-titulo">Caí<span>3 rios</span></h3>
+      <div class="rio-grade"><a href="rio-feliz.html" class="rio-card" style="--c:#5ecb8f;">
+        <div class="rc-topo"><span class="rc-nome">Feliz</span><span class="rc-icones"><span title="Aviso do INMET: Tempestade" style="color:#FFFE00;">&#9888;</span></span><span class="rc-pill" style="color:#5ecb8f; background:#1c3328; border-color:#2f5540;">Normal</span></div>
+        <div class="rc-nivel"><b style="color:#5ecb8f;">1,39</b><small>m</small><span class="rc-tend">= 0,2 cm/h</span></div>
+        <p class="rc-cota">Faltam <b>7,61 m</b> para a cota de inundação (9,00 m)</p>
+        <div class="rc-dados">
+          <div><span>Pico 3 dias</span><b style="color:#5ecb8f;">2,09 m</b></div>
+          <div><span>Chuva prevista 6 dias</span><span class="val" style="color:#ef8a4d; font-weight:700;">35,8 mm</span></div>
         </div>
-      </a><a href="rio-lajeado.html" class="linha-rio">
-        <div class="rio-nome-col">
-          <span class="rio-nome" style="color:#5ecb8f;">Lajeado</span>
-          <span class="rio-icones"><span title="Aviso do INMET: Tempestade" style="color:#FFFE00;">&#9888;</span></span>
+      </a><a href="rio-sao-sebastiao-do-cai.html" class="rio-card" style="--c:#5ecb8f;">
+        <div class="rc-topo"><span class="rc-nome">São Sebastião do Caí</span><span class="rc-icones"><span title="Aviso do INMET: Tempestade" style="color:#FFFE00;">&#9888;</span></span><span class="rc-pill" style="color:#5ecb8f; background:#1c3328; border-color:#2f5540;">Normal</span></div>
+        <div class="rc-nivel"><b style="color:#5ecb8f;">2,75</b><small>m</small><span class="rc-tend">&#9650; 0,9 cm/h</span></div>
+        <p class="rc-cota">Faltam <b>7,25 m</b> para a cota de inundação (10,00 m)</p>
+        <div class="rc-dados">
+          <div><span>Pico 3 dias</span><b style="color:#5ecb8f;">3,69 m</b></div>
+          <div><span>Chuva prevista 6 dias</span><span class="val" style="color:#ef8a4d; font-weight:700;">30,7 mm</span></div>
         </div>
-        <div class="rio-valores">
-          <div class="rio-valor-item"><span class="lbl">Tend.</span><span class="val">&#9650; 4,1 cm/h</span></div>
-          <div class="rio-valor-item"><span class="lbl">Atual</span><span class="val" style="color:#5ecb8f; font-weight:700;">13,01 m</span></div>
-          <div class="rio-valor-item"><span class="lbl">Cota</span><span class="val">19,00 m</span></div>
-          <div class="rio-valor-item"><span class="lbl">Pico 3 dias</span><span class="val" style="color:#5ecb8f; font-weight:700;">13,16 m</span></div>
-          <div class="rio-valor-item"><span class="lbl">Chuva<br>prev. 6<span style="text-transform:none;">d</span></span><span class="val" style="color:#ef8a4d; font-weight:700;">35,0 mm</span></div>
+      </a><a href="rio-montenegro.html" class="rio-card" style="--c:#5ecb8f;">
+        <div class="rc-topo"><span class="rc-nome">Montenegro</span><span class="rc-icones"><span title="Aviso do INMET: Tempestade" style="color:#FFFE00;">&#9888;</span></span><span class="rc-pill" style="color:#5ecb8f; background:#1c3328; border-color:#2f5540;">Normal</span></div>
+        <div class="rc-nivel"><b style="color:#5ecb8f;">1,63</b><small>m</small><span class="rc-tend">&#9650; 0,7 cm/h</span></div>
+        <p class="rc-cota">Faltam <b>4,37 m</b> para a cota de inundação (6,00 m)</p>
+        <div class="rc-dados">
+          <div><span>Pico 3 dias</span><b style="color:#5ecb8f;">2,39 m</b></div>
+          <div><span>Chuva prevista 6 dias</span><span class="val" style="color:#ef8a4d; font-weight:700;">30,8 mm</span></div>
         </div>
-      </a><a href="rio-bom-retiro-do-sul.html" class="linha-rio">
-        <div class="rio-nome-col">
-          <span class="rio-nome" style="color:#5ecb8f;">Bom Retiro do Sul</span>
-          <span class="rio-icones"><span title="Aviso do INMET: Tempestade" style="color:#FFFE00;">&#9888;</span></span>
+      </a></div>
+    </section><section class="grupo">
+      <h3 class="grupo-titulo">Gravataí<span>1 rio</span></h3>
+      <div class="rio-grade"><a href="rio-gravatai.html" class="rio-card" style="--c:#5ecb8f;">
+        <div class="rc-topo"><span class="rc-nome">Gravataí</span><span class="rc-icones"><span title="Aviso do INMET: Tempestade" style="color:#FFFE00;">&#9888;</span></span><span class="rc-pill" style="color:#5ecb8f; background:#1c3328; border-color:#2f5540;">Normal</span></div>
+        <div class="rc-nivel"><b style="color:#5ecb8f;">2,79</b><small>m</small><span class="rc-tend">= -0,3 cm/h</span></div>
+        <p class="rc-cota">Faltam <b>1,96 m</b> para a cota de inundação (4,75 m)</p>
+        <div class="rc-dados">
+          <div><span>Em 3 dias</span><b style="color:#5ecb8f;">2,74 m</b></div>
+          <div><span>Chuva prevista 6 dias</span><span class="val" style="color:#ef8a4d; font-weight:700;">29,2 mm</span></div>
         </div>
-        <div class="rio-valores">
-          <div class="rio-valor-item"><span class="lbl">Tend.</span><span class="val">&#9650; 3,7 cm/h</span></div>
-          <div class="rio-valor-item"><span class="lbl">Atual</span><span class="val" style="color:#5ecb8f; font-weight:700;">3,06 m</span></div>
-          <div class="rio-valor-item"><span class="lbl">Cota</span><span class="val">19,00 m</span></div>
-          <div class="rio-valor-item"><span class="lbl">Pico 3 dias</span><span class="val" style="color:#5ecb8f; font-weight:700;">4,14 m</span></div>
-          <div class="rio-valor-item"><span class="lbl">Chuva<br>prev. 6<span style="text-transform:none;">d</span></span><span class="val" style="color:#ef8a4d; font-weight:700;">34,3 mm</span></div>
+      </a></div>
+    </section><section class="grupo">
+      <h3 class="grupo-titulo">Jacuí<span>5 rios</span></h3>
+      <div class="rio-grade"><a href="rio-dona-francisca.html" class="rio-card" style="--c:#5ecb8f;">
+        <div class="rc-topo"><span class="rc-nome">Dona Francisca</span><span class="rc-icones"><span title="Aviso do INMET: Tempestade" style="color:#FFFE00;">&#9888;</span></span><span class="rc-pill" style="color:#5ecb8f; background:#1c3328; border-color:#2f5540;">Normal</span></div>
+        <div class="rc-nivel"><b style="color:#5ecb8f;">1,71</b><small>m</small><span class="rc-tend">&#9660; 22,1 cm/h</span></div>
+        <p class="rc-cota">Faltam <b>5,79 m</b> para a cota de inundação (7,50 m)</p>
+        <div class="rc-dados">
+          <div><span>Pico 3 dias</span><b style="color:#5ecb8f;">2,65 m</b></div>
+          <div><span>Chuva prevista 6 dias</span><span class="val" style="color:#f0a839; font-weight:700;">15,1 mm</span></div>
         </div>
-      </a><a href="rio-taquari.html" class="linha-rio">
-        <div class="rio-nome-col">
-          <span class="rio-nome" style="color:#5ecb8f;">Taquari</span>
-          <span class="rio-icones"><span title="Aviso do INMET: Tempestade" style="color:#FFFE00;">&#9888;</span></span>
+      </a><a href="rio-cachoeira-do-sul.html" class="rio-card" style="--c:#5ecb8f;">
+        <div class="rc-topo"><span class="rc-nome">Cachoeira do Sul</span><span class="rc-icones"><span title="Aviso do INMET: Tempestade" style="color:#FFFE00;">&#9888;</span></span><span class="rc-pill" style="color:#5ecb8f; background:#1c3328; border-color:#2f5540;">Normal</span></div>
+        <div class="rc-nivel"><b style="color:#5ecb8f;">3,02</b><small>m</small><span class="rc-tend">= -0,0 cm/h</span></div>
+        <p class="rc-cota">Faltam <b>5,98 m</b> para a cota de inundação (9,00 m)</p>
+        <div class="rc-dados">
+          <div><span>Pico 3 dias</span><b style="color:#5ecb8f;">3,12 m</b></div>
+          <div><span>Chuva prevista 6 dias</span><span class="val" style="color:#f0a839; font-weight:700;">15,8 mm</span></div>
         </div>
-        <div class="rio-valores">
-          <div class="rio-valor-item"><span class="lbl">Tend.</span><span class="val">&#9650; 1,1 cm/h</span></div>
-          <div class="rio-valor-item"><span class="lbl">Atual</span><span class="val" style="color:#5ecb8f; font-weight:700;">3,17 m</span></div>
-          <div class="rio-valor-item"><span class="lbl">Cota</span><span class="val">8,50 m</span></div>
-          <div class="rio-valor-item"><span class="lbl">Pico 3 dias</span><span class="val" style="color:#5ecb8f; font-weight:700;">3,66 m</span></div>
-          <div class="rio-valor-item"><span class="lbl">Chuva<br>prev. 6<span style="text-transform:none;">d</span></span><span class="val" style="color:#ef8a4d; font-weight:700;">28,1 mm</span></div>
+      </a><a href="rio-rio-pardo.html" class="rio-card" style="--c:#5ecb8f;">
+        <div class="rc-topo"><span class="rc-nome">Rio Pardo</span><span class="rc-icones"><span title="Aviso do INMET: Tempestade" style="color:#FFFE00;">&#9888;</span></span><span class="rc-pill" style="color:#5ecb8f; background:#1c3328; border-color:#2f5540;">Normal</span></div>
+        <div class="rc-nivel"><b style="color:#5ecb8f;">4,60</b><small>m</small><span class="rc-tend">= -0,0 cm/h</span></div>
+        <p class="rc-cota">Faltam <b>7,90 m</b> para a cota de inundação (12,50 m)</p>
+        <div class="rc-dados">
+          <div><span>Pico</span><b style="color:#7c9190;">&mdash;</b></div>
+          <div><span>Chuva prevista 6 dias</span><span class="val" style="color:#f0a839; font-weight:700;">15,8 mm</span></div>
         </div>
-      </a>
-    </div><div class="grupo">
-      <h3 class="grupo-titulo">Caí</h3>
-      <a href="rio-feliz.html" class="linha-rio">
-        <div class="rio-nome-col">
-          <span class="rio-nome" style="color:#5ecb8f;">Feliz</span>
-          <span class="rio-icones"><span title="Aviso do INMET: Tempestade" style="color:#FFFE00;">&#9888;</span></span>
+      </a><a href="rio-sao-jeronimo.html" class="rio-card" style="--c:#5ecb8f;">
+        <div class="rc-topo"><span class="rc-nome">São Jerônimo</span><span class="rc-icones"><span title="Aviso do INMET: Tempestade" style="color:#FFFE00;">&#9888;</span></span><span class="rc-pill" style="color:#5ecb8f; background:#1c3328; border-color:#2f5540;">Normal</span></div>
+        <div class="rc-nivel"><b style="color:#5ecb8f;">1,26</b><small>m</small><span class="rc-tend">&#9660; 1,5 cm/h</span></div>
+        <p class="rc-cota">Faltam <b>3,38 m</b> para a cota de inundação (4,64 m)</p>
+        <div class="rc-dados">
+          <div><span>Pico</span><b style="color:#7c9190;">&mdash;</b></div>
+          <div><span>Chuva prevista</span><span class="val" style="color:#7c9190;">&mdash;</span></div>
         </div>
-        <div class="rio-valores">
-          <div class="rio-valor-item"><span class="lbl">Tend.</span><span class="val">&#9650; 0,9 cm/h</span></div>
-          <div class="rio-valor-item"><span class="lbl">Atual</span><span class="val" style="color:#5ecb8f; font-weight:700;">1,41 m</span></div>
-          <div class="rio-valor-item"><span class="lbl">Cota</span><span class="val">9,00 m</span></div>
-          <div class="rio-valor-item"><span class="lbl">Pico 3 dias</span><span class="val" style="color:#5ecb8f; font-weight:700;">2,18 m</span></div>
-          <div class="rio-valor-item"><span class="lbl">Chuva<br>prev. 6<span style="text-transform:none;">d</span></span><span class="val" style="color:#ef8a4d; font-weight:700;">37,8 mm</span></div>
+      </a><a href="rio-eldorado-do-sul-itai.html" class="rio-card" style="--c:#7c9190;">
+        <div class="rc-topo"><span class="rc-nome">Eldorado do Sul (Itaí)</span><span class="rc-icones"><span title="Aviso do INMET: Tempestade" style="color:#FFFE00;">&#9888;</span></span></div>
+        <div class="rc-nivel"><b style="color:#7c9190;">1,27</b><small>m</small><span class="rc-tend">&#9650; 8,4 cm/h</span></div>
+        <p class="rc-cota"></p>
+        <div class="rc-dados">
+          <div><span>Pico</span><b style="color:#7c9190;">&mdash;</b></div>
+          <div><span>Chuva prevista</span><span class="val" style="color:#7c9190;">&mdash;</span></div>
         </div>
-      </a><a href="rio-sao-sebastiao-do-cai.html" class="linha-rio">
-        <div class="rio-nome-col">
-          <span class="rio-nome" style="color:#5ecb8f;">São Sebastião do Caí</span>
-          <span class="rio-icones"><span title="Aviso do INMET: Tempestade" style="color:#FFFE00;">&#9888;</span></span>
+      </a></div>
+    </section><section class="grupo">
+      <h3 class="grupo-titulo">Sinos<span>3 rios</span></h3>
+      <div class="rio-grade"><a href="rio-taquara.html" class="rio-card" style="--c:#5ecb8f;">
+        <div class="rc-topo"><span class="rc-nome">Taquara</span><span class="rc-icones"><span title="Aviso do INMET: Tempestade" style="color:#FFFE00;">&#9888;</span></span><span class="rc-pill" style="color:#5ecb8f; background:#1c3328; border-color:#2f5540;">Normal</span></div>
+        <div class="rc-nivel"><b style="color:#5ecb8f;">1,07</b><small>m</small><span class="rc-tend">= 0,2 cm/h</span></div>
+        <p class="rc-cota">Faltam <b>4,93 m</b> para a cota de inundação (6,00 m)</p>
+        <div class="rc-dados">
+          <div><span>Pico 3 dias</span><b style="color:#5ecb8f;">2,11 m</b></div>
+          <div><span>Chuva prevista 6 dias</span><span class="val" style="color:#ef8a4d; font-weight:700;">36,9 mm</span></div>
         </div>
-        <div class="rio-valores">
-          <div class="rio-valor-item"><span class="lbl">Tend.</span><span class="val">&#9650; 0,8 cm/h</span></div>
-          <div class="rio-valor-item"><span class="lbl">Atual</span><span class="val" style="color:#5ecb8f; font-weight:700;">2,72 m</span></div>
-          <div class="rio-valor-item"><span class="lbl">Cota</span><span class="val">10,00 m</span></div>
-          <div class="rio-valor-item"><span class="lbl">Pico 3 dias</span><span class="val" style="color:#5ecb8f; font-weight:700;">4,43 m</span></div>
-          <div class="rio-valor-item"><span class="lbl">Chuva<br>prev. 6<span style="text-transform:none;">d</span></span><span class="val" style="color:#ef8a4d; font-weight:700;">35,9 mm</span></div>
+      </a><a href="rio-campo-bom.html" class="rio-card" style="--c:#5ecb8f;">
+        <div class="rc-topo"><span class="rc-nome">Campo Bom</span><span class="rc-icones"><span title="Aviso do INMET: Tempestade" style="color:#FFFE00;">&#9888;</span></span><span class="rc-pill" style="color:#5ecb8f; background:#1c3328; border-color:#2f5540;">Normal</span></div>
+        <div class="rc-nivel"><b style="color:#5ecb8f;">2,85</b><small>m</small><span class="rc-tend">= 0,2 cm/h</span></div>
+        <p class="rc-cota">Faltam <b>3,95 m</b> para a cota de inundação (6,80 m)</p>
+        <div class="rc-dados">
+          <div><span>Pico 3 dias</span><b style="color:#5ecb8f;">3,54 m</b></div>
+          <div><span>Chuva prevista 6 dias</span><span class="val" style="color:#ef8a4d; font-weight:700;">33,9 mm</span></div>
         </div>
-      </a><a href="rio-montenegro.html" class="linha-rio">
-        <div class="rio-nome-col">
-          <span class="rio-nome" style="color:#5ecb8f;">Montenegro</span>
-          <span class="rio-icones"><span title="Aviso do INMET: Tempestade" style="color:#FFFE00;">&#9888;</span></span>
+      </a><a href="rio-sao-leopoldo.html" class="rio-card" style="--c:#5ecb8f;">
+        <div class="rc-topo"><span class="rc-nome">São Leopoldo</span><span class="rc-icones"><span title="Aviso do INMET: Tempestade" style="color:#FFFE00;">&#9888;</span></span><span class="rc-pill" style="color:#5ecb8f; background:#1c3328; border-color:#2f5540;">Normal</span></div>
+        <div class="rc-nivel"><b style="color:#5ecb8f;">2,23</b><small>m</small><span class="rc-tend">= 0,0 cm/h</span></div>
+        <p class="rc-cota">Faltam <b>2,27 m</b> para a cota de inundação (4,50 m)</p>
+        <div class="rc-dados">
+          <div><span>Pico 3 dias</span><b style="color:#5ecb8f;">2,56 m</b></div>
+          <div><span>Chuva prevista 6 dias</span><span class="val" style="color:#ef8a4d; font-weight:700;">32,7 mm</span></div>
         </div>
-        <div class="rio-valores">
-          <div class="rio-valor-item"><span class="lbl">Tend.</span><span class="val">&#9650; 0,7 cm/h</span></div>
-          <div class="rio-valor-item"><span class="lbl">Atual</span><span class="val" style="color:#5ecb8f; font-weight:700;">1,60 m</span></div>
-          <div class="rio-valor-item"><span class="lbl">Cota</span><span class="val">6,00 m</span></div>
-          <div class="rio-valor-item"><span class="lbl">Pico 3 dias</span><span class="val" style="color:#5ecb8f; font-weight:700;">2,31 m</span></div>
-          <div class="rio-valor-item"><span class="lbl">Chuva<br>prev. 6<span style="text-transform:none;">d</span></span><span class="val" style="color:#ef8a4d; font-weight:700;">35,7 mm</span></div>
-        </div>
-      </a>
-    </div><div class="grupo">
-      <h3 class="grupo-titulo">Gravataí</h3>
-      <a href="rio-gravatai.html" class="linha-rio">
-        <div class="rio-nome-col">
-          <span class="rio-nome" style="color:#5ecb8f;">Gravataí</span>
-          <span class="rio-icones"><span title="Aviso do INMET: Tempestade" style="color:#FFFE00;">&#9888;</span></span>
-        </div>
-        <div class="rio-valores">
-          <div class="rio-valor-item"><span class="lbl">Tend.</span><span class="val">= -0,4 cm/h</span></div>
-          <div class="rio-valor-item"><span class="lbl">Atual</span><span class="val" style="color:#5ecb8f; font-weight:700;">2,80 m</span></div>
-          <div class="rio-valor-item"><span class="lbl">Cota</span><span class="val">4,75 m</span></div>
-          <div class="rio-valor-item"><span class="lbl">Em 3 dias</span><span class="val" style="color:#5ecb8f; font-weight:700;">2,75 m</span></div>
-          <div class="rio-valor-item"><span class="lbl">Chuva<br>prev. 6<span style="text-transform:none;">d</span></span><span class="val" style="color:#ef8a4d; font-weight:700;">34,0 mm</span></div>
-        </div>
-      </a>
-    </div><div class="grupo">
-      <h3 class="grupo-titulo">Jacuí</h3>
-      <a href="rio-dona-francisca.html" class="linha-rio">
-        <div class="rio-nome-col">
-          <span class="rio-nome" style="color:#5ecb8f;">Dona Francisca</span>
-          <span class="rio-icones"><span title="Aviso do INMET: Tempestade" style="color:#FFFE00;">&#9888;</span></span>
-        </div>
-        <div class="rio-valores">
-          <div class="rio-valor-item"><span class="lbl">Tend.</span><span class="val">&#9660; 25,5 cm/h</span></div>
-          <div class="rio-valor-item"><span class="lbl">Atual</span><span class="val" style="color:#5ecb8f; font-weight:700;">2,03 m</span></div>
-          <div class="rio-valor-item"><span class="lbl">Cota</span><span class="val">7,50 m</span></div>
-          <div class="rio-valor-item"><span class="lbl">Pico 3 dias</span><span class="val" style="color:#5ecb8f; font-weight:700;">2,95 m</span></div>
-          <div class="rio-valor-item"><span class="lbl">Chuva<br>prev. 6<span style="text-transform:none;">d</span></span><span class="val" style="color:#f0a839; font-weight:700;">19,2 mm</span></div>
-        </div>
-      </a><a href="rio-cachoeira-do-sul.html" class="linha-rio">
-        <div class="rio-nome-col">
-          <span class="rio-nome" style="color:#5ecb8f;">Cachoeira do Sul</span>
-          <span class="rio-icones"><span title="Aviso do INMET: Tempestade" style="color:#FFFE00;">&#9888;</span></span>
-        </div>
-        <div class="rio-valores">
-          <div class="rio-valor-item"><span class="lbl">Tend.</span><span class="val">&#9660; 1,1 cm/h</span></div>
-          <div class="rio-valor-item"><span class="lbl">Atual</span><span class="val" style="color:#5ecb8f; font-weight:700;">3,02 m</span></div>
-          <div class="rio-valor-item"><span class="lbl">Cota</span><span class="val">9,00 m</span></div>
-          <div class="rio-valor-item"><span class="lbl">Pico 3 dias</span><span class="val" style="color:#5ecb8f; font-weight:700;">3,22 m</span></div>
-          <div class="rio-valor-item"><span class="lbl">Chuva<br>prev. 6<span style="text-transform:none;">d</span></span><span class="val" style="color:#f0a839; font-weight:700;">19,9 mm</span></div>
-        </div>
-      </a><a href="rio-rio-pardo.html" class="linha-rio">
-        <div class="rio-nome-col">
-          <span class="rio-nome" style="color:#5ecb8f;">Rio Pardo</span>
-          <span class="rio-icones"><span title="Aviso do INMET: Tempestade" style="color:#FFFE00;">&#9888;</span></span>
-        </div>
-        <div class="rio-valores">
-          <div class="rio-valor-item"><span class="lbl">Tend.</span><span class="val">&#9660; 1,1 cm/h</span></div>
-          <div class="rio-valor-item"><span class="lbl">Atual</span><span class="val" style="color:#5ecb8f; font-weight:700;">4,57 m</span></div>
-          <div class="rio-valor-item"><span class="lbl">Cota</span><span class="val">12,50 m</span></div>
-          <div class="rio-valor-item"><span class="lbl">Pico</span><span class="val" style="color:#7c9190; font-weight:700;">&mdash;</span></div>
-          <div class="rio-valor-item"><span class="lbl">Chuva<br>prev. 6<span style="text-transform:none;">d</span></span><span class="val" style="color:#f0a839; font-weight:700;">19,9 mm</span></div>
-        </div>
-      </a><a href="rio-sao-jeronimo.html" class="linha-rio">
-        <div class="rio-nome-col">
-          <span class="rio-nome" style="color:#5ecb8f;">São Jerônimo</span>
-          <span class="rio-icones"><span title="Aviso do INMET: Tempestade" style="color:#FFFE00;">&#9888;</span></span>
-        </div>
-        <div class="rio-valores">
-          <div class="rio-valor-item"><span class="lbl">Tend.</span><span class="val">&#9650; 1,0 cm/h</span></div>
-          <div class="rio-valor-item"><span class="lbl">Atual</span><span class="val" style="color:#5ecb8f; font-weight:700;">1,29 m</span></div>
-          <div class="rio-valor-item"><span class="lbl">Cota</span><span class="val">4,64 m</span></div>
-          <div class="rio-valor-item"><span class="lbl">Pico</span><span class="val" style="color:#7c9190; font-weight:700;">&mdash;</span></div>
-          <div class="rio-valor-item"><span class="lbl">Chuva<br>prev.</span><span class="val" style="color:#7c9190;">&mdash;</span></div>
-        </div>
-      </a><a href="rio-eldorado-do-sul-itai.html" class="linha-rio">
-        <div class="rio-nome-col">
-          <span class="rio-nome" style="color:#7c9190;">Eldorado do Sul (Itaí)</span>
-          <span class="rio-icones"><span title="Aviso do INMET: Tempestade" style="color:#FFFE00;">&#9888;</span></span>
-        </div>
-        <div class="rio-valores">
-          <div class="rio-valor-item"><span class="lbl">Tend.</span><span class="val">&#9650; 1,4 cm/h</span></div>
-          <div class="rio-valor-item"><span class="lbl">Atual</span><span class="val" style="color:#7c9190; font-weight:700;">1,03 m</span></div>
-          <div class="rio-valor-item"><span class="lbl">Cota</span><span class="val">? m</span></div>
-          <div class="rio-valor-item"><span class="lbl">Pico</span><span class="val" style="color:#7c9190; font-weight:700;">&mdash;</span></div>
-          <div class="rio-valor-item"><span class="lbl">Chuva<br>prev.</span><span class="val" style="color:#7c9190;">&mdash;</span></div>
-        </div>
-      </a>
-    </div><div class="grupo">
-      <h3 class="grupo-titulo">Sinos</h3>
-      <a href="rio-taquara.html" class="linha-rio">
-        <div class="rio-nome-col">
-          <span class="rio-nome" style="color:#5ecb8f;">Taquara</span>
-          <span class="rio-icones"><span title="Aviso do INMET: Tempestade" style="color:#FFFE00;">&#9888;</span></span>
-        </div>
-        <div class="rio-valores">
-          <div class="rio-valor-item"><span class="lbl">Tend.</span><span class="val">= -0,0 cm/h</span></div>
-          <div class="rio-valor-item"><span class="lbl">Atual</span><span class="val" style="color:#5ecb8f; font-weight:700;">1,06 m</span></div>
-          <div class="rio-valor-item"><span class="lbl">Cota</span><span class="val">6,00 m</span></div>
-          <div class="rio-valor-item"><span class="lbl">Pico 3 dias</span><span class="val" style="color:#5ecb8f; font-weight:700;">2,07 m</span></div>
-          <div class="rio-valor-item"><span class="lbl">Chuva<br>prev. 6<span style="text-transform:none;">d</span></span><span class="val" style="color:#ef8a4d; font-weight:700;">42,1 mm</span></div>
-        </div>
-      </a><a href="rio-campo-bom.html" class="linha-rio">
-        <div class="rio-nome-col">
-          <span class="rio-nome" style="color:#5ecb8f;">Campo Bom</span>
-          <span class="rio-icones"><span title="Aviso do INMET: Tempestade" style="color:#FFFE00;">&#9888;</span></span>
-        </div>
-        <div class="rio-valores">
-          <div class="rio-valor-item"><span class="lbl">Tend.</span><span class="val">= -0,2 cm/h</span></div>
-          <div class="rio-valor-item"><span class="lbl">Atual</span><span class="val" style="color:#5ecb8f; font-weight:700;">2,84 m</span></div>
-          <div class="rio-valor-item"><span class="lbl">Cota</span><span class="val">6,80 m</span></div>
-          <div class="rio-valor-item"><span class="lbl">Pico 3 dias</span><span class="val" style="color:#5ecb8f; font-weight:700;">3,64 m</span></div>
-          <div class="rio-valor-item"><span class="lbl">Chuva<br>prev. 6<span style="text-transform:none;">d</span></span><span class="val" style="color:#ef8a4d; font-weight:700;">39,2 mm</span></div>
-        </div>
-      </a><a href="rio-sao-leopoldo.html" class="linha-rio">
-        <div class="rio-nome-col">
-          <span class="rio-nome" style="color:#5ecb8f;">São Leopoldo</span>
-          <span class="rio-icones"><span title="Aviso do INMET: Tempestade" style="color:#FFFE00;">&#9888;</span></span>
-        </div>
-        <div class="rio-valores">
-          <div class="rio-valor-item"><span class="lbl">Tend.</span><span class="val">= 0,0 cm/h</span></div>
-          <div class="rio-valor-item"><span class="lbl">Atual</span><span class="val" style="color:#5ecb8f; font-weight:700;">2,22 m</span></div>
-          <div class="rio-valor-item"><span class="lbl">Cota</span><span class="val">4,50 m</span></div>
-          <div class="rio-valor-item"><span class="lbl">Pico 3 dias</span><span class="val" style="color:#5ecb8f; font-weight:700;">2,68 m</span></div>
-          <div class="rio-valor-item"><span class="lbl">Chuva<br>prev. 6<span style="text-transform:none;">d</span></span><span class="val" style="color:#ef8a4d; font-weight:700;">38,6 mm</span></div>
-        </div>
-      </a>
-    </div></div>
+      </a></div>
+    </section></div>
   <p class="disclaimer">O Horizonte é um projeto pessoal e independente de previsibilidade. Para alertas oficiais, siga sempre a Defesa Civil do seu município ou estado.</p>
 </div>
-<script type="application/json" id="horizonte-help-data">{"demais-rios": {"titulo": "Demais rios monitorados", "oQue": "O nível atual, tendência, cota de inundação e projeção de 120h de cada um dos outros 18 rios que o Horizonte acompanha, além do Cais Mauá em Porto Alegre.", "comoInterpretar": "Toque no nome de qualquer rio pra abrir a página dele, com o mesmo tipo de detalhe do Cais Mauá: previsão dos próximos dias, chuva prevista e histórico realizado. O ícone ⚠ ao lado do nome indica que há um aviso oficial do INMET ativo (ou próximo de começar) pro município daquele rio. Já o ícone ⚑ indica que aquele rio já passou da cota de inundação, ou tem chance alta de passar nos próximos dias. \"Pico 3 dias\" é o maior nível mais provável até 3 dias (a mesma previsão da página do rio); quando o rio está baixando, aparece \"Em 3 dias\": o nível mais provável daqui a 3 dias, o mesmo ponto do gráfico da página do rio; nos rios em que essa previsão não está disponível, o pico fica sem número (—) até termos uma previsão confiável. \"Chuva prev.\" é a soma da chuva prevista pros próximos dias na bacia daquele rio (o mesmo total que aparece no cartão \"Chuva prevista\" da página dele); a cor segue a mesma escala de intensidade da página do rio, e fica sem número (—) quando não há previsão de chuva pra bacia."}}</script>
+<script type="application/json" id="horizonte-help-data">{"demais-rios": {"titulo": "Demais rios monitorados", "oQue": "O nível atual, tendência, cota de inundação e projeção de 120h de cada um dos outros 18 rios que o Horizonte acompanha, além do Cais Mauá em Porto Alegre.", "comoInterpretar": "Toque no nome de qualquer rio pra abrir a página dele, com o mesmo tipo de detalhe do Cais Mauá: previsão dos próximos dias, chuva prevista e histórico realizado. O ícone ⚠ ao lado do nome indica que há um aviso oficial do INMET ativo (ou próximo de começar) pro município daquele rio. Já o ícone ⚑ indica que aquele rio já passou da cota de inundação, ou tem chance alta de passar nos próximos dias. \"Pico 3 dias\" é o maior nível mais provável até 3 dias (a mesma previsão da página do rio); quando o rio está baixando, aparece \"Em 3 dias\": o nível mais provável daqui a 3 dias, o mesmo ponto do gráfico da página do rio; nos rios em que essa previsão não está disponível, o pico fica sem número (—) até termos uma previsão confiável. \"Chuva prevista\" é a soma da chuva prevista pros próximos dias na bacia daquele rio (o mesmo total que aparece no cartão \"Chuva prevista\" da página dele); a cor segue a mesma escala de intensidade da página do rio, e fica sem número (—) quando não há previsão de chuva pra bacia."}}</script>
+<!-- barra-navegacao -->
+<style>
+.nav-baixo, .nav-mais { display: none; }
+@media (max-width: 599px) {
+  body { padding-bottom: calc(76px + env(safe-area-inset-bottom, 0px)); }
+  .nav-baixo { display: flex; position: fixed; left: 0; right: 0; bottom: 0; z-index: 40; align-items: flex-end; justify-content: space-around;
+    padding: 6px 4px calc(6px + env(safe-area-inset-bottom, 0px)); background: #132328; border-top: 1px solid #2a3f43;
+    font-family: 'Segoe UI', Arial, sans-serif; }
+  .nav-baixo a, .nav-baixo button { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; min-width: 0; padding: 4px 2px;
+    background: none; border: 0; color: #9fb3b3; font: 600 10.5px 'Segoe UI', Arial, sans-serif; text-decoration: none; cursor: pointer;
+    -webkit-tap-highlight-color: transparent; }
+  .nav-baixo .atual { color: #e0a458; }
+  .nav-baixo .nav-centro .nav-circulo { display: flex; align-items: center; justify-content: center; width: 48px; height: 48px; margin-top: -22px;
+    border-radius: 50%; background: #1b3338; border: 2px solid #e0a458; color: #e0a458; box-shadow: 0 4px 14px rgba(0,0,0,.45); }
+  .nav-baixo .nav-centro.atual .nav-circulo { background: #e0a458; color: #132328; }
+  .nav-baixo [data-nav="mais"] .ic-fechar, .nav-baixo [data-nav="mais"][aria-expanded="true"] .ic-abrir { display: none; }
+  .nav-baixo [data-nav="mais"][aria-expanded="true"] .ic-fechar { display: block; }
+  /* "Mais" em leque de balões (25/10/2026, pedido do usuário, como no politicometro.org): fundo escurece, os balões saem
+     de dentro do botão "Mais" com um quique, um depois do outro; a barra continua por cima e o "Mais" vira "Fechar" */
+  .nav-mais { display: flex; position: fixed; inset: 0; z-index: 39; visibility: hidden; flex-direction: column; justify-content: flex-end;
+    align-items: center; gap: 22px; padding: 16px 16px calc(100px + env(safe-area-inset-bottom, 0px)); background: rgba(8,18,21,0);
+    transition: background .25s, visibility .25s; font-family: 'Segoe UI', Arial, sans-serif; }
+  .nav-mais.aberta { visibility: visible; background: rgba(8,18,21,.86); -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px); }
+  .nav-acoes { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+  .nav-bolhas { display: grid; grid-template-columns: repeat(3, 96px); gap: 20px 8px; justify-content: center; }
+  .nav-acao, .nav-bolha { opacity: 0; transform: translate(var(--dx, 0), var(--dy, 40px)) scale(.3); text-decoration: none;
+    transition: transform .2s ease-in, opacity .15s ease-in; -webkit-tap-highlight-color: transparent; }
+  .nav-mais.aberta .nav-acao, .nav-mais.aberta .nav-bolha { opacity: 1; transform: none;
+    transition: transform .42s cubic-bezier(.25,1.4,.5,1) calc(var(--i, 0) * 35ms), opacity .2s calc(var(--i, 0) * 35ms); }
+  .nav-acao { display: inline-flex; align-items: center; gap: 7px; padding: 10px 16px; border-radius: 999px; background: #eef2f1;
+    color: #132328; font: 700 14px 'Segoe UI', Arial, sans-serif; box-shadow: 0 6px 16px rgba(0,0,0,.35); }
+  .nav-acao[hidden] { display: none; }
+  .nav-acao svg { width: 18px; height: 18px; }
+  .nav-bolha { display: flex; flex-direction: column; align-items: center; gap: 7px; color: #fff; }
+  .nav-bola { display: flex; align-items: center; justify-content: center; width: 52px; height: 52px; border-radius: 50%;
+    background: #eef2f1; color: #132328; box-shadow: 0 6px 16px rgba(0,0,0,.35); transition: transform .15s; }
+  .nav-bolha:active .nav-bola { transform: scale(.92); }
+  /* destaque (25/10/2026, usuário): "O que é o Horizonte?" e "Apoie" em âmbar; a página atual ganha um anel branco */
+  .nav-bolha.destaque .nav-bola { background: #e0a458; color: #132328; box-shadow: 0 0 0 4px rgba(224,164,88,.25), 0 6px 16px rgba(0,0,0,.35); }
+  .nav-bolha.destaque .nav-nome { color: #f3c98a; }
+  .nav-bolha.atual .nav-bola { outline: 3px solid #fff; outline-offset: 3px; }
+  .nav-nome { font: 700 12px/1.2 'Segoe UI', Arial, sans-serif; text-align: center; text-shadow: 0 1px 6px rgba(0,0,0,.6); }
+  @media (prefers-reduced-motion: reduce) { .nav-mais, .nav-acao, .nav-bolha { transition: none !important; } }
+}
+</style>
+<nav class="nav-baixo" aria-label="Navegação principal">
+  <a href="boletim.html" data-nav="boletim"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-7 9 7"></path><path d="M5 10v10h14V10"></path></svg><span>Boletim</span></a>
+  <a href="demais-rios.html" data-nav="rios"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7c3 0 3 2 6 2s3-2 6-2 3 2 6 2"></path><path d="M3 12c3 0 3 2 6 2s3-2 6-2 3 2 6 2"></path><path d="M3 17c3 0 3 2 6 2s3-2 6-2 3 2 6 2"></path></svg><span>Rios</span></a>
+  <a href="mapa.html" data-nav="mapa" class="nav-centro"><span class="nav-circulo"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 4l-6 2v14l6-2 6 2 6-2V4l-6 2-6-2z"></path><path d="M9 4v14"></path><path d="M15 6v14"></path></svg></span><span>Mapa</span></a>
+  <a href="previsao-estendida.html" data-nav="estendida"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="17" rx="2"></rect><path d="M3 10h18"></path><path d="M8 2v4M16 2v4"></path></svg><span>10&ndash;30 dias</span></a>
+  <button type="button" data-nav="mais" aria-expanded="false" aria-controls="nav-mais"><svg class="ic-abrir" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"></path></svg><svg class="ic-fechar" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg><span>Mais</span></button>
+</nav>
+<div class="nav-mais" id="nav-mais" role="menu" aria-label="Mais opções">
+  <div class="nav-acoes">
+    <a role="menuitem" class="nav-acao" href="#" id="nav-whats"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 19z"></path><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5l1-1.5-2-1-1 .8a4 4 0 0 1-1.8-1.8l.8-1-1-2z"></path></svg><span>Compartilhar</span></a>
+  </div>
+  <div class="nav-bolhas">
+    <a role="menuitem" class="nav-bolha destaque" href="institucional.html"><span class="nav-bola"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 16v-5"></path><path d="M12 8h.01"></path></svg></span><span class="nav-nome">O que é o Horizonte?</span></a>
+    <a role="menuitem" class="nav-bolha" href="https://horizontersai.github.io/horizonte-paginas/notificacoes.html"><span class="nav-bola"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path></svg></span><span class="nav-nome">Notificações</span></a>
+    <a role="menuitem" class="nav-bolha" href="fontes-de-dados.html"><span class="nav-bola"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5" rx="8" ry="3"></ellipse><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"></path><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"></path></svg></span><span class="nav-nome">Fontes de dados</span></a>
+    <a role="menuitem" class="nav-bolha destaque" href="apoie.html"><span class="nav-bola"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20s-7.5-4.6-9.3-9.2C1.4 7.3 3.6 4 7 4c2 0 3.6 1.1 5 3 1.4-1.9 3-3 5-3 3.4 0 5.6 3.3 4.3 6.8C19.5 15.4 12 20 12 20z"></path></svg></span><span class="nav-nome">Apoie o Horizonte</span></a>
+    <a role="menuitem" class="nav-bolha" href="https://www.instagram.com/horizonte.rs/" target="_blank" rel="noopener"><span class="nav-bola"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><path d="M17.5 6.5h.01"></path></svg></span><span class="nav-nome">Instagram</span></a>
+    <a role="menuitem" class="nav-bolha" href="mailto:horizonte.rs.ai@gmail.com"><span class="nav-bola"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="M3 7l9 6 9-6"></path></svg></span><span class="nav-nome">Fale com a gente</span></a>
+  </div>
+</div>
+<script>
+(function () {
+  var nav = document.querySelector(".nav-baixo"); if (!nav) return;
+  var pg = (location.pathname.split("/").pop() || "").toLowerCase();
+  var atual = (pg === "" || pg === "index.html" || pg === "boletim.html" || pg === "mapa-portoalegre.html") ? "boletim"
+    : (pg === "demais-rios.html" || pg.indexOf("rio-") === 0) ? "rios"
+    : (pg === "mapa.html") ? "mapa" : (pg === "previsao-estendida.html") ? "estendida"
+    : /^(institucional|fontes-de-dados|apoie|notificacoes)\.html$/.test(pg) ? "mais" : "";
+  var el = nav.querySelector('[data-nav="' + atual + '"]');
+  if (el) { el.classList.add("atual"); el.setAttribute("aria-current", "page"); }
+  var mais = nav.querySelector('[data-nav="mais"]'), folha = document.getElementById("nav-mais");
+  var itens = Array.prototype.slice.call(folha.querySelectorAll(".nav-acao, .nav-bolha"));
+  itens.forEach(function (b) { if ((b.getAttribute("href") || "").toLowerCase() === pg) b.classList.add("atual"); });
+  // cada balão parte do centro do botão "Mais" (offsetLeft/Top não sofrem com o transform) e os de baixo saem primeiro
+  function origem() {
+    var r = mais.getBoundingClientRect(), cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+    itens.slice().reverse().forEach(function (b, i) {
+      b.style.setProperty("--dx", (cx - b.offsetLeft - b.offsetWidth / 2) + "px");
+      b.style.setProperty("--dy", (cy - b.offsetTop - b.offsetHeight / 2) + "px");
+      b.style.setProperty("--i", i);
+    });
+  }
+  function abrir(sim) {
+    if (sim) origem();
+    folha.classList.toggle("aberta", sim); mais.setAttribute("aria-expanded", sim ? "true" : "false");
+    mais.querySelector("span").textContent = sim ? "Fechar" : "Mais"; mais.classList.toggle("atual", sim || atual === "mais");
+  }
+  mais.addEventListener("click", function (e) { e.stopPropagation(); abrir(!folha.classList.contains("aberta")); });
+  // tocar no fundo escuro (fora de um balão) fecha
+  folha.addEventListener("click", function (e) { if (!e.target.closest(".nav-acao, .nav-bolha")) abrir(false); });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape") abrir(false); });
+  // Compartilhar no WhatsApp (25/10/2026, inspirado no politicometro.org): a página pode deixar o texto pronto em
+  // window.HORIZONTE_PAGINA = {compartilhar} (o boletim deixa); sem isso, usa o título da página.
+  // ("Ouvir esta página" saiu no mesmo dia, antes de publicar: a voz do celular narrava mal - usuário)
+  var P = window.HORIZONTE_PAGINA || {}, og = document.querySelector('meta[property="og:url"]');
+  var url = (og && og.content) || location.href;
+  var w = document.getElementById("nav-whats");
+  w.href = "https://wa.me/?text=" + encodeURIComponent((P.compartilhar || document.title.replace(/^Horizonte\s+—\s+/, "") + " | Horizonte") + "\n" + url);
+  w.target = "_blank"; w.rel = "noopener";
+})();
+</script>
+<!-- /barra-navegacao -->
 <script>
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", function () {
