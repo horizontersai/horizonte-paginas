@@ -64,7 +64,12 @@ self.addEventListener("push", (evento) => {
     body: dados.body || "",
     icon: "icon-192.png",
     badge: "icon-192.png",
-    tag: "horizonte-alerta",
+    // aviso de nível (backlog 265) traz tag e página próprias: não substitui os outros avisos e abre o rio
+    tag: dados.tag || "horizonte-alerta",
+    // com tag própria, a notificação atualizada (ex.: "pode passar" -> "passou") toca de novo - sem isto o celular
+    // troca o texto em silêncio (revisão adversarial 25/10/2026)
+    renotify: true,
+    data: { url: dados.url || "boletim.html" },
   };
   evento.waitUntil(self.registration.showNotification(titulo, opcoes));
 });
@@ -73,14 +78,15 @@ self.addEventListener("push", (evento) => {
 // app, se existir, em vez de abrir uma nova sempre).
 self.addEventListener("notificationclick", (evento) => {
   evento.notification.close();
+  const destino = (evento.notification.data && evento.notification.data.url) || "boletim.html";
   evento.waitUntil(
     self.clients.matchAll({ type: "window", includeUncontrolled: true }).then((lista) => {
       for (const cliente of lista) {
-        if (cliente.url.includes("boletim.html") && "focus" in cliente) {
+        if (cliente.url.includes(destino) && "focus" in cliente) {
           return cliente.focus();
         }
       }
-      return self.clients.openWindow("boletim.html");
+      return self.clients.openWindow(destino);
     })
   );
 });
