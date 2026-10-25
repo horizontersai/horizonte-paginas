@@ -34,6 +34,34 @@
   #status { margin-top: 14px; font-size: 12.5px; color: #7c9190; line-height: 1.5; min-height: 18px; }
   #status.erro { color: #ef8a4d; }
   #status.ok { color: #5ECB8F; }
+  /* aviso no nível escolhido (25/10/2026, backlog 265) */
+  .nivel-intro { font-size: 13px; color: #b9c8c7; line-height: 1.5; margin: 6px 0 10px 0; }
+  .lim-item { display: flex; align-items: center; gap: 10px; padding: 10px 0; border-top: 1px solid #2a3f43; font-size: 14px; }
+  .lim-item:first-child { border-top: none; }
+  .lim-txt { flex: 1; min-width: 0; line-height: 1.4; }
+  .lim-tag { display: inline-block; margin-left: 6px; padding: 0 7px; border-radius: 999px; border: 1px solid #5c4a26; color: #e0a458; font-size: 11px; font-weight: 600; }
+  .lim-novo { display: block; font-size: 11.5px; color: #e0a458; }
+  .btn-link { background: none; border: 0; padding: 6px 2px; color: #e0a458; font: 600 13px 'Segoe UI', Arial, sans-serif; text-decoration: underline; cursor: pointer; }
+  .btn-sec { width: 100%; margin-top: 8px; padding: 10px 14px; border-radius: 999px; border: 1px solid #5c4a26; background: transparent; color: #e0a458; font: 600 14px 'Segoe UI', Arial, sans-serif; cursor: pointer; }
+  .btn-sec:disabled { opacity: .5; cursor: default; }
+  .lim-form { margin-top: 10px; padding-top: 12px; border-top: 1px solid #2a3f43; display: flex; flex-direction: column; gap: 8px; }
+  .lim-form[hidden] { display: none; }
+  .lim-form label { font-size: 12.5px; color: #b9c8c7; font-weight: 600; }
+  .lim-form select, .lim-form input[type="text"] { font: 16px 'Segoe UI', Arial, sans-serif; color: #eef2f1; background: #0f2027; border: 1px solid #3b4b48; border-radius: 10px; padding: 9px 10px; }
+  .lim-valor { display: flex; align-items: center; gap: 8px; }
+  .lim-valor input { width: 9em; }
+  .lim-agora { margin: 0; font-size: 12.5px; color: #b9c8c7; line-height: 1.45; }
+  .lim-agora b { color: #eef2f1; }
+  .lim-atalhos { display: flex; flex-wrap: wrap; gap: 6px; }
+  .lim-atalhos button { padding: 5px 10px; border-radius: 999px; border: 1px solid #3b4b48; background: #0f2027; color: #eef2f1; font: 13px 'Segoe UI', Arial, sans-serif; cursor: pointer; }
+  .lim-dica { margin: 0; font-size: 12.5px; color: #e0a458; line-height: 1.45; }
+  .lim-dica:empty, #lim-erro:empty { display: none; }
+  .lim-prev { display: flex; align-items: flex-start; gap: 10px; font-size: 13.5px !important; color: #eef2f1 !important; font-weight: 400 !important; line-height: 1.4; }
+  .lim-prev-nota { margin: -2px 0 0 28px; font-size: 12px; color: #7c9190; line-height: 1.45; }
+  .lim-botoes { display: flex; align-items: center; gap: 14px; }
+  .lim-botoes .btn-ok { padding: 9px 18px; border-radius: 999px; border: 0; background: #C48A4A; color: #16262a; font: 700 14px 'Segoe UI', Arial, sans-serif; cursor: pointer; }
+  #lim-erro { margin: 0; font-size: 12.5px; color: #ef8a4d; }
+  .lim-rodape { margin: 10px 0 0 0; font-size: 12px; color: #7c9190; line-height: 1.45; }
 </style>
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "1a45ef1cb2ed446eae02c441db451b44"}'></script><!-- End Cloudflare Web Analytics -->
 </head>
@@ -87,6 +115,27 @@
     <div id="cidades"></div>
   </div>
 
+  <div class="card" id="nivel">
+    <h2>Aviso no nível que você escolhe</h2>
+    <p class="nivel-intro">Receba um aviso quando o nível medido de um rio passar do valor que você escolher, e outro quando voltar para baixo dele. Até 3 avisos.</p>
+    <div id="lim-lista"></div>
+    <button type="button" class="btn-sec" id="lim-abrir">+ Adicionar aviso de nível</button>
+    <div class="lim-form" id="lim-form" hidden>
+      <label for="lim-rio">Rio</label>
+      <select id="lim-rio"><option value="">Escolha o rio</option></select>
+      <p class="lim-agora" id="lim-agora"></p>
+      <label for="lim-valor">Me avise quando passar de</label>
+      <div class="lim-valor"><input type="text" id="lim-valor" inputmode="decimal" autocomplete="off" placeholder="ex.: 15,00"><span>m</span></div>
+      <div class="lim-atalhos" id="lim-atalhos"></div>
+      <p class="lim-dica" id="lim-dica"></p>
+      <label class="lim-prev" for="lim-prev"><input type="checkbox" id="lim-prev"> Avisar também pela previsão, antes de acontecer</label>
+      <p class="lim-prev-nota">A previsão pode errar: nos últimos 2 meses, cerca de metade desses avisos se confirmou, em geral de meio dia a um dia antes.</p>
+      <p id="lim-erro" role="alert"></p>
+      <div class="lim-botoes"><button type="button" class="btn-ok" id="lim-ok">Adicionar</button><button type="button" class="btn-link" id="lim-cancelar">Cancelar</button></div>
+    </div>
+    <p class="lim-rodape">O Horizonte confere os níveis a cada 3 horas, então o aviso pode chegar até 3 horas depois de o rio passar do valor. Não substitui os alertas da Defesa Civil.</p>
+  </div>
+
   <button id="btn-salvar" disabled>Carregando…</button>
   <p id="status"></p>
 </div>
@@ -122,12 +171,168 @@
   var elStatus = document.getElementById("status");
   var elBtn = document.getElementById("btn-salvar");
 
+  // ---------------------------------------------------------------------------------------------------------------
+  // AVISO NO NÍVEL ESCOLHIDO (25/10/2026, backlog 265). Até LIM_MAX avisos {cidade, m, previsao, a0}; ficam no
+  // Worker junto com as cidades e saem pelo mesmo "Salvar". a0 = nível que esta página mostrou na hora de adicionar:
+  // o envio (aviso_nivel.py) usa para avisar quem cadastrou abaixo do valor se o rio passar antes da próxima rodada.
+  // niveis.json (gerar_niveis_json.py, publicado a cada rodada ao lado desta página) traz nível de agora, cotas e a
+  // folga do "voltou" - sem ele o formulário funciona, só não mostra o nível de agora.
+  // ---------------------------------------------------------------------------------------------------------------
+  var LIM_MAX = 3;
+  var N = null;
+  var limites = [];
+  var salvo = null;
+  // false = existe inscrição mas não consegui ler os avisos salvos: o Salvar NÃO manda "limites" (o Worker mantém os
+  // que já estão lá) e o formulário fica fechado - senão um Salvar com a lista vazia apagaria os avisos
+  var prefsOk = true;
+  // true só depois de saber o que está salvo (sem inscrição no carregamento, ou GET respondido); se o service worker
+  // demorou e a inscrição só apareceu na hora de salvar, o Salvar também omite "limites" (revisão adversarial)
+  var prefsLidas = false;
+  var elLista = document.getElementById("lim-lista");
+  var elAbrir = document.getElementById("lim-abrir");
+  var elForm = document.getElementById("lim-form");
+  var elRio = document.getElementById("lim-rio");
+  var elValor = document.getElementById("lim-valor");
+  var elAgora = document.getElementById("lim-agora");
+  var elAtalhos = document.getElementById("lim-atalhos");
+  var elDica = document.getElementById("lim-dica");
+  var elPrev = document.getElementById("lim-prev");
+  var elErro = document.getElementById("lim-erro");
+
+  CIDADES.forEach(function (c) {
+    var o = document.createElement("option");
+    o.value = c; o.textContent = c; elRio.appendChild(o);
+  });
+
+  function fmtM(v) { return v.toFixed(2).replace(".", ","); }
+  function lerValor(t) {
+    t = String(t || "").trim().replace(/\s|m$/gi, "").replace(",", ".");
+    if (!/^\d{1,3}(\.\d{1,2})?$/.test(t)) return null;
+    var v = parseFloat(t);
+    return v > 0 && v < 100 ? Math.round(v * 100) / 100 : null;
+  }
+  function dadosRio(c) { return N && N.rios && N.rios[c] ? N.rios[c] : null; }
+  function folga(c, m) {
+    var r = dadosRio(c);
+    if (!r || !r.folga) return 0.2;
+    return (r.cota && m < 0.5 * r.cota) ? r.folga[0] : r.folga[1];
+  }
+  function retrato() { return JSON.stringify([cidadesSelecionadas().sort(), limites.map(function (l) { return [l.cidade, l.m, !!l.previsao]; })]); }
+  function marcarAlterado() {
+    var alterado = salvo !== null && retrato() !== salvo;
+    if (!elBtn.disabled || elBtn.textContent !== "Carregando…") elBtn.textContent = alterado ? "Salvar alterações" : "Salvar";
+    return alterado;
+  }
+
+  function renderLimites() {
+    elLista.innerHTML = "";
+    limites.forEach(function (l, i) {
+      var d = document.createElement("div");
+      d.className = "lim-item";
+      d.innerHTML = '<div class="lim-txt"><b></b> &middot; passar de <b>' + fmtM(l.m) + ' m</b>' +
+        (l.previsao ? '<span class="lim-tag">+ previsão</span>' : '') + (l.novo ? '<span class="lim-novo">Ainda não salvo</span>' : '') + '</div>' +
+        '<button type="button" class="btn-link" aria-label="Remover o aviso de ' + l.cidade + ' em ' + fmtM(l.m) + ' m">Remover</button>';
+      d.querySelector("b").textContent = l.cidade;
+      d.querySelector("button").onclick = function () { removerLimite(i, d); };
+      elLista.appendChild(d);
+    });
+    elAbrir.disabled = limites.length >= LIM_MAX;
+    elAbrir.textContent = limites.length >= LIM_MAX ? "Limite de 3 avisos. Remova um para adicionar outro." : "+ Adicionar aviso de nível";
+    marcarAlterado();
+  }
+
+  function removerLimite(i, d) {
+    var l = limites.splice(i, 1)[0];
+    renderLimites();
+    var aviso = document.createElement("div");
+    aviso.className = "lim-item";
+    aviso.innerHTML = '<div class="lim-txt">Aviso de <b></b> em ' + fmtM(l.m) + ' m removido. Salve para confirmar.</div><button type="button" class="btn-link">Desfazer</button>';
+    aviso.querySelector("b").textContent = l.cidade;
+    aviso.querySelector("button").onclick = function () { limites.splice(Math.min(i, limites.length), 0, l); renderLimites(); };
+    elLista.appendChild(aviso);
+  }
+
+  function atualizarForm() {
+    var c = elRio.value, r = dadosRio(c), m = lerValor(elValor.value);
+    elErro.textContent = "";
+    elAgora.innerHTML = ""; elAtalhos.innerHTML = ""; elDica.textContent = "";
+    if (!c) return;
+    if (r && r.a != null) {
+      var cotaTxt = r.cota ? " &middot; cota de inundação: <b>" + fmtM(r.cota) + " m</b>" : "";
+      var h = r.h || N.leitura || "";
+      var leitura = h.length >= 16 ? " (leitura de " + h.slice(8, 10) + "/" + h.slice(5, 7) + " às " + h.slice(11, 16) + ")" : "";
+      elAgora.innerHTML = "Agora: <b>" + (r.proxy ? "~" : "") + fmtM(r.a) + " m</b>" + cotaTxt + leitura;
+    } else if (N) {
+      elAgora.textContent = "Sem leitura confiável deste rio na última atualização.";
+    }
+    (r && r.cotas || []).forEach(function (q) {
+      var b = document.createElement("button");
+      b.type = "button";
+      b.textContent = "cota de " + q.n + " · " + fmtM(q.m) + " m";
+      b.onclick = function () { elValor.value = fmtM(q.m); atualizarForm(); };
+      elAtalhos.appendChild(b);
+    });
+    if (m === null) return;
+    if (r && r.a != null && r.a >= m) {
+      elDica.textContent = c + " já está acima disso agora (" + fmtM(r.a) + " m). Você vai receber um aviso quando ele voltar para baixo e, depois, sempre que passar de novo.";
+    } else if (folga(c, m) >= 0.5) {
+      elDica.textContent = "Neste trecho o nível sobe e desce até cerca de " + fmtM(folga(c, m)).replace(",00", "") +
+        " m no mesmo dia (operação de usinas). Para não avisar a cada oscilação, o \"voltou\" só sai quando o rio ficar uns " +
+        fmtM(folga(c, m)).replace(",00", "") + " m abaixo do valor.";
+    }
+  }
+
+  function abrirForm(cidade) {
+    elForm.hidden = false; elAbrir.hidden = true;
+    elRio.value = cidade || ""; elValor.value = ""; elPrev.checked = false;
+    atualizarForm();
+    (cidade ? elValor : elRio).focus();
+  }
+  function fecharForm() { elForm.hidden = true; elAbrir.hidden = false; elErro.textContent = ""; }
+
+  elAbrir.onclick = function () { abrirForm(""); };
+  document.getElementById("lim-cancelar").onclick = fecharForm;
+  elRio.onchange = atualizarForm;
+  elValor.oninput = atualizarForm;
+  document.getElementById("lim-ok").onclick = function () {
+    var c = elRio.value, m = lerValor(elValor.value), r = dadosRio(c);
+    if (!c) { elErro.textContent = "Escolha o rio."; elRio.focus(); return; }
+    if (m === null) { elErro.textContent = "Digite o nível em metros, por exemplo 15,50."; elValor.focus(); return; }
+    if (r && r.cota && m > 2 * r.cota) { elErro.textContent = "Esse valor passa do dobro da cota de inundação (" + fmtM(r.cota) + " m). Confira se digitou certo."; elValor.focus(); return; }
+    if (limites.some(function (l) { return l.cidade === c && l.m === m; })) { elErro.textContent = "Você já tem esse aviso."; return; }
+    if (limites.length >= LIM_MAX) { elErro.textContent = "Limite de 3 avisos de nível."; return; }
+    limites.push({cidade: c, m: m, previsao: elPrev.checked, a0: r && r.a != null ? r.a : null, novo: true});
+    fecharForm();
+    renderLimites();
+  };
+
+  function limitesParaEnviar(inscricaoNova) {
+    // inscrição já existente sem ter lido o que está salvo: omite o campo (JSON.stringify tira undefined) e o Worker
+    // mantém os avisos que já tem; inscrição nova não tem nada a proteger
+    if (!inscricaoNova && (!prefsOk || !prefsLidas)) return undefined;
+    return limites.map(function (l) { return {cidade: l.cidade, m: l.m, previsao: !!l.previsao, a0: l.a0 == null ? null : l.a0}; });
+  }
+  function resumo(cidades) {
+    var partes = [];
+    if (cidades.length) partes.push(cidades.join(", "));
+    limites.forEach(function (l) { partes.push("aviso de " + l.cidade + " em " + fmtM(l.m) + " m"); });
+    return partes.join("; ");
+  }
+
+  window.addEventListener("beforeunload", function (e) {
+    if (marcarAlterado()) { e.preventDefault(); e.returnValue = ""; }
+  });
+
+  fetch("niveis.json", {cache: "no-store"}).then(function (r) { return r.ok ? r.json() : null; })
+    .then(function (d) { N = d; if (!elForm.hidden) atualizarForm(); }).catch(function () {});
+
   CIDADES.forEach(function (cidade) {
     var label = document.createElement("label");
     label.className = "cidade";
     label.innerHTML = '<input type="checkbox" class="hz-cidade" value="' + cidade + '">' + cidade;
     elCidades.appendChild(label);
   });
+  elCidades.addEventListener("change", marcarAlterado);
 
   function status(msg, tipo) {
     elStatus.textContent = msg;
@@ -176,12 +381,13 @@
   // fica pendurada pra sempre. Timeout de 3s evita travar a UI nesse caso.
   async function estadoAtual() {
     var registration = await comTimeout(navigator.serviceWorker.ready, 3000);
-    if (!registration) return null;
+    if (!registration) return undefined;  // não deu tempo de saber (diferente de null = não há inscrição)
     return registration.pushManager.getSubscription();
   }
 
   async function carregar() {
     var subscription = await estadoAtual();
+    if (subscription === null) prefsLidas = true;
     if (subscription) {
       var id = await idDaInscricao(subscription);
       try {
@@ -189,11 +395,30 @@
         if (resp.ok) {
           var dados = await resp.json();
           marcarCidades(dados.cidades || []);
+          limites = (dados.limites || []).map(function (l) { return {cidade: l.cidade, m: l.m, previsao: !!l.previsao, a0: l.a0}; });
+          prefsLidas = true;
+        } else if (resp.status === 404) {
+          prefsLidas = true;
+        } else {
+          prefsOk = false;
         }
-      } catch (e) {}
+      } catch (e) { prefsOk = false; }
+    }
+    if (!prefsOk) {
+      elLista.innerHTML = '<p class="lim-agora">Não consegui carregar seus avisos de nível agora. Eles continuam guardados; tente de novo mais tarde para ver ou mudar.</p>';
+      elAbrir.hidden = true;
     }
     elBtn.disabled = false;
     elBtn.textContent = "Salvar";
+    if (prefsOk) renderLimites();
+    salvo = retrato();
+    marcarAlterado();
+    // vindo do botão "Avisar num nível" da página de um rio: formulário aberto com o rio escolhido
+    var pedido = new URLSearchParams(location.search).get("rio");
+    if (prefsOk && pedido && CIDADES.indexOf(pedido) !== -1 && limites.length < LIM_MAX) {
+      abrirForm(pedido);
+      setTimeout(function () { document.getElementById("nivel").scrollIntoView({block: "start"}); }, 80);
+    }
   }
 
   // Faz o fetch e, se a resposta não for 2xx, lança um erro com o corpo
@@ -217,14 +442,19 @@
     var cidades = cidadesSelecionadas();
     elBtn.disabled = true;
 
-    if (cidades.length === 0) {
+    if (cidades.length === 0 && (!prefsOk || !prefsLidas) && limites.length === 0) {
+      status("Não consegui conferir seus avisos de nível agora. Para desativar tudo, tente de novo mais tarde.", "erro");
+      elBtn.disabled = false;
+      return;
+    }
+    if (cidades.length === 0 && limites.length === 0) {
       var subscription = await estadoAtual();
       if (!subscription) {
-        status("Escolha ao menos uma cidade, ou feche esta página se não quer receber notificações.", "erro");
+        status("Escolha ao menos uma cidade ou um aviso de nível, ou feche esta página se não quer receber notificações.", "erro");
         elBtn.disabled = false;
         return;
       }
-      var confirmar = window.confirm("Nenhuma cidade selecionada — isso vai desativar as notificações. Confirmar?");
+      var confirmar = window.confirm("Nenhuma cidade nem aviso de nível — isso vai desativar as notificações. Confirmar?");
       if (!confirmar) {
         elBtn.disabled = false;
         return;
@@ -237,6 +467,7 @@
           body: JSON.stringify({ id: id }),
         });
         await subscription.unsubscribe();
+        salvo = retrato();
         status("Notificações desativadas. Voltando ao boletim…", "ok");
         voltarPraBoletim();
       } catch (e) {
@@ -264,18 +495,35 @@
         await fetchOuErro(WORKER_URL + "/subscribe", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ subscription: subscription, cidades: cidades }),
+          body: JSON.stringify({ subscription: subscription, cidades: cidades, limites: limitesParaEnviar(true) }),
         });
-        status("Notificações ativadas para: " + cidades.join(", ") + ". Voltando ao boletim…", "ok");
+        status("Notificações ativadas: " + resumo(cidades) + ". Voltando ao boletim…", "ok");
       } else {
+        if ((!prefsOk || !prefsLidas) && limites.some(function (l) { return l.novo; })) {
+          status("Não consegui ler seus avisos de nível salvos agora. Recarregue a página e tente de novo.", "erro");
+          elBtn.disabled = false;
+          return;
+        }
         var id = await idDaInscricao(subscription);
         await fetchOuErro(WORKER_URL + "/preferencias", {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ id: id, cidades: cidades }),
+          body: JSON.stringify({ id: id, cidades: cidades, limites: limitesParaEnviar() }),
         });
-        status("Preferências salvas: " + cidades.join(", ") + ". Voltando ao boletim…", "ok");
+        status("Preferências salvas: " + resumo(cidades) + ". Voltando ao boletim…", "ok");
       }
+      if (prefsOk && prefsLidas && limites.length) {
+        var conf = await fetch(WORKER_URL + "/preferencias?id=" + (await idDaInscricao(subscription))).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; });
+        var voltou = conf && Array.isArray(conf.limites) ? conf.limites.length : -1;
+        if (voltou !== limites.length) {
+          status("As cidades foram salvas, mas o aviso de nível não ficou guardado agora. Tente de novo mais tarde.", "erro");
+          elBtn.disabled = false;
+          return;
+        }
+      }
+      limites.forEach(function (l) { delete l.novo; });
+      salvo = retrato();
+      renderLimites();
       voltarPraBoletim();
     } catch (e) {
       console.error("Horizonte push - erro ao salvar:", e);

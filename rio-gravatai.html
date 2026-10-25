@@ -156,7 +156,7 @@ body { margin:0; background-color:#0f2027; }
   <p class="subtitulo">Gravataí &middot; estação monitorada</p>
   <div class="acoes-rio">
     <button type="button" class="acao-rio acao-fav" id="btn-fav" aria-pressed="false" hidden>&#9734; Favoritar</button>
-    
+    <a class="acao-rio" href="https://horizontersai.github.io/horizonte-paginas/notificacoes.html?rio=Gravata%C3%AD#nivel">&#128276; Avisar num nível</a>
   </div>
   <p class="fav-msg" id="fav-msg" role="status" aria-live="polite"></p>
   <script>
@@ -260,7 +260,7 @@ body { margin:0; background-color:#0f2027; }
 </div>
 <script>
 (function() {
-  const pontos = [{"nome": "Gravataí", "nome_oficial": "PASSO DAS CANOAS - AUXILIAR", "lat": -29.9644, "lon": -50.9778, "nivel_m": 2.8, "tendencia_cm_h": -5.1863907201683675e-15, "cota_inundacao_m": 4.75}];
+  const pontos = [{"nome": "Gravataí", "nome_oficial": "PASSO DAS CANOAS - AUXILIAR", "lat": -29.9644, "lon": -50.9778, "nivel_m": 2.8, "tendencia_cm_h": -2.383081941794702e-14, "cota_inundacao_m": 4.75}];
   const mapa = L.map('mapa-estacao', { scrollWheelZoom: false }).setView([-29.9644, -50.9778], 15);
 
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
