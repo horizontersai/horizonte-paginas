@@ -35,6 +35,10 @@
   #status.erro { color: #ef8a4d; }
   #status.ok { color: #5ECB8F; }
   /* aviso no nível escolhido (25/10/2026, backlog 265) */
+  /* inscrição feita no endereço antigo (28/10/2026, backlog 221): a página nova não a enxerga - outro endereço */
+  .aviso-antigo { margin: 0 0 14px 0; padding: 10px 12px; border-radius: 10px; background: #3a2f18; border: 1px solid #5c4a26; font-size: 12.5px; line-height: 1.45; color: #f3c98a; }
+  .aviso-antigo a { color: #f3c98a; font-weight: 700; }
+  .aviso-antigo[hidden] { display: none; }
   .nivel-intro { font-size: 13px; color: #b9c8c7; line-height: 1.5; margin: 6px 0 10px 0; }
   .lim-item { display: flex; align-items: center; gap: 10px; padding: 10px 0; border-top: 1px solid #2a3f43; font-size: 14px; }
   .lim-item:first-child { border-top: none; }
@@ -85,6 +89,7 @@
 
   <h1>Notificações</h1>
   <p class="intro">Escolha as cidades que você quer acompanhar. Você recebe três tipos de aviso:</p>
+  <p class="aviso-antigo" id="aviso-antigo" hidden>Ativou as notificações antes de 28/10/2026? Elas continuam chegando normalmente. Para ver ou mudar o que escolheu naquela época, use a <a href="https://horizontersai.github.io/horizonte-paginas/notificacoes.html">página de antes</a>; se ativar aqui também, os avisos podem chegar em dobro.</p>
 
   <div class="tipo-aviso">
     <span class="emoji">🔔</span>
@@ -387,7 +392,11 @@
 
   async function carregar() {
     var subscription = await estadoAtual();
-    if (subscription === null) prefsLidas = true;
+    if (subscription === null) {
+      prefsLidas = true;
+      // sem inscrição NESTE endereço: quem ativou pelo endereço antigo (antes de 28/10/2026) vê de onde gerenciar
+      if (location.hostname !== "horizontersai.github.io") document.getElementById("aviso-antigo").hidden = false;
+    }
     if (subscription) {
       var id = await idDaInscricao(subscription);
       try {
@@ -605,7 +614,7 @@
   </div>
   <div class="nav-bolhas">
     <a role="menuitem" class="nav-bolha destaque" href="institucional.html"><span class="nav-bola"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 16v-5"></path><path d="M12 8h.01"></path></svg></span><span class="nav-nome">O que é o Horizonte?</span></a>
-    <a role="menuitem" class="nav-bolha" href="https://horizontersai.github.io/horizonte-paginas/notificacoes.html"><span class="nav-bola"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path></svg></span><span class="nav-nome">Notificações</span></a>
+    <a role="menuitem" class="nav-bolha" href="notificacoes.html"><span class="nav-bola"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path></svg></span><span class="nav-nome">Notificações</span></a>
     <a role="menuitem" class="nav-bolha" href="fontes-de-dados.html"><span class="nav-bola"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5" rx="8" ry="3"></ellipse><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"></path><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"></path></svg></span><span class="nav-nome">Fontes de dados</span></a>
     <a role="menuitem" class="nav-bolha destaque" href="apoie.html"><span class="nav-bola"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20s-7.5-4.6-9.3-9.2C1.4 7.3 3.6 4 7 4c2 0 3.6 1.1 5 3 1.4-1.9 3-3 5-3 3.4 0 5.6 3.3 4.3 6.8C19.5 15.4 12 20 12 20z"></path></svg></span><span class="nav-nome">Apoie o Horizonte</span></a>
     <a role="menuitem" class="nav-bolha" href="https://www.instagram.com/horizonte.rs/" target="_blank" rel="noopener"><span class="nav-bola"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><path d="M17.5 6.5h.01"></path></svg></span><span class="nav-nome">Instagram</span></a>
