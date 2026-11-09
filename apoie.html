@@ -182,7 +182,7 @@
   var pg = (location.pathname.split("/").pop() || "").toLowerCase();
   var atual = (pg === "" || pg === "index.html" || pg === "boletim.html" || pg === "mapa-portoalegre.html") ? "boletim"
     : (pg === "demais-rios.html" || pg.indexOf("rio-") === 0) ? "rios"
-    : (pg === "mapa.html") ? "mapa" : (pg === "previsao-estendida.html") ? "estendida"
+    : (pg === "mapa.html" || pg === "esquema.html") ? "mapa" : (pg === "previsao-estendida.html") ? "estendida"
     : /^(institucional|fontes-de-dados|apoie|notificacoes)\.html$/.test(pg) ? "mais" : "";
   var el = nav.querySelector('[data-nav="' + atual + '"]');
   if (el) { el.classList.add("atual"); el.setAttribute("aria-current", "page"); }

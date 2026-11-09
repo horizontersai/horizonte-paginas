@@ -92,7 +92,7 @@ body { margin:0; background-color:#0f2027; }
 </div>
 <script>
 (function() {
-  const pontos = [{"nome": "Cais Mauá", "nome_oficial": "CAIS MAUÁ C6", "lat": -30.0211, "lon": -51.2211, "nivel_m": 1.39, "tendencia_cm_h": -0.7000000000000242, "cota_inundacao_m": 3.0}, {"nome": "Gasômetro", "nome_oficial": "USINA DO GASÔMETRO", "lat": -30.0347, "lon": -51.2419, "nivel_m": 0.95, "tendencia_cm_h": -0.9705882352941232, "cota_inundacao_m": 2.6}];
+  const pontos = [{"nome": "Cais Mauá", "nome_oficial": "CAIS MAUÁ C6", "lat": -30.0211, "lon": -51.2211, "nivel_m": 1.33, "tendencia_cm_h": -1.5000000000000044, "cota_inundacao_m": 3.0}, {"nome": "Gasômetro", "nome_oficial": "USINA DO GASÔMETRO", "lat": -30.0347, "lon": -51.2419, "nivel_m": 0.9, "tendencia_cm_h": -1.7156862745098027, "cota_inundacao_m": 2.6}];
   const mapa = L.map('mapa-portoalegre', { scrollWheelZoom: false }).setView([-30.027900000000002, -51.2315], 13);
 
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -211,7 +211,7 @@ body { margin:0; background-color:#0f2027; }
   var pg = (location.pathname.split("/").pop() || "").toLowerCase();
   var atual = (pg === "" || pg === "index.html" || pg === "boletim.html" || pg === "mapa-portoalegre.html") ? "boletim"
     : (pg === "demais-rios.html" || pg.indexOf("rio-") === 0) ? "rios"
-    : (pg === "mapa.html") ? "mapa" : (pg === "previsao-estendida.html") ? "estendida"
+    : (pg === "mapa.html" || pg === "esquema.html") ? "mapa" : (pg === "previsao-estendida.html") ? "estendida"
     : /^(institucional|fontes-de-dados|apoie|notificacoes)\.html$/.test(pg) ? "mais" : "";
   var el = nav.querySelector('[data-nav="' + atual + '"]');
   if (el) { el.classList.add("atual"); el.setAttribute("aria-current", "page"); }
