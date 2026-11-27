@@ -196,21 +196,67 @@ body { margin:0; background-color:#0f2027; }
         </div>
   <div class="grade-rio">
     <div class="g-status"><div class="card">
-          <div class="nivel" style="color:#7c9190;">5,35<span class="nivel-un">m</span></div><p class="linha-fraca">Última leitura recebida às 01:30 de 27/11 (há cerca de 9h) - 2,15 m abaixo da cota de inundação (7,50 m). O sensor está atrasado - o nível real agora pode ser diferente.</p>
+          <span class="help-slot" data-help="status-rio"></span>
+          <span class="badge" style="background-color:#3a2f18; border-color:#5c4a26; color:#f0a839;">Elevado</span>
+          <div class="nivel">5,41<span class="nivel-un">m</span></div>
+          <p class="linha-fraca">Tendência agora (últimas 4h): estável (= 0,0 cm/h)</p>
           
+          
+          
+          <p class="linha-fraca">Cota de inundação: 7,50 m</p>
+          <div class="gauge"><div class="gauge-fill" style="width:55.5%; background-color:#f0a839;"></div><div class="gauge-marca" style="left:76.9%;"></div></div>
+          <div class="gauge-escala"><span>0 m</span><span class="gauge-escala-cota" style="left:76.9%;">&#9650; cota 7,50 m</span></div>
+          <p class="gauge-pct" style="color:#f0a839;">72% da cota de inundação</p>
         </div></div>
     <div class="g-chuva"><div class="card">
           <span class="help-slot" data-help="chuva-rio"></span>
           <h2>Chuva prevista</h2>
-          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td align="center" class="chuva-col"><div class="chuva-dia">Hoje<br>27/11</div><span class="chuva-bola" style="border-color:#f0a839;">10,0</span></td><td align="center" class="chuva-col"><div class="chuva-dia">Sáb<br>28/11</div><span class="chuva-bola" style="border-color:#7c9190;">0,1</span></td><td align="center" class="chuva-col"><div class="chuva-dia">Dom<br>29/11</div><span class="chuva-bola" style="border-color:#7c9190;">0,1</span></td><td align="center" class="chuva-col"><div class="chuva-dia">Seg<br>30/11</div><span class="chuva-bola" style="border-color:#7c9190;">0,4</span></td><td align="center" class="chuva-col"><div class="chuva-dia">Ter<br>01/12</div><span class="chuva-bola" style="border-color:#f0a839;">16,3</span></td><td align="center" class="chuva-col"><div class="chuva-dia">Qua<br>02/12</div><span class="chuva-bola" style="border-color:#7c9190;">3,2</span></td><td align="center" class="chuva-col chuva-total-col"><div class="chuva-dia">Total<br>6d</div><span class="chuva-total-valor" style="color:#ef8a4d;">30,1</span><div class="chuva-total-un">mm</div></td></tr></table>
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td align="center" class="chuva-col"><div class="chuva-dia">Hoje<br>27/11</div><span class="chuva-bola" style="border-color:#f0a839;">7,3</span></td><td align="center" class="chuva-col"><div class="chuva-dia">Sáb<br>28/11</div><span class="chuva-bola" style="border-color:#7c9190;">0,1</span></td><td align="center" class="chuva-col"><div class="chuva-dia">Dom<br>29/11</div><span class="chuva-bola" style="border-color:#7c9190;">0,4</span></td><td align="center" class="chuva-col"><div class="chuva-dia">Seg<br>30/11</div><span class="chuva-bola" style="border-color:#7c9190;">1,4</span></td><td align="center" class="chuva-col"><div class="chuva-dia">Ter<br>01/12</div><span class="chuva-bola" style="border-color:#ef8a4d;">22,7</span></td><td align="center" class="chuva-col"><div class="chuva-dia">Qua<br>02/12</div><span class="chuva-bola" style="border-color:#7c9190;">1,7</span></td><td align="center" class="chuva-col chuva-total-col"><div class="chuva-dia">Total<br>6d</div><span class="chuva-total-valor" style="color:#ef8a4d;">33,6</span><div class="chuva-total-un">mm</div></td></tr></table>
           <div class="legenda-chuva"><span class="legenda-item"><span class="legenda-dot" style="border-color:#7c9190;"></span>calmo (< 5 mm)</span><span class="legenda-item"><span class="legenda-dot" style="border-color:#f0a839;"></span>leve (5-20 mm)</span><span class="legenda-item"><span class="legenda-dot" style="border-color:#ef8a4d;"></span>moderada (20-50 mm)</span><span class="legenda-item"><span class="legenda-dot" style="border-color:#ef4d6b;"></span>forte (> 50 mm)</span></div>
-          <p class="linha-fraca-2" style="margin-top:10px;">Previsão Open-Meteo &mdash; média de 3 modelos (GFS, ECMWF, ICON), previsão das 07:31 (a consulta desta rodada não respondeu). Valores podem mudar a cada nova rodada.</p>
+          <p class="linha-fraca-2" style="margin-top:10px;">Previsão Open-Meteo &mdash; média de 3 modelos (GFS, ECMWF, ICON). Valores podem mudar a cada nova rodada.</p>
         </div></div>
-    <div class="g-prev"></div>
+    <div class="g-prev"><div class="card">
+      <span class="help-slot" data-help="previsao-rio"></span>
+      <h2>Previsão do nível</h2>
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td align="center" class="proj-col">
+              <div class="proj-valor" style="color:#f0a839;">5,39<span class="proj-un"> m</span></div>
+              <div class="proj-rotulo">36h &middot; 29/11</div>
+            </td><td align="center" class="proj-col">
+              <div class="proj-valor" style="color:#5ecb8f;">4,22<span class="proj-un"> m</span></div>
+              <div class="proj-rotulo">72h &middot; 30/11</div>
+            </td><td align="center" class="proj-col">
+              <div class="proj-valor" style="color:#5ecb8f;">4,20<span class="proj-un"> m</span></div>
+              <div class="proj-rotulo">120h &middot; 02/12</div>
+            </td></tr></table>
+      
+    </div></div>
     <div class="g-link"><p style="margin:8px 0 0 0; font-size:13.5px; text-align:right;">
       <a href="previsao-estendida.html?rio=dona-francisca" style="color:#b9c8c7; text-decoration:underline;">Ver chance para os próximos 10 e 30 dias &rarr;</a>
     </p></div>
-    <div class="g-hist"></div>
+    <div class="g-hist"><div class="card"><span class="help-slot" data-help="historico-rio"></span><h2 style="margin:0 0 12px 0; font-size:13px; text-transform:uppercase; letter-spacing:1px; color:#eef2f1; font-weight:700;">Histórico &mdash; últimos 5 dias</h2>
+            <svg viewBox="0 0 600 220" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:auto; display:block;">
+      <defs>
+        <linearGradient id="gradHistorico" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#C48A4A" stop-opacity="0.55"/>
+          <stop offset="1" stop-color="#C48A4A" stop-opacity="0.02"/>
+        </linearGradient>
+      </defs>
+      <line x1="46" y1="192.0" x2="566" y2="192.0" stroke="#2a3f43" stroke-width="1"/><text x="40" y="195.0" text-anchor="end" font-size="10" font-family="Courier New, monospace" fill="#7c9190">4,25</text><line x1="46" y1="133.3" x2="566" y2="133.3" stroke="#2a3f43" stroke-width="1"/><text x="40" y="136.3" text-anchor="end" font-size="10" font-family="Courier New, monospace" fill="#7c9190">4,69</text><line x1="46" y1="74.7" x2="566" y2="74.7" stroke="#2a3f43" stroke-width="1"/><text x="40" y="77.7" text-anchor="end" font-size="10" font-family="Courier New, monospace" fill="#7c9190">5,12</text><line x1="46" y1="16.0" x2="566" y2="16.0" stroke="#2a3f43" stroke-width="1"/><text x="40" y="19.0" text-anchor="end" font-size="10" font-family="Courier New, monospace" fill="#7c9190">5,56</text>
+      <rect x="216.5" y="183.0" width="45.3" height="9.0" fill="#4a7ba6" fill-opacity="0.55" rx="1.5"/><rect x="540.0" y="137.5" width="26.0" height="54.5" fill="#4a7ba6" fill-opacity="0.55" rx="1.5"/>
+      <line x1="566.0" y1="192.0" x2="570.0" y2="192.0" stroke="#4a7ba6" stroke-width="1"/><text x="573.0" y="195.0" text-anchor="start" font-size="9.5" font-family="Courier New, monospace" fill="#4a7ba6">0</text><line x1="566.0" y1="163.8" x2="570.0" y2="163.8" stroke="#4a7ba6" stroke-width="1"/><text x="573.0" y="166.8" text-anchor="start" font-size="9.5" font-family="Courier New, monospace" fill="#4a7ba6">25</text><line x1="566.0" y1="135.7" x2="570.0" y2="135.7" stroke="#4a7ba6" stroke-width="1"/><text x="573.0" y="138.7" text-anchor="start" font-size="9.5" font-family="Courier New, monospace" fill="#4a7ba6">50</text>
+      
+      <polygon points="46.0,192.0 46.0,171.7 108.9,123.4 153.8,85.9 216.7,67.1 261.6,61.8 324.5,59.1 369.5,110.0 560.4,36.3 561.5,37.6 562.6,36.3 563.8,36.3 564.9,36.3 566.0,36.3 566.0,192.0" fill="url(#gradHistorico)"/>
+      <polyline points="46.0,171.7 108.9,123.4 153.8,85.9 216.7,67.1 261.6,61.8 324.5,59.1 369.5,110.0 560.4,36.3 561.5,37.6 562.6,36.3 563.8,36.3 564.9,36.3 566.0,36.3" fill="none" stroke="#C48A4A" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"/>
+      <text x="46.0" y="212" text-anchor="middle" font-size="10" font-family="Courier New, monospace" fill="#7c9190">Dom 22/11</text><text x="131.4" y="212" text-anchor="middle" font-size="10" font-family="Courier New, monospace" fill="#7c9190">Seg 23/11</text><text x="239.2" y="212" text-anchor="middle" font-size="10" font-family="Courier New, monospace" fill="#7c9190">Ter 24/11</text><text x="347.0" y="212" text-anchor="middle" font-size="10" font-family="Courier New, monospace" fill="#7c9190">Qua 25/11</text><text x="563.2" y="212" text-anchor="middle" font-size="10" font-family="Courier New, monospace" fill="#7c9190">Sex 27/11</text>
+    </svg>
+            <div style="display:flex; justify-content:space-between; margin-top:12px; font-size:11px; color:#7c9190;">
+              <span>4,40 m &middot; mínimo</span>
+              <span>5,41 m &middot; máximo</span>
+            </div>
+            <div style="text-align:center; margin-top:4px; font-size:11px; color:#6ea3cc;">&#128167; 64,4 mm &middot; chuva no período</div>
+            <p style="margin:8px 0 0 0; font-size:10.5px; color:#7c9190; line-height:1.4;">Nível: leituras reais da ANA (estação telemétrica de Dona Francisca), a cada ~15 minutos - não é projeção.</p>
+            <p style="margin:2px 0 0 0; font-size:10.5px; color:#7c9190; line-height:1.4;">Chuva em Dona Francisca: medição real (pluviômetro da mesma estação ANA do nível).</p>
+            </div></div>
     
     <div class="g-mapa"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
@@ -232,7 +278,7 @@ body { margin:0; background-color:#0f2027; }
 </div>
 <script>
 (function() {
-  const pontos = [{"nome": "Dona Francisca", "nome_oficial": "DONA FRANCISCA", "lat": -29.6269, "lon": -53.3528, "nivel_m": null, "tendencia_cm_h": null, "cota_inundacao_m": 7.5}];
+  const pontos = [{"nome": "Dona Francisca", "nome_oficial": "DONA FRANCISCA", "lat": -29.6269, "lon": -53.3528, "nivel_m": 5.41, "tendencia_cm_h": 0.011428571428525868, "cota_inundacao_m": 7.5}];
   const mapa = L.map('mapa-estacao', { scrollWheelZoom: false }).setView([-29.6269, -53.3528], 15);
 
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
